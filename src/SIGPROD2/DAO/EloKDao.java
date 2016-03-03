@@ -12,6 +12,8 @@ import java.util.ArrayList;
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e remover Elos Tipo K
  * @author Rafael Casa
+ * TESTE FUNCIONANDO
+ * fsofsodfj
  */
 public class EloKDao {
     public static final String INSERT = "INSERT INTO Elo(ID, correnteNominal, tipo, preferencial) VALUES (null, ?, ?, ?);";
