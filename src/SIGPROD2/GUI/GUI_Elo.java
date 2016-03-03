@@ -126,7 +126,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         tabelaPonto2 = new javax.swing.JScrollPane();
         tabelaCurvaMaximaCarregar = new javax.swing.JTable();
         addCurvaMaxima2 = new javax.swing.JButton();
-        removePonto2 = new javax.swing.JButton();
+        removeCurvaMaxima2 = new javax.swing.JButton();
         arquivo1 = new javax.swing.JButton();
         listaCorrentes = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
@@ -604,7 +604,12 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         });
 
-        removePonto2.setText("-");
+        removeCurvaMaxima2.setText("-");
+        removeCurvaMaxima2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeCurvaMaxima2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -616,7 +621,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(tabelaPonto2, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removePonto2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(removeCurvaMaxima2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -648,7 +653,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addComponent(tabelaPonto2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(removePonto2)))
+                        .addComponent(removeCurvaMaxima2)))
                 .addContainerGap())
         );
 
@@ -844,20 +849,29 @@ public class GUI_Elo extends javax.swing.JFrame {
     }//GEN-LAST:event_removeCurvaMinima2ActionPerformed
 
     private void addCurvaMaxima2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMaxima2ActionPerformed
-        if (!this.correnteInterrupcao.getText().equals("") && !this.tempoInterrupcao.getText().equals("")) {
+        if (!this.correnteInterrupcao2.getText().equals("") && !this.tempoInterrupcao2.getText().equals("")) {
             
-            double corrente = Double.parseDouble(this.correnteInterrupcao.getText());
-            double tempo = Double.parseDouble(this.tempoInterrupcao.getText());
+            double corrente = Double.parseDouble(this.correnteInterrupcao2.getText());
+            double tempo = Double.parseDouble(this.tempoInterrupcao2.getText());
             PontoCurva pc = new PontoCurva(corrente, tempo);
-            this.modeloMaximo.add(pc);
-            this.modeloMaximo.fireTableDataChanged();
+            this.modelo_maximo_Carregar.add(pc);
+            this.modelo_maximo_Carregar.fireTableDataChanged();
             
-            this.correnteInterrupcao.setText(null);
-            this.tempoInterrupcao.setText(null);
+            this.correnteInterrupcao2.setText(null);
+            this.tempoInterrupcao2.setText(null);
         } else {
             Erro.camposVazios(this);
         }
     }//GEN-LAST:event_addCurvaMaxima2ActionPerformed
+
+    private void removeCurvaMaxima2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCurvaMaxima2ActionPerformed
+        int row = tabelaCurvaMaximaCarregar.getSelectedRow();
+        if (row != -1) {
+            this.modelo_maximo_Carregar.remove(row);
+        } else {
+            Erro.rowNotSelected(this);
+        }
+    }//GEN-LAST:event_removeCurvaMaxima2ActionPerformed
 
     public void setArquivo(Arquivo file) {
         if (file != null && file.existeArquivo()) {
@@ -1005,9 +1019,9 @@ public class GUI_Elo extends javax.swing.JFrame {
     private javax.swing.JCheckBox preferencial;
     private javax.swing.JCheckBox preferencial2;
     private javax.swing.JButton removeCurvaMaxima;
+    private javax.swing.JButton removeCurvaMaxima2;
     private javax.swing.JButton removeCurvaMinima;
     private javax.swing.JButton removeCurvaMinima2;
-    private javax.swing.JButton removePonto2;
     private javax.swing.JScrollPane tabelaCurva;
     private javax.swing.JScrollPane tabelaCurva2;
     private javax.swing.JTable tabelaCurvaMaxima;
