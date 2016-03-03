@@ -18,15 +18,34 @@ public class Erro {
                 texto,
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
-        System.out.println(texto);
     }
-
+    
+    public static void correnteNominalVoid (JFrame janela) {
+        JOptionPane.showMessageDialog(janela,
+                "Digite algum valor para a corrente nominal!",
+                "ERRO",
+                JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void rowNotSelected(JFrame janela) {
+        JOptionPane.showMessageDialog(janela,
+                "Coluna não selecionada",
+                "ERRO",
+                JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void camposVazios (JFrame janela) {
+        JOptionPane.showMessageDialog(janela,
+                "Campo(s) Vazio(s)",
+                "ERRO",
+                JOptionPane.ERROR_MESSAGE);
+    }
+    
     public static void mostraMensagemSQL(JFrame janela, Exception ex) {
         JOptionPane.showMessageDialog(janela,
                 "Erro de SQL no banco de dados.",
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
     }
 
     public static void mostraMensagemClasse(JFrame janela, Exception ex) {
@@ -34,7 +53,6 @@ public class Erro {
                 "Erro de Classe no banco de dados.",
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
     }
 
     public static void mostraMensagemInsercao(JFrame janela) {
@@ -42,6 +60,5 @@ public class Erro {
                 "Erro no cadastro. Visualize o arquivo de log para maiores informações.",
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
-        System.out.println("Erro no cadastro.");
     }
 }

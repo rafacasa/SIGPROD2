@@ -3,7 +3,7 @@
  */
 package SIGPROD2.Auxiliar;
 
-//import SIGPROD2.GUI.GUI_Elo;
+import SIGPROD2.GUI.GUI_Elo;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -28,10 +28,10 @@ public class Mensagem {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /*public static void mostraMensagemArquivo(GUI_Elo janela) {
+    public static void mostraMensagemArquivo(GUI_Elo janela) {
         JOptionPane.showMessageDialog(janela,
                 "Arquivo salvo com sucesso!",
                 "Info",
                 JOptionPane.INFORMATION_MESSAGE);
-    }*/
+    }
 }

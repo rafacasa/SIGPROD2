@@ -1,21 +1,19 @@
 package SIGPROD2.Auxiliar;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 
-/**
- * @author Coelho
+/*
+ * 
+ * @author Sérgio
+ * 
  */
+
 public class Arquivo {
 
     private String nome;
-    private PrintWriter outputStream = null;
-    private String texto = "";
-    private BufferedReader inputStream = null;
+    private PrintWriter pw;
+    private String texto;
+    private BufferedReader br;
 
     public Arquivo(String nomeArquivo) {        
         setNome(nomeArquivo);
@@ -37,7 +35,7 @@ public class Arquivo {
 
     public boolean criaArquivo() {
         try {
-            outputStream = new PrintWriter(new FileOutputStream(getNome()));
+            this.pw = new PrintWriter(new FileOutputStream(getNome()));
             return true;
         } catch (FileNotFoundException e) {
             return false;
@@ -49,7 +47,7 @@ public class Arquivo {
     }
 
     public void fechaArquivoEntrada() {
-        if (inputStream != null) {
+        if (this.br != null) {
             try {
                 getArquivoEntrada().close();
             } catch (IOException ex) {
@@ -57,64 +55,52 @@ public class Arquivo {
             }
         }
     }
-
+    
     public void escreverArquivo(String textoArquivo) {
         this.texto = textoArquivo;
         getArquivoSaida().print(this.texto);
-        outputStream.flush();
+        this.pw.flush();
     }
 
     public PrintWriter getArquivoSaida() {
-        if (outputStream == null) {
+        if (this.pw == null) {
             criaArquivo();
         }
-        return outputStream;
+        return this.pw;
     }
 
     public BufferedReader getArquivoEntrada() {
-        if (inputStream == null) {
+        if (this.br == null) {
             abreArquivo();
         }
-        return inputStream;
+        return br;
     }
 
     public boolean abreArquivo() {
-        if (!(new File(getNome())).exists()) {
-            return false;
-        } else {
-            try {
-                inputStream = new BufferedReader(new FileReader(getNome()));
-                return true;
-            } catch (IOException ex) {
-                return false;
-            }
-        }
+       try {
+           br = new BufferedReader(new FileReader(getNome()));
+           return true;
+       } catch (IOException ex) {
+           return false;
+       }
     }
     
-    public String lerArquivo() {
-        final StringBuilder stringBuilder = new StringBuilder();
-
+    public String lerArquivo () {
+        abreArquivo();
+        StringBuilder sb = new StringBuilder();
         try {
-            final File file = new File(getNome());
-
-            final FileChannel fileChannel = new RandomAccessFile(file, "r").getChannel();
-            final ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-            final CharsetDecoder charsetDecoder = Charset.forName("UTF-8").newDecoder();
-
-            while (fileChannel.read(byteBuffer) > 0) {
-                byteBuffer.flip();
-                CharBuffer ch = charsetDecoder.decode(byteBuffer);
-
-                stringBuilder.append(ch);
-                byteBuffer.clear();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (this.br.ready()) {   
+                String line = this.br.readLine() + "\r";
+                sb.append(line);
+            }            
+            return sb.toString();
+        } catch (IOException ex) {
+            System.out.println("Error");
         }
-        return stringBuilder.toString();
+        return "";
     }
     
-    public void substituiArquivo(String novoTexto) {
+    /*public void substituiArquivo(String novoTexto) {
         File arquivo = new File(getNome());
         arquivo.delete();
 
@@ -127,16 +113,7 @@ public class Arquivo {
         abreArquivo();
         escreverArquivo(novoTexto);
         fechaArquivoSaida();
-    }
-
-    public boolean apagarArquivo() {
-        File arquivo = new File(getNome());
-        if (existeArquivo()) {
-            fechaArquivoEntrada();
-            return arquivo.delete();
-        }
-        return false;
-    }
+    }*/
 
     public boolean existeArquivo() {
         return (new File(getNome())).exists();

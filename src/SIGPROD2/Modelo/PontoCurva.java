@@ -7,6 +7,7 @@ package SIGPROD2.Modelo;
  * @version 16/08/2015
  */
 public class PontoCurva {
+    
     public static final boolean PONTODACURVAMAXIMA = true;
     public static final boolean PONTODACURVAMINIMA  = false;
     private double corrente;
@@ -46,7 +47,6 @@ public class PontoCurva {
 
     public void setId(int id) {
         this.id = id;
-    }
-    
+    }    
     
 }
