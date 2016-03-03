@@ -12,14 +12,12 @@ import java.util.ArrayList;
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e remover Elos Tipo K
  * @author Rafael Casa
- * TESTE FUNCIONANDO
- * fsofsodfj
  */
 public class EloKDao {
-    public static final String INSERT = "INSERT INTO Elo(ID, correnteNominal, tipo, preferencial) VALUES (null, ?, ?, ?);";
-    public static final String DELETE = "DELETE FROM Elo WHERE ID = ?;";
-    public static final String BUSCARTODOS = "SELECT * FROM Elo WHERE tipo = ?;";
-    public static final String BUSCAID = "SELECT ID FROM Elo WHERE tipo = ? AND correnteNominal = ? AND preferencial = ?;";
+    public static final String INSERT = "INSERT INTO Elo(correnteNominal, preferencial) VALUES (?, ?);";
+    public static final String DELETE = "DELETE FROM Elo WHERE correnteNominal = ?;";
+    public static final String BUSCARTODOS = "SELECT * FROM Elo;";
+    public static final String BUSCAID = "SELECT ID FROM Elo WHERE correnteNominal = ? AND preferencial = ?;";
     
     /**
      * Método para inserir um ELO Tipo K no Banco de Dados
@@ -29,13 +27,11 @@ public class EloKDao {
     public static void insereEloK(EloK eloParaInserir) throws SQLException
     {
         Connection conexao = Conexao.abreConexao();
-        PreparedStatement comando = conexao.prepareStatement(INSERT);
-        comando.setNull(1, java.sql.Types.INTEGER);
-        comando.setInt(2, eloParaInserir.getCorrenteNominal());
-        comando.setString(3, "K");
-        comando.setBoolean(4, eloParaInserir.isPreferencial());
-        comando.executeUpdate();
-        comando.close();
+        try (PreparedStatement comando = conexao.prepareStatement(INSERT)) {
+            comando.setInt(1, eloParaInserir.getCorrenteNominal());
+            comando.setBoolean(2, eloParaInserir.isPreferencial());
+            comando.executeUpdate();
+        }
         eloParaInserir.getCurvaDeMinimaFusao().forEach(
                                                         ponto -> PontoCurvaDAO.inserePontoCurva(
                                                                                                 conexao, 
@@ -62,7 +58,7 @@ public class EloKDao {
         eloParaDeletar.getCurvaDeMinimaFusao().forEach(ponto -> PontoCurvaDAO.deletaPontoCurva(conexao, ponto));
         eloParaDeletar.getCurvadeMaximaInterrupcao().forEach(ponto -> PontoCurvaDAO.deletaPontoCurva(conexao, ponto));
         try (PreparedStatement comando = conexao.prepareStatement(DELETE)) {
-            comando.setInt(1, eloParaDeletar.getId());
+            comando.setInt(1, eloParaDeletar.getCorrenteNominal());
             comando.executeUpdate();
         }
         Conexao.fechaConexao();
@@ -78,19 +74,14 @@ public class EloKDao {
         ArrayList<EloK> lista = new ArrayList();        
         Connection conexao = Conexao.abreConexao();
         PreparedStatement comando = conexao.prepareStatement(BUSCARTODOS);
-        comando.setString(1, "K");
         ResultSet resultado = comando.executeQuery();
         EloK elo;
         while(resultado.next())
         {
             elo = new EloK();
-            elo.setId(resultado.getInt("ID"));
             elo.setCorrenteNominal(resultado.getInt("correnteNominal"));
             elo.setPreferencial(resultado.getBoolean("preferencial"));
         }
-        
-        
-        
         return null;
     }
     
