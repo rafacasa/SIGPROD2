@@ -7,11 +7,13 @@ package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.DAO.EloKDao;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
-import SIGPROD2.Modelo.Tabelas.TransformadorTableModel;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 
@@ -19,7 +21,6 @@ import javax.swing.table.TableRowSorter;
  *
  * @author sbrunettajr
  */
-
 public class GUI_Elo extends javax.swing.JFrame {
 
     /*
@@ -763,13 +764,13 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     private void addCurvaMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMinimaActionPerformed
         if (!this.correnteFusao.getText().equals("") && !this.tempoFusao.getText().equals("")) {
-            
+
             double corrente = Double.parseDouble(this.correnteFusao.getText());
             double tempo = Double.parseDouble(this.tempoFusao.getText());
             PontoCurva pc = new PontoCurva(corrente, tempo);
             this.modeloMinimo.add(pc);
             this.modeloMinimo.fireTableDataChanged();
-            
+
             this.correnteFusao.setText(null);
             this.tempoFusao.setText(null);
         } else {
@@ -788,13 +789,13 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     private void addCurvaMaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMaximaActionPerformed
         if (!this.correnteInterrupcao.getText().equals("") && !this.tempoInterrupcao.getText().equals("")) {
-            
+
             double corrente = Double.parseDouble(this.correnteInterrupcao.getText());
             double tempo = Double.parseDouble(this.tempoInterrupcao.getText());
             PontoCurva pc = new PontoCurva(corrente, tempo);
             this.modeloMaximo.add(pc);
             this.modeloMaximo.fireTableDataChanged();
-            
+
             this.correnteInterrupcao.setText(null);
             this.tempoInterrupcao.setText(null);
         } else {
@@ -804,11 +805,15 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         if (!this.correnteNominal.getText().equals("")) {
-        this.newElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
-                preferencial.isSelected(),
-                -1,
-                this.modeloMinimo.getArrayList(),
-                this.modeloMaximo.getArrayList());
+            this.newElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                    preferencial.isSelected(),
+                    this.modeloMinimo.getArrayList(),
+                    this.modeloMaximo.getArrayList());
+            try {
+                EloKDao.insereEloK(newElo);
+            } catch (SQLException ex) {
+                Logger.getLogger(GUI_Elo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             Erro.correnteNominalVoid(this);
         }
@@ -825,13 +830,13 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     private void addCurvaMinima2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMinima2ActionPerformed
         if (!this.correnteFusao2.getText().equals("") && !this.tempoFusao2.getText().equals("")) {
-            
+
             double corrente = Double.parseDouble(this.correnteFusao2.getText());
             double tempo = Double.parseDouble(this.tempoFusao2.getText());
             PontoCurva pc = new PontoCurva(corrente, tempo);
             this.modelo_minimo_carregar.add(pc);
             this.modelo_minimo_carregar.fireTableDataChanged();
-            
+
             this.correnteFusao2.setText(null);
             this.tempoFusao2.setText(null);
         } else {
@@ -850,13 +855,13 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     private void addCurvaMaxima2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMaxima2ActionPerformed
         if (!this.correnteInterrupcao2.getText().equals("") && !this.tempoInterrupcao2.getText().equals("")) {
-            
+
             double corrente = Double.parseDouble(this.correnteInterrupcao2.getText());
             double tempo = Double.parseDouble(this.tempoInterrupcao2.getText());
             PontoCurva pc = new PontoCurva(corrente, tempo);
             this.modelo_maximo_Carregar.add(pc);
             this.modelo_maximo_Carregar.fireTableDataChanged();
-            
+
             this.correnteInterrupcao2.setText(null);
             this.tempoInterrupcao2.setText(null);
         } else {

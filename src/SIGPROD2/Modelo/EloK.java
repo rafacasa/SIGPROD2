@@ -4,44 +4,43 @@ import java.util.ArrayList;
 
 /**
  * Esta clsse representa um Elo de Tipo K
+ *
  * @author Rafael Casa
  */
 public class EloK {
+
     private int correnteNominal;
     private boolean preferencial;
     private ArrayList<PontoCurva> curvaDeMinimaFusao,
-                                  curvaDeMaximaInterrupcao;
+            curvaDeMaximaInterrupcao;
 
     public EloK(int correnteNominal, boolean preferencial) {
         this.correnteNominal = correnteNominal;
         this.preferencial = preferencial;
         this.curvaDeMinimaFusao = new ArrayList<>();
-        this.curvadeMaximaInterrupcao = new ArrayList<>();
+        this.curvaDeMaximaInterrupcao = new ArrayList<>();
     }
 
     public EloK() {
         this.curvaDeMinimaFusao = new ArrayList<>();
-        this.curvadeMaximaInterrupcao = new ArrayList<>();
+        this.curvaDeMaximaInterrupcao = new ArrayList<>();
     }
-    
 
     public EloK(int correnteNominal, boolean preferencial, ArrayList<PontoCurva> curvaDeMinimaFusao, ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
         this.correnteNominal = correnteNominal;
         this.preferencial = preferencial;
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
-        this.curvadeMaximaInterrupcao = curvadeMaximaInterrupcao;
+        this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
         this.curvaDeMinimaFusao = new ArrayList<>();
-        this.curvadeMaximaInterrupcao = new ArrayList<>();
+        this.curvaDeMaximaInterrupcao = new ArrayList<>();
     }
-    
-    public void addPontoDaCurvaDeMinimaFusao(PontoCurva ponto)
-    {
+
+    public void addPontoDaCurvaDeMinimaFusao(PontoCurva ponto) {
         this.curvaDeMinimaFusao.add(ponto);
     }
-    
-    public void addPontoDaCurvaDeMaximaInterrupcao(PontoCurva ponto)
-    {
-        this.curvadeMaximaInterrupcao.add(ponto);
+
+    public void addPontoDaCurvaDeMaximaInterrupcao(PontoCurva ponto) {
+        this.curvaDeMaximaInterrupcao.add(ponto);
     }
 
     public int getCorrenteNominal() {
@@ -59,7 +58,7 @@ public class EloK {
     public void setPreferencial(boolean preferencial) {
         this.preferencial = preferencial;
     }
-    
+
     public ArrayList<PontoCurva> getCurvaDeMinimaFusao() {
         return curvaDeMinimaFusao;
     }
@@ -68,12 +67,12 @@ public class EloK {
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
     }
 
-    public ArrayList<PontoCurva> getCurvadeMaximaInterrupcao() {
-        return curvadeMaximaInterrupcao;
+    public ArrayList<PontoCurva> getCurvaDeMaximaInterrupcao() {
+        return curvaDeMaximaInterrupcao;
     }
 
-    public void setCurvadeMaximaInterrupcao(ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
-        this.curvadeMaximaInterrupcao = curvadeMaximaInterrupcao;
+    public void setCurvaDeMaximaInterrupcao(ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
+        this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
     }
-    
+
 }
