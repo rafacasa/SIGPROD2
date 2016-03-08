@@ -31,8 +31,6 @@ public class EloK {
         this.preferencial = preferencial;
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
         this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
-        this.curvaDeMinimaFusao = new ArrayList<>();
-        this.curvaDeMaximaInterrupcao = new ArrayList<>();
     }
 
     public void addPontoDaCurvaDeMinimaFusao(PontoCurva ponto) {
@@ -75,4 +73,8 @@ public class EloK {
         this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
     }
 
+    @Override
+    public String toString() {
+        return this.correnteNominal + "";
+    }
 }

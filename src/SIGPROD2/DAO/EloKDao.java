@@ -34,12 +34,13 @@ public class EloKDao {
         comando.setInt(1, eloParaInserir.getCorrenteNominal());
         comando.setBoolean(2, eloParaInserir.isPreferencial());
         comando.executeUpdate();
-
+        Conexao.fechaConexao();
         for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMinimaFusao()) {
             PontoCurvaDAO.inserePontoCurva(
                     pontoCurva,
                     PontoCurva.PONTODACURVAMINIMA,
                     eloParaInserir);
+            Conexao.fechaConexao();
         }
 
         for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMaximaInterrupcao()) {
@@ -47,6 +48,7 @@ public class EloKDao {
                     pontoCurva,
                     PontoCurva.PONTODACURVAMAXIMA,
                     eloParaInserir);
+            Conexao.fechaConexao();
         }
 
         Conexao.fechaConexao();
@@ -87,6 +89,7 @@ public class EloKDao {
             elo.setPreferencial(resultado.getBoolean("preferencial"));
             lista.add(elo);
         }
+        Conexao.fechaConexao();
         return lista;
     }
 

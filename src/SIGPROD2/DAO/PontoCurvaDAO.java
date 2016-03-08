@@ -19,7 +19,7 @@ public class PontoCurvaDAO {
 
     private static final String INSERT = "INSERT INTO PontoCurva (corrente, tempo, ehCurvaDeMaxima, correnteElo) VALUES (?, ?, ?, ?);";
     private static final String DELETE = "DELETE FROM PontoCurva WHERE correnteElo = ?;";
-    private static final String BUSCAR = "SELECT Id, corrente, tempo FROM PontoCurva WHERE correnteElo = ? AND ehCurvaDeMaxima = ?;";
+    private static final String BUSCAR = "SELECT Id, corrente, tempo FROM PontoCurva WHERE (correnteElo = ? AND ehCurvaDeMaxima = ?);";
 
     /**
      * Método responsável por inserir um Ponto de Curva no Banco de Dados
@@ -40,6 +40,7 @@ public class PontoCurvaDAO {
         comando.setBoolean(3, ehCurvaMaxima);
         comando.setInt(4, elo.getCorrenteNominal());
         comando.executeUpdate();
+        Conexao.fechaConexao();
     }
 
     /**
@@ -54,6 +55,7 @@ public class PontoCurvaDAO {
         PreparedStatement comando = conexao.prepareStatement(DELETE);
         comando.setInt(1, eloParaDeletar.getCorrenteNominal());
         comando.executeUpdate();
+        Conexao.fechaConexao();
     }
 
     /**
@@ -82,6 +84,7 @@ public class PontoCurvaDAO {
             pontoCurva.setTempo(resultado.getDouble("tempo"));
             lista.add(pontoCurva);
         }
+        Conexao.fechaConexao();
         return lista;
     }
 }

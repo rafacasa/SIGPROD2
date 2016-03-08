@@ -34,6 +34,7 @@ public class Conexao {
         try {
             if (conexao != null) {
                 conexao.close();
+                conexao = null;
                 return true;
             }
         } catch (SQLException e) {

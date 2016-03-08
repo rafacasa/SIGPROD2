@@ -46,6 +46,7 @@ public class Erro {
                 "Erro de SQL no banco de dados.",
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
     }
 
     public static void mostraMensagemClasse(JFrame janela, Exception ex) {
