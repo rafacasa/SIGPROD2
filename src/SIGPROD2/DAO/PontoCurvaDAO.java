@@ -17,7 +17,8 @@ import java.util.ArrayList;
  */
 public class PontoCurvaDAO {
 
-    private static final String INSERT = "INSERT INTO PontoCurva (corrente, tempo, ehCurvaDeMaxima, correnteElo) VALUES (?, ?, ?, ?);";
+    private static final String INSERT = "INSERT INTO PontoCurva (corrente, tempo, ehCurvaDeMaxima, correnteElo) VALUES (?, ?, ?, ?)";
+    private static final String VARIAVEISINSERT = ", (?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM PontoCurva WHERE correnteElo = ?;";
     private static final String BUSCAR = "SELECT Id, corrente, tempo FROM PontoCurva WHERE (correnteElo = ? AND ehCurvaDeMaxima = ?);";
 
@@ -39,6 +40,26 @@ public class PontoCurvaDAO {
         comando.setDouble(2, ponto.getTempo());
         comando.setBoolean(3, ehCurvaMaxima);
         comando.setInt(4, elo.getCorrenteNominal());
+        comando.executeUpdate();
+        Conexao.fechaConexao();
+    }
+
+    public static void inserePontoCurva(ArrayList<PontoCurva> lista, boolean ehCurvaMaxima, int correnteElo) throws SQLException {
+        int qtd = lista.size();
+        String comandoSql = INSERT;
+        for (int i = 1; i < qtd; i++) {
+            comandoSql += VARIAVEISINSERT;
+        }
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(comandoSql);
+
+        for (int i = 0; i < qtd * 4; i += 4) {
+            comando.setDouble(i + 1, lista.get(i/4).getCorrente());
+            comando.setDouble(i + 2, lista.get(i/4).getTempo());
+            comando.setBoolean(i + 3, ehCurvaMaxima);
+            comando.setInt(i + 4, correnteElo);
+        }
+
         comando.executeUpdate();
         Conexao.fechaConexao();
     }

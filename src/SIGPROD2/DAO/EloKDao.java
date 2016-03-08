@@ -35,23 +35,29 @@ public class EloKDao {
         comando.setBoolean(2, eloParaInserir.isPreferencial());
         comando.executeUpdate();
         Conexao.fechaConexao();
-        for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMinimaFusao()) {
-            PontoCurvaDAO.inserePontoCurva(
-                    pontoCurva,
-                    PontoCurva.PONTODACURVAMINIMA,
-                    eloParaInserir);
-            Conexao.fechaConexao();
-        }
 
-        for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMaximaInterrupcao()) {
-            PontoCurvaDAO.inserePontoCurva(
-                    pontoCurva,
-                    PontoCurva.PONTODACURVAMAXIMA,
-                    eloParaInserir);
-            Conexao.fechaConexao();
-        }
+        PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(), 
+                PontoCurva.PONTODACURVAMINIMA, 
+                eloParaInserir.getCorrenteNominal());
+        /*for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMinimaFusao()) {
+         PontoCurvaDAO.inserePontoCurva(
+         pontoCurva,
+         PontoCurva.PONTODACURVAMINIMA,
+         eloParaInserir);
+         Conexao.fechaConexao();
+         }
 
-        Conexao.fechaConexao();
+         for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMaximaInterrupcao()) {
+         PontoCurvaDAO.inserePontoCurva(
+         pontoCurva,
+         PontoCurva.PONTODACURVAMAXIMA,
+         eloParaInserir);
+         Conexao.fechaConexao();
+         }*/
+
+        PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
+                PontoCurva.PONTODACURVAMAXIMA,
+                eloParaInserir.getCorrenteNominal());
     }
 
     /**
