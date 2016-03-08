@@ -44,6 +44,19 @@ public class PontoCurvaDAO {
         Conexao.fechaConexao();
     }
 
+    /**
+     * Método responsável por gerenciar a inclusão de uma grande quantidade de
+     * Pontos de Curva no Banco de Dados
+     *
+     * @param lista ArrayList com os pontos de curva a serem adicionados
+     * @param ehCurvaMaxima Informa em qual curva está este ponto. Utilize as
+     * constantes SIGPRO2.Modelo.PontoCurva.PONTODACURVAMAXIMA e
+     * SIGPRO2.Modelo.PontoCurva.PONTODACURVAMINIMA.
+     * @param correnteElo A Corrente Nominal do Elo em que será adicionado os
+     * Pontos
+     * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
+     * Dados forem inválidos
+     */
     public static void inserePontoCurva(ArrayList<PontoCurva> lista, boolean ehCurvaMaxima, int correnteElo) throws SQLException {
         int qtd = lista.size();
         String comandoSql = INSERT;
@@ -54,13 +67,13 @@ public class PontoCurvaDAO {
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
         for (int i = 0; i < qtd * 4; i += 4) {
-            comando.setDouble(i + 1, lista.get(i/4).getCorrente());
-            comando.setDouble(i + 2, lista.get(i/4).getTempo());
+            comando.setDouble(i + 1, lista.get(i / 4).getCorrente());
+            comando.setDouble(i + 2, lista.get(i / 4).getTempo());
             comando.setBoolean(i + 3, ehCurvaMaxima);
             comando.setInt(i + 4, correnteElo);
         }
 
-        comando.executeUpdate();
+        comando.executeLargeUpdate();
         Conexao.fechaConexao();
     }
 
