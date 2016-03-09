@@ -35,23 +35,14 @@ public class EloKDao {
         comando.setBoolean(2, eloParaInserir.isPreferencial());
         comando.executeUpdate();
         Conexao.fechaConexao();
-        for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMinimaFusao()) {
-            PontoCurvaDAO.inserePontoCurva(
-                    pontoCurva,
-                    PontoCurva.PONTODACURVAMINIMA,
-                    eloParaInserir);
-            Conexao.fechaConexao();
-        }
 
-        for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMaximaInterrupcao()) {
-            PontoCurvaDAO.inserePontoCurva(
-                    pontoCurva,
-                    PontoCurva.PONTODACURVAMAXIMA,
-                    eloParaInserir);
-            Conexao.fechaConexao();
-        }
+        PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
+                PontoCurva.PONTODACURVAMINIMA,
+                eloParaInserir.getCorrenteNominal());
 
-        Conexao.fechaConexao();
+        PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
+                PontoCurva.PONTODACURVAMAXIMA,
+                eloParaInserir.getCorrenteNominal());
     }
 
     /**
@@ -62,8 +53,8 @@ public class EloKDao {
      * Dados, ou os Dados forem inválidos
      */
     public static void deletaEloK(EloK eloParaDeletar) throws SQLException {
-        Connection conexao = Conexao.getConexao();
         PontoCurvaDAO.deletaPontosCurvaDoElo(eloParaDeletar);
+        Connection conexao = Conexao.getConexao();
         try (PreparedStatement comando = conexao.prepareStatement(DELETE)) {
             comando.setInt(1, eloParaDeletar.getCorrenteNominal());
             comando.executeUpdate();
