@@ -1,5 +1,5 @@
 /**
- * Esta Classe faz a conexão com o banco de dados.
+ * Esta Classe faz a conexão com o banco de dados. 
  */
 package SIGPROD2.BD;
 
@@ -8,11 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Esta clase gerencia a criação, o armazenamento e o fechamento de conexões com
- * o banco de dados.
- *
  * @author Adrian Borba
  */
+
 public class Conexao {
 
     private static Connection conexao;
@@ -24,17 +22,10 @@ public class Conexao {
     private static final String USUARIO = "root";
     private static final String SENHA = "root";
 
-    /**
-     * Método que fecha a conexao armazenada, caso haja uma. Caso não tenha
-     * nenhuma conexão armazenada, nada será executado
-     *
-     * @return true caso o processo tenha sucesso
-     */
     public static boolean fechaConexao() {
         try {
             if (conexao != null) {
                 conexao.close();
-                conexao = null;
                 return true;
             }
         } catch (SQLException e) {
@@ -44,16 +35,14 @@ public class Conexao {
         return false;
     }
 
-    /**
-     * Método que cria uma conexão nova
-     *
-     * @return A conexão criada
-     * @throws SQLException Caso houver erro de acesso ao Banco de Dados
-     */
-    private static Connection abreConexao() throws SQLException {
+    public static Connection abreConexao() throws ClassNotFoundException, SQLException {
         try {
+            Class.forName(DRIVER);
             conexao = DriverManager.getConnection(JDBC, USUARIO, SENHA);
             return conexao;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Não foi possível carregar o driver.");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Falha ao conectar à base de dados:");
@@ -61,17 +50,15 @@ public class Conexao {
         return null;
     }
 
-    /**
-     * Método que retorna uma conexão com o banco de dados para ser usada. Esta
-     * conexão deve ser fechada pelo método Conexao.fechaconexao()
-     *
-     * @return A conexão com o banco de dados
-     * @throws SQLException Caso houver erro de acesso ao Banco de Dados
-     */
-    public static Connection getConexao() throws SQLException {
-        if (conexao == null) {
-            conexao = abreConexao();
+    public static void main(String[] args) {
+        try {
+            if (abreConexao() != null && fechaConexao()) {
+                System.out.println("Conexão terminada com sucesso.");
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro de classe");
+        } catch (SQLException ex) {
+            System.out.println("Erro de sql");
         }
-        return conexao;
     }
 }

@@ -1,26 +1,23 @@
+
 package SIGPROD2.Modelo;
 
 /**
  * Esta classe representa um Ponto de Curva de um ELO
- *
  * @author Coelho
  * @version 16/08/2015
  */
 public class PontoCurva {
-
+    
     public static final boolean PONTODACURVAMAXIMA = true;
-    public static final boolean PONTODACURVAMINIMA = false;
+    public static final boolean PONTODACURVAMINIMA  = false;
     private double corrente;
-    private double tempo;
+    private double tempo;    
     private int id;
 
     public PontoCurva(double corrente, double tempo, int id) {
         this.corrente = corrente;
         this.tempo = tempo;
         this.id = id;
-    }
-
-    public PontoCurva() {
     }
 
     public PontoCurva(double corrente, double tempo) {
@@ -50,6 +47,6 @@ public class PontoCurva {
 
     public void setId(int id) {
         this.id = id;
-    }
-
+    }    
+    
 }

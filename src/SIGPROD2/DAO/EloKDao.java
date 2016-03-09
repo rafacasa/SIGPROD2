@@ -10,101 +10,88 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Classe responsável por interagir com o Banco de Dados para inserir, alterar e
- * remover Elos Tipo K
- *
+ * Classe responsável por interagir com o Banco de Dados para inserir, alterar e remover Elos Tipo K
  * @author Rafael Casa
+ * TESTE FUNCIONANDO
+ * fsofsodfj
  */
 public class EloKDao {
-
-    public static final String INSERT = "INSERT INTO Elo(correnteNominal, preferencial) VALUES (?, ?);";
-    public static final String DELETE = "DELETE FROM Elo WHERE correnteNominal = ?;";
-    public static final String BUSCAR = "SELECT * FROM Elo";
-
+    public static final String INSERT = "INSERT INTO Elo(ID, correnteNominal, tipo, preferencial) VALUES (null, ?, ?, ?);";
+    public static final String DELETE = "DELETE FROM Elo WHERE ID = ?;";
+    public static final String BUSCARTODOS = "SELECT * FROM Elo WHERE tipo = ?;";
+    public static final String BUSCAID = "SELECT ID FROM Elo WHERE tipo = ? AND correnteNominal = ? AND preferencial = ?;";
+    
     /**
      * Método para inserir um ELO Tipo K no Banco de Dados
-     *
      * @param eloParaInserir As informações do Elo a ser Inserido
-     * @throws java.sql.SQLException Caso houver erro de acesso ao Banco de
-     * Dados, ou os Dados forem inválidos
+     * @throws java.sql.SQLException Caso houver erro de acesso ao Banco de Dados, ou os Dados forem inválidos
      */
-    public static void insereEloK(EloK eloParaInserir) throws SQLException {
-        Connection conexao = Conexao.getConexao();
+    public static void insereEloK(EloK eloParaInserir) throws SQLException
+    {
+        Connection conexao = Conexao.abreConexao();
         PreparedStatement comando = conexao.prepareStatement(INSERT);
-        comando.setInt(1, eloParaInserir.getCorrenteNominal());
-        comando.setBoolean(2, eloParaInserir.isPreferencial());
+        comando.setNull(1, java.sql.Types.INTEGER);
+        comando.setInt(2, eloParaInserir.getCorrenteNominal());
+        comando.setString(3, "K");
+        comando.setBoolean(4, eloParaInserir.isPreferencial());
         comando.executeUpdate();
-        Conexao.fechaConexao();
-        for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMinimaFusao()) {
-            PontoCurvaDAO.inserePontoCurva(
-                    pontoCurva,
-                    PontoCurva.PONTODACURVAMINIMA,
-                    eloParaInserir);
-            Conexao.fechaConexao();
-        }
-
-        for (PontoCurva pontoCurva : eloParaInserir.getCurvaDeMaximaInterrupcao()) {
-            PontoCurvaDAO.inserePontoCurva(
-                    pontoCurva,
-                    PontoCurva.PONTODACURVAMAXIMA,
-                    eloParaInserir);
-            Conexao.fechaConexao();
-        }
-
+        comando.close();
+        eloParaInserir.getCurvaDeMinimaFusao().forEach(
+                                                        ponto -> PontoCurvaDAO.inserePontoCurva(
+                                                                                                conexao, 
+                                                                                                ponto, 
+                                                                                                PontoCurva.PONTODACURVAMINIMA, 
+                                                                                                eloParaInserir));
+        eloParaInserir.getCurvadeMaximaInterrupcao().forEach(
+                                                             ponto -> PontoCurvaDAO.inserePontoCurva(
+                                                                                                      conexao, 
+                                                                                                      ponto, 
+                                                                                                      PontoCurva.PONTODACURVAMAXIMA, 
+                                                                                                      eloParaInserir));
         Conexao.fechaConexao();
     }
-
+    
     /**
      * Método para deletar um ELO Tipo K no Banco de Dados
-     *
      * @param eloParaDeletar As informações do Elo a ser deletado
-     * @throws java.sql.SQLException Caso houver erro de acesso ao Banco de
-     * Dados, ou os Dados forem inválidos
+     * @throws java.sql.SQLException Caso houver erro de acesso ao Banco de Dados, ou os Dados forem inválidos
      */
-    public static void deletaEloK(EloK eloParaDeletar) throws SQLException {
-        Connection conexao = Conexao.getConexao();
-        PontoCurvaDAO.deletaPontosCurvaDoElo(eloParaDeletar);
+    public static void deletaEloK(EloK eloParaDeletar) throws SQLException
+    {
+        Connection conexao = Conexao.abreConexao();
+        eloParaDeletar.getCurvaDeMinimaFusao().forEach(ponto -> PontoCurvaDAO.deletaPontoCurva(conexao, ponto));
+        eloParaDeletar.getCurvadeMaximaInterrupcao().forEach(ponto -> PontoCurvaDAO.deletaPontoCurva(conexao, ponto));
         try (PreparedStatement comando = conexao.prepareStatement(DELETE)) {
-            comando.setInt(1, eloParaDeletar.getCorrenteNominal());
+            comando.setInt(1, eloParaDeletar.getId());
             comando.executeUpdate();
         }
         Conexao.fechaConexao();
     }
-
+    
     /**
-     * Método que busca no banco de dados as informações básicas dos Elos
-     * cadastrados(corrente nominal e preferencial)
-     *
-     * @return ArrayList com os elos encontrados
-     * @throws SQLException Caso houver erro de acesso ao Banco de Dados
+     * 
+     * @return
+     * @throws SQLException 
      */
-    public static ArrayList<EloK> buscarCorrentes() throws SQLException {
-        ArrayList<EloK> lista = new ArrayList<>();
-        Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(BUSCAR);
+    public static ArrayList<EloK> buscarTodos() throws SQLException
+    {
+        ArrayList<EloK> lista = new ArrayList();        
+        Connection conexao = Conexao.abreConexao();
+        PreparedStatement comando = conexao.prepareStatement(BUSCARTODOS);
+        comando.setString(1, "K");
         ResultSet resultado = comando.executeQuery();
-        while (resultado.next()) {
-            EloK elo = new EloK();
+        EloK elo;
+        while(resultado.next())
+        {
+            elo = new EloK();
+            elo.setId(resultado.getInt("ID"));
             elo.setCorrenteNominal(resultado.getInt("correnteNominal"));
             elo.setPreferencial(resultado.getBoolean("preferencial"));
-            lista.add(elo);
         }
-        Conexao.fechaConexao();
-        return lista;
+        
+        
+        
+        return null;
     }
-
-    /**
-     * Método que carrega no elo todos os pontos de curva salvos no Banco de
-     * Dados
-     *
-     * @param elo o elo (contendo corrente nominal e preferencial) a ser
-     * carregado com os pontos de curva
-     * @return O Elo já carregado com os pontos de curva
-     * @throws SQLException Caso houver erro de acesso ao Banco de Dados
-     */
-    public static EloK buscarEloK(EloK elo) throws SQLException {
-        elo.setCurvaDeMinimaFusao(PontoCurvaDAO.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTODACURVAMINIMA));
-        elo.setCurvaDeMaximaInterrupcao(PontoCurvaDAO.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTODACURVAMAXIMA));
-        return elo;
-    }
+    
 }

@@ -46,7 +46,6 @@ public class Erro {
                 "Erro de SQL no banco de dados.",
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
     }
 
     public static void mostraMensagemClasse(JFrame janela, Exception ex) {
@@ -59,6 +58,13 @@ public class Erro {
     public static void mostraMensagemInsercao(JFrame janela) {
         JOptionPane.showMessageDialog(janela,
                 "Erro no cadastro. Visualize o arquivo de log para maiores informações.",
+                "ERRO",
+                JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void EntredaSomenteNumeros (JFrame janela) {
+        JOptionPane.showMessageDialog(janela, 
+                "Entrada somente de Números",
                 "ERRO",
                 JOptionPane.ERROR_MESSAGE);
     }

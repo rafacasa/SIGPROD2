@@ -11,26 +11,23 @@ public class EloK {
 
     private int correnteNominal;
     private boolean preferencial;
+    private int id;
     private ArrayList<PontoCurva> curvaDeMinimaFusao,
-            curvaDeMaximaInterrupcao;
+            curvadeMaximaInterrupcao;
 
     public EloK(int correnteNominal, boolean preferencial) {
         this.correnteNominal = correnteNominal;
         this.preferencial = preferencial;
         this.curvaDeMinimaFusao = new ArrayList<>();
-        this.curvaDeMaximaInterrupcao = new ArrayList<>();
+        this.curvadeMaximaInterrupcao = new ArrayList<>();
     }
-
-    public EloK() {
-        this.curvaDeMinimaFusao = new ArrayList<>();
-        this.curvaDeMaximaInterrupcao = new ArrayList<>();
-    }
-
-    public EloK(int correnteNominal, boolean preferencial, ArrayList<PontoCurva> curvaDeMinimaFusao, ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
+    
+    public EloK(int correnteNominal, boolean preferencial, int id, ArrayList<PontoCurva> curvaDeMinimaFusao, ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
         this.correnteNominal = correnteNominal;
         this.preferencial = preferencial;
+        this.id = id;
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
-        this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
+        this.curvadeMaximaInterrupcao = curvadeMaximaInterrupcao;
     }
 
     public void addPontoDaCurvaDeMinimaFusao(PontoCurva ponto) {
@@ -38,7 +35,7 @@ public class EloK {
     }
 
     public void addPontoDaCurvaDeMaximaInterrupcao(PontoCurva ponto) {
-        this.curvaDeMaximaInterrupcao.add(ponto);
+        this.curvadeMaximaInterrupcao.add(ponto);
     }
 
     public int getCorrenteNominal() {
@@ -57,6 +54,14 @@ public class EloK {
         this.preferencial = preferencial;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public ArrayList<PontoCurva> getCurvaDeMinimaFusao() {
         return curvaDeMinimaFusao;
     }
@@ -65,16 +70,12 @@ public class EloK {
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
     }
 
-    public ArrayList<PontoCurva> getCurvaDeMaximaInterrupcao() {
-        return curvaDeMaximaInterrupcao;
+    public ArrayList<PontoCurva> getCurvadeMaximaInterrupcao() {
+        return curvadeMaximaInterrupcao;
     }
 
-    public void setCurvaDeMaximaInterrupcao(ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
-        this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
+    public void setCurvadeMaximaInterrupcao(ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
+        this.curvadeMaximaInterrupcao = curvadeMaximaInterrupcao;
     }
 
-    @Override
-    public String toString() {
-        return this.correnteNominal + "";
-    }
 }
