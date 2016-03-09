@@ -73,7 +73,7 @@ public class PontoCurvaDAO {
             comando.setInt(i + 4, correnteElo);
         }
 
-        comando.executeLargeUpdate();
+        comando.executeUpdate();
         Conexao.fechaConexao();
     }
 
