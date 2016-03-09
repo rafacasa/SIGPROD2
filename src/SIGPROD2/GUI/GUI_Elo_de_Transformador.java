@@ -10,6 +10,7 @@ import SIGPROD2.Auxiliar.MyRenderer;
 import SIGPROD2.Modelo.Posicao;
 import SIGPROD2.Modelo.Tabelas.TransformadorTableModel;
 import java.util.ArrayList;
+import javax.management.Query;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
@@ -244,29 +245,19 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
 
     private void tabelaMonofasicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMonofasicoMouseClicked
         if (evt.getClickCount() == 2) {
-            int linha = this.tabelaMonofasico.getSelectedRow();
-            int coluna = this.tabelaMonofasico.getSelectedColumn();
-
-            String valor = (String) this.modelMonofasico.getValueAt(linha, coluna);
-            String novoValor = JOptionPane.showInputDialog("Tipo : Tempo", valor);
-            if (novoValor.contains(":")) {
-                try {
-                    String tipo = novoValor.split(":")[0];
-                    if (contemLetras(tipo)) {
-                        int tempo = Integer.parseInt(novoValor.split(":")[1]);;
-                        table_transformadorTri.getModel().setValueAt(
-                                new Posicao(tipo, tempo),
-                                linha,
-                                coluna);
-                    } else {
-                        Erro.mostraMensagem(this, "O tipo deve conter apenas letras.");
+            int row = this.tabelaMonofasico.getSelectedRow();
+            int col = this.tabelaMonofasico.getSelectedColumn();
+            
+            String oldValue = (String) this.modelMonofasico.getValueAt(row, col);
+            String newValue = JOptionPane.showInputDialog("Tempo : Tipo", oldValue);
+            
+            if (newValue.contains(":")) {
+                String[] tt = newValue.split(":");
+                if (this.isNumber(tt[0])) {
+                    if ((tt[1].length() == 1) && (this.isLetter('1'))) {
+                        
                     }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    Erro.mostraMensagem(this, "A corrente deve conter apenas números");
                 }
-            } else {
-                Erro.mostraMensagem(this, "O padrão de formato é: Tipo:Corrente.");
             }
         }
     }//GEN-LAST:event_tabelaMonofasicoMouseClicked

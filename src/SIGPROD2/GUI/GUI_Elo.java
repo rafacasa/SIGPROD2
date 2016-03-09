@@ -7,11 +7,15 @@ package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.DAO.EloKDao;
+import SIGPROD2.DAO.PontoCurvaDAO;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
-import SIGPROD2.Modelo.Tabelas.TransformadorTableModel;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 
@@ -19,7 +23,6 @@ import javax.swing.table.TableRowSorter;
  *
  * @author sbrunettajr
  */
-
 public class GUI_Elo extends javax.swing.JFrame {
 
     /*
@@ -30,26 +33,60 @@ public class GUI_Elo extends javax.swing.JFrame {
     private PontoCurvaTableModel modelo_minimo_carregar;
     private PontoCurvaTableModel modelo_maximo_Carregar;
     private EloK newElo;
-
+    private ArrayList<EloK> correntes;
+    
     private boolean aba_carregar_elo_selecionada;
     private boolean aba_elos_transformador_selecionada;
-
+    
     public GUI_Elo() {
         initComponents();
         configurarTabelas();
+        carregarCorrentes();
     }
-
+    
+    private void carregarCorrentes() {
+        try {
+            this.correntes = EloKDao.buscarCorrentes();
+            for (EloK elo : this.correntes) {
+                this.listaCorrentes.addItem(elo);
+            }
+        } catch (SQLException ex) {
+            Erro.mostraMensagemSQL(this, ex);
+        }
+        
+    }
+    
+    private void carregarElo() {
+        EloK selecionado = (EloK) this.listaCorrentes.getSelectedItem();
+        ArrayList<PontoCurva> lista;
+        if (selecionado != null) {
+            try {
+                this.preferencial2.setSelected(selecionado.isPreferencial());
+                lista = PontoCurvaDAO.buscaPontosCurva(selecionado.getCorrenteNominal(),
+                        PontoCurva.PONTODACURVAMAXIMA);
+                this.modelo_maximo_Carregar.add(lista);
+                lista = PontoCurvaDAO.buscaPontosCurva(selecionado.getCorrenteNominal(),
+                        PontoCurva.PONTODACURVAMINIMA);
+                this.modelo_minimo_carregar.add(lista);
+                this.modelo_maximo_Carregar.fireTableDataChanged();
+                this.modelo_minimo_carregar.fireTableDataChanged();
+            } catch (SQLException ex) {
+                Erro.mostraMensagemSQL(this, ex);
+            }
+        }
+    }
+    
     private void configurarTabelas() {
         modeloMaximo = new PontoCurvaTableModel();
         this.tabelaCurvaMaxima.setModel(modeloMaximo);
         this.tabelaCurvaMaxima.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.tabelaCurvaMaxima.setRowSorter(new TableRowSorter(modeloMaximo));
-
+        
         modeloMinimo = new PontoCurvaTableModel();
         this.tabelaCurvaMinimo.setModel(modeloMinimo);
         this.tabelaCurvaMinimo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.tabelaCurvaMinimo.setRowSorter(new TableRowSorter(modeloMinimo));
-
+        
         modelo_minimo_carregar = new PontoCurvaTableModel();
         this.tabelaCurvaMinimoCarregar.setModel(modelo_minimo_carregar);
         this.tabelaCurvaMinimoCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -60,6 +97,13 @@ public class GUI_Elo extends javax.swing.JFrame {
         this.tabelaCurvaMaximaCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //this.tabelaCurvaMaximaCarregar.setRowSorter(new TableRowSorter(modelo_maximo_Carregar));
 
+        /*modeloTransformadorMono = new TransformadorTableModel();
+         table_transformadorMono.setModel(modeloTransformadorMono);
+         table_transformadorMono.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+         modeloTransformadorTri = new TransformadorTableModel();
+         table_transformadorTri.setModel(modeloTransformadorTri);
+         table_transformadorTri.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);*/
     }
 
     /**
@@ -122,8 +166,8 @@ public class GUI_Elo extends javax.swing.JFrame {
         removeCurvaMaxima2 = new javax.swing.JButton();
         arquivo1 = new javax.swing.JButton();
         listaCorrentes = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botaoDeletar = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,7 +265,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGap(100, 100, 100))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(correnteFusao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(151, 151, 151))))
         );
@@ -244,7 +288,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(removeCurvaMinima)
-                        .addGap(0, 179, Short.MAX_VALUE)))
+                        .addGap(0, 180, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
         );
 
@@ -332,7 +376,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(addCurvaMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(correnteInterrupcao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,7 +559,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGap(100, 100, 100))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(correnteFusao2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(151, 151, 151))))
         );
@@ -538,7 +582,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(removeCurvaMinima2)
-                        .addGap(0, 179, Short.MAX_VALUE)))
+                        .addGap(0, 180, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
         );
 
@@ -626,7 +670,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(addCurvaMaxima2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(correnteInterrupcao2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -657,9 +701,25 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Deletar");
+        listaCorrentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaCorrentesActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Atualizar");
+        botaoDeletar.setText("Deletar");
+        botaoDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoDeletarActionPerformed(evt);
+            }
+        });
+
+        botaoAtualizar.setText("Atualizar");
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -681,9 +741,9 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(arquivo1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(botaoAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(botaoDeletar))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -708,8 +768,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(arquivo1)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)))
+                        .addComponent(botaoDeletar)
+                        .addComponent(botaoAtualizar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -797,11 +857,16 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         if (!this.correnteNominal.getText().equals("")) {
-        this.newElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
-                preferencial.isSelected(),
-                -1,
-                this.modeloMinimo.getArrayList(),
-                this.modeloMaximo.getArrayList());
+            this.newElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                    preferencial.isSelected(),
+                    this.modeloMinimo.getArrayList(),
+                    this.modeloMaximo.getArrayList());
+            try {
+                EloKDao.insereEloK(newElo);
+                this.listaCorrentes.addItem(newElo);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } else {
             Erro.correnteNominalVoid(this);
         }
@@ -866,17 +931,44 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeCurvaMaxima2ActionPerformed
 
+    private void listaCorrentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaCorrentesActionPerformed
+        carregarElo();
+    }//GEN-LAST:event_listaCorrentesActionPerformed
+
+    private void botaoDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeletarActionPerformed
+        EloK elo = (EloK) this.listaCorrentes.getSelectedItem();
+        try {
+            EloKDao.deletaEloK(elo);
+            this.listaCorrentes.removeItem(elo);
+        } catch (SQLException ex) {
+            Erro.mostraMensagemSQL(this, ex);
+        }
+    }//GEN-LAST:event_botaoDeletarActionPerformed
+
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        EloK elo = (EloK) this.listaCorrentes.getSelectedItem();
+        elo.setPreferencial(this.preferencial2.isSelected());
+        elo.setCurvaDeMinimaFusao(this.modelo_minimo_carregar.getArrayList());
+        elo.setCurvaDeMaximaInterrupcao(this.modelo_maximo_Carregar.getArrayList());
+        try {
+            EloKDao.deletaEloK(elo);
+            EloKDao.insereEloK(elo);
+        } catch (SQLException ex) {
+            Erro.mostraMensagemSQL(this, ex);
+        }
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
+    
     public void setArquivo(Arquivo file) {
         if (file != null && file.existeArquivo()) {
             if (file.podeLerArquivo()) {
                 if (file.abreArquivo()) {
-
+                    
                     modeloMaximo.removeTodos();
                     modeloMinimo.removeTodos();
-
+                    
                     String texto = file.lerArquivo();
                     String linhas[] = texto.split("\r");
-
+                    
                     for (int i = 0; i < linhas.length; i++) {
                         if (!linhas[i].equals("")) {
                             String valores[] = linhas[i].split(" ");
@@ -902,18 +994,18 @@ public class GUI_Elo extends javax.swing.JFrame {
             Erro.mostraMensagem(this, "ERRO: Arquivo inexistente.");
         }
     }
-
+    
     public void setArquivoCarregar(Arquivo file) {
         if (file != null && file.existeArquivo()) {
             if (file.podeLerArquivo()) {
                 if (file.abreArquivo()) {
-
+                    
                     modelo_minimo_carregar.removeTodos();
                     modelo_maximo_Carregar.removeTodos();
-
+                    
                     String texto = file.lerArquivo();
                     String linhas[] = texto.split("\r");
-
+                    
                     for (int i = 0; i < linhas.length; i++) {
                         if (!linhas[i].equals("")) {
                             String valores[] = linhas[i].split(" ");
@@ -982,6 +1074,8 @@ public class GUI_Elo extends javax.swing.JFrame {
     private javax.swing.JButton addCurvaMinima2;
     private javax.swing.JButton arquivo;
     private javax.swing.JButton arquivo1;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botaoDeletar;
     private javax.swing.JTextField correnteFusao;
     private javax.swing.JTextField correnteFusao2;
     private javax.swing.JTextField correnteInterrupcao;
@@ -990,8 +1084,6 @@ public class GUI_Elo extends javax.swing.JFrame {
     private javax.swing.JLabel corrente_nominal;
     private javax.swing.JLabel corrente_nominal2;
     private javax.swing.JButton inserir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
