@@ -8,13 +8,15 @@ package SIGPROD2.Modelo;
 /**
  *
  * @author Coelho
- * 
+ *
  */
-
 public class Posicao {
-    
+
     private String tipo;
     private int corrente;
+
+    public Posicao() {
+    }
 
     public Posicao(String tipo, int corrente) {
         this.tipo = tipo;
@@ -39,8 +41,7 @@ public class Posicao {
 
     @Override
     public String toString() {
-        return tipo + ":" + String.valueOf(corrente);
+        return String.valueOf(corrente) + ":" + tipo;
     }
-    
-    
+
 }
