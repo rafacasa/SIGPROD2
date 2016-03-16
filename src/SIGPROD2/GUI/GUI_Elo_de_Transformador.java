@@ -1,22 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Classe responsável por gerenciar a Janela de Elo de Transformadores.
  */
 package SIGPROD2.GUI;
 
+import SIGPROD2.Auxiliar.Entrada;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.MyRenderer;
+import SIGPROD2.DAO.EloTransformadorDao;
 import SIGPROD2.Modelo.Posicao;
 import SIGPROD2.Modelo.Tabelas.TransformadorTableModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.management.Query;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 /**
  *
- * @author sbrunettajr
+ * @author Sérgio Brunetta Júnior
+ * @version 15/03/2K16
  *
  */
 public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
@@ -26,7 +29,9 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
 
     public GUI_Elo_de_Transformador() {
         initComponents();
-        this.configurarTabelas();
+        this.configuraTabelaMonofasico();
+        this.configuraTabelaTrifasico();
+        this.carregarTabelas();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,14 +42,24 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaMonofasico = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        addColunaMonofasico = new javax.swing.JButton();
+        removeColunaMonofasico = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        addLinhaMonofasico = new javax.swing.JButton();
+        removeLinhaMonofasico = new javax.swing.JButton();
+        apagarDadosMonofasico = new javax.swing.JButton();
+        botaoSalvarMono = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaTrifasico = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        addColunaTrifasico = new javax.swing.JButton();
+        removeColunaTrifasico = new javax.swing.JButton();
+        addLinhaTrifasico = new javax.swing.JButton();
+        removeLinhaTrifasico = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        apagarDadosTrifasico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(713, 523));
@@ -65,31 +80,51 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabelaMonofasico);
 
-        jButton3.setText("Add Column");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        addColunaMonofasico.setText("+");
+        addColunaMonofasico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                addColunaMonofasicoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Add Row");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        removeColunaMonofasico.setText("-");
+        removeColunaMonofasico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                removeColunaMonofasicoActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Remove Column");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setText("Coluna");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("Linha");
+
+        addLinhaMonofasico.setText("+");
+        addLinhaMonofasico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                addLinhaMonofasicoActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Remove Row");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        removeLinhaMonofasico.setText("-");
+        removeLinhaMonofasico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                removeLinhaMonofasicoActionPerformed(evt);
+            }
+        });
+
+        apagarDadosMonofasico.setText("Limpar");
+        apagarDadosMonofasico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apagarDadosMonofasicoActionPerformed(evt);
+            }
+        });
+
+        botaoSalvarMono.setText("Salvar");
+        botaoSalvarMono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvarMonoActionPerformed(evt);
             }
         });
 
@@ -102,29 +137,53 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(apagarDadosMonofasico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(addLinhaMonofasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(removeLinhaMonofasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(addColunaMonofasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(removeColunaMonofasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoSalvarMono, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addColunaMonofasico)
+                            .addComponent(removeColunaMonofasico))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addLinhaMonofasico)
+                            .addComponent(removeLinhaMonofasico))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                        .addComponent(apagarDadosMonofasico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoSalvarMono))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Monofásico", jPanel1);
@@ -139,10 +198,44 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabelaTrifasico);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addColunaTrifasico.setText("+");
+        addColunaTrifasico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addColunaTrifasicoActionPerformed(evt);
+            }
+        });
+
+        removeColunaTrifasico.setText("-");
+        removeColunaTrifasico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeColunaTrifasicoActionPerformed(evt);
+            }
+        });
+
+        addLinhaTrifasico.setText("+");
+        addLinhaTrifasico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addLinhaTrifasicoActionPerformed(evt);
+            }
+        });
+
+        removeLinhaTrifasico.setText("-");
+        removeLinhaTrifasico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeLinhaTrifasicoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setText("Coluna");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setText("Linha");
+
+        apagarDadosTrifasico.setText("Limpar");
+        apagarDadosTrifasico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apagarDadosTrifasicoActionPerformed(evt);
             }
         });
 
@@ -152,21 +245,45 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(addColunaTrifasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeColunaTrifasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(addLinhaTrifasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeLinhaTrifasico, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(apagarDadosTrifasico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(removeColunaTrifasico)
+                            .addComponent(addColunaTrifasico))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addLinhaTrifasico)
+                            .addComponent(removeLinhaTrifasico))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(apagarDadosTrifasico)))
+                .addGap(12, 12, 12))
         );
 
         jTabbedPane1.addTab("Trifásico", jPanel2);
@@ -185,14 +302,10 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void configurarTabelas() {
-        this.modelMonofasico = new TransformadorTableModel();
-        this.tabelaMonofasico.setModel(modelMonofasico);
-        this.tabelaMonofasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaMonofasico.setDefaultRenderer(Object.class, new MyRenderer());
-        this.modelMonofasico.addColumn(" ");
-        this.modelMonofasico.fireTableStructureChanged();
-
+    /**
+     * Configura tabela Trifasico
+     */
+    private void configuraTabelaTrifasico() {
         this.modelTrifasico = new TransformadorTableModel();
         this.tabelaTrifasico.setModel(this.modelTrifasico);
         this.tabelaTrifasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -201,85 +314,284 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         this.modelTrifasico.fireTableStructureChanged();
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * Configura tabela Trifasico
+     */
+    private void configuraTabelaMonofasico() {
+        this.modelMonofasico = new TransformadorTableModel();
+        this.tabelaMonofasico.setModel(modelMonofasico);
+        this.tabelaMonofasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaMonofasico.setDefaultRenderer(Object.class, new MyRenderer());
+        this.modelMonofasico.addColumn(" ");
+        this.modelMonofasico.fireTableStructureChanged();
+    }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void carregarTabelas() {
+        this.carregaTabelaMonofasica();
+        this.carregaTabelaTrifasica();
+    }
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String nomeColumn = JOptionPane.showInputDialog(this, "Insira o nome da nova Coluna:", "ColumnName", 3);
-        if (nomeColumn != null) {
-            if (this.isNumber(nomeColumn)) {
-                this.modelMonofasico.addColumn(nomeColumn + " KW ");
-                this.modelMonofasico.fireTableStructureChanged();
-            }
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<Posicao> pos = new ArrayList<>();
-        String rowValue = JOptionPane.showInputDialog(this, "Insira o nome da nova linha:", "RowName", 3);
-        if (this.isNumber(rowValue)) {
-            pos.add(new Posicao("", Integer.parseInt(rowValue)));
-            for (int i = 1; i < this.modelMonofasico.getColumnCount(); i++) {
-                pos.add(new Posicao("", 0));
-            }
-            this.modelMonofasico.add(pos);
+    private void carregaTabelaMonofasica() {
+        try {
+            ArrayList<String> listaColunas = EloTransformadorDao.buscarKv(EloTransformadorDao.MONOFASICO);
+            Object[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.MONOFASICO);
+            this.modelMonofasico.setDataVector(dados, listaColunas.toArray());
+            this.modelMonofasico.fireTableStructureChanged();
             this.modelMonofasico.fireTableDataChanged();
+        } catch (SQLException ex) {
+            Erro.mostraMensagemSQL(this);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void carregaTabelaTrifasica() {
+        try {
+            ArrayList<String> listaColunas = EloTransformadorDao.buscarKv(EloTransformadorDao.TRIFASICO);
+            Object[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.TRIFASICO);
+            this.modelTrifasico.setDataVector(dados, listaColunas.toArray());
+            this.modelTrifasico.fireTableStructureChanged();
+            this.modelTrifasico.fireTableDataChanged();
+        } catch (SQLException ex) {
+            Erro.mostraMensagemSQL(this);
+        }
+    }
+
+
+    /*
+     * Remove linha na tabela monofasico.
+     */
+    private void removeLinhaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeLinhaMonofasicoActionPerformed
         int pos = this.tabelaMonofasico.getSelectedRow();
+
         if (pos != -1) {
             this.modelMonofasico.remove(pos);
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_removeLinhaMonofasicoActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    /*
+     * Adiciona coluna na tabela monofasico.
+     */
+    private void removeColunaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeColunaMonofasicoActionPerformed
         int pos = this.tabelaMonofasico.getSelectedColumn();
+
         if (pos >= 1) {
             this.modelMonofasico.removeColumn(pos);
             this.modelMonofasico.fireTableStructureChanged();
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_removeColunaMonofasicoActionPerformed
+
+    /*
+     * Adiciona linha na tabela monofasico.
+     */
+    private void addLinhaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinhaMonofasicoActionPerformed
+        ArrayList<Posicao> pos = new ArrayList<>();
+        String rowValue = Entrada.valorLinha(this);
+
+        if (this.isNumber(rowValue)) {
+            pos.add(new Posicao(Integer.parseInt(rowValue)));
+            for (int i = 1; i < this.modelMonofasico.getColumnCount(); i++) {
+                pos.add(new Posicao());
+            }
+            this.modelMonofasico.add(pos);
+            this.modelMonofasico.fireTableDataChanged();
+        }
+    }//GEN-LAST:event_addLinhaMonofasicoActionPerformed
+
+    /*
+     * Adiciona coluna na tabela monofasico.
+     */
+    private void addColunaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaMonofasicoActionPerformed
+        String nomeColumn = Entrada.valorColuna(this);
+
+        if (nomeColumn != null) {
+            if (this.isNumber(nomeColumn)) {
+                this.modelMonofasico.addColumn(nomeColumn + " kV ");
+                this.modelMonofasico.fireTableStructureChanged();
+            }
+        }
+    }//GEN-LAST:event_addColunaMonofasicoActionPerformed
 
     private void tabelaMonofasicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMonofasicoMouseClicked
         if (evt.getClickCount() == 2) {
             int row = this.tabelaMonofasico.getSelectedRow();
             int col = this.tabelaMonofasico.getSelectedColumn();
-            
-            String oldValue = (String) this.modelMonofasico.getValueAt(row, col);
-            String newValue = JOptionPane.showInputDialog("Tempo : Tipo", oldValue);
-            
-            if (newValue.contains(":")) {
-                String[] tt = newValue.split(":");
-                if (this.isNumber(tt[0])) {
-                    if ((tt[1].length() == 1) && (this.isLetter('1'))) {
-                        
+
+            if (col != 0) {
+                String oldValue = (String) this.modelMonofasico.getValueAt(row, col);
+                String newValue = Entrada.alteraValorPosicao(this, oldValue);
+
+                if (newValue != null) {
+                    if (newValue.contains(":") && !newValue.equals(":")) {
+                        String[] tt = newValue.split(":");
+
+                        if (tt.length == 2) {
+                            String sub_init = tt[0].trim();
+                            String sub_end = tt[1].trim();
+
+                            if (this.isNumber(sub_init)) {
+                                if ((sub_end.length() == 1) && (this.isLetter(sub_end.charAt(0)))) {
+                                    Posicao pos = new Posicao(Integer.parseInt(sub_init), sub_end.toUpperCase());
+                                    this.modelMonofasico.setValueAt(pos, row, col);
+                                    this.modelMonofasico.fireTableDataChanged();
+                                } else {
+                                    Erro.entradaInvalida(this);
+                                }
+                            } else {
+                                Erro.entradaInvalida(this);
+                            }
+                        } else {
+                            Erro.entradaInvalida(this);
+                        }
+                    } else {
+                        Erro.entradaInvalida(this);
                     }
                 }
             }
         }
     }//GEN-LAST:event_tabelaMonofasicoMouseClicked
 
+    /*
+     * Adiciona coluna na tabela trifasico.
+     */
+    private void addColunaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaTrifasicoActionPerformed
+        String nomeColumn = Entrada.valorColuna(this);
+
+        if (nomeColumn != null) {
+            if (this.isNumber(nomeColumn)) {
+                this.modelTrifasico.addColumn(nomeColumn + " kV ");
+                this.modelTrifasico.fireTableStructureChanged();
+            }
+        }
+    }//GEN-LAST:event_addColunaTrifasicoActionPerformed
+
+    /*
+     * Remove coluna na tabela trifasico.
+     */
+    private void removeColunaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeColunaTrifasicoActionPerformed
+        int pos = this.tabelaTrifasico.getSelectedColumn();
+
+        if (pos >= 1) {
+            this.modelTrifasico.removeColumn(pos);
+            this.modelTrifasico.fireTableStructureChanged();
+        }
+    }//GEN-LAST:event_removeColunaTrifasicoActionPerformed
+
+    /*
+     * Adiciona linha na tabela trifasico.
+     */
+    private void addLinhaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinhaTrifasicoActionPerformed
+        ArrayList<Posicao> pos = new ArrayList<>();
+        String rowValue = Entrada.valorLinha(this);
+
+        if (this.isNumber(rowValue)) {
+            pos.add(new Posicao(Integer.parseInt(rowValue)));
+            for (int i = 1; i < this.modelTrifasico.getColumnCount(); i++) {
+                pos.add(new Posicao());
+            }
+            this.modelTrifasico.add(pos);
+            this.modelTrifasico.fireTableDataChanged();
+        }
+    }//GEN-LAST:event_addLinhaTrifasicoActionPerformed
+
+    /*
+     * Remove linha na tabela trifasico.
+     */
+    private void removeLinhaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeLinhaTrifasicoActionPerformed
+        int pos = this.tabelaTrifasico.getSelectedRow();
+
+        if (pos != -1) {
+            this.modelTrifasico.remove(pos);
+        }
+    }//GEN-LAST:event_removeLinhaTrifasicoActionPerformed
+
+    /*
+     * Limpa os dados do TableModel da tabela trifasico.
+     */
+    private void apagarDadosTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarDadosTrifasicoActionPerformed
+        this.limparCampos(false);
+    }//GEN-LAST:event_apagarDadosTrifasicoActionPerformed
+
+    /*
+     * Limpa os dados do TableModel da tabela monofasico.
+     */
+    private void apagarDadosMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarDadosMonofasicoActionPerformed
+        this.limparCampos(true);
+    }//GEN-LAST:event_apagarDadosMonofasicoActionPerformed
+
+    private void botaoSalvarMonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarMonoActionPerformed
+        int qtdColunas = this.modelMonofasico.getColumnCount();
+        String[][] matriz = this.modelMonofasico.getDataArray();
+        int qtdLinhas = matriz.length;
+        if (qtdColunas > 0 && qtdLinhas > 0) {
+            String[] vetorColunas = new String[qtdColunas];
+
+            for (int i = 0; i < qtdColunas; i++) {
+                vetorColunas[i] = this.modelMonofasico.getColumnName(i);
+            }
+
+            String[] vetorLinhas = new String[qtdLinhas];
+
+            for (int i = 0; i < qtdLinhas; i++) {
+                vetorLinhas[i] = matriz[i][0];
+            }
+            try {
+                EloTransformadorDao.limparBanco(EloTransformadorDao.MONOFASICO);
+                EloTransformadorDao.inserirKv(vetorColunas, EloTransformadorDao.MONOFASICO);
+                EloTransformadorDao.inserirPot(vetorLinhas, EloTransformadorDao.MONOFASICO);
+                EloTransformadorDao.inserirEloTransformador(matriz,
+                        qtdColunas,
+                        qtdLinhas,
+                        EloTransformadorDao.MONOFASICO);
+            } catch (SQLException ex) {
+                Erro.mostraMensagemSQL(this);
+                ex.printStackTrace();
+            }
+        }
+        else
+        {
+            try {
+                EloTransformadorDao.limparBanco(EloTransformadorDao.MONOFASICO);
+            } catch (SQLException ex) {
+                Erro.mostraMensagemSQL(this);
+            }
+        }
+    }//GEN-LAST:event_botaoSalvarMonoActionPerformed
+
+    /*
+     * Método responsável por fazer a limpeza.
+     */
+    public void limparCampos(boolean first) {
+        if (first) {
+            this.configuraTabelaMonofasico();
+        } else {
+            this.configuraTabelaTrifasico();
+        }
+    }
+
+    /*
+     * Verifica se o valor passado por parametro é um número.
+     */
     public boolean isNumber(String num) {
         try {
             Double.parseDouble(num);
             return true;
         } catch (NumberFormatException ex) {
-            Erro.EntredaSomenteNumeros(this);
+            Erro.entradaSomenteNumeros(this);
             return false;
         }
     }
 
-    public boolean isLetter (char digit) {
-        int value = Character.getNumericValue(digit);
+    /*
+     * Verifica se o valor passado por parametro é uma letra do alfabeto.
+     */
+    public boolean isLetter(char digit) {
+        int value = (int) digit;
+
         if ((value >= 65 && value <= 90) || (value >= 97 && value <= 122)) {
             return true;
-        } 
+        }
         return false;
     }
-    
+
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -317,16 +629,26 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton addColunaMonofasico;
+    private javax.swing.JButton addColunaTrifasico;
+    private javax.swing.JButton addLinhaMonofasico;
+    private javax.swing.JButton addLinhaTrifasico;
+    private javax.swing.JButton apagarDadosMonofasico;
+    private javax.swing.JButton apagarDadosTrifasico;
+    private javax.swing.JButton botaoSalvarMono;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton removeColunaMonofasico;
+    private javax.swing.JButton removeColunaTrifasico;
+    private javax.swing.JButton removeLinhaMonofasico;
+    private javax.swing.JButton removeLinhaTrifasico;
     private javax.swing.JTable tabelaMonofasico;
     private javax.swing.JTable tabelaTrifasico;
     // End of variables declaration//GEN-END:variables

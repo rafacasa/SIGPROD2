@@ -1,6 +1,7 @@
 /**
  *
- * Esta classe representa o modelo da tabela de posições dos elos de Transformador.
+ * Esta classe representa o modelo da tabela de posições dos elos de
+ * Transformador.
  */
 package SIGPROD2.Modelo.Tabelas;
 
@@ -12,9 +13,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Rafael Coelho
  * @version 29/10/2015
- * 
+ *
  */
-
 public class TransformadorTableModel extends DefaultTableModel {
 
     private ArrayList<ArrayList<String>> pos;
@@ -32,36 +32,54 @@ public class TransformadorTableModel extends DefaultTableModel {
         }
     }
 
-    public void addColumn (String name) {
+    public void addColumn(String name) {
         this.titulos.add(name);
     }
-    
-    public void removeColumn (int pos) {
+
+    public void removeColumn(int pos) {
         this.titulos.remove(pos);
     }
-    
-    public void add(Posicao a, int row, int col) {        
+
+    public void add(Posicao a, int row, int col) {
         this.pos.get(row).add(col, a.toString());
     }
 
-    public void add(ArrayList<Posicao> a) {        
+    public void add(ArrayList<Posicao> a) {
         ArrayList<String> p = new ArrayList();
-        
+
         for (Posicao a1 : a) {
-            if (a1.getCorrente() == -1)
+            if (a1.getCorrente() == -1) {
                 p.add(a1.getTipo());
-            else   
+            } else {
                 p.add(a1.toString());
+            }
         }
         this.pos.add(new ArrayList<String>());
-        this.pos.get(getRowCount() - 1).addAll(p);        
+        this.pos.get(getRowCount() - 1).addAll(p);
         for (Posicao a1 : a) {
             System.out.print(a1.toString() + " ");
         }
-        System.out.println("");        
+        System.out.println("");
         fireTableCellUpdated(0, 0);
     }
-    
+
+    public String[][] getDataArray() {
+        if (pos.size() > 0) {
+            if (pos.get(0).size() > 0) {
+                String[][] vetor = new String[pos.size()][pos.get(0).size()];
+                for (int i = 0; i < pos.size(); i++) {
+                    ArrayList<String> linha = pos.get(i);
+                    for (int j = 0; j < linha.size(); j++) {
+                        vetor[i][j] = linha.get(j);
+                        System.out.println(linha.get(j));
+                    }
+                }
+                return vetor;
+            }
+        }
+        return new String[0][0];
+    }
+
     @Override
     public int getColumnCount() {
         return titulos.size();
@@ -81,7 +99,7 @@ public class TransformadorTableModel extends DefaultTableModel {
             String a = pos.get(row).get(col);
 
             if (a != null) {
-                 return a;
+                return a;
             }
         }
         return null;
@@ -94,19 +112,20 @@ public class TransformadorTableModel extends DefaultTableModel {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        return true;
+        return false;
     }
 
     @Override
     public void setValueAt(Object value, int row, int col) {
         try {
             Posicao valor = (Posicao) value;
-                                    
+
             if (pos != null && !pos.isEmpty()) {
-                if (valor.getCorrente() != -1)
+                if (valor.getCorrente() != -1) {
                     pos.get(row).set(col, valor.toString());
-                else
+                } else {
                     pos.get(row).set(col, valor.getTipo());
+                }
             }
             fireTableCellUpdated(row, col);
         } catch (NumberFormatException ex) {

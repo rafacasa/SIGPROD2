@@ -16,9 +16,16 @@ public class Posicao {
     private int corrente;
 
     public Posicao() {
+        this.tipo = null;
+        this.corrente = 0;
     }
 
-    public Posicao(String tipo, int corrente) {
+    public Posicao(int corrente) {
+        this.corrente = corrente;
+        this.tipo = null;
+    }
+
+    public Posicao(int corrente, String tipo) {
         this.tipo = tipo;
         this.corrente = corrente;
     }
@@ -39,9 +46,24 @@ public class Posicao {
         this.corrente = corrente;
     }
 
+    public static Posicao getPosicao(String texto) {
+        Posicao temp = new Posicao();
+        String[] split = texto.split(":");
+        temp.setTipo(split[1]);
+        temp.setCorrente(Integer.parseInt(split[0]));
+        return temp;
+    }
+
     @Override
     public String toString() {
-        return String.valueOf(corrente) + ":" + tipo;
+        if (this.corrente == 0 && this.tipo == null) {
+            return ":";
+        } else {
+            if (this.corrente > 0 && this.tipo == null) {
+                return String.valueOf(this.corrente) + " kVA ";
+            }
+        }
+        return this.corrente + ":" + this.tipo;
     }
 
 }
