@@ -8,23 +8,24 @@ package SIGPROD2.Modelo;
 /**
  *
  * @author Coelho
- *
+ * 
  */
-public class Posicao {
 
+public class Posicao {
+    
     private String tipo;
     private int corrente;
 
-    public Posicao() {
+    public Posicao () {
         this.tipo = null;
         this.corrente = 0;
     }
-
-    public Posicao(int corrente) {
+    
+    public Posicao (int corrente) {
         this.corrente = corrente;
         this.tipo = null;
     }
-
+    
     public Posicao(int corrente, String tipo) {
         this.tipo = tipo;
         this.corrente = corrente;
@@ -53,7 +54,7 @@ public class Posicao {
         temp.setCorrente(Integer.parseInt(split[0]));
         return temp;
     }
-
+    
     @Override
     public String toString() {
         if (this.corrente == 0 && this.tipo == null) {
@@ -65,5 +66,6 @@ public class Posicao {
         }
         return this.corrente + ":" + this.tipo;
     }
-
+    
+    
 }

@@ -102,26 +102,42 @@ public class GUI_Elo extends javax.swing.JFrame {
      * Configura tabelas ao iniciar a classe.
      */
     private void iniciaTabelas() {
-        modeloMaximo = new PontoCurvaTableModel();
+        iniciarTabelaCurvaMaxima();
+        iniciarTabelaCurvaMinima();
+        iniciarTabelaCurvaMinimaCarregar();
+        iniciarTabelaCurvaMaximaCarregar();
+    }
 
-        this.tabelaCurvaMaxima.setModel(modeloMaximo);
-        this.tabelaCurvaMaxima.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMaxima.setRowSorter(new TableRowSorter(modeloMaximo));
-        modeloMinimo = new PontoCurvaTableModel();
-
-        this.tabelaCurvaMinimo.setModel(modeloMinimo);
-        this.tabelaCurvaMinimo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMinimo.setRowSorter(new TableRowSorter(modeloMinimo));
-        modeloMinimoCarregar = new PontoCurvaTableModel();
-
-        this.tabelaCurvaMinimoCarregar.setModel(modeloMinimoCarregar);
-        this.tabelaCurvaMinimoCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMinimoCarregar.setRowSorter(new TableRowSorter(modeloMinimoCarregar));
+    private void iniciarTabelaCurvaMaximaCarregar() {
         modeloMaximoCarregar = new PontoCurvaTableModel();
-
+        
         this.tabelaCurvaMaximaCarregar.setModel(modeloMaximoCarregar);
         this.tabelaCurvaMaximaCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.tabelaCurvaMaximaCarregar.setRowSorter(new TableRowSorter(modeloMaximoCarregar));
+    }
+
+    private void iniciarTabelaCurvaMinimaCarregar() {
+        modeloMinimoCarregar = new PontoCurvaTableModel();
+        
+        this.tabelaCurvaMinimoCarregar.setModel(modeloMinimoCarregar);
+        this.tabelaCurvaMinimoCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaCurvaMinimoCarregar.setRowSorter(new TableRowSorter(modeloMinimoCarregar));
+    }
+
+    private void iniciarTabelaCurvaMinima() {
+        modeloMinimo = new PontoCurvaTableModel();
+        
+        this.tabelaCurvaMinimo.setModel(modeloMinimo);
+        this.tabelaCurvaMinimo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaCurvaMinimo.setRowSorter(new TableRowSorter(modeloMinimo));
+    }
+
+    private void iniciarTabelaCurvaMaxima() {
+        modeloMaximo = new PontoCurvaTableModel();
+        
+        this.tabelaCurvaMaxima.setModel(modeloMaximo);
+        this.tabelaCurvaMaxima.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaCurvaMaxima.setRowSorter(new TableRowSorter(modeloMaximo));
     }
 
     @SuppressWarnings("unchecked")
