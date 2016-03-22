@@ -224,53 +224,47 @@ public class EloTransformadorDao {
      *
      * @param quantidadeKv A quantidade de colunas da tabela e, consequntemente,
      * da matriz.
-     * @param quantidadePot A quantidade de linhas da tabela e,
-     * consequentemente, da matriz.
      * @param trifasico Informa quais elos desejam ser buscados: monofásicos ou
      * trifásicos. Use as constantes EloTransfromadorDao.MONOFASICO e
      * EloTransformadorDao.TRIFASICO.
-     * @return Um array bidimensional de Posicao(Posicao[kv][potencia]) contendo
+     * @return Um array bidimensional de Posicao(Posicao[potencia][kv]) contendo
      * todos os Elos de Transformador (monofásicos ou trifásicos) salvos no
      * banco de dados.
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
      * Dados forem inválidos.
      */
-    public static Posicao[][] buscarElosTransformador(int quantidadeKv, int quantidadePot, boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? SELECTELOTRI : SELECTELOMONO;
-        Posicao temp = new Posicao();
-        Posicao[][] matriz = new Posicao[quantidadePot][quantidadeKv + 1];
-        Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(comandoSql);
-        ResultSet resultado = comando.executeQuery();
-
-        while (resultado.next()) {
-            temp.setCorrente(resultado.getInt("corrente"));
-            temp.setTipo(resultado.getString("tipo"));
-            matriz[resultado.getInt("potenciaId")][resultado.getInt("kvId")] = temp;
-        }
-        return matriz;
-    }
-
-    public static Object[][] buscarElos(int quantidadeKv, boolean trifasico) throws SQLException {
+    public static Posicao[][] buscarElos(int quantidadeKv, boolean trifasico) throws SQLException {
         String comandoSql = trifasico ? SELECTELOTRI : SELECTELOMONO;
         Posicao temp = new Posicao();
         ArrayList<String> listaPot = buscarPotencia(trifasico);
-        Object[][] matriz = new Object[listaPot.size()][quantidadeKv + 1];
+        Posicao[][] matriz = new Posicao[listaPot.size()][quantidadeKv];
 
         for (int i = 0; i < listaPot.size(); i++) {
-            matriz[0][i] = listaPot.get(i);
+            matriz[i][0] = new Posicao(-1, listaPot.get(i));
         }
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
         ResultSet resultado = comando.executeQuery();
         while (resultado.next()) {
+            resultado.getInt("id");
             temp.setCorrente(resultado.getInt("corrente"));
             temp.setTipo(resultado.getString("tipo"));
             matriz[resultado.getInt("potenciaId")][resultado.getInt("kvId")] = temp;
+            temp = new Posicao();
         }
         return matriz;
     }
 
+    /**
+     * Método responsável por deletar todas as entradas das tabelas do Banco de
+     * Dados referentes a Elos de Transformador
+     *
+     * @param trifasico Informa quais elos desejam ser deletados: monofásicos ou
+     * trifásicos. Use as constantes EloTransfromadorDao.MONOFASICO e
+     * EloTransformadorDao.TRIFASICO.
+     * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
+     * Dados forem inválidos.
+     */
     public static void limparBanco(boolean trifasico) throws SQLException {
         String comandoSql = trifasico ? DELETEELOTRI : DELETEELOMONO;
         Connection conexao = Conexao.getConexao();

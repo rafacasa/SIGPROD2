@@ -29,12 +29,7 @@ public class EloKDao {
      * Dados, ou os Dados forem inválidos
      */
     public static void insereEloK(EloK eloParaInserir) throws SQLException {
-        Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(INSERT);
-        comando.setInt(1, eloParaInserir.getCorrenteNominal());
-        comando.setBoolean(2, eloParaInserir.isPreferencial());
-        comando.executeUpdate();
-        Conexao.fechaConexao();
+        inserirEloK(eloParaInserir);
 
         PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
                 PontoCurva.PONTODACURVAMINIMA,
@@ -43,6 +38,23 @@ public class EloKDao {
         PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
                 PontoCurva.PONTODACURVAMAXIMA,
                 eloParaInserir.getCorrenteNominal());
+    }
+
+    /**
+     * Método responsável por inserir as informações de um Elo tipo K na
+     * respectiva tabela do Banco de Dados
+     *
+     * @param eloParaInserir O elo a ser inserido
+     * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
+     * Dados forem inválidos
+     */
+    private static void inserirEloK(EloK eloParaInserir) throws SQLException {
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(INSERT);
+        comando.setInt(1, eloParaInserir.getCorrenteNominal());
+        comando.setBoolean(2, eloParaInserir.isPreferencial());
+        comando.executeUpdate();
+        Conexao.fechaConexao();
     }
 
     /**

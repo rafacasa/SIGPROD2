@@ -344,9 +344,24 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     private void carregaTabelaMonofasica() {
         try {
             ArrayList<String> listaColunas = EloTransformadorDao.buscarKv(EloTransformadorDao.MONOFASICO);
-            Object[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.MONOFASICO);
-            this.modelMonofasico.setDataVector(dados, listaColunas.toArray());
+            Posicao[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.MONOFASICO);
+            ArrayList<Posicao> listaTemp = new ArrayList<>();
+            Posicao[] linha;
+
+            for (String coluna : listaColunas) {
+                if (!coluna.equals(" ")) {
+                    this.modelMonofasico.addColumn(coluna);
+                }
+            }
             this.modelMonofasico.fireTableStructureChanged();
+            for (int i = 0; i < dados.length; i++) {
+                linha = dados[i];
+                for (int j = 0; j < linha.length; j++) {
+                    listaTemp.add(linha[j]);
+                }
+                this.modelMonofasico.add(listaTemp);
+                listaTemp = new ArrayList<>();
+            }
             this.modelMonofasico.fireTableDataChanged();
         } catch (SQLException ex) {
             Erro.mostraMensagemSQL(this);
@@ -356,9 +371,24 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     private void carregaTabelaTrifasica() {
         try {
             ArrayList<String> listaColunas = EloTransformadorDao.buscarKv(EloTransformadorDao.TRIFASICO);
-            Object[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.TRIFASICO);
-            this.modelTrifasico.setDataVector(dados, listaColunas.toArray());
+            Posicao[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.TRIFASICO);
+            ArrayList<Posicao> listaTemp = new ArrayList<>();
+            Posicao[] linha;
+
+            for (String coluna : listaColunas) {
+                if (!coluna.equals(" ")) {
+                    this.modelTrifasico.addColumn(coluna);
+                }
+            }
             this.modelTrifasico.fireTableStructureChanged();
+            for (int i = 0; i < dados.length; i++) {
+                linha = dados[i];
+                for (int j = 0; j < linha.length; j++) {
+                    listaTemp.add(linha[j]);
+                }
+                this.modelTrifasico.add(listaTemp);
+                listaTemp = new ArrayList<>();
+            }
             this.modelTrifasico.fireTableDataChanged();
         } catch (SQLException ex) {
             Erro.mostraMensagemSQL(this);
