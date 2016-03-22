@@ -16,28 +16,28 @@ import java.util.ArrayList;
  */
 public class EloTransformadorDao {
 
-    private static final String SELECTELOTRI = "SELECT * FROM elotransformadorTri";
-    private static final String SELECTKVTRI = "SELECT * FROM kvTri";
-    private static final String SELECTPOTTRI = "SELECT * FROM potenciaTri";
-    private static final String INSERTKVTRI = "INSERT INTO kvTri (id, kv) VALUES (?, ?)";
-    private static final String INSERTPOTTRI = "INSERT INTO potenciaTri (id, potencia) VALUES (?, ?)";
-    private static final String INSERTELOTRI = "INSERT INTO elotransformadorTri (corrente, tipo, kvId, potenciaId) VALUES (?, ?, ?, ?)";
-    private static final String DELETEELOTRI = "DELETE FROM elotransformadorTri WHERE 1;";
-    private static final String DELETEKVTRI = "DELETE FROM kvTri WHERE 1;";
-    private static final String DELETEPOTTRI = "DELETE FROM potenciaTri WHERE 1;";
+    private static final String SELECT_ELO_TRI = "SELECT * FROM elotransformadorTri";
+    private static final String SELECT_KV_TRI = "SELECT * FROM kvTri";
+    private static final String SELECT_POT_TRI = "SELECT * FROM potenciaTri";
+    private static final String INSERT_KV_TRI = "INSERT INTO kvTri (id, kv) VALUES (?, ?)";
+    private static final String INSERT_POT_TRI = "INSERT INTO potenciaTri (id, potencia) VALUES (?, ?)";
+    private static final String INSERT_ELO_TRI = "INSERT INTO elotransformadorTri (corrente, tipo, kvId, potenciaId) VALUES (?, ?, ?, ?)";
+    private static final String DELETE_ELO_TRI = "DELETE FROM elotransformadorTri WHERE 1;";
+    private static final String DELETE_KV_TRI = "DELETE FROM kvTri WHERE 1;";
+    private static final String DELETE_POT_TRI = "DELETE FROM potenciaTri WHERE 1;";
 
-    private static final String SELECTELOMONO = "SELECT * FROM elotransformadorMono";
-    private static final String SELECTKVMONO = "SELECT * FROM kvMono";
-    private static final String SELECTPOTMONO = "SELECT * FROM potenciaMono";
-    private static final String INSERTKVMONO = "INSERT INTO kvMono (id, kv) VALUES (?, ?)";
-    private static final String INSERTPOTMONO = "INSERT INTO potenciaMono (id, potencia) VALUES (?, ?)";
-    private static final String INSERTELOMONO = "INSERT INTO elotransformadorMono (corrente, tipo, kvId, potenciaId) VALUES (?, ?, ?, ?)";
-    private static final String DELETEELOMONO = "DELETE FROM elotransformadorMono WHERE 1;";
-    private static final String DELETEKVMONO = "DELETE FROM kvMono WHERE 1;";
-    private static final String DELETEPOTMONO = "DELETE FROM potenciaMono WHERE 1;";
+    private static final String SELECT_ELO_MONO = "SELECT * FROM elotransformadorMono";
+    private static final String SELECT_KV_MONO = "SELECT * FROM kvMono";
+    private static final String SELECT_POT_MONO = "SELECT * FROM potenciaMono";
+    private static final String INSERT_KV_MONO = "INSERT INTO kvMono (id, kv) VALUES (?, ?)";
+    private static final String INSERT_POT_MONO = "INSERT INTO potenciaMono (id, potencia) VALUES (?, ?)";
+    private static final String INSERT_ELO_MONO = "INSERT INTO elotransformadorMono (corrente, tipo, kvId, potenciaId) VALUES (?, ?, ?, ?)";
+    private static final String DELETE_ELO_MONO = "DELETE FROM elotransformadorMono WHERE 1;";
+    private static final String DELETE_KV_MONO = "DELETE FROM kvMono WHERE 1;";
+    private static final String DELETE_POT_MONO = "DELETE FROM potenciaMono WHERE 1;";
 
-    private static final String VARIAVEISELO = ", (?, ?, ?, ?)";
-    private static final String VARIAVEISKVPOT = ", (?, ?)";
+    private static final String VARIAVEIS_ELO = ", (?, ?, ?, ?)";
+    private static final String VARIAVEIS_KV_POT = ", (?, ?)";
 
     public static final boolean MONOFASICO = false;
     public static final boolean TRIFASICO = true;
@@ -53,9 +53,9 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static void inserirKv(String[] vetor, boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? INSERTKVTRI : INSERTKVMONO;
+        String comandoSql = trifasico ? INSERT_KV_TRI : INSERT_KV_MONO;
         int qtd = vetor.length;
-        comandoSql = montarComandoSql(comandoSql, VARIAVEISKVPOT, qtd);
+        comandoSql = montarComandoSql(comandoSql, VARIAVEIS_KV_POT, qtd);
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
@@ -77,9 +77,9 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static void inserirPot(String[] vetor, boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? INSERTPOTTRI : INSERTPOTMONO;
+        String comandoSql = trifasico ? INSERT_POT_TRI : INSERT_POT_MONO;
         int qtd = vetor.length;
-        comandoSql = montarComandoSql(comandoSql, VARIAVEISKVPOT, qtd);
+        comandoSql = montarComandoSql(comandoSql, VARIAVEIS_KV_POT, qtd);
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
@@ -147,9 +147,9 @@ public class EloTransformadorDao {
      }*/
     public static void inserirEloTransformador(String[][] matriz, int quantidadeKv, int quantidadePot, boolean trifasico) throws SQLException {
         Posicao temp;
-        String comandoSql = trifasico ? INSERTELOTRI : INSERTELOMONO;
+        String comandoSql = trifasico ? INSERT_ELO_TRI : INSERT_ELO_MONO;
         int qtd = matriz.length;
-        comandoSql = montarComandoSql(comandoSql, VARIAVEISELO, qtd);
+        comandoSql = montarComandoSql(comandoSql, VARIAVEIS_ELO, qtd);
         Connection conexao = Conexao.getConexao();
 
         for (int x = 1; x < quantidadeKv; x++) {
@@ -181,7 +181,7 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static ArrayList<String> buscarKv(boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? SELECTKVTRI : SELECTKVMONO;
+        String comandoSql = trifasico ? SELECT_KV_TRI : SELECT_KV_MONO;
         ArrayList<String> lista = new ArrayList();
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
@@ -206,7 +206,7 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static ArrayList<String> buscarPotencia(boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? SELECTPOTTRI : SELECTPOTMONO;
+        String comandoSql = trifasico ? SELECT_POT_TRI : SELECT_POT_MONO;
         ArrayList<String> lista = new ArrayList();
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
@@ -234,7 +234,7 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static Posicao[][] buscarElos(int quantidadeKv, boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? SELECTELOTRI : SELECTELOMONO;
+        String comandoSql = trifasico ? SELECT_ELO_TRI : SELECT_ELO_MONO;
         Posicao temp = new Posicao();
         ArrayList<String> listaPot = buscarPotencia(trifasico);
         Posicao[][] matriz = new Posicao[listaPot.size()][quantidadeKv];
@@ -266,18 +266,18 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static void limparBanco(boolean trifasico) throws SQLException {
-        String comandoSql = trifasico ? DELETEELOTRI : DELETEELOMONO;
+        String comandoSql = trifasico ? DELETE_ELO_TRI : DELETE_ELO_MONO;
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
         comando.executeUpdate();
 
-        comandoSql = trifasico ? DELETEKVTRI : DELETEKVMONO;
+        comandoSql = trifasico ? DELETE_KV_TRI : DELETE_KV_MONO;
         comando = conexao.prepareStatement(comandoSql);
 
         comando.executeUpdate();
 
-        comandoSql = trifasico ? DELETEPOTTRI : DELETEPOTMONO;
+        comandoSql = trifasico ? DELETE_POT_TRI : DELETE_POT_MONO;
         comando = conexao.prepareStatement(comandoSql);
 
         comando.executeUpdate();

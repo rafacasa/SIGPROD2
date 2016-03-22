@@ -31,12 +31,12 @@ public class EloKDao {
     public static void insereEloK(EloK eloParaInserir) throws SQLException {
         inserirEloK(eloParaInserir);
 
-        PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
-                PontoCurva.PONTODACURVAMINIMA,
+        PontoCurvaDao.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
+                PontoCurva.PONTO_DA_CURVA_MINIMA,
                 eloParaInserir.getCorrenteNominal());
 
-        PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
-                PontoCurva.PONTODACURVAMAXIMA,
+        PontoCurvaDao.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
+                PontoCurva.PONTO_DA_CURVA_MAXIMA,
                 eloParaInserir.getCorrenteNominal());
     }
 
@@ -65,7 +65,7 @@ public class EloKDao {
      * Dados, ou os Dados forem inválidos
      */
     public static void deletaEloK(EloK eloParaDeletar) throws SQLException {
-        PontoCurvaDAO.deletaPontosCurvaDoElo(eloParaDeletar);
+        PontoCurvaDao.deletaPontosCurvaDoElo(eloParaDeletar);
         Connection conexao = Conexao.getConexao();
         try (PreparedStatement comando = conexao.prepareStatement(DELETE)) {
             comando.setInt(1, eloParaDeletar.getCorrenteNominal());
@@ -106,8 +106,8 @@ public class EloKDao {
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados
      */
     public static EloK buscarEloK(EloK elo) throws SQLException {
-        elo.setCurvaDeMinimaFusao(PontoCurvaDAO.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTODACURVAMINIMA));
-        elo.setCurvaDeMaximaInterrupcao(PontoCurvaDAO.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTODACURVAMAXIMA));
+        elo.setCurvaDeMinimaFusao(PontoCurvaDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MINIMA));
+        elo.setCurvaDeMaximaInterrupcao(PontoCurvaDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MAXIMA));
         return elo;
     }
 }

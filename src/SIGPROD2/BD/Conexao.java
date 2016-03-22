@@ -3,6 +3,7 @@
  */
 package SIGPROD2.BD;
 
+import SIGPROD2.Auxiliar.Erro;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,13 +17,6 @@ import java.sql.SQLException;
 public class Conexao {
 
     private static Connection conexao;
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String NOME_BD = "sigProdBd";
-    private static final String IP = "127.0.0.1";
-    private static final String PORTA = "3306";
-    private static final String JDBC = "jdbc:mysql://" + IP + ":" + PORTA + "/" + NOME_BD;
-    private static final String USUARIO = "root";
-    private static final String SENHA = "root";
 
     /**
      * Método que fecha a conexao armazenada, caso haja uma. Caso não tenha
@@ -52,11 +46,17 @@ public class Conexao {
      */
     private static Connection abreConexao() throws SQLException {
         try {
-            conexao = DriverManager.getConnection(JDBC, USUARIO, SENHA);
+            DadosConexao dados = DadosConexao.getDadosConexaoSalvos();
+            String jbdc = dados.getStringJBDC();
+            String usuario = dados.getUsuario();
+            String senha = dados.getSenha();
+            conexao = DriverManager.getConnection(jbdc, usuario, senha);
             return conexao;
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Falha ao conectar à base de dados:");
+        } catch (Exception ex) {
+            Erro.configureBancoDados(null);
         }
         return null;
     }

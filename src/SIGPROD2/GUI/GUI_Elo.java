@@ -4,7 +4,7 @@ import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Mensagem;
 import SIGPROD2.DAO.EloKDao;
-import SIGPROD2.DAO.PontoCurvaDAO;
+import SIGPROD2.DAO.PontoCurvaDao;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
@@ -87,8 +87,8 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void carregarCurvaMinima(EloK selecionado) throws SQLException {
         ArrayList<PontoCurva> lista;
-        lista = PontoCurvaDAO.buscaPontosCurva(selecionado.getCorrenteNominal(),
-                PontoCurva.PONTODACURVAMINIMA);
+        lista = PontoCurvaDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
+                PontoCurva.PONTO_DA_CURVA_MINIMA);
         this.modeloMinimoCarregar.add(lista);
     }
 
@@ -102,8 +102,8 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void carregarCurvaMaxima(EloK selecionado) throws SQLException {
         ArrayList<PontoCurva> lista;
-        lista = PontoCurvaDAO.buscaPontosCurva(selecionado.getCorrenteNominal(),
-                PontoCurva.PONTODACURVAMAXIMA);
+        lista = PontoCurvaDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
+                PontoCurva.PONTO_DA_CURVA_MAXIMA);
         this.modeloMaximoCarregar.add(lista);
     }
 
