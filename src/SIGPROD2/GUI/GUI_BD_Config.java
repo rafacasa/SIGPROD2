@@ -3,6 +3,7 @@ package SIGPROD2.GUI;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Mensagem;
 import SIGPROD2.BD.DadosConexao;
+import SIGPROD2.BD.DadosConexaoException;
 
 /**
  * Classe responsável por mostrar e gerenciar uma janela de configuração do
@@ -19,6 +20,31 @@ public class GUI_BD_Config extends javax.swing.JFrame {
      */
     public GUI_BD_Config() {
         initComponents();
+        colocarInformacoesSalvas();
+    }
+
+    /**
+     * Método responsável por verificar a existência de dados de conexão ao
+     * banco de dados salvos anteriormente e colocar estes dados como valores
+     * iniciais da tela.
+     */
+    private void colocarInformacoesSalvas() {
+        try {
+            DadosConexao dados = DadosConexao.getDadosConexaoSalvos();
+            String usuario = dados.getUsuario();
+            String senha = dados.getSenha();
+            String ip = dados.getIp();
+            String porta = dados.getPorta();
+            String nomeBanco = dados.getNomeBanco();
+            
+            this.campoUser.setText(usuario);
+            this.campoIp.setText(ip);
+            this.campoNomeBanco.setText(nomeBanco);
+            this.campoPorta.setText(porta);
+            this.campoSenha.setText(senha);
+        } catch (DadosConexaoException ex) {
+            //Não há dados de conexão anteriores para mostrar
+        }
     }
 
     /**
@@ -181,7 +207,7 @@ public class GUI_BD_Config extends javax.swing.JFrame {
         try {
             dados.salvar();
             Mensagem.mostraMensagemSucesso(this);
-        } catch (Exception ex) {
+        } catch (DadosConexaoException ex) {
             Erro.entradaInvalida(this);
         }
     }//GEN-LAST:event_botaoSaveActionPerformed

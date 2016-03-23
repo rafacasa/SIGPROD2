@@ -34,6 +34,6 @@ public class Mensagem {
     }
 
     public static void mostraMensagemSucesso(JFrame janela) {
-        mostraMensagem(janela, "Operação conclída com sucesso", "Sucesso");
+        mostraMensagem(janela, "Operação concluída com sucesso", "Sucesso");
     }
 }

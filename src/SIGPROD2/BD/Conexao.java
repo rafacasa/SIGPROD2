@@ -54,7 +54,7 @@ public class Conexao {
             String senha = dados.getSenha();
             conexao = DriverManager.getConnection(jbdc, usuario, senha);
             return conexao;
-        } catch (Exception ex) {
+        } catch (DadosConexaoException ex) {
             Erro.configureBancoDados(null);
         }
         return null;

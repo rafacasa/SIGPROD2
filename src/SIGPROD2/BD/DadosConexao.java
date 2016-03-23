@@ -43,6 +43,9 @@ public class DadosConexao {
      * @return true se o ip é valido; false se o ip não é valido.
      */
     public boolean validaIp() {
+        if (this.ip.isEmpty()) {
+            return true;
+        }
         if (this.ip.length() < 7 || this.ip.length() > 15) {
             return false;
         }
@@ -71,8 +74,11 @@ public class DadosConexao {
      * @return true se o ip é valido; false se o ip não é valido.
      */
     public boolean validaPorta() {
+        if (this.porta.isEmpty()) {
+            return true;
+        }
         try {
-            Integer.parseInt(porta);
+            Integer.parseInt(this.porta);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -97,15 +103,16 @@ public class DadosConexao {
      * que possa ser recuperado para uso posterior por meio do método estático
      * {@link #getDadosConexaoSalvos()}
      *
-     * @throws java.lang.Exception Caso o ip e/ou porta forem inválidos.
+     * @throws SIGPROD2.BD.DadosConexaoException Caso o ip e/ou porta forem
+     * inválidos.
      * @see #getDadosConexaoSalvos()
      */
-    public void salvar() throws Exception {
+    public void salvar() throws DadosConexaoException {
         if (this.validaIp() && this.validaPorta()) {
             String salvar = this.getJson();
             CONFIGURACOES.escreverArquivo(salvar);
         } else {
-            throw new Exception("Ip e/ou porta inválidos");
+            throw new DadosConexaoException("Ip e/ou porta inválidos");
         }
     }
 
@@ -115,10 +122,10 @@ public class DadosConexao {
      *
      * @return Instância da classe {@link DadosConexao} com os dados de conexão
      * salvos.
-     * @throws java.lang.Exception Caso não tenha sido configurado as
-     * informações de acesso ao Banco de Dados.
+     * @throws SIGPROD2.BD.DadosConexaoException Caso não tenha sido configurado
+     * as informações de acesso ao Banco de Dados.
      */
-    public static DadosConexao getDadosConexaoSalvos() throws Exception {
+    public static DadosConexao getDadosConexaoSalvos() throws DadosConexaoException {
         if (CONFIGURACOES.existeArquivo()) {
             String fromArquivo = CONFIGURACOES.lerArquivo();
 
@@ -126,7 +133,7 @@ public class DadosConexao {
             DadosConexao dados = json.fromJson(fromArquivo, DadosConexao.class);
             return dados;
         }
-        throw new Exception("CONFIGURE AS INFORMAÇÕES DE ACESSO AO BANCO DE DADOS");
+        throw new DadosConexaoException("CONFIGURE AS INFORMAÇÕES DE ACESSO AO BANCO DE DADOS");
     }
 
     /**
@@ -155,5 +162,32 @@ public class DadosConexao {
      */
     public String getSenha() {
         return senha;
+    }
+
+    /**
+     * Informa o nome do Banco.
+     *
+     * @return O nome do Banco.
+     */
+    public String getNomeBanco() {
+        return nomeBanco;
+    }
+
+    /**
+     * Informa o ip do servidor de Banco de Dados.
+     *
+     * @return o ip do servidor de Banco de Dados.
+     */
+    public String getIp() {
+        return ip;
+    }
+
+    /**
+     * Informa a porta do servidor de Banco de Dados.
+     *
+     * @return a porta do servidor de Banco de Dados.
+     */
+    public String getPorta() {
+        return porta;
     }
 }
