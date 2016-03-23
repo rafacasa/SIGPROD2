@@ -55,7 +55,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Erro.mostraMensagemSQL(this);
         }
-
+        
     }
 
     /**
