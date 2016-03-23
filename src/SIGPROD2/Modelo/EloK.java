@@ -75,6 +75,6 @@ public class EloK {
 
     @Override
     public String toString() {
-        return String.valueOf(this.correnteNominal);
+        return this.correnteNominal + "";
     }
 }

@@ -4,9 +4,9 @@
  */
 package SIGPROD2.Modelo.Tabelas;
 
-import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Modelo.PontoCurva;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -75,17 +75,12 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     }
 
     @Override
-    public String getColumnName(int col) {
+    public String getColumnName(int col) {//REVISADO
         return titulos[col];
-    }
-    
-    @Override
-    public Class<?> getColumnClass (int coluna) {
-       return Double.class; 
     }
 
     @Override
-    public boolean isCellEditable(int row, int col) {
+    public boolean isCellEditable(int row, int col) {//REVISADO
         return true;
     }
 
@@ -104,10 +99,21 @@ public class PontoCurvaTableModel extends DefaultTableModel {
             }
             fireTableCellUpdated(row, col);
         } catch (NumberFormatException ex) {
-            Erro.entradaSomenteNumeros(null);
+            ex.printStackTrace();
         }
     }
 
+    /*public void removeTodos() {
+        long init = System.currentTimeMillis();
+        do {
+            if (!pontos.isEmpty()) {
+                remove(0);
+            }
+        } while (!pontos.isEmpty());
+        long end = System.currentTimeMillis();
+        System.out.println("this" + (end - init));
+    }*/
+    
     public void removeTodos () {
         this.pontos = new ArrayList<>();
     }
