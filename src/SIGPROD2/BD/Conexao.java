@@ -13,6 +13,8 @@ import java.sql.SQLException;
  * o banco de dados.
  *
  * @author Adrian Borba
+ * @author Rafael Casa
+ * @version 22/03/2016
  */
 public class Conexao {
 
@@ -52,9 +54,6 @@ public class Conexao {
             String senha = dados.getSenha();
             conexao = DriverManager.getConnection(jbdc, usuario, senha);
             return conexao;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Falha ao conectar à base de dados:");
         } catch (Exception ex) {
             Erro.configureBancoDados(null);
         }
@@ -63,7 +62,7 @@ public class Conexao {
 
     /**
      * Método que retorna uma conexão com o banco de dados para ser usada. Esta
-     * conexão deve ser fechada pelo método Conexao.fechaconexao()
+     * conexão deve ser fechada pelo método {@link #fechaConexao() }
      *
      * @return A conexão com o banco de dados
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados

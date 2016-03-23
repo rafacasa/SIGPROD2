@@ -1,7 +1,6 @@
 package SIGPROD2.BD;
 
 import SIGPROD2.Auxiliar.Arquivo;
-import SIGPROD2.Auxiliar.Erro;
 import com.google.gson.Gson;
 
 /**
@@ -19,13 +18,7 @@ public class DadosConexao {
     private String porta;
     private String usuario;
     private String senha;
-    private static Arquivo configuracoes = new Arquivo(DadosConexao.ARQUIVO_CONFIGURACAO);
-
-    /**
-     * Construtor vazio
-     */
-    public DadosConexao() {
-    }
+    private static final Arquivo CONFIGURACOES = new Arquivo(DadosConexao.ARQUIVO_CONFIGURACAO);
 
     /**
      * Construtor que inicia os dados de uma conexçao a Banco de Dados.
@@ -110,7 +103,7 @@ public class DadosConexao {
     public void salvar() throws Exception {
         if (this.validaIp() && this.validaPorta()) {
             String salvar = this.getJson();
-            this.configuracoes.escreverArquivo(salvar);
+            CONFIGURACOES.escreverArquivo(salvar);
         } else {
             throw new Exception("Ip e/ou porta inválidos");
         }
@@ -126,8 +119,8 @@ public class DadosConexao {
      * informações de acesso ao Banco de Dados.
      */
     public static DadosConexao getDadosConexaoSalvos() throws Exception {
-        if (configuracoes.existeArquivo()) {
-            String fromArquivo = configuracoes.lerArquivo();
+        if (CONFIGURACOES.existeArquivo()) {
+            String fromArquivo = CONFIGURACOES.lerArquivo();
 
             Gson json = new Gson();
             DadosConexao dados = json.fromJson(fromArquivo, DadosConexao.class);

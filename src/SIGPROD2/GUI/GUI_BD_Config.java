@@ -1,10 +1,8 @@
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.Mensagem;
 import SIGPROD2.BD.DadosConexao;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Classe responsável por mostrar e gerenciar uma janela de configuração do
@@ -174,13 +172,15 @@ public class GUI_BD_Config extends javax.swing.JFrame {
     private void botaoSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSaveActionPerformed
         String nomeBanco = this.campoNomeBanco.getText();
         String usuario = this.campoUser.getText();
-        String senha = Arrays.toString(this.campoSenha.getPassword());
+        char[] senhaVetor = this.campoSenha.getPassword();
+        String senha = String.valueOf(senhaVetor);
         String ip = this.campoIp.getText();
         String porta = this.campoPorta.getText();
         DadosConexao dados = new DadosConexao(nomeBanco, ip, porta, usuario, senha);
 
         try {
             dados.salvar();
+            Mensagem.mostraMensagemSucesso(this);
         } catch (Exception ex) {
             Erro.entradaInvalida(this);
         }
