@@ -29,26 +29,32 @@ public class EloKDao {
      * Dados, ou os Dados forem inválidos
      */
     public static void insereEloK(EloK eloParaInserir) throws SQLException {
+        inserirEloK(eloParaInserir);
+
+        PontoCurvaDao.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
+                PontoCurva.PONTO_DA_CURVA_MINIMA,
+                eloParaInserir.getCorrenteNominal());
+
+        PontoCurvaDao.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
+                PontoCurva.PONTO_DA_CURVA_MAXIMA,
+                eloParaInserir.getCorrenteNominal());
+    }
+
+    /**
+     * Método responsável por inserir as informações de um Elo tipo K na
+     * respectiva tabela do Banco de Dados
+     *
+     * @param eloParaInserir O elo a ser inserido
+     * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
+     * Dados forem inválidos
+     */
+    private static void inserirEloK(EloK eloParaInserir) throws SQLException {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(INSERT);
         comando.setInt(1, eloParaInserir.getCorrenteNominal());
         comando.setBoolean(2, eloParaInserir.isPreferencial());
         comando.executeUpdate();
         Conexao.fechaConexao();
-
-        if (eloParaInserir.getCurvaDeMinimaFusao().size() > 0) {
-            PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
-                    PontoCurva.PONTODACURVAMINIMA,
-                    eloParaInserir.getCorrenteNominal());
-
-        }
-
-        if (eloParaInserir.getCurvaDeMaximaInterrupcao().size() > 0) {
-            PontoCurvaDAO.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
-                    PontoCurva.PONTODACURVAMAXIMA,
-                    eloParaInserir.getCorrenteNominal());
-
-        }
     }
 
     /**
@@ -59,7 +65,7 @@ public class EloKDao {
      * Dados, ou os Dados forem inválidos
      */
     public static void deletaEloK(EloK eloParaDeletar) throws SQLException {
-        PontoCurvaDAO.deletaPontosCurvaDoElo(eloParaDeletar);
+        PontoCurvaDao.deletaPontosCurvaDoElo(eloParaDeletar);
         Connection conexao = Conexao.getConexao();
         try (PreparedStatement comando = conexao.prepareStatement(DELETE)) {
             comando.setInt(1, eloParaDeletar.getCorrenteNominal());
@@ -100,8 +106,8 @@ public class EloKDao {
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados
      */
     public static EloK buscarEloK(EloK elo) throws SQLException {
-        elo.setCurvaDeMinimaFusao(PontoCurvaDAO.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTODACURVAMINIMA));
-        elo.setCurvaDeMaximaInterrupcao(PontoCurvaDAO.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTODACURVAMAXIMA));
+        elo.setCurvaDeMinimaFusao(PontoCurvaDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MINIMA));
+        elo.setCurvaDeMaximaInterrupcao(PontoCurvaDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MAXIMA));
         return elo;
     }
 }

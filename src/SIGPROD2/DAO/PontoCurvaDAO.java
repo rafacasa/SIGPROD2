@@ -15,10 +15,10 @@ import java.util.ArrayList;
  *
  * @author Rafael Casa
  */
-public class PontoCurvaDAO {
+public class PontoCurvaDao {
 
     private static final String INSERT = "INSERT INTO PontoCurva (corrente, tempo, ehCurvaDeMaxima, correnteElo) VALUES (?, ?, ?, ?)";
-    private static final String VARIAVEISINSERT = ", (?, ?, ?, ?)";
+    private static final String VARIAVEIS_INSERT = ", (?, ?, ?, ?)";
     private static final String DELETE = "DELETE FROM PontoCurva WHERE correnteElo = ?;";
     private static final String BUSCAR = "SELECT Id, corrente, tempo FROM PontoCurva WHERE (correnteElo = ? AND ehCurvaDeMaxima = ?);";
 
@@ -61,7 +61,7 @@ public class PontoCurvaDAO {
         int qtd = lista.size();
         String comandoSql = INSERT;
         for (int i = 1; i < qtd; i++) {
-            comandoSql += VARIAVEISINSERT;
+            comandoSql += VARIAVEIS_INSERT;
         }
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);

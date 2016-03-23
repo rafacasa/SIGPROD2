@@ -1,37 +1,39 @@
-/*
- * Esta classe tem métodos estáticos para apresentar mensagens de erro ao usuário.
- */
 package SIGPROD2.Auxiliar;
 
-import SIGPROD2.GUI.GUI_Elo;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Esta classe tem métodos estáticos para apresentar mensagens de erro ao
+ * usuário.
  *
  * @author Rafael Coelho
- * @version 16/08/2015
+ * @author Sérgio Brunetta Júnior
+ * @version 23/03/2K16
+ *
  */
 public class Mensagem {
 
-    public static void mostraMensagemInsercao(JFrame janela) {
+    private static void mostraMensagem(JFrame janela, String message, String titulo) {
         JOptionPane.showMessageDialog(janela,
-                "Cadastro realizado com sucesso!",
-                "Cadastro",
-                JOptionPane.INFORMATION_MESSAGE);
-    }    
-
-    public static void mostraMensagemExclusao(JFrame janela) {
-        JOptionPane.showMessageDialog(janela,
-                "Exclusão realizada com sucesso!",
-                "Remoção",
+                message,
+                titulo,
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void mostraMensagemArquivo(GUI_Elo janela) {
-        JOptionPane.showMessageDialog(janela,
-                "Arquivo salvo com sucesso!",
-                "Info",
-                JOptionPane.INFORMATION_MESSAGE);
+    public static void mostraMensagemInsercao(JFrame janela, int numElo) {
+        mostraMensagem(janela, "ELO " + numElo + " inserido com Sucesso!", "Inserção");
+    }
+
+    public static void mostraMensagemExclusao(JFrame janela, int numElo) {
+        mostraMensagem(janela, "ELO " + numElo + " deletado com sucesso!", "Remoção");
+    }
+
+    public static void mostraMensagemSelecioneColuna(JFrame janela) {
+        mostraMensagem(janela, "Coluna não selecionada", "Seleção");
+    }
+
+    public static void mostraMensagemSucesso(JFrame janela) {
+        mostraMensagem(janela, "Operação concluída com sucesso", "Sucesso");
     }
 }
