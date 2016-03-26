@@ -1,6 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
+import SIGPROD2.BD.Tables.PontoDeCurva;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import java.sql.Connection;
@@ -14,13 +15,24 @@ import java.util.ArrayList;
  * remover pontos de curva
  *
  * @author Rafael Casa
+ * @version 25/03/2016
  */
 public class PontoCurvaDao {
 
-    private static final String INSERT = "INSERT INTO PontoCurva (corrente, tempo, ehCurvaDeMaxima, correnteElo) VALUES (?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO "
+            + PontoDeCurva.TABELA + " ("
+            + PontoDeCurva.CORRENTE + ", "
+            + PontoDeCurva.TEMPO + ", "
+            + PontoDeCurva.EH_CURVA_DE_MAXIMA + ", "
+            + PontoDeCurva.CORRENTE_DO_ELO + ") VALUES (?, ?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?, ?)";
-    private static final String DELETE = "DELETE FROM PontoCurva WHERE correnteElo = ?;";
-    private static final String BUSCAR = "SELECT Id, corrente, tempo FROM PontoCurva WHERE (correnteElo = ? AND ehCurvaDeMaxima = ?);";
+    private static final String DELETE = "DELETE FROM " + PontoDeCurva.TABELA + " WHERE " + PontoDeCurva.CORRENTE_DO_ELO + " = ?;";
+    private static final String BUSCAR = "SELECT " + PontoDeCurva.ID + ", "
+            + PontoDeCurva.CORRENTE + ", "
+            + PontoDeCurva.TEMPO + " FROM "
+            + PontoDeCurva.TABELA + " WHERE ("
+            + PontoDeCurva.CORRENTE_DO_ELO + " = ? AND "
+            + PontoDeCurva.EH_CURVA_DE_MAXIMA + " = ?);";
 
     /**
      * Método responsável por inserir um Ponto de Curva no Banco de Dados
