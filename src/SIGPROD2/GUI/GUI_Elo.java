@@ -19,7 +19,7 @@ import javax.swing.table.TableRowSorter;
  * Classe responsável por gerenciar a Janela de Elos.
  *
  * @author Sérgio Brunetta Júnior
- * @version 10/03/2K16
+ * @version 25/03/2016
  */
 public class GUI_Elo extends javax.swing.JFrame {
 
