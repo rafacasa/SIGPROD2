@@ -1,6 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
+import SIGPROD2.BD.Tables.Elo;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import java.sql.Connection;
@@ -14,12 +15,13 @@ import java.util.ArrayList;
  * remover Elos Tipo K
  *
  * @author Rafael Casa
+ * @version 25/03/2016
  */
 public class EloKDao {
 
-    public static final String INSERT = "INSERT INTO Elo(correnteNominal, preferencial) VALUES (?, ?);";
-    public static final String DELETE = "DELETE FROM Elo WHERE correnteNominal = ?;";
-    public static final String BUSCAR = "SELECT * FROM Elo";
+    public static final String INSERT = "INSERT INTO " + Elo.TABELA + "(" + Elo.CORRENTE_NOMINAL + ", " + Elo.PREFERENCIAL + ") VALUES (?, ?);";
+    public static final String DELETE = "DELETE FROM " + Elo.TABELA + " WHERE " + Elo.CORRENTE_NOMINAL + " = ?;";
+    public static final String BUSCAR = "SELECT * FROM " + Elo.TABELA;
 
     /**
      * Método para inserir um ELO Tipo K no Banco de Dados

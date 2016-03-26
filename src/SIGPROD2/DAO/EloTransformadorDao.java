@@ -1,6 +1,12 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
+import SIGPROD2.BD.Tables.EloTransformadorMono;
+import SIGPROD2.BD.Tables.EloTransformadorTri;
+import SIGPROD2.BD.Tables.KvMono;
+import SIGPROD2.BD.Tables.KvTri;
+import SIGPROD2.BD.Tables.PotenciaMono;
+import SIGPROD2.BD.Tables.PotenciaTri;
 import SIGPROD2.Modelo.Posicao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,33 +19,63 @@ import java.util.ArrayList;
  * remover Elos de Transformador
  *
  * @author Rafael Casa
+ * @version 26/03/2016
  */
 public class EloTransformadorDao {
 
-    private static final String SELECT_ELO_TRI = "SELECT * FROM elotransformadorTri";
-    private static final String SELECT_KV_TRI = "SELECT * FROM kvTri";
-    private static final String SELECT_POT_TRI = "SELECT * FROM potenciaTri";
-    private static final String INSERT_KV_TRI = "INSERT INTO kvTri (id, kv) VALUES (?, ?)";
-    private static final String INSERT_POT_TRI = "INSERT INTO potenciaTri (id, potencia) VALUES (?, ?)";
-    private static final String INSERT_ELO_TRI = "INSERT INTO elotransformadorTri (corrente, tipo, kvId, potenciaId) VALUES (?, ?, ?, ?)";
-    private static final String DELETE_ELO_TRI = "DELETE FROM elotransformadorTri WHERE 1;";
-    private static final String DELETE_KV_TRI = "DELETE FROM kvTri WHERE 1;";
-    private static final String DELETE_POT_TRI = "DELETE FROM potenciaTri WHERE 1;";
+    private static final String SELECT_ELO_TRI = "SELECT * FROM " + EloTransformadorTri.TABELA;
+    private static final String SELECT_KV_TRI = "SELECT * FROM " + KvTri.TABELA;
+    private static final String SELECT_POT_TRI = "SELECT * FROM " + PotenciaTri.TABELA;
+    private static final String INSERT_KV_TRI = "INSERT INTO " + KvTri.TABELA + " ("
+            + KvTri.ID_KV + ", "
+            + KvTri.KV
+            + ") VALUES (?, ?)";
+    private static final String INSERT_POT_TRI = "INSERT INTO " + PotenciaTri.TABELA + " ("
+            + PotenciaTri.ID_POTENCIA + ", "
+            + PotenciaTri.POTENCIA
+            + ") VALUES (?, ?)";
+    private static final String INSERT_ELO_TRI = "INSERT INTO " + EloTransformadorTri.TABELA + " ("
+            + EloTransformadorTri.CORRENTE_ELO + ", "
+            + EloTransformadorTri.TIPO_ELO + ", "
+            + EloTransformadorTri.ID_KV + ", "
+            + EloTransformadorTri.ID_POTENCIA
+            + ") VALUES (?, ?, ?, ?)";
+    private static final String DELETE_ELO_TRI = "DELETE FROM " + EloTransformadorMono.TABELA + " WHERE 1;";
+    private static final String DELETE_KV_TRI = "DELETE FROM " + KvMono.TABELA + " WHERE 1;";
+    private static final String DELETE_POT_TRI = "DELETE FROM " + PotenciaMono.TABELA + " WHERE 1;";
 
-    private static final String SELECT_ELO_MONO = "SELECT * FROM elotransformadorMono";
-    private static final String SELECT_KV_MONO = "SELECT * FROM kvMono";
-    private static final String SELECT_POT_MONO = "SELECT * FROM potenciaMono";
-    private static final String INSERT_KV_MONO = "INSERT INTO kvMono (id, kv) VALUES (?, ?)";
-    private static final String INSERT_POT_MONO = "INSERT INTO potenciaMono (id, potencia) VALUES (?, ?)";
-    private static final String INSERT_ELO_MONO = "INSERT INTO elotransformadorMono (corrente, tipo, kvId, potenciaId) VALUES (?, ?, ?, ?)";
-    private static final String DELETE_ELO_MONO = "DELETE FROM elotransformadorMono WHERE 1;";
-    private static final String DELETE_KV_MONO = "DELETE FROM kvMono WHERE 1;";
-    private static final String DELETE_POT_MONO = "DELETE FROM potenciaMono WHERE 1;";
+    private static final String SELECT_ELO_MONO = "SELECT * FROM " + EloTransformadorMono.TABELA;
+    private static final String SELECT_KV_MONO = "SELECT * FROM " + KvMono.TABELA;
+    private static final String SELECT_POT_MONO = "SELECT * FROM " + PotenciaMono.TABELA;
+    private static final String INSERT_KV_MONO = "INSERT INTO " + KvMono.TABELA + " ("
+            + KvMono.ID_KV + ", "
+            + KvMono.KV
+            + ") VALUES (?, ?)";
+    private static final String INSERT_POT_MONO = "INSERT INTO " + PotenciaMono.TABELA + " ("
+            + PotenciaMono.ID_POTENCIA + ", "
+            + PotenciaMono.POTENCIA
+            + ") VALUES (?, ?)";
+    private static final String INSERT_ELO_MONO = "INSERT INTO " + EloTransformadorMono.TABELA + " ("
+            + EloTransformadorMono.CORRENTE_ELO + ", "
+            + EloTransformadorMono.TIPO_ELO + ", "
+            + EloTransformadorMono.ID_KV + ", "
+            + EloTransformadorMono.ID_POTENCIA
+            + ") VALUES (?, ?, ?, ?)";
+    private static final String DELETE_ELO_MONO = "DELETE FROM " + EloTransformadorMono.TABELA + " WHERE 1;";
+    private static final String DELETE_KV_MONO = "DELETE FROM " + KvMono.TABELA + " WHERE 1;";
+    private static final String DELETE_POT_MONO = "DELETE FROM " + PotenciaMono.TABELA + " WHERE 1;";
 
     private static final String VARIAVEIS_ELO = ", (?, ?, ?, ?)";
     private static final String VARIAVEIS_KV_POT = ", (?, ?)";
 
+    /**
+     * Constante utilizada para referênciar um Elo de Transformador Monofásico.
+     */
     public static final boolean MONOFASICO = false;
+
+    /**
+     * Constante utilizada para referênciar um Elo de Transformador Trifásico.
+     */
     public static final boolean TRIFASICO = true;
 
     /**
