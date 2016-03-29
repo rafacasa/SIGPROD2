@@ -2,6 +2,7 @@ package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.Auxiliar.Mensagem;
 import SIGPROD2.DAO.EloKDao;
 import SIGPROD2.DAO.PontoCurvaDao;
@@ -18,7 +19,7 @@ import javax.swing.table.TableRowSorter;
  * Classe responsável por gerenciar a Janela de Elos.
  *
  * @author Sérgio Brunetta Júnior
- * @version 10/03/2K16
+ * @version 25/03/2016
  */
 public class GUI_Elo extends javax.swing.JFrame {
 
@@ -55,7 +56,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Erro.mostraMensagemSQL(this);
         }
-        
+
     }
 
     /**
@@ -90,6 +91,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         lista = PontoCurvaDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
                 PontoCurva.PONTO_DA_CURVA_MINIMA);
         this.modeloMinimoCarregar.add(lista);
+        selecionado.setCurvaDeMinimaFusao(lista);
     }
 
     /**
@@ -105,6 +107,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         lista = PontoCurvaDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
                 PontoCurva.PONTO_DA_CURVA_MAXIMA);
         this.modeloMaximoCarregar.add(lista);
+        selecionado.setCurvaDeMaximaInterrupcao(lista);
     }
 
     /**
@@ -188,6 +191,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         inserir = new javax.swing.JButton();
         arquivoUm = new javax.swing.JButton();
         apagarDados = new javax.swing.JButton();
+        botaoGraficoInserir = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         type2 = new javax.swing.JLabel();
@@ -208,6 +212,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         botaoDeletar = new javax.swing.JButton();
         botaoAtualizar = new javax.swing.JButton();
         apagarDadosCarregar = new javax.swing.JButton();
+        botaoGrafico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -296,7 +301,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addComponent(addCurvaMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeCurvaMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,6 +425,13 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         });
 
+        botaoGraficoInserir.setText("Gráfico");
+        botaoGraficoInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGraficoInserirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -440,6 +452,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(apagarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoGraficoInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(arquivoUm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -467,7 +481,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(arquivoUm)
                     .addComponent(inserir)
-                    .addComponent(apagarDados))
+                    .addComponent(apagarDados)
+                    .addComponent(botaoGraficoInserir))
                 .addGap(0, 0, 0))
         );
 
@@ -558,7 +573,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addComponent(addCurvaMinimaCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeCurvaMinimaCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -694,6 +709,13 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         });
 
+        botaoGrafico.setText("Gráfico");
+        botaoGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGraficoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -714,6 +736,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(apagarDadosCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -744,7 +768,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addComponent(botaoDeletar)
                     .addComponent(botaoAtualizar)
                     .addComponent(arquivoDois)
-                    .addComponent(apagarDadosCarregar))
+                    .addComponent(apagarDadosCarregar)
+                    .addComponent(botaoGrafico))
                 .addGap(12, 12, 12))
         );
 
@@ -1083,6 +1108,36 @@ public class GUI_Elo extends javax.swing.JFrame {
     }//GEN-LAST:event_apagarDadosCarregarActionPerformed
 
     /**
+     * Método responsável por exibir um gráfico da curva do Elo a ser inserido.
+     * É chamado pelo botão gráfico da primeira aba.
+     *
+     * @param evt O evento ocorrido.
+     */
+    private void botaoGraficoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoInserirActionPerformed
+        EloK elo;
+        if (!this.correnteNominal.getText().equals("")) {
+            elo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                    preferencial.isSelected(),
+                    this.modeloMinimo.getArrayList(),
+                    this.modeloMaximo.getArrayList());
+            Grafico.criarGrafico(elo).setVisible(true);
+        } else {
+            Erro.correnteVazia(this);
+        }
+    }//GEN-LAST:event_botaoGraficoInserirActionPerformed
+
+    /**
+     * Método responsável por exibir um gráfico da curva do Elo recuperado do
+     * Banco de Dados. É chamado pelo botão gráfico da segunda aba.
+     *
+     * @param evt O evento ocorrido.
+     */
+    private void botaoGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoActionPerformed
+        EloK elo = (EloK) this.listaCorrentes.getSelectedItem();
+        Grafico.criarGrafico(elo).setVisible(true);
+    }//GEN-LAST:event_botaoGraficoActionPerformed
+
+    /**
      * Método responsável por ler o arquivo selecionado pelo usuário.
      *
      * @param file O arquivo selecionado pelo usuário.
@@ -1220,6 +1275,8 @@ public class GUI_Elo extends javax.swing.JFrame {
     private javax.swing.JButton arquivoUm;
     private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoDeletar;
+    private javax.swing.JButton botaoGrafico;
+    private javax.swing.JButton botaoGraficoInserir;
     private javax.swing.JTextField correnteNominal;
     private javax.swing.JLabel corrente_nominal;
     private javax.swing.JLabel corrente_nominal2;
