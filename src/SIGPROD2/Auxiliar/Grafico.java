@@ -4,17 +4,16 @@ import SIGPROD2.Modelo.Curvas;
 import SIGPROD2.Modelo.PontoCurva;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogAxis;
-import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.util.LogFormat;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -24,7 +23,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @see org.jfree.chart.JFreeChart
  * @author Rafael Casa
- * @version 25/03/2016
+ * @version 29/03/2016
  */
 public class Grafico {
 
@@ -56,11 +55,13 @@ public class Grafico {
     }
 
     /**
-     * Método responsável por criar e configurar o {@link Render} do gráfico.
+     * Método responsável por criar e configurar o
+     * {@link XYLineAndShapeRenderer} do gráfico.
      *
      * @param curvas Um objeto de uma implementação de
      * {@link SIGPROD2.Modelo.Curvas} do qual será criado o gráfico.
-     * @return O {@link Render} já criado e configurado para o gráfico.
+     * @return O {@link XYLineAndShapeRenderer} já criado e configurado para o
+     * gráfico.
      */
     private static XYLineAndShapeRenderer criarRender(Curvas curvas) {
         XYLineAndShapeRenderer render = new XYLineAndShapeRenderer(true, false);
@@ -85,7 +86,7 @@ public class Grafico {
         LogAxis yAxis = configurarEscala("Corrente");
 
         plot.setRenderer(criarRender(curvas));
-        plot.setBackgroundPaint(Color.DARK_GRAY);
+        plot.setBackgroundPaint(Color.WHITE);
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.BLACK);
         plot.setRangeGridlinesVisible(true);
@@ -103,12 +104,13 @@ public class Grafico {
      */
     private static LogAxis configurarEscala(String nome) {
         LogAxis axis = new LogAxis(nome);
+        DecimalFormat decForm = new DecimalFormat();
 
         axis.setBase(10);
-
-        //LogFormat format = new LogFormat(axis.getBase(), "", "", true);   //1
-        //axis.setNumberFormatOverride(format);
-        //axis.setStandardTickUnits(NumberAxis.createStandardTickUnits());  //2
+        axis.setMinorTickCount(10);
+        axis.setMinorTickMarksVisible(true);
+        axis.setBase(10);
+        axis.setNumberFormatOverride(decForm);
         return axis;
     }
 
