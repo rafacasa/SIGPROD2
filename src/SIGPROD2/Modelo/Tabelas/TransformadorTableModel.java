@@ -53,7 +53,7 @@ public class TransformadorTableModel extends DefaultTableModel {
             else   
                 p.add(a1.toString());
         }
-        this.pos.add(new ArrayList<String>());
+        this.pos.add(new ArrayList<>());
         this.pos.get(getRowCount() - 1).addAll(p);        
         for (Posicao a1 : a) {
             System.out.print(a1.toString() + " ");
@@ -62,23 +62,6 @@ public class TransformadorTableModel extends DefaultTableModel {
         fireTableCellUpdated(0, 0);
     }
     
-    public String[][] getDataArray() {
-        if (pos.size() > 0) {
-            if (pos.get(0).size() > 0) {
-                String[][] vetor = new String[pos.size()][pos.get(0).size()];
-                for (int i = 0; i < pos.size(); i++) {
-                    ArrayList<String> linha = pos.get(i);
-                    for (int j = 0; j < linha.size(); j++) {
-                        vetor[i][j] = linha.get(j);
-                        System.out.println(linha.get(j));
-                    }
-                }
-                return vetor;
-            }
-        }
-        return new String[0][0];
-    }
-
     @Override
     public int getColumnCount() {
         return titulos.size();

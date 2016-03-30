@@ -199,9 +199,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atualizar"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizaMonofasicoActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -353,9 +350,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atualizar"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizaTrifasicoActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

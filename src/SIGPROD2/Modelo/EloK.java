@@ -6,9 +6,8 @@ import java.util.ArrayList;
  * Esta clsse representa um Elo de Tipo K
  *
  * @author Rafael Casa
- * @version 25/03/2016
  */
-public class EloK implements Curvas {
+public class EloK {
 
     private int correnteNominal;
     private boolean preferencial;
@@ -77,51 +76,5 @@ public class EloK implements Curvas {
     @Override
     public String toString() {
         return String.valueOf(this.correnteNominal);
-    }
-
-    @Override
-    public String getTitulo() {
-        return "Grafico do Elo " + this.getCorrenteNominal();
-    }
-
-    @Override
-    public int getQtdCurvas() {
-        return 2;
-    }
-
-    @Override
-    public String getNomeCurva(int index) {
-        switch (index) {
-            case 0:
-                return "Curva de Mínima Fusão";
-            case 1:
-                return "Curva de Máxima Interrupção";
-            default:
-                throw new ArrayIndexOutOfBoundsException(index);
-        }
-    }
-
-    @Override
-    public ArrayList<PontoCurva> getCurva(int index) {
-        switch (index) {
-            case 0:
-                return getCurvaDeMinimaFusao();
-            case 1:
-                return getCurvaDeMaximaInterrupcao();
-            default:
-                throw new ArrayIndexOutOfBoundsException(index);
-        }
-    }
-
-    @Override
-    public java.awt.Paint getCurvaPaint(int index) {
-        switch (index) {
-            case 0:
-                return java.awt.Color.GREEN;
-            case 1:
-                return java.awt.Color.RED;
-            default:
-                throw new ArrayIndexOutOfBoundsException(index);
-        }
     }
 }

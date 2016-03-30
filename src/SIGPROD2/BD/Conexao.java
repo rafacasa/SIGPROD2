@@ -3,7 +3,6 @@
  */
 package SIGPROD2.BD;
 
-import SIGPROD2.Auxiliar.Erro;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,12 +12,17 @@ import java.sql.SQLException;
  * o banco de dados.
  *
  * @author Adrian Borba
- * @author Rafael Casa
- * @version 22/03/2016
  */
 public class Conexao {
 
     private static Connection conexao;
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String NOME_BD = "sigProdBd";
+    private static final String IP = "127.0.0.1";
+    private static final String PORTA = "3306";
+    private static final String JDBC = "jdbc:mysql://" + IP + ":" + PORTA + "/" + NOME_BD;
+    private static final String USUARIO = "root";
+    private static final String SENHA = "root";
 
     /**
      * Método que fecha a conexao armazenada, caso haja uma. Caso não tenha
@@ -48,21 +52,18 @@ public class Conexao {
      */
     private static Connection abreConexao() throws SQLException {
         try {
-            DadosConexao dados = DadosConexao.getDadosConexaoSalvos();
-            String jbdc = dados.getStringJBDC();
-            String usuario = dados.getUsuario();
-            String senha = dados.getSenha();
-            conexao = DriverManager.getConnection(jbdc, usuario, senha);
+            conexao = DriverManager.getConnection(JDBC, USUARIO, SENHA);
             return conexao;
-        } catch (DadosConexaoException ex) {
-            Erro.configureBancoDados(null);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Falha ao conectar à base de dados:");
         }
         return null;
     }
 
     /**
      * Método que retorna uma conexão com o banco de dados para ser usada. Esta
-     * conexão deve ser fechada pelo método {@link #fechaConexao() }
+     * conexão deve ser fechada pelo método Conexao.fechaconexao()
      *
      * @return A conexão com o banco de dados
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados

@@ -47,14 +47,6 @@ public class Posicao {
         this.corrente = corrente;
     }
 
-    public static Posicao getPosicao(String texto) {
-        Posicao temp = new Posicao();
-        String[] split = texto.split(":");
-        temp.setTipo(split[1]);
-        temp.setCorrente(Integer.parseInt(split[0]));
-        return temp;
-    }
-    
     @Override
     public String toString() {
         if (this.corrente == 0 && this.tipo == null) {
@@ -64,7 +56,7 @@ public class Posicao {
                 return String.valueOf(this.corrente) + " kVA ";
             }
         }
-        return this.corrente + ":" + this.tipo;
+        return this.corrente + " : " + this.tipo;
     }
     
     

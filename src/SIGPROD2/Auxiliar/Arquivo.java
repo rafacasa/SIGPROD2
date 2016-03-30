@@ -100,6 +100,21 @@ public class Arquivo {
         return "";
     }
     
+    /*public void substituiArquivo(String novoTexto) {
+        File arquivo = new File(getNome());
+        arquivo.delete();
+
+        arquivo = new File(getNome());
+        try {
+            arquivo.createNewFile();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        abreArquivo();
+        escreverArquivo(novoTexto);
+        fechaArquivoSaida();
+    }*/
+
     public boolean existeArquivo() {
         return (new File(getNome())).exists();
     }
