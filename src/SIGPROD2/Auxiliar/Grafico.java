@@ -11,6 +11,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogAxis;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -89,8 +90,12 @@ public class Grafico {
         plot.setBackgroundPaint(Color.WHITE);
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.BLACK);
+        plot.setDomainMinorGridlinesVisible(true);
+        plot.setDomainMinorGridlinePaint(Color.BLACK);
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.BLACK);
+        plot.setRangeMinorGridlinesVisible(true);
+        plot.setRangeMinorGridlinePaint(Color.BLACK);
         plot.setDomainAxis(xAxis);
         plot.setRangeAxis(yAxis);
     }
@@ -107,9 +112,10 @@ public class Grafico {
         DecimalFormat decForm = new DecimalFormat();
 
         axis.setBase(10);
-        axis.setMinorTickCount(10);
+        axis.setMinorTickCount(8);
         axis.setMinorTickMarksVisible(true);
         axis.setBase(10);
+        axis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         axis.setNumberFormatOverride(decForm);
         return axis;
     }
