@@ -60,7 +60,7 @@ public class ReleEletromecanico extends Rele {
         }
     }
 
-    public void addDialDeTempo(int tipo, int correntePickup, double dialTempo) {
+    public void addDialDeTempo(int tipo, double correntePickup, double dialTempo) {
         if (tipo == INVERSA_FASE) {
             this.mapaFasePickupTempo.get(correntePickup).add(new DialDeTempoMecanico(dialTempo));
         } else if (tipo == INVERSA_NEUTRO) {

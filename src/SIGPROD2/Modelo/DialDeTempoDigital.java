@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * @version 
  */
 public class DialDeTempoDigital {
-    private ArrayList<CaracteristicaCurva> caracteristicasCurva;
+    //private ArrayList<CaracteristicaCurva> caracteristicasCurva;
     private double dial;
 
     public DialDeTempoDigital(double dial) {
-        this.caracteristicasCurva = new ArrayList<>();
+        //this.caracteristicasCurva = new ArrayList<>();
         this.dial = dial;
     }
     

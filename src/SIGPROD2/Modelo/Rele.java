@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Rafael Casa
  * @version 30/03/2016
  */
-public abstract class Rele /*implements Curvas */{
+public abstract class Rele {
 
     private String fabricante;
     private String modelo;
@@ -51,6 +51,14 @@ public abstract class Rele /*implements Curvas */{
 
     public void setCorrentePickup(ArrayList<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, corrente);
+    }
+
+    public void setCorrentePickup(String[] correntes, int tipo) {
+        ArrayList<Double> lista = new ArrayList<>();
+        for (String aInserir : correntes) {
+            lista.add(Double.parseDouble(aInserir.trim()));
+        }
+        this.correntePickup.set(tipo, lista);
     }
 
     public void addCorrentePickup(double corrente, int tipo) {
