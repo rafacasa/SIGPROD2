@@ -24,9 +24,36 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @see org.jfree.chart.JFreeChart
  * @author Rafael Casa
- * @version 29/03/2016
+ * @version 01/04/2016
  */
 public class Grafico {
+
+    /**
+     * Variáveis que guardam os limites dos dados que serão exibidos no Gráfico
+     * para ajudar a renderizar corretamente a escala Logarítmica.
+     */
+    private static double maxX = Double.MIN_VALUE,
+            minX = Double.MAX_VALUE,
+            maxY = Double.MIN_VALUE,
+            minY = Double.MAX_VALUE;
+
+    /**
+     * Método que verifica e atualiza as variáveis de mínimo e máximo dos dados
+     * do Gráfico.
+     *
+     * @param dados Os dados de uma curva do Gráfico.
+     */
+    private static void verificarLimites(XYSeries dados) {
+        double atualMaxX = dados.getMaxX();
+        double atualMinX = dados.getMinX();
+        double atualMaxY = dados.getMaxY();
+        double atualMinY = dados.getMinY();
+
+        maxX = atualMaxX > maxX ? atualMaxX : maxX;
+        minX = atualMinX < minX ? atualMinX : minX;
+        maxY = atualMaxY > maxY ? atualMaxY : maxY;
+        minY = atualMinY < minY ? atualMinY : minY;
+    }
 
     /**
      * Método responsável por criar um Dataset com todos os dados das curvas a
@@ -48,10 +75,12 @@ public class Grafico {
             pontos = curvas.getCurva(i);
 
             for (PontoCurva ponto : pontos) {
-                curva.add(ponto.getTempo(), ponto.getCorrente());
+                curva.add(ponto.getCorrente(), ponto.getTempo());
             }
+            verificarLimites(curva);
             conjuntoLinhas.addSeries(curva);
         }
+
         return conjuntoLinhas;
     }
 
@@ -76,6 +105,18 @@ public class Grafico {
     }
 
     /**
+     * Método responsável por calcular o expoente da potência inteira de base 10
+     * imediatamnte superior ao numero recebido.
+     *
+     * @param numero O número que se deseja calcular o expoente.
+     * @return O expoente.
+     */
+    public static double getExpoente(double numero) {
+        double log = Math.log10(numero);
+        return Math.ceil(log);
+    }
+
+    /**
      * Método responsável por configurar a exibição do gráfico.
      *
      * @param plot O {@link Plot} do gráfico.
@@ -83,8 +124,8 @@ public class Grafico {
      * {@link SIGPROD2.Modelo.Curvas} do qual será criado o gráfico.
      */
     private static void configurarPlot(XYPlot plot, Curvas curvas) {
-        LogAxis xAxis = configurarEscala("Tempo");
-        LogAxis yAxis = configurarEscala("Corrente");
+        LogAxis xAxis = configurarEscala("Corrente", 0);
+        LogAxis yAxis = configurarEscala("Tempo", 1);
 
         plot.setRenderer(criarRender(curvas));
         plot.setBackgroundPaint(Color.WHITE);
@@ -104,19 +145,30 @@ public class Grafico {
      * Método responsável por configurar a escala do gráfico, eixo por eixo.
      *
      * @param nome O nome do eixo a ser configurado.
+     * @param eixo 0 para eixo X, 1 para eixo Y.
      * @return Um objeto da classe {@link LogAxis} que representa o eixo
      * configurado.
      */
-    private static LogAxis configurarEscala(String nome) {
+    private static LogAxis configurarEscala(String nome, int eixo) {
         LogAxis axis = new LogAxis(nome);
         DecimalFormat decForm = new DecimalFormat();
+        double minimo = eixo == 0 ? minX : minY;
+        double maximo = eixo == 0 ? maxX : maxY;
+        double min10;
+        double max10 = Math.pow(10, getExpoente(maximo));
 
+        if (minimo < 1) {
+            min10 = Math.pow(10, getExpoente(minimo) - 1.1);
+        } else {
+            min10 = Math.pow(10, getExpoente(minimo) - 1);
+        }
         axis.setBase(10);
         axis.setMinorTickCount(8);
         axis.setMinorTickMarksVisible(true);
         axis.setBase(10);
         axis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         axis.setNumberFormatOverride(decForm);
+        axis.setRange(min10, max10 + 1);
         return axis;
     }
 
@@ -131,8 +183,8 @@ public class Grafico {
         JFrame janela = new JFrame(curvas.getTitulo());
         XYDataset dados = getDataSet(curvas);
         JFreeChart grafico = ChartFactory.createXYLineChart(curvas.getTitulo(),
-                "Tempo",
                 "Corrente",
+                "Tempo",
                 dados,
                 PlotOrientation.VERTICAL,
                 true,
