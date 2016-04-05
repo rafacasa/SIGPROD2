@@ -18,6 +18,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleInsets;
 
 /**
  * Classe responsável por criar um Gráfico com informações recebidas.
@@ -155,7 +156,7 @@ public class Grafico {
         double minimo = eixo == 0 ? minX : minY;
         double maximo = eixo == 0 ? maxX : maxY;
         double min10;
-        double max10 = Math.pow(10, getExpoente(maximo));
+        double max10 = Math.pow(10, getExpoente(maximo)) + Math.pow(10, getExpoente(maximo) - 1);
 
         if (minimo < 1) {
             min10 = Math.pow(10, getExpoente(minimo) - 1.1);
