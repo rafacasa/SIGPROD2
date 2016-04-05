@@ -124,8 +124,8 @@ public class Grafico {
      * {@link SIGPROD2.Modelo.Curvas} do qual será criado o gráfico.
      */
     private static void configurarPlot(XYPlot plot, Curvas curvas) {
-        LogAxis xAxis = configurarEscala("Corrente", 0);
-        LogAxis yAxis = configurarEscala("Tempo", 1);
+        LogAxis xAxis = configurarEscala("Corrente (A)", 0);
+        LogAxis yAxis = configurarEscala("Tempo (s)", 1);
 
         plot.setRenderer(criarRender(curvas));
         plot.setBackgroundPaint(Color.WHITE);
@@ -183,8 +183,8 @@ public class Grafico {
         JFrame janela = new JFrame(curvas.getTitulo());
         XYDataset dados = getDataSet(curvas);
         JFreeChart grafico = ChartFactory.createXYLineChart(curvas.getTitulo(),
-                "Corrente",
-                "Tempo",
+                "Corrente (A)",
+                "Tempo (s)",
                 dados,
                 PlotOrientation.VERTICAL,
                 true,
