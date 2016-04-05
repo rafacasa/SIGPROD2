@@ -1,6 +1,7 @@
 package SIGPROD2.Modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,8 +14,8 @@ public abstract class Rele {
     private String modelo;
     private int tipo;
     private int codigo;
-    private ArrayList<ArrayList<Double>> correntePickup;
-    private ArrayList<Double> fatorInicio;
+    private List<List<Double>> correntePickup;
+    private List<Double> fatorInicio;
 
     public static final int DIGITAL = 0;
     public static final int ELETROMECANICO = 1;
@@ -41,7 +42,7 @@ public abstract class Rele {
         return this.fatorInicio.get(tipo);
     }
 
-    public ArrayList<Double> getCorrentePickup(int tipo) {
+    public List<Double> getCorrentePickup(int tipo) {
         return this.correntePickup.get(tipo);
     }
 
@@ -49,7 +50,7 @@ public abstract class Rele {
         this.fatorInicio.set(tipo, fator);
     }
 
-    public void setCorrentePickup(ArrayList<Double> corrente, int tipo) {
+    public void setCorrentePickup(List<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, corrente);
     }
 

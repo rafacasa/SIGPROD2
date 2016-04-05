@@ -8,7 +8,6 @@ import SIGPROD2.Modelo.ReleEletromecanico;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -1439,17 +1438,17 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarCorrenteTempFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarCorrenteTempFaseActionPerformed
         int selecionado = this.temporizadaFase.getSelectedIndex();
-        this.novoRele.setFatorInicio(Double.parseDouble(this.fatorInicioTempFase.getText()), Rele.TEMPORIZADO_FASE);
+        this.novoRele.setFatorInicio(Double.parseDouble(this.fatorInicioTempFase.getText()), Rele.INVERSA_FASE);
         if (this.novoRele.isDigital()) {
             ((ReleDigital) this.novoRele).setCorrentePickup(
                     Double.parseDouble(this.correnteMinimoTempFaseDigital.getText()),
                     Double.parseDouble(this.correnteMaximoTempFaseDigital.getText()),
                     Double.parseDouble(this.correntePassoTempFaseDigital.getText()),
-                    Rele.TEMPORIZADO_FASE);
+                    Rele.INVERSA_FASE);
         } else {
             ((ReleEletromecanico) this.novoRele).setCorrentePickup(
                     this.correntesTempFaseEletro.getText(),
-                    Rele.TEMPORIZADO_FASE);
+                    Rele.INVERSA_FASE);
             carregarCorrentesPickupFaseEletromecanico();
         }
         this.temporizadaFase.setSelectedIndex(selecionado + 1);

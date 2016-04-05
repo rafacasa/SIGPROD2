@@ -4,7 +4,6 @@ CREATE DATABASE sigProdBd;
 
 use sigProdBd;
 
-
 CREATE TABLE Elo (	
 	correnteNominal INT PRIMARY KEY,
     preferencial BOOLEAN
@@ -67,53 +66,37 @@ CREATE TABLE ElotransformadorTri (
 ) ENGINE = innodb;
 
 CREATE TABLE Rele (
-    codigo INT AUTO_INCREMENT PRIMARY KEY,
-    fabricante VARCHAR(50),
-    modelo VARCHAR(50),
-    isDigital BOOLEAN,
-    pickupTempFase VARCHAR(1000),
-    pickupTempNeutro VARCHAR(1000),
-    pickupInstFase VARCHAR(1000),
-    pickupInstNeutro VARCHAR(1000),
-    fatorInicioTempFase VARCHAR(50),
-    fatorInicioTempNeutro VARCHAR(50),
-    fatorInicioInstFase VARCHAR(50),
-    fatorInicioInstNeutro VARCHAR(50)
+	codigo INT AUTO_INCREMENT PRIMARY KEY,
+	fabricante VARCHAR(50),
+	modelo VARCHAR(50),
+	isDigital BOOLEAN,
+	fatorInicioInvFase DOUBLE,
+	fatorInicioInvNeutro DOUBLE,
+	fatorInicioDefFase DOUBLE,
+	fatorInicioDefNeutro DOUBLE
 ) ENGINE = innodb;
 
-CREATE TABLE CurvaEletromecanica (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    codigoRele INT,
-    correntePickup DOUBLE,
-    dialTempo DOUBLE,
-    isFase BOOLEAN,
-    FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
+CREATE TABLE CorrentePickupDefinido (
+	codigoRele INT,
+	correntePickup DOUBLE,
+	isFase BOOLEAN,
+	PRIMARY KEY (codigoRele, correntePickup, isFase),
+	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE PontoCurvaEletromecanica (
-    idCurva INT,
+CREATE TABLE DialTempoMecanico (
+	codigoRele INT,
+	correntePickup DOUBLE,
+	isFase BOOLEAN,
+	dial DOUBLE,
+	codigo INT AUTO_INCREMENT PRIMARY KEY,
+	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE PontoCurvaDialMecanico (
     idPontoCurva INT,
-    FOREIGN KEY (idCurva) REFERENCES CurvaEletromecanica(id),
+    codDialMecanico INT,
+    FOREIGN KEY (codDialMecanico) REFERENCES DialTempoMecanico(codigo),
     FOREIGN KEY (idPontoCurva) REFERENCES PontoCurva(id),
-    PRIMARY KEY (idPontoCurva, idCurva)
-) ENGINE = innodb;
-
-CREATE TABLE CurvaDigital(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    codigoRele INT,
-    isFase BOOLEAN,
-    minimoTempo DOUBLE,
-    maximoTempo DOUBLE,
-    passoTempo DOUBLE,
-    FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
-) ENGINE = innodb;
-
-CREATE TABLE CaracteristicaCurvaDigital(
-    idCurva INT,
-    nome VARCHAR(50),
-    a DOUBLE,
-    b DOUBLE,
-    p DOUBLE,
-    PRIMARY KEY (idCurva, nome),
-    FOREIGN KEY (idCurva) REFERENCES CurvaDigital(id)
+    PRIMARY KEY (idPontoCurva, correnteElo)
 ) ENGINE = innodb;
