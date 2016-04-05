@@ -18,14 +18,13 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.RectangleInsets;
 
 /**
  * Classe responsável por criar um Gráfico com informações recebidas.
  *
  * @see org.jfree.chart.JFreeChart
  * @author Rafael Casa
- * @version 01/04/2016
+ * @version 05/04/2016
  */
 public class Grafico {
 
