@@ -1,7 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.Elo;
+import SIGPROD2.BD.Tables.EloBD;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import java.sql.Connection;
@@ -19,31 +19,31 @@ import java.util.ArrayList;
  */
 public class EloKDao {
 
-    public static final String INSERT = "INSERT INTO " + Elo.TABELA + "(" + Elo.CORRENTE_NOMINAL + ", " + Elo.PREFERENCIAL + ") VALUES (?, ?);";
-    public static final String DELETE = "DELETE FROM " + Elo.TABELA + " WHERE " + Elo.CORRENTE_NOMINAL + " = ?;";
-    public static final String BUSCAR = "SELECT * FROM " + Elo.TABELA;
+    public static final String INSERT = "INSERT INTO " + EloBD.TABELA + "(" + EloBD.CORRENTE_NOMINAL + ", " + EloBD.PREFERENCIAL + ") VALUES (?, ?);";
+    public static final String DELETE = "DELETE FROM " + EloBD.TABELA + " WHERE " + EloBD.CORRENTE_NOMINAL + " = ?;";
+    public static final String BUSCAR = "SELECT * FROM " + EloBD.TABELA;
 
     /**
      * Método para inserir um ELO Tipo K no Banco de Dados
      *
-     * @param eloParaInserir As informações do Elo a ser Inserido
+     * @param eloParaInserir As informações do EloBD a ser Inserido
      * @throws java.sql.SQLException Caso houver erro de acesso ao Banco de
      * Dados, ou os Dados forem inválidos
      */
     public static void insereEloK(EloK eloParaInserir) throws SQLException {
         inserirEloK(eloParaInserir);
 
-        PontoCurvaDao.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
+        PontoCurvaEloDao.inserePontoCurva(eloParaInserir.getCurvaDeMinimaFusao(),
                 PontoCurva.PONTO_DA_CURVA_MINIMA,
                 eloParaInserir.getCorrenteNominal());
 
-        PontoCurvaDao.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
+        PontoCurvaEloDao.inserePontoCurva(eloParaInserir.getCurvaDeMaximaInterrupcao(),
                 PontoCurva.PONTO_DA_CURVA_MAXIMA,
                 eloParaInserir.getCorrenteNominal());
     }
 
     /**
-     * Método responsável por inserir as informações de um Elo tipo K na
+     * Método responsável por inserir as informações de um EloBD tipo K na
      * respectiva tabela do Banco de Dados
      *
      * @param eloParaInserir O elo a ser inserido
@@ -62,12 +62,12 @@ public class EloKDao {
     /**
      * Método para deletar um ELO Tipo K no Banco de Dados
      *
-     * @param eloParaDeletar As informações do Elo a ser deletado
+     * @param eloParaDeletar As informações do EloBD a ser deletado
      * @throws java.sql.SQLException Caso houver erro de acesso ao Banco de
      * Dados, ou os Dados forem inválidos
      */
     public static void deletaEloK(EloK eloParaDeletar) throws SQLException {
-        PontoCurvaDao.deletaPontosCurvaDoElo(eloParaDeletar);
+        PontoCurvaEloDao.deletaPontosCurvaDoElo(eloParaDeletar);
         Connection conexao = Conexao.getConexao();
         try (PreparedStatement comando = conexao.prepareStatement(DELETE)) {
             comando.setInt(1, eloParaDeletar.getCorrenteNominal());
@@ -104,12 +104,12 @@ public class EloKDao {
      *
      * @param elo o elo (contendo corrente nominal e preferencial) a ser
      * carregado com os pontos de curva
-     * @return O Elo já carregado com os pontos de curva
+     * @return O EloBD já carregado com os pontos de curva
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados
      */
     public static EloK buscarEloK(EloK elo) throws SQLException {
-        elo.setCurvaDeMinimaFusao(PontoCurvaDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MINIMA));
-        elo.setCurvaDeMaximaInterrupcao(PontoCurvaDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MAXIMA));
+        elo.setCurvaDeMinimaFusao(PontoCurvaEloDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MINIMA));
+        elo.setCurvaDeMaximaInterrupcao(PontoCurvaEloDao.buscaPontosCurva(elo.getCorrenteNominal(), PontoCurva.PONTO_DA_CURVA_MAXIMA));
         return elo;
     }
 }

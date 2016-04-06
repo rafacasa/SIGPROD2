@@ -2,17 +2,17 @@ package SIGPROD2.BD.Tables;
 
 /**
  * Classe responsável por manter os nomes das colunas e da tabela de Pontos de
- * Curva.
+ * Curva de um Elo.
  *
  * @author Rafael Casa
- * @version 23/03/2016
+ * @version 06/04/2016
  */
-public class PontoDeCurva {
+public class PontoDeCurvaEloBD {
 
+    public static String ID = "id";
     public static String CORRENTE = "corrente";
     public static String TEMPO = "tempo";
     public static String EH_CURVA_DE_MAXIMA = "ehCurvaDeMaxima";
     public static String CORRENTE_DO_ELO = "correnteElo";
-    public static String ID = "Id";
-    public static String TABELA = "PontoCurva";
+    public static String TABELA = "PontoCurvaElo";
 }

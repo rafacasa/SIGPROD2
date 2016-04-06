@@ -9,21 +9,6 @@ CREATE TABLE Elo (
     preferencial BOOLEAN
 ) ENGINE = innodb;
 
-CREATE TABLE PontoCurva (
-    corrente DOUBLE,
-	tempo DOUBLE,
-	id INT AUTO_INCREMENT PRIMARY KEY
-) ENGINE = innodb;
-
-CREATE TABLE PontoCurvaElo (
-    idPontoCurva INT,
-    correnteElo INT,
-    ehCurvaDeMaxima BOOLEAN,
-    FOREIGN KEY (correnteElo) REFERENCES Elo(correnteNominal),
-    FOREIGN KEY (idPontoCurva) REFERENCES PontoCurva(id),
-    PRIMARY KEY (idPontoCurva, correnteElo)
-) ENGINE = innodb;
-
 CREATE TABLE PotenciaMono (
     id INT PRIMARY KEY,
     potencia VARCHAR(6)
@@ -40,8 +25,8 @@ CREATE TABLE ElotransformadorMono (
     tipo VARCHAR(1),
     corrente VARCHAR(5),
     id int AUTO_INCREMENT PRIMARY KEY,
-    FOREIGN KEY (potenciaId) REFERENCES potenciaMono(id),
-    FOREIGN KEY (kvId) REFERENCES kvMono(id)
+    FOREIGN KEY (potenciaId) REFERENCES PotenciaMono(id),
+    FOREIGN KEY (kvId) REFERENCES KvMono(id)
 ) ENGINE = innodb;
 
 
@@ -61,8 +46,8 @@ CREATE TABLE ElotransformadorTri (
     tipo VARCHAR(1),
     corrente INT,
     id int AUTO_INCREMENT PRIMARY KEY,
-    FOREIGN KEY (potenciaId) REFERENCES potenciaTri(id),
-    FOREIGN KEY (kvId) REFERENCES kvTri(id)
+    FOREIGN KEY (potenciaId) REFERENCES PotenciaTri(id),
+    FOREIGN KEY (kvId) REFERENCES KvTri(id)
 ) ENGINE = innodb;
 
 CREATE TABLE Rele (
@@ -84,19 +69,22 @@ CREATE TABLE CorrentePickupDefinido (
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE DialTempoMecanico (
-	codigoRele INT,
+CREATE TABLE PontoCurvaElo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    corrente DOUBLE,
+	tempo DOUBLE,
+	correnteElo INT,
+    ehCurvaDeMaxima BOOLEAN,
+    FOREIGN KEY (correnteElo) REFERENCES Elo(correnteNominal)
+) ENGINE = innodb;
+
+CREATE TABLE PontoCurvaRele (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    corrente DOUBLE,
+	tempo DOUBLE,
 	correntePickup DOUBLE,
 	isFase BOOLEAN,
 	dial DOUBLE,
-	codigo INT AUTO_INCREMENT PRIMARY KEY,
+	codigoRele INT,
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
-) ENGINE = innodb;
-
-CREATE TABLE PontoCurvaDialMecanico (
-    idPontoCurva INT,
-    codDialMecanico INT,
-    FOREIGN KEY (codDialMecanico) REFERENCES DialTempoMecanico(codigo),
-    FOREIGN KEY (idPontoCurva) REFERENCES PontoCurva(id),
-    PRIMARY KEY (idPontoCurva, correnteElo)
-) ENGINE = innodb;
+)
