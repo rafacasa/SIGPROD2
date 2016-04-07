@@ -1,7 +1,15 @@
 package SIGPROD2.DAO;
 
+import SIGPROD2.BD.Conexao;
 import SIGPROD2.BD.Tables.PontoDeCurvaReleBD;
+import SIGPROD2.Modelo.DialDeTempoMecanico;
+import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
+import SIGPROD2.Modelo.ReleEletromecanico;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e
@@ -30,9 +38,43 @@ public class PontoCurvaReleDao {
         }
         return comando;
     }
-    
-    private static void inserePontosCurva(Rele releParaInserir)
-    {
-        
+
+    public static void inserirPontosCurva(ReleEletromecanico releParaInserir) throws SQLException {
+        int qtd = 0; //correntes.size(); FAZER CONTAGEM DE PONTOS CURVA NO RELE.....
+        String comandoString = montarComando(qtd);
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(comandoString);
+
+        int parou = inserePontosCurva(releParaInserir, comando, Rele.INVERSA_FASE, 0);
+        inserePontosCurva(releParaInserir, comando, Rele.INVERSA_NEUTRO, parou);
+        comando.executeUpdate();
+        Conexao.fechaConexao();
+    }
+
+    private static int inserePontosCurva(ReleEletromecanico releParaInserir, PreparedStatement comando, int tipo, int inicio) throws SQLException {
+        List<Double> listaCorrentes = releParaInserir.getCorrentePickup(tipo);
+        List<DialDeTempoMecanico> listaDial;
+        List<PontoCurva> listaPontosCurva;
+        int contador = inicio;
+
+        for (double corrente : listaCorrentes) {
+            listaDial = releParaInserir.getDialTempo(corrente, tipo);
+
+            for (DialDeTempoMecanico dial : listaDial) {
+                listaPontosCurva = dial.getPontosCurva();
+
+                for (PontoCurva ponto : listaPontosCurva) {
+                    comando.setDouble(contador + 1, ponto.getCorrente());
+                    comando.setDouble(contador + 2, ponto.getTempo());
+                    comando.setDouble(contador + 3, corrente);
+                    comando.setBoolean(contador + 4, tipo == Rele.INVERSA_FASE);
+                    comando.setDouble(contador + 5, dial.getDial());
+                    comando.setInt(contador + 6, releParaInserir.getCodigo());
+
+                    contador += 6;
+                }
+            }
+        }
+        return contador;
     }
 }

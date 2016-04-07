@@ -69,4 +69,9 @@ public class ReleEletromecanico extends Rele {
             throw new IllegalArgumentException();
         }
     }
+    
+    public ArrayList<DialDeTempoMecanico> getDialTempo (double corrente, int tipo)
+    {
+        return tipo == Rele.INVERSA_FASE ? this.mapaFasePickupTempo.get(corrente) : this.mapaNeutroPickupTempo.get(corrente);
+    }
 }
