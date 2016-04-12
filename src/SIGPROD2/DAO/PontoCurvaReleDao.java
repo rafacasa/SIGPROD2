@@ -2,7 +2,6 @@ package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
 import SIGPROD2.BD.Tables.PontoDeCurvaReleBD;
-import SIGPROD2.Modelo.DialDeTempoMecanico;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleEletromecanico;
@@ -40,7 +39,7 @@ public class PontoCurvaReleDao {
     }
 
     public static void inserirPontosCurva(ReleEletromecanico releParaInserir) throws SQLException {
-        int qtd = 0; //correntes.size(); FAZER CONTAGEM DE PONTOS CURVA NO RELE.....
+        int qtd = releParaInserir.getQtdPontosCurva();
         String comandoString = montarComando(qtd);
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoString);
@@ -53,22 +52,22 @@ public class PontoCurvaReleDao {
 
     private static int inserePontosCurva(ReleEletromecanico releParaInserir, PreparedStatement comando, int tipo, int inicio) throws SQLException {
         List<Double> listaCorrentes = releParaInserir.getCorrentePickup(tipo);
-        List<DialDeTempoMecanico> listaDial;
+        List<Double> listaDial;
         List<PontoCurva> listaPontosCurva;
         int contador = inicio;
 
         for (double corrente : listaCorrentes) {
-            listaDial = releParaInserir.getDialTempo(corrente, tipo);
+            listaDial = releParaInserir.getDialDeTempo(tipo, corrente);
 
-            for (DialDeTempoMecanico dial : listaDial) {
-                listaPontosCurva = dial.getPontosCurva();
+            for (double dial : listaDial) {
+                listaPontosCurva = releParaInserir.getPontosDialDeTempo(corrente, dial, tipo);
 
                 for (PontoCurva ponto : listaPontosCurva) {
                     comando.setDouble(contador + 1, ponto.getCorrente());
                     comando.setDouble(contador + 2, ponto.getTempo());
                     comando.setDouble(contador + 3, corrente);
                     comando.setBoolean(contador + 4, tipo == Rele.INVERSA_FASE);
-                    comando.setDouble(contador + 5, dial.getDial());
+                    comando.setDouble(contador + 5, dial);
                     comando.setInt(contador + 6, releParaInserir.getCodigo());
 
                     contador += 6;

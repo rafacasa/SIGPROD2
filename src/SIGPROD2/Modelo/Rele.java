@@ -14,7 +14,6 @@ public abstract class Rele {
     private String modelo;
     private int tipo;
     private int codigo;
-    private List<List<Double>> correntePickup;
     private List<Double> fatorInicio;
 
     public static final int DIGITAL = 0;
@@ -25,45 +24,15 @@ public abstract class Rele {
     public static final int DEFINIDO_NEUTRO = 3;
 
     public Rele() {
-        this.correntePickup = new ArrayList();
-        this.fatorInicio = new ArrayList();
-
-        this.correntePickup.add(new ArrayList());
-        this.correntePickup.add(new ArrayList());
-        this.correntePickup.add(new ArrayList());
-        this.correntePickup.add(new ArrayList());
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
+        this.fatorInicio = new ArrayList(4);
     }
 
-    public Double getFatorInicio(int tipo) {
+    public double getFatorInicio(int tipo) {
         return this.fatorInicio.get(tipo);
     }
 
-    public List<Double> getCorrentePickup(int tipo) {
-        return this.correntePickup.get(tipo);
-    }
-
-    public void setFatorInicio(double fator, int tipo) {
-        this.fatorInicio.set(tipo, fator);
-    }
-
-    public void setCorrentePickup(List<Double> corrente, int tipo) {
-        this.correntePickup.set(tipo, corrente);
-    }
-
-    public void setCorrentePickup(String[] correntes, int tipo) {
-        ArrayList<Double> lista = new ArrayList<>();
-        for (String aInserir : correntes) {
-            lista.add(Double.parseDouble(aInserir.trim()));
-        }
-        this.correntePickup.set(tipo, lista);
-    }
-
-    public void addCorrentePickup(double corrente, int tipo) {
-        this.correntePickup.get(tipo).add(corrente);
+    public void addFatorInicio(double fator, int tipo) {
+        this.fatorInicio.add(tipo, fator);
     }
 
     public String getFabricante() {

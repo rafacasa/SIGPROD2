@@ -17,6 +17,11 @@ public class DialDeTempoMecanico {
         this.dial = dial;
     }
 
+    public DialDeTempoMecanico(double dial, ArrayList<PontoCurva> pontos) {
+        this.dial = dial;
+        this.pontosCurva = pontos;
+    }
+
     public void addPontoCurva(PontoCurva ponto) {
         this.pontosCurva.add(ponto);
     }
@@ -37,4 +42,8 @@ public class DialDeTempoMecanico {
         this.dial = dial;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(this.dial);
+    }
 }

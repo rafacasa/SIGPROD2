@@ -9,6 +9,15 @@ CREATE TABLE Elo (
     preferencial BOOLEAN
 ) ENGINE = innodb;
 
+CREATE TABLE PontoCurvaElo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    corrente DOUBLE,
+	tempo DOUBLE,
+	correnteElo INT,
+    ehCurvaDeMaxima BOOLEAN,
+    FOREIGN KEY (correnteElo) REFERENCES Elo(correnteNominal)
+) ENGINE = innodb;
+
 CREATE TABLE PotenciaMono (
     id INT PRIMARY KEY,
     potencia VARCHAR(6)
@@ -65,17 +74,9 @@ CREATE TABLE CorrentePickupDefinido (
 	codigoRele INT,
 	correntePickup DOUBLE,
 	isFase BOOLEAN,
-	PRIMARY KEY (codigoRele, correntePickup, isFase),
+	tempoAtuacao DOUBLE,
+	PRIMARY KEY (codigoRele, correntePickup, isFase, tempoAtuacao),
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
-) ENGINE = innodb;
-
-CREATE TABLE PontoCurvaElo (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    corrente DOUBLE,
-	tempo DOUBLE,
-	correnteElo INT,
-    ehCurvaDeMaxima BOOLEAN,
-    FOREIGN KEY (correnteElo) REFERENCES Elo(correnteNominal)
 ) ENGINE = innodb;
 
 CREATE TABLE PontoCurvaRele (
@@ -87,4 +88,24 @@ CREATE TABLE PontoCurvaRele (
 	dial DOUBLE,
 	codigoRele INT,
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
-)
+) ENGINE = innodb;
+
+CREATE TABLE TempoCorrenteDigital (
+	codigoRele INT PRIMARY KEY,
+	correnteMinino DOUBLE,
+	correnteMaximo DOUBLE,
+	correntePasso DOUBLE,
+	tempoMinimo DOUBLE,
+	tempoMaximo DOUBLE,
+	tempoPasso DOUBLE
+) ENGINE = innodb;
+
+CREATE TABLE CaracteristicasCurva (
+	codigoRele INT,
+	nome VARCHAR(50),
+	a DOUBLE,
+	b DOUBLE,
+	p DOUBLE,
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
+) ENGINE = innodb;

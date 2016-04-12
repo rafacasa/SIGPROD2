@@ -1,48 +1,43 @@
 package SIGPROD2.GUI;
 
+import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Perguntas;
+import SIGPROD2.Modelo.PontoCurva;
+import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
+import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
+import SIGPROD2.Modelo.CaracteristicaCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
 import SIGPROD2.Modelo.ReleEletromecanico;
-import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
+import com.google.gson.Gson;
 import java.awt.CardLayout;
-import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-/**
- *
- * @author Sérgio Brunetta Júnior
- * @author Rafael Casa
- * @version 30/03/2016
- */
 public class GUI_Reles extends javax.swing.JFrame {
 
-    private boolean[] abas;
-    private Rele novoRele;
+    private CaracteristicasTableModel modeloFaseCaracteristicas;
+    private CaracteristicasTableModel modeloNeutroCaracteristicas;
+    private PontoCurvaTableModel modeloFaseCriarDial;
+    private PontoCurvaTableModel modeloFaseExistenteDial;
+    private PontoCurvaTableModel modeloNeutroPrimeiro;
+    private PontoCurvaTableModel modeloNeutroDial;
+    private Rele newRele;
 
     public GUI_Reles() {
-        this.abas = new boolean[]{true, true, true, true, true, true, true};
-
         this.initComponents();
+        this.configurarTabelas();
+        this.desabilitarPaineis();
+        this.selectCheck();
     }
 
     private void cancelOption() {
         if (Perguntas.perguntaCancelar(this) == JOptionPane.OK_OPTION) {
             dispose();
         }
-    }
-
-    private boolean nenhumaUnidadeSelecionada() {
-        return !(this.unidadeInstantaneaFase.isSelected()
-                || this.unidadeInstantaneaNeutro.isSelected()
-                || this.unidadeTemporizadaFase.isSelected()
-                || this.unidadeTemporizadaNeutro.isSelected());
-    }
-
-    private void carregarCorrentesPickupFaseEletromecanico() {
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -58,10 +53,10 @@ public class GUI_Reles extends javax.swing.JFrame {
         modelo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        unidadeTemporizadaFase = new javax.swing.JCheckBox();
-        unidadeTemporizadaNeutro = new javax.swing.JCheckBox();
-        unidadeInstantaneaFase = new javax.swing.JCheckBox();
-        unidadeInstantaneaNeutro = new javax.swing.JCheckBox();
+        curvaInversaFase = new javax.swing.JCheckBox();
+        curvaInversaNeutro = new javax.swing.JCheckBox();
+        curvaTempoFase = new javax.swing.JCheckBox();
+        curvaTempoNeutro = new javax.swing.JCheckBox();
         avancarDadosGerais = new javax.swing.JButton();
         cancelarDadosGerais = new javax.swing.JButton();
         jLabel41 = new javax.swing.JLabel();
@@ -72,31 +67,38 @@ public class GUI_Reles extends javax.swing.JFrame {
         cardLayout1 = new javax.swing.JPanel();
         faseCorrenteFirst = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        correntesTempFaseEletro = new javax.swing.JTextField();
+        faseCorrenteValores = new javax.swing.JTextField();
         faseCorrenteSecond = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        correnteMinimoTempFaseDigital = new javax.swing.JTextField();
-        correnteMaximoTempFaseDigital = new javax.swing.JTextField();
-        correntePassoTempFaseDigital = new javax.swing.JTextField();
-        avancarCorrenteTempFase = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        fatorInicioTempFase = new javax.swing.JTextField();
+        faseCorrenteMinimo = new javax.swing.JTextField();
+        faseCorrenteMaximo = new javax.swing.JTextField();
+        faseCorrentePasso = new javax.swing.JTextField();
+        avancarFaseCorrente = new javax.swing.JButton();
+        retornarFaseCorrente = new javax.swing.JButton();
+        cancelarFaseCorrente = new javax.swing.JButton();
+        faseCorrenteFator = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         cardLayout2 = new javax.swing.JPanel();
         faseCurvaFirst = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        faseCurvaCorrente = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
+        faseCurvaCorrenteCadastro = new javax.swing.JComboBox();
+        jPanel4 = new javax.swing.JPanel();
         faseCurvaDial = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         faseCurvaPrimeira = new javax.swing.JTable();
-        faseCurvaAdicionaPrimeira = new javax.swing.JButton();
-        faseCurvaRemovePrimeira = new javax.swing.JButton();
         faseCurvaGrafico = new javax.swing.JButton();
+        faseCurvaRemovePrimeira = new javax.swing.JButton();
+        faseCurvaAdicionaPrimeira = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        faseCurvaDialExistente = new javax.swing.JComboBox();
+        faseCurvaCorrenteExistente = new javax.swing.JComboBox();
         faseCurvaSecond = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -118,7 +120,11 @@ public class GUI_Reles extends javax.swing.JFrame {
         cardLayout3 = new javax.swing.JPanel();
         faseInstantaneaFirst = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        valores = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         faseInstantaneaSecond = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -159,7 +165,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         faseCurvaDial1 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        faseCurvaPrimeira1 = new javax.swing.JTable();
+        neutroCurvaPrimeira = new javax.swing.JTable();
         faseCurvaAdicionaPrimeira1 = new javax.swing.JButton();
         faseCurvaRemovePrimeira1 = new javax.swing.JButton();
         faseCurvaGrafico1 = new javax.swing.JButton();
@@ -172,10 +178,10 @@ public class GUI_Reles extends javax.swing.JFrame {
         faseCurvaMaximo1 = new javax.swing.JTextField();
         faseCurvaPasso1 = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
-        faseCurvaCaracteristicas1 = new javax.swing.JTable();
+        neutroCurvaCaracteristicas = new javax.swing.JTable();
         jLabel52 = new javax.swing.JLabel();
-        faseCurvaAdicionaCaracteristicas1 = new javax.swing.JButton();
-        faseCurvaRemoveCaracteristicas1 = new javax.swing.JButton();
+        neutroCurvaAdicionaCaracteristicas = new javax.swing.JButton();
+        neutroCurvaRemoveCaracteristicas = new javax.swing.JButton();
         avancarFaseCurva1 = new javax.swing.JButton();
         cancelarFaseCurva1 = new javax.swing.JButton();
         retornarFaseCurva1 = new javax.swing.JButton();
@@ -185,6 +191,10 @@ public class GUI_Reles extends javax.swing.JFrame {
         neutroInstantaneaFirst = new javax.swing.JPanel();
         jLabel46 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         neutroInstantaneaSecond = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -206,17 +216,17 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         jLabel2.setText("Modelo :");
 
-        jLabel3.setText("Unidade temporizada :");
+        jLabel3.setText("Curva inversa : ");
 
-        jLabel4.setText("Unidade Instantânea :");
+        jLabel4.setText("Curva de tempo definido:");
 
-        unidadeTemporizadaFase.setText("Fase");
+        curvaInversaFase.setText("Fase");
 
-        unidadeTemporizadaNeutro.setText("Neutro");
+        curvaInversaNeutro.setText("Neutro");
 
-        unidadeInstantaneaFase.setText("Fase");
+        curvaTempoFase.setText("Fase");
 
-        unidadeInstantaneaNeutro.setText("Neutro");
+        curvaTempoNeutro.setText("Neutro");
 
         avancarDadosGerais.setText("Avançar");
         avancarDadosGerais.addActionListener(new java.awt.event.ActionListener() {
@@ -236,11 +246,6 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         tipoDeEquipamento.add(eletromecanico);
         eletromecanico.setText("Eletromecânico");
-        eletromecanico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eletromecanicoActionPerformed(evt);
-            }
-        });
 
         tipoDeEquipamento.add(digital);
         digital.setText("Digital");
@@ -280,14 +285,14 @@ public class GUI_Reles extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addGroup(Painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(Painel1Layout.createSequentialGroup()
-                                        .addComponent(unidadeTemporizadaFase)
+                                        .addComponent(curvaInversaFase)
                                         .addGap(6, 6, 6)
-                                        .addComponent(unidadeTemporizadaNeutro))
+                                        .addComponent(curvaInversaNeutro))
                                     .addGroup(Painel1Layout.createSequentialGroup()
-                                        .addComponent(unidadeInstantaneaFase)
+                                        .addComponent(curvaTempoFase)
                                         .addGap(6, 6, 6)
-                                        .addComponent(unidadeInstantaneaNeutro)))))
-                        .addGap(0, 624, Short.MAX_VALUE)))
+                                        .addComponent(curvaTempoNeutro)))))
+                        .addGap(0, 527, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         Painel1Layout.setVerticalGroup(
@@ -310,14 +315,14 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addGroup(Painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(unidadeTemporizadaFase)
-                    .addComponent(unidadeTemporizadaNeutro))
+                    .addComponent(curvaInversaFase)
+                    .addComponent(curvaInversaNeutro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(unidadeInstantaneaFase)
-                    .addComponent(unidadeInstantaneaNeutro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE)
+                    .addComponent(curvaTempoFase)
+                    .addComponent(curvaTempoNeutro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
                 .addGroup(Painel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(avancarDadosGerais)
                     .addComponent(cancelarDadosGerais))
@@ -340,7 +345,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jLabel11)
                 .addGap(6, 6, 6)
-                .addComponent(correntesTempFaseEletro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(faseCorrenteValores, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(266, Short.MAX_VALUE))
         );
         faseCorrenteFirstLayout.setVerticalGroup(
@@ -349,7 +354,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(faseCorrenteFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(correntesTempFaseEletro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseCorrenteValores, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(350, 350, 350))
         );
 
@@ -366,7 +371,6 @@ public class GUI_Reles extends javax.swing.JFrame {
         faseCorrenteSecondLayout.setHorizontalGroup(
             faseCorrenteSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseCorrenteSecondLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(faseCorrenteSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel9)
@@ -375,9 +379,9 @@ public class GUI_Reles extends javax.swing.JFrame {
                         .addComponent(jLabel10)))
                 .addGap(3, 3, 3)
                 .addGroup(faseCorrenteSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(correntePassoTempFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(correnteMaximoTempFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(correnteMinimoTempFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseCorrentePasso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCorrenteMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCorrenteMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(407, Short.MAX_VALUE))
         );
         faseCorrenteSecondLayout.setVerticalGroup(
@@ -386,38 +390,38 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(faseCorrenteSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(correnteMinimoTempFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseCorrenteMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(faseCorrenteSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(correnteMaximoTempFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCorrenteMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(6, 6, 6)
                 .addGroup(faseCorrenteSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(correntePassoTempFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseCorrentePasso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(298, Short.MAX_VALUE))
         );
 
         cardLayout1.add(faseCorrenteSecond, "faseCorrenteSecond");
 
-        avancarCorrenteTempFase.setText("Avançar");
-        avancarCorrenteTempFase.addActionListener(new java.awt.event.ActionListener() {
+        avancarFaseCorrente.setText("Avançar");
+        avancarFaseCorrente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avancarCorrenteTempFaseActionPerformed(evt);
+                avancarFaseCorrenteActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Retornar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        retornarFaseCorrente.setText("Retornar");
+        retornarFaseCorrente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                retornarFaseCorrenteActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Cancelar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        cancelarFaseCorrente.setText("Cancelar");
+        cancelarFaseCorrente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                cancelarFaseCorrenteActionPerformed(evt);
             }
         });
 
@@ -434,15 +438,15 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addGroup(correntePickupLayout.createSequentialGroup()
                         .addComponent(jLabel43)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fatorInicioTempFase, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                        .addComponent(faseCorrenteFator, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(207, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correntePickupLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelarFaseCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(retornarFaseCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(avancarCorrenteTempFase, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(avancarFaseCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         correntePickupLayout.setVerticalGroup(
@@ -450,16 +454,16 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addGroup(correntePickupLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(correntePickupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fatorInicioTempFase, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCorrenteFator, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel43))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cardLayout1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addGroup(correntePickupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avancarCorrenteTempFase)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(avancarFaseCorrente)
+                    .addComponent(retornarFaseCorrente)
+                    .addComponent(cancelarFaseCorrente))
+                .addGap(12, 12, 12))
         );
 
         temporizadaFase.addTab("Corrente de pickup", correntePickup);
@@ -472,19 +476,129 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         jLabel7.setText("Corrente de pickup :");
 
+        faseCurvaCorrenteCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaCorrenteCadastroActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar dial de tempo"));
+
         jLabel8.setText("Dial de tempo :");
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(251, 250));
         jScrollPane1.setViewportView(faseCurvaPrimeira);
 
-        faseCurvaAdicionaPrimeira.setText("+");
-        faseCurvaAdicionaPrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaGrafico.setText("Gráfico");
+        faseCurvaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
 
         faseCurvaRemovePrimeira.setText("-");
         faseCurvaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaRemovePrimeira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaRemovePrimeiraActionPerformed(evt);
+            }
+        });
 
-        faseCurvaGrafico.setText("Gráfico");
-        faseCurvaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
+        faseCurvaAdicionaPrimeira.setText("+");
+        faseCurvaAdicionaPrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaAdicionaPrimeira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaAdicionaPrimeiraActionPerformed(evt);
+            }
+        });
+
+        jButton15.setText("Salvar");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(faseCurvaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(faseCurvaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(faseCurvaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(faseCurvaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(faseCurvaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Dial de tempo cadastrados"));
+
+        jScrollPane3.setViewportView(jTable1);
+
+        faseCurvaDialExistente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaDialExistenteActionPerformed(evt);
+            }
+        });
+
+        faseCurvaCorrenteExistente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaCorrenteExistenteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(110, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(faseCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(faseCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout faseCurvaFirstLayout = new javax.swing.GroupLayout(faseCurvaFirst);
         faseCurvaFirst.setLayout(faseCurvaFirstLayout);
@@ -493,46 +607,30 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addGroup(faseCurvaFirstLayout.createSequentialGroup()
                 .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(faseCurvaFirstLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(33, 33, 33)
                         .addComponent(jLabel7)
                         .addGap(6, 6, 6)
-                        .addComponent(faseCurvaCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(faseCurvaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(faseCurvaFirstLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(faseCurvaFirstLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(6, 6, 6)
-                                .addComponent(faseCurvaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, faseCurvaFirstLayout.createSequentialGroup()
-                                    .addComponent(faseCurvaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(faseCurvaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         faseCurvaFirstLayout.setVerticalGroup(
             faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseCurvaFirstLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(faseCurvaCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(faseCurvaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faseCurvaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(faseCurvaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(faseCurvaFirstLayout.createSequentialGroup()
+                        .addGroup(faseCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(faseCurvaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         cardLayout2.add(faseCurvaFirst, "faseCurvaFirst");
@@ -547,26 +645,25 @@ public class GUI_Reles extends javax.swing.JFrame {
         jLabel16.setText("Passo (A) :");
         jLabel16.setPreferredSize(new java.awt.Dimension(85, 15));
 
-        faseCurvaCaracteristicas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane2.setViewportView(faseCurvaCaracteristicas);
 
         jLabel17.setText("Características da curva :");
 
         faseCurvaAdicionaCaracteristicas.setText("+");
         faseCurvaAdicionaCaracteristicas.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaAdicionaCaracteristicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaAdicionaCaracteristicasActionPerformed(evt);
+            }
+        });
 
         faseCurvaRemoveCaracteristicas.setText("-");
         faseCurvaRemoveCaracteristicas.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaRemoveCaracteristicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaRemoveCaracteristicasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout faseCurvaSecondLayout = new javax.swing.GroupLayout(faseCurvaSecond);
         faseCurvaSecond.setLayout(faseCurvaSecondLayout);
@@ -619,7 +716,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGroup(faseCurvaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(faseCurvaAdicionaCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(faseCurvaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         cardLayout2.add(faseCurvaSecond, "faseCurvaSecond");
@@ -657,12 +754,12 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(avancarFaseCurva, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(cardLayout2, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE)
+            .addComponent(cardLayout2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(cardLayout2, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .addComponent(cardLayout2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(avancarFaseCurva)
@@ -673,31 +770,59 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         temporizadaFase.addTab("Curvas", jPanel5);
 
-        tabbedPane.addTab("Temporizada de fase", temporizadaFase);
+        tabbedPane.addTab("Inversa de fase", temporizadaFase);
 
         cardLayout3.setLayout(new java.awt.CardLayout());
 
         jLabel44.setText("Valores separados por vírgula :");
+
+        valores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valoresActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Corrente de pickup");
+
+        jLabel24.setText("Tempo de atuação");
+
+        jLabel25.setText("Valores separados por vírgula:");
 
         javax.swing.GroupLayout faseInstantaneaFirstLayout = new javax.swing.GroupLayout(faseInstantaneaFirst);
         faseInstantaneaFirst.setLayout(faseInstantaneaFirstLayout);
         faseInstantaneaFirstLayout.setHorizontalGroup(
             faseInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseInstantaneaFirstLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel44)
-                .addGap(6, 6, 6)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(faseInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addGroup(faseInstantaneaFirstLayout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addGap(6, 6, 6)
+                        .addComponent(valores, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addGroup(faseInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(faseInstantaneaFirstLayout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel24))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         faseInstantaneaFirstLayout.setVerticalGroup(
             faseInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseInstantaneaFirstLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(faseInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24))
+                .addGap(6, 6, 6)
+                .addGroup(faseInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valores, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel44)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(320, 320, 320))
+                    .addComponent(jLabel25)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(323, 323, 323))
         );
 
         cardLayout3.add(faseInstantaneaFirst, "faseInstantaneaFirst");
@@ -725,7 +850,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addContainerGap(602, Short.MAX_VALUE))
         );
         faseInstantaneaSecondLayout.setVerticalGroup(
             faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,7 +902,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addGroup(correntePickup1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(correntePickup1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cardLayout3, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardLayout3, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(correntePickup1Layout.createSequentialGroup()
                         .addComponent(jLabel45)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -820,7 +945,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addComponent(correntePickup1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        tabbedPane.addTab("Instantânea de fase", Painel3);
+        tabbedPane.addTab("Definida de fase", Painel3);
 
         cardLayout4.setLayout(new java.awt.CardLayout());
 
@@ -952,7 +1077,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGroup(correntePickup3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(correntePickup3Layout.createSequentialGroup()
                         .addComponent(cardLayout4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(71, Short.MAX_VALUE))
+                        .addContainerGap(70, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correntePickup3Layout.createSequentialGroup()
                         .addGroup(correntePickup3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton10)
@@ -987,25 +1112,23 @@ public class GUI_Reles extends javax.swing.JFrame {
         jLabel38.setText("Dial de tempo :");
 
         jScrollPane5.setPreferredSize(new java.awt.Dimension(251, 250));
-
-        faseCurvaPrimeira1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(faseCurvaPrimeira1);
+        jScrollPane5.setViewportView(neutroCurvaPrimeira);
 
         faseCurvaAdicionaPrimeira1.setText("+");
         faseCurvaAdicionaPrimeira1.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaAdicionaPrimeira1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaAdicionaPrimeira1ActionPerformed(evt);
+            }
+        });
 
         faseCurvaRemovePrimeira1.setText("-");
         faseCurvaRemovePrimeira1.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaRemovePrimeira1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaRemovePrimeira1ActionPerformed(evt);
+            }
+        });
 
         faseCurvaGrafico1.setText("Gráfico");
         faseCurvaGrafico1.setPreferredSize(new java.awt.Dimension(84, 26));
@@ -1077,26 +1200,25 @@ public class GUI_Reles extends javax.swing.JFrame {
             }
         });
 
-        faseCurvaCaracteristicas1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane6.setViewportView(faseCurvaCaracteristicas1);
+        jScrollPane6.setViewportView(neutroCurvaCaracteristicas);
 
         jLabel52.setText("Características da curva :");
 
-        faseCurvaAdicionaCaracteristicas1.setText("+");
-        faseCurvaAdicionaCaracteristicas1.setPreferredSize(new java.awt.Dimension(44, 26));
+        neutroCurvaAdicionaCaracteristicas.setText("+");
+        neutroCurvaAdicionaCaracteristicas.setPreferredSize(new java.awt.Dimension(44, 26));
+        neutroCurvaAdicionaCaracteristicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                neutroCurvaAdicionaCaracteristicasActionPerformed(evt);
+            }
+        });
 
-        faseCurvaRemoveCaracteristicas1.setText("-");
-        faseCurvaRemoveCaracteristicas1.setPreferredSize(new java.awt.Dimension(44, 26));
+        neutroCurvaRemoveCaracteristicas.setText("-");
+        neutroCurvaRemoveCaracteristicas.setPreferredSize(new java.awt.Dimension(44, 26));
+        neutroCurvaRemoveCaracteristicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                neutroCurvaRemoveCaracteristicasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout neutroCurvaSecondLayout = new javax.swing.GroupLayout(neutroCurvaSecond);
         neutroCurvaSecond.setLayout(neutroCurvaSecondLayout);
@@ -1119,9 +1241,9 @@ public class GUI_Reles extends javax.swing.JFrame {
                             .addComponent(faseCurvaMinimo1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel52)
                     .addGroup(neutroCurvaSecondLayout.createSequentialGroup()
-                        .addComponent(faseCurvaAdicionaCaracteristicas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(neutroCurvaAdicionaCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(faseCurvaRemoveCaracteristicas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(neutroCurvaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(490, Short.MAX_VALUE))
         );
         neutroCurvaSecondLayout.setVerticalGroup(
@@ -1147,12 +1269,12 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(neutroCurvaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faseCurvaAdicionaCaracteristicas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(faseCurvaRemoveCaracteristicas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(neutroCurvaAdicionaCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(neutroCurvaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
-        cardLayout5.add(neutroCurvaSecond, "card3");
+        cardLayout5.add(neutroCurvaSecond, "neutroCurvaSecond");
 
         avancarFaseCurva1.setText("Avançar");
         avancarFaseCurva1.addActionListener(new java.awt.event.ActionListener() {
@@ -1192,7 +1314,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(cardLayout5, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .addComponent(cardLayout5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarFaseCurva1)
@@ -1220,31 +1342,59 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Curvas", jPanel3);
 
-        tabbedPane.addTab("Temporizada de neutro", jTabbedPane1);
+        tabbedPane.addTab("Inversa de neutro", jTabbedPane1);
 
         cardLayout6.setLayout(new java.awt.CardLayout());
 
         jLabel46.setText("Valores separados por vírgula :");
+
+        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField11ActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setText("Corrente de pickup");
+
+        jLabel27.setText("Tempo de atuação");
+
+        jLabel28.setText("Valores separados por vírgula:");
 
         javax.swing.GroupLayout neutroInstantaneaFirstLayout = new javax.swing.GroupLayout(neutroInstantaneaFirst);
         neutroInstantaneaFirst.setLayout(neutroInstantaneaFirstLayout);
         neutroInstantaneaFirstLayout.setHorizontalGroup(
             neutroInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(neutroInstantaneaFirstLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jLabel46)
-                .addGap(6, 6, 6)
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(neutroInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(neutroInstantaneaFirstLayout.createSequentialGroup()
+                        .addComponent(jLabel46)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel26))
+                .addGap(28, 28, 28)
+                .addGroup(neutroInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(neutroInstantaneaFirstLayout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel27))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         neutroInstantaneaFirstLayout.setVerticalGroup(
             neutroInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(neutroInstantaneaFirstLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
+                .addGroup(neutroInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(neutroInstantaneaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel46)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(399, Short.MAX_VALUE))
+                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(366, Short.MAX_VALUE))
         );
 
         cardLayout6.add(neutroInstantaneaFirst, "neutroInstantaneaFirst");
@@ -1272,7 +1422,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addContainerGap(602, Short.MAX_VALUE))
         );
         neutroInstantaneaSecondLayout.setVerticalGroup(
             neutroInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1332,12 +1482,12 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addGroup(correntePickup2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(correntePickup2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cardLayout6, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardLayout6, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(correntePickup2Layout.createSequentialGroup()
                         .addComponent(jLabel48)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 217, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
         correntePickup2Layout.setVerticalGroup(
             correntePickup2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1348,7 +1498,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addComponent(jLabel48))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cardLayout6, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correntePickup2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(correntePickup2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1370,7 +1520,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addComponent(correntePickup2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        tabbedPane.addTab("Instantânea de neutro", jPanel1);
+        tabbedPane.addTab("Definida de neutro", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1391,25 +1541,28 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarDadosGeraisActionPerformed
 
     private void avancarDadosGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDadosGeraisActionPerformed
-        if (this.tipoDeEquipamento.getSelection() == null) {
-            Erro.selecioneTipoRele(this);
-        } else if (this.nenhumaUnidadeSelecionada()) {
-            Erro.selecioneUnidadeRele(this);
-        } else {
-            if (this.digital.isSelected()) {
-                this.novoRele = new ReleDigital();
-            } else {
-                this.novoRele = new ReleEletromecanico();
-            }
+        String fab = this.fabricante.getText();
+        String mod = this.modelo.getText();
 
-            this.novoRele.setFabricante(this.fabricante.getText());
-            this.novoRele.setModelo(this.modelo.getText());
-            this.enablePanels();
+        if (!fab.equals("") && !mod.equals("")) {
+            if (this.isEletromecanico()) {
+                this.newRele = new ReleEletromecanico();
+            } else {
+                this.newRele = new ReleDigital();
+            }
+            this.newRele.setFabricante(fab);
+            this.newRele.setModelo(mod);
+            this.habilitarPaineis();
+            this.selecionarCards();
             this.avancarTela();
+        } else {
+            Erro.camposVazios(this);
         }
     }//GEN-LAST:event_avancarDadosGeraisActionPerformed
 
     private void retornarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCurvaActionPerformed
+        this.removeCorrentePickupFase();
+        ((ReleEletromecanico) this.newRele).removeCorrentePickup(Rele.INVERSA_FASE);
         int selecionado = this.temporizadaFase.getSelectedIndex();
 
         this.temporizadaFase.setSelectedIndex(selecionado - 1);
@@ -1420,41 +1573,53 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarFaseCurvaActionPerformed
 
     private void avancarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarFaseCurvaActionPerformed
-        if (this.novoRele.isDigital()) {
-
-        } else {
-
-        }
         this.avancarTela();
+        Arquivo a = new Arquivo("teste.ini");
+        Gson json = new Gson();
+        a.escreverArquivo(json.toJson(this.newRele));
     }//GEN-LAST:event_avancarFaseCurvaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void cancelarFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarFaseCorrenteActionPerformed
         this.cancelOption();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_cancelarFaseCorrenteActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void retornarFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCorrenteActionPerformed
         this.retornarTela();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_retornarFaseCorrenteActionPerformed
 
-    private void avancarCorrenteTempFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarCorrenteTempFaseActionPerformed
-        int selecionado = this.temporizadaFase.getSelectedIndex();
-        this.novoRele.setFatorInicio(Double.parseDouble(this.fatorInicioTempFase.getText()), Rele.INVERSA_FASE);
-        if (this.novoRele.isDigital()) {
-            ((ReleDigital) this.novoRele).setCorrentePickup(
-                    Double.parseDouble(this.correnteMinimoTempFaseDigital.getText()),
-                    Double.parseDouble(this.correnteMaximoTempFaseDigital.getText()),
-                    Double.parseDouble(this.correntePassoTempFaseDigital.getText()),
-                    Rele.INVERSA_FASE);
+    private void avancarFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarFaseCorrenteActionPerformed
+        if (this.isEletromecanico()) {
+            String fator = this.faseCorrenteFator.getText();
+            String valor = this.faseCorrenteValores.getText();
+
+            if (!fator.equals("") && !valor.equals("")) {
+                ArrayList<Double> v = this.separaValores(valor);
+                double d = Double.parseDouble(fator);
+
+                ((ReleEletromecanico) this.newRele).addCorrentePickup(v, Rele.INVERSA_FASE);
+                this.newRele.addFatorInicio(d, Rele.INVERSA_FASE);
+                this.addCorrentePickupFase(v);
+                int selecionado = this.temporizadaFase.getSelectedIndex();
+
+                this.temporizadaFase.setSelectedIndex(selecionado + 1);
+            } else {
+                Erro.camposVazios(this);
+            }
         } else {
-            ((ReleEletromecanico) this.novoRele).setCorrentePickup(
-                    this.correntesTempFaseEletro.getText(),
-                    Rele.INVERSA_FASE);
-            carregarCorrentesPickupFaseEletromecanico();
+
         }
-        this.temporizadaFase.setSelectedIndex(selecionado + 1);
-    }//GEN-LAST:event_avancarCorrenteTempFaseActionPerformed
+
+    }//GEN-LAST:event_avancarFaseCorrenteActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String s = this.jTextField10.getText();
+        double fator = Double.parseDouble(s);
+        this.newRele.addFatorInicio(fator, Rele.DEFINIDO_FASE);
+        
+        String c = this.valores.getText();
+        ArrayList<Double> lista = this.separaValores(c);
+        
+        
         this.avancarTela();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -1510,25 +1675,139 @@ public class GUI_Reles extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_faseCurvaMaximo1ActionPerformed
 
-    private void eletromecanicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eletromecanicoActionPerformed
+    private void neutroCurvaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaAdicionaCaracteristicasActionPerformed
+        this.modeloNeutroCaracteristicas.add(new CaracteristicaCurva("-", "-", "-", "-"));
+        this.modeloNeutroCaracteristicas.fireTableDataChanged();
+    }//GEN-LAST:event_neutroCurvaAdicionaCaracteristicasActionPerformed
+
+    private void faseCurvaAdicionaPrimeira1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaAdicionaPrimeira1ActionPerformed
+        this.modeloNeutroPrimeiro.add(new PontoCurva(0, 0));
+        this.modeloNeutroPrimeiro.fireTableDataChanged();
+    }//GEN-LAST:event_faseCurvaAdicionaPrimeira1ActionPerformed
+
+    private void faseCurvaRemovePrimeira1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRemovePrimeira1ActionPerformed
+        int selecionado = this.neutroCurvaPrimeira.getSelectedRow();
+
+        this.modeloNeutroPrimeiro.remove(selecionado);
+        this.modeloNeutroPrimeiro.fireTableDataChanged();
+    }//GEN-LAST:event_faseCurvaRemovePrimeira1ActionPerformed
+
+    private void faseCurvaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaAdicionaCaracteristicasActionPerformed
+        this.modeloFaseCaracteristicas.add(new CaracteristicaCurva("-", "-", "-", "-"));
+        this.modeloFaseCaracteristicas.fireTableDataChanged();
+    }//GEN-LAST:event_faseCurvaAdicionaCaracteristicasActionPerformed
+
+    private void faseCurvaRemoveCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRemoveCaracteristicasActionPerformed
+        int selecionado = this.faseCurvaCaracteristicas.getSelectedRow();
+
+        this.modeloFaseCaracteristicas.remove(selecionado);
+        this.modeloFaseCaracteristicas.fireTableDataChanged();
+    }//GEN-LAST:event_faseCurvaRemoveCaracteristicasActionPerformed
+
+    private void faseCurvaAdicionaPrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaAdicionaPrimeiraActionPerformed
+        this.modeloFaseCriarDial.add(new PontoCurva(0, 0));
+        this.modeloFaseCriarDial.fireTableDataChanged();
+    }//GEN-LAST:event_faseCurvaAdicionaPrimeiraActionPerformed
+
+    private void faseCurvaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRemovePrimeiraActionPerformed
+        int selecionado = this.faseCurvaPrimeira.getSelectedRow();
+
+        this.modeloFaseCriarDial.remove(selecionado);
+        this.modeloFaseCriarDial.fireTableDataChanged();
+    }//GEN-LAST:event_faseCurvaRemovePrimeiraActionPerformed
+
+    private void neutroCurvaRemoveCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRemoveCaracteristicasActionPerformed
+        int selecionado = this.neutroCurvaCaracteristicas.getSelectedRow();
+
+        this.modeloNeutroCaracteristicas.remove(selecionado);
+        this.modeloNeutroCaracteristicas.fireTableDataChanged();
+    }//GEN-LAST:event_neutroCurvaRemoveCaracteristicasActionPerformed
+
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_eletromecanicoActionPerformed
+    }//GEN-LAST:event_jTextField11ActionPerformed
 
-    private void enablePanels() {
-        boolean faseTemporizada = this.unidadeTemporizadaFase.isSelected();
-        boolean faseInstantanea = this.unidadeInstantaneaFase.isSelected();
-        boolean neutroTemporizada = this.unidadeTemporizadaNeutro.isSelected();
-        boolean neutroInstantanea = this.unidadeInstantaneaNeutro.isSelected();
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        ReleEletromecanico rele = (ReleEletromecanico) this.newRele;
+        String c = String.valueOf(this.faseCurvaCorrenteCadastro.getSelectedItem());
+        double corrente = Double.parseDouble(c);
+        String d = this.faseCurvaDial.getText();
+        double dial = Double.parseDouble(d);
+        ArrayList<PontoCurva> pontos = new ArrayList(this.modeloFaseCriarDial.getArrayList());
 
-        this.selectCards();
-        this.faseCurvaPrimeira.setModel(new PontoCurvaTableModel());
+        rele.addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
+        this.faseCurvaCorrenteExistenteActionPerformed(null);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void faseCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteExistenteActionPerformed
+        String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
+        double corrente = Double.parseDouble(str);
+
+        ArrayList<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
+        this.faseCurvaDialExistente.removeAllItems();
+        for (Double d : dial) {
+            this.faseCurvaDialExistente.addItem(d);
+        }
+        this.faseCurvaDialExistenteActionPerformed(null);
+    }//GEN-LAST:event_faseCurvaCorrenteExistenteActionPerformed
+
+    private void faseCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaDialExistenteActionPerformed
+        String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
+        String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
+
+        try {
+            double corrente = Double.parseDouble(str);
+            double dial = Double.parseDouble(srt);
+            ArrayList<PontoCurva> a;
+            a = ((ReleEletromecanico) this.newRele).getPontosDialDeTempo(corrente, dial, Rele.INVERSA_FASE);
+
+            this.modeloFaseExistenteDial.removeTodos();
+            this.modeloFaseExistenteDial.add(a);
+            this.modeloFaseExistenteDial.fireTableDataChanged();
+        } catch (NumberFormatException e) {
+            this.modeloFaseExistenteDial.removeTodos();
+            this.modeloFaseExistenteDial.fireTableDataChanged();
+        }
+
+    }//GEN-LAST:event_faseCurvaDialExistenteActionPerformed
+
+    private void faseCurvaCorrenteCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_faseCurvaCorrenteCadastroActionPerformed
+
+    private void valoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valoresActionPerformed
+
+    private void criaSequencia(String min, String max, String pass) {
+        int minimo = Integer.parseInt(min);
+        int maximo = Integer.parseInt(max);
+        int passo = Integer.parseInt(pass);
+        for (int i = minimo; i < maximo; i += passo) {
+            System.out.println(i);
+        }
+    }
+
+    private void habilitarPaineis() {
+        boolean faseTemporizada = this.curvaInversaFase.isSelected();
+        boolean faseInstantanea = this.curvaTempoFase.isSelected();
+        boolean neutroTemporizada = this.curvaInversaNeutro.isSelected();
+        boolean neutroInstantanea = this.curvaTempoNeutro.isSelected();
+
         this.tabbedPane.setEnabledAt(1, faseTemporizada);
         this.tabbedPane.setEnabledAt(2, faseInstantanea);
         this.tabbedPane.setEnabledAt(3, neutroTemporizada);
         this.tabbedPane.setEnabledAt(4, neutroInstantanea);
     }
 
-    private void selectCards() {
+    private void desabilitarPaineis() {
+        int tabs = this.tabbedPane.getTabCount();
+        for (int i = 1; i < tabs; i++) {
+            this.tabbedPane.setEnabledAt(i, false);
+        }
+    }
+
+    private void selecionarCards() {
         CardLayout card1 = (CardLayout) this.cardLayout1.getLayout();
         CardLayout card2 = (CardLayout) this.cardLayout2.getLayout();
         CardLayout card3 = (CardLayout) this.cardLayout3.getLayout();
@@ -1575,75 +1854,69 @@ public class GUI_Reles extends javax.swing.JFrame {
         }
     }
 
-    private void enableComponents(JPanel painel) {
-        for (Component comp : painel.getComponents()) {
-            comp.setEnabled(true);
+    private void configurarTabelas() {
+        this.configuraTabelasDigital();
+        this.configurarTabelasEletromecanica();
+    }
+
+    private void configuraTabelasDigital() {
+        this.modeloNeutroCaracteristicas = new CaracteristicasTableModel();
+        this.modeloFaseCaracteristicas = new CaracteristicasTableModel();
+
+        this.neutroCurvaCaracteristicas.setModel(modeloNeutroCaracteristicas);
+        this.faseCurvaCaracteristicas.setModel(modeloFaseCaracteristicas);
+    }
+
+    private void configurarTabelasEletromecanica() {
+        this.modeloFaseCriarDial = new PontoCurvaTableModel();
+        this.modeloNeutroPrimeiro = new PontoCurvaTableModel();
+        this.modeloFaseExistenteDial = new PontoCurvaTableModel();
+        this.modeloNeutroDial = new PontoCurvaTableModel();
+
+        this.faseCurvaPrimeira.setModel(modeloFaseCriarDial);
+        this.neutroCurvaPrimeira.setModel(modeloNeutroPrimeiro);
+        this.jTable1.setModel(modeloFaseExistenteDial);
+    }
+
+    private void selectCheck() {
+        this.curvaTempoFase.setSelected(true);
+        this.curvaTempoNeutro.setSelected(true);
+        this.curvaInversaFase.setSelected(true);
+        this.curvaInversaNeutro.setSelected(true);
+        this.tipoDeEquipamento.setSelected(this.eletromecanico.getModel(), true);
+    }
+
+    private ArrayList<Double> separaValores(String valores) {
+        String[] s = valores.split(",");
+        ArrayList<Double> a = new ArrayList();
+
+        for (String item : s) {
+            if (!item.isEmpty()) {
+                String valor = item.trim();
+                a.add(Double.parseDouble(valor));
+            }
+        }
+        return a;
+    }
+
+    private void addCorrentePickupFase(List<Double> valores) {
+        for (Double d : valores) {
+            this.faseCurvaCorrenteCadastro.addItem(d);
+            this.faseCurvaCorrenteExistente.addItem(d);
         }
     }
 
-    private void disableComponents(JPanel painel) {
-        for (Component comp : painel.getComponents()) {
-            comp.setEnabled(false);
-        }
+    private void removeCorrentePickupFase() {
+        this.faseCurvaCorrenteCadastro.removeAllItems();
+        this.faseCurvaCorrenteExistente.removeAllItems();
     }
 
-    /*private void selectCheck(int aba) {
-     if (this.abas[aba]) {
-     switch (aba) {
-     case 0:
-     this.unidadeInstantaneaFase.setSelected(true);
-     this.unidadeInstantaneaNeutro.setSelected(true);
-     this.unidadeTemporizadaFase.setSelected(true);
-     this.unidadeTemporizadaNeutro.setSelected(true);
-     break;
-     case 1:
-     this.faseCorrentePassoConstante.setSelected(true);
-     this.faseCorrentePassoConstanteActionPerformed(null);
-     break;
-     case 2:
-     this.faseCurvaFormasActionPerformed(null);
-     break;
-     case 3:
-     this.faseInstantaneaPassoConstante.setSelected(true);
-     this.faseInstantaneaPassoConstanteActionPerformed(null);
-     break;
-     case 4:
-     this.neutroCorrentePassoConstante.setSelected(true);
-     this.neutroCorrentePassoConstanteActionPerformed(null);
-     break;
-     case 5:
-     this.neutroCurvaFormasActionPerformed(null);
-     break;
-     case 6:
-     this.neutroInstantaneaPassoConstante.setSelected(true);
-     this.neutroInstantaneaPassoConstanteActionPerformed(null);
-     break;
-     }
-     this.abas[aba] = false;
-     }
-     }
-
-     private int getVetorPosicao() {
-     int pos = this.getSelected();
-
-     switch (pos) {
-     case 0:
-     return pos;
-     case 1:
-     return getSelected() + (this.temporizadaFase.getSelectedIndex() + 1);
-     case 2:
-     return 4;
-     case 3:
-     return this.getSelected() + (this.temporizadaNeutro.getSelectedIndex() + 3);
-     case 4:
-     return 7;
-     default :
-     return -1;
-
-     }
-     }*/
     private int getSelected() {
         return this.tabbedPane.getSelectedIndex();
+    }
+
+    private boolean isEletromecanico() {
+        return this.eletromecanico.isSelected();
     }
 
     public static void main(String args[]) {
@@ -1654,19 +1927,24 @@ public class GUI_Reles extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Reles.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Reles.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Reles.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Reles.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1688,11 +1966,12 @@ public class GUI_Reles extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel1;
     private javax.swing.JPanel Painel3;
-    private javax.swing.JButton avancarCorrenteTempFase;
     private javax.swing.JButton avancarDadosGerais;
+    private javax.swing.JButton avancarFaseCorrente;
     private javax.swing.JButton avancarFaseCurva;
     private javax.swing.JButton avancarFaseCurva1;
     private javax.swing.JButton cancelarDadosGerais;
+    private javax.swing.JButton cancelarFaseCorrente;
     private javax.swing.JButton cancelarFaseCurva;
     private javax.swing.JButton cancelarFaseCurva1;
     private javax.swing.JPanel cardLayout1;
@@ -1701,29 +1980,34 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JPanel cardLayout4;
     private javax.swing.JPanel cardLayout5;
     private javax.swing.JPanel cardLayout6;
-    private javax.swing.JTextField correnteMaximoTempFaseDigital;
-    private javax.swing.JTextField correnteMinimoTempFaseDigital;
-    private javax.swing.JTextField correntePassoTempFaseDigital;
     private javax.swing.JPanel correntePickup;
     private javax.swing.JPanel correntePickup1;
     private javax.swing.JPanel correntePickup2;
     private javax.swing.JPanel correntePickup3;
-    private javax.swing.JTextField correntesTempFaseEletro;
+    private javax.swing.JCheckBox curvaInversaFase;
+    private javax.swing.JCheckBox curvaInversaNeutro;
+    private javax.swing.JCheckBox curvaTempoFase;
+    private javax.swing.JCheckBox curvaTempoNeutro;
     private javax.swing.JRadioButton digital;
     private javax.swing.JRadioButton eletromecanico;
     private javax.swing.JTextField fabricante;
+    private javax.swing.JTextField faseCorrenteFator;
     private javax.swing.JPanel faseCorrenteFirst;
+    private javax.swing.JTextField faseCorrenteMaximo;
+    private javax.swing.JTextField faseCorrenteMinimo;
+    private javax.swing.JTextField faseCorrentePasso;
     private javax.swing.JPanel faseCorrenteSecond;
+    private javax.swing.JTextField faseCorrenteValores;
     private javax.swing.JButton faseCurvaAdicionaCaracteristicas;
-    private javax.swing.JButton faseCurvaAdicionaCaracteristicas1;
     private javax.swing.JButton faseCurvaAdicionaPrimeira;
     private javax.swing.JButton faseCurvaAdicionaPrimeira1;
     private javax.swing.JTable faseCurvaCaracteristicas;
-    private javax.swing.JTable faseCurvaCaracteristicas1;
-    private javax.swing.JComboBox faseCurvaCorrente;
     private javax.swing.JComboBox faseCurvaCorrente1;
+    private javax.swing.JComboBox faseCurvaCorrenteCadastro;
+    private javax.swing.JComboBox faseCurvaCorrenteExistente;
     private javax.swing.JTextField faseCurvaDial;
     private javax.swing.JTextField faseCurvaDial1;
+    private javax.swing.JComboBox faseCurvaDialExistente;
     private javax.swing.JPanel faseCurvaFirst;
     private javax.swing.JButton faseCurvaGrafico;
     private javax.swing.JButton faseCurvaGrafico1;
@@ -1734,20 +2018,16 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JTextField faseCurvaPasso;
     private javax.swing.JTextField faseCurvaPasso1;
     private javax.swing.JTable faseCurvaPrimeira;
-    private javax.swing.JTable faseCurvaPrimeira1;
     private javax.swing.JButton faseCurvaRemoveCaracteristicas;
-    private javax.swing.JButton faseCurvaRemoveCaracteristicas1;
     private javax.swing.JButton faseCurvaRemovePrimeira;
     private javax.swing.JButton faseCurvaRemovePrimeira1;
     private javax.swing.JPanel faseCurvaSecond;
     private javax.swing.JPanel faseInstantaneaFirst;
     private javax.swing.JPanel faseInstantaneaSecond;
-    private javax.swing.JTextField fatorInicioTempFase;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -1769,6 +2049,12 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
@@ -1796,13 +2082,18 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
@@ -1813,26 +2104,28 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField modelo;
     private javax.swing.JPanel neutroCorrenteFirst;
     private javax.swing.JPanel neutroCorrenteSecond;
+    private javax.swing.JButton neutroCurvaAdicionaCaracteristicas;
+    private javax.swing.JTable neutroCurvaCaracteristicas;
     private javax.swing.JPanel neutroCurvaFirst;
+    private javax.swing.JTable neutroCurvaPrimeira;
+    private javax.swing.JButton neutroCurvaRemoveCaracteristicas;
     private javax.swing.JPanel neutroCurvaSecond;
     private javax.swing.JPanel neutroInstantaneaFirst;
     private javax.swing.JPanel neutroInstantaneaSecond;
+    private javax.swing.JButton retornarFaseCorrente;
     private javax.swing.JButton retornarFaseCurva;
     private javax.swing.JButton retornarFaseCurva1;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTabbedPane temporizadaFase;
     private javax.swing.ButtonGroup tipoDeEquipamento;
-    private javax.swing.JCheckBox unidadeInstantaneaFase;
-    private javax.swing.JCheckBox unidadeInstantaneaNeutro;
-    private javax.swing.JCheckBox unidadeTemporizadaFase;
-    private javax.swing.JCheckBox unidadeTemporizadaNeutro;
+    private javax.swing.JTextField valores;
     // End of variables declaration//GEN-END:variables
 }
