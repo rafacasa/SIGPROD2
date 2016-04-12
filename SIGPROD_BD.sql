@@ -70,7 +70,7 @@ CREATE TABLE Rele (
 	fatorInicioDefNeutro DOUBLE
 ) ENGINE = innodb;
 
-CREATE TABLE CorrentePickupDefinido (
+CREATE TABLE CorrentePickupDefinidoEletromecanico (
 	codigoRele INT,
 	correntePickup DOUBLE,
 	isFase BOOLEAN,
@@ -90,18 +90,29 @@ CREATE TABLE PontoCurvaRele (
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE TempoCorrenteDigital (
-	codigoRele INT PRIMARY KEY,
+CREATE TABLE CorrenteDigital (
+	codigoRele INT,
+	tipo INT,
 	correnteMinino DOUBLE,
 	correnteMaximo DOUBLE,
 	correntePasso DOUBLE,
+	PRIMARY KEY (codigoRele, tipo),
+	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE TempoDigital (
+	codigoRele INT,
+	isFase BOOLEAN,
+	tempoMaximo DOUBLE, 
 	tempoMinimo DOUBLE,
-	tempoMaximo DOUBLE,
-	tempoPasso DOUBLE
+	tempoPasso DOUBLE,
+	PRIMARY KEY (codigoRele, isDigital),
+	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
 CREATE TABLE CaracteristicasCurva (
 	codigoRele INT,
+	isFase BOOLEAN,
 	nome VARCHAR(50),
 	a DOUBLE,
 	b DOUBLE,

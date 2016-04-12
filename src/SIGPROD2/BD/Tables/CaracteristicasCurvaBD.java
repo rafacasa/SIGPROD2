@@ -14,6 +14,7 @@ public class CaracteristicasCurvaBD {
     public static String P = "p";
     public static String NOME = "nome";
     public static String CODIGO_RELE = "codigoRele";
+    public static String IS_FASE = "isFase";
     public static String ID = "id";
     public static String TABELA = "CaracteristicasCurva";
 }
