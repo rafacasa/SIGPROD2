@@ -35,5 +35,9 @@ public class Mensagem {
     public static void mostraMensagemSelecioneColuna(JFrame janela) {
         mostraMensagem(janela, "Coluna não selecionada", "Seleção");
     }
+    
+    public static void mostraMensagemSucesso(JFrame janela) {
+        mostraMensagem(janela, "Operação concluída com sucesso", "Sucesso");
+    }
 
 }

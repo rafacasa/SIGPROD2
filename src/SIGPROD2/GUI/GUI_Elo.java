@@ -62,8 +62,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void carregarElo() {
         EloK selecionado = (EloK) this.listaCorrentes.getSelectedItem();
-        ArrayList<PontoCurva> lista;
-        if (selecionado != null) {
+          if (selecionado != null) {
             try {
                 this.preferencialCarregar.setSelected(selecionado.isPreferencial());
                 carregarCurvaMaxima(selecionado);
@@ -411,7 +410,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(preferencial))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(apagarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,7 +422,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(12, 12, 12))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,6 +446,12 @@ public class GUI_Elo extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Novo Elo de Ramal", jPanel1);
+
+        jPanel8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel8KeyPressed(evt);
+            }
+        });
 
         type2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         type2.setText("Tipo K");
@@ -500,6 +505,11 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         ));
         tabelaCurvaMinimoCarregar.setMinimumSize(new java.awt.Dimension(250, 250));
+        tabelaCurvaMinimoCarregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaCurvaMinimoCarregarMouseClicked(evt);
+            }
+        });
         tabelaCurvaMinimoCarregar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tabelaCurvaMinimoCarregarKeyPressed(evt);
@@ -685,7 +695,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(preferencialCarregar))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(apagarDadosCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -699,7 +709,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(12, 12, 12))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -995,6 +1005,14 @@ public class GUI_Elo extends javax.swing.JFrame {
         this.limparCampos(false);
     }//GEN-LAST:event_apagarDadosCarregarActionPerformed
 
+    private void tabelaCurvaMinimoCarregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCurvaMinimoCarregarMouseClicked
+
+    }//GEN-LAST:event_tabelaCurvaMinimoCarregarMouseClicked
+
+    private void jPanel8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel8KeyPressed
+ 
+    }//GEN-LAST:event_jPanel8KeyPressed
+
     /*
      * Arquivo selecionado é mandado para este método, juntamente com um boolean, informando
      * qual a página em que está sendo carregado o arquivo, para saber quais PontoCurvaTableModel usar.
@@ -1034,13 +1052,12 @@ public class GUI_Elo extends javax.swing.JFrame {
      * Atribui, e exibe, os valores lidos no arquivo, conforme o PontoCurvaTableModel passado por parâmetro.
      */
     public void setPontosCurvaTabela(PontoCurvaTableModel min, PontoCurvaTableModel max, String[] linhas) {
-        for (int i = 0; i < linhas.length; i++) {
-            if (!linhas[i].equals("")) {
-                String valores[] = linhas[i].split(" ");
+        for (String linha : linhas) {
+            if (!linha.equals("")) {
+                String[] valores = linha.split(" ");
                 double corrente = Double.parseDouble(valores[0]);
                 double tempo = Double.parseDouble(valores[1]);
                 int ehMax = Integer.parseInt(valores[2]);
-
                 if (ehMax == 1) {
                     max.add(new PontoCurva(corrente, tempo));
                 } else {
@@ -1086,22 +1103,16 @@ public class GUI_Elo extends javax.swing.JFrame {
 
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_Elo.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_Elo.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_Elo.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_Elo.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new GUI_Elo().setVisible(true);
             }

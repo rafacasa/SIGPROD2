@@ -60,4 +60,8 @@ public class Erro {
     public static void entradaInvalida (JFrame janela) {
         mostraMensagem(janela, "Entrada inválida");
     }
+    
+    public static void camposVazios (JFrame janela) {
+        mostraMensagem(janela, "Campos vazios");
+    }
 }
