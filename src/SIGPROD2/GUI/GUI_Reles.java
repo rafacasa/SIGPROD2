@@ -1780,7 +1780,13 @@ public class GUI_Reles extends javax.swing.JFrame {
                 this.newRele.addFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
-                this.avancarTela();
+                
+                Gson g = new Gson();
+                Arquivo a = new Arquivo("Gson.ini");
+                String s = g.toJson(this.newRele);
+                a.escreverArquivo(s);
+                
+                
             } else {
                 Erro.camposVazios(this);
             }
@@ -1887,24 +1893,34 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_definidaNeutroCorrenteValoresActionPerformed
 
     private void faseCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaSalvarActionPerformed
-        salvarDialCadastradoComPontos();
+        salvarFaseDialCadastradoComPontos();
     }//GEN-LAST:event_faseCurvaSalvarActionPerformed
 
-    private void salvarDialCadastradoComPontos() {
+    private void salvarFaseDialCadastradoComPontos() {
         String c = String.valueOf(this.faseCurvaCorrenteCadastro.getSelectedItem());
         double corrente = Double.parseDouble(c);
         String d = this.faseCurvaDial.getText();
         double dial = Double.parseDouble(d);
-        ArrayList<PontoCurva> pontos = new ArrayList(this.modeloFaseCriarDial.getArrayList());
+        ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
         
         ((ReleEletromecanico)this.newRele).addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
     }
+    
+    private void salvarNeutroDialCadastradoComPontos() {
+        String c = String.valueOf(this.neutroCurvaCorrenteCadastro.getSelectedItem());
+        double corrente = Double.parseDouble(c);
+        String d = this.neutroCurvaDial.getText();
+        double dial = Double.parseDouble(d);
+        ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
+        
+        ((ReleEletromecanico)this.newRele).addDialDeTempo(Rele.INVERSA_NEUTRO, corrente, dial, pontos);
+    }
 
     private void faseCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteExistenteActionPerformed
-        carregarDialCadastradoEmCorrente();
+        carregarFaseDialCadastradoEmCorrente();
     }//GEN-LAST:event_faseCurvaCorrenteExistenteActionPerformed
 
-    private void carregarDialCadastradoEmCorrente() throws NumberFormatException {
+    private void carregarFaseDialCadastradoEmCorrente() {
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
         double corrente = Double.parseDouble(str);
         
@@ -1915,11 +1931,22 @@ public class GUI_Reles extends javax.swing.JFrame {
         }
     }
 
+    private void carregarNeutroDialCadastradoEmCorrente() {
+        String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
+        double corrente = Double.parseDouble(str);
+        
+        ArrayList<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
+        this.neutroCurvaDialExistente.removeAllItems();
+        for (Double d : dial) {
+            this.neutroCurvaDialExistente.addItem(d);
+        }
+    }
+    
     private void faseCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaDialExistenteActionPerformed
-        carregarPontosDeDial();
+        carregarFasePontosDeDial();
     }//GEN-LAST:event_faseCurvaDialExistenteActionPerformed
 
-    private void carregarPontosDeDial() {
+    private void carregarFasePontosDeDial() {
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
         String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
         
@@ -1937,6 +1964,25 @@ public class GUI_Reles extends javax.swing.JFrame {
             this.modeloFaseExistenteDial.fireTableDataChanged();
         }
     }
+    
+    private void carregarNeutroPontosDeDial() {
+        String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
+        String srt = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
+        
+        try {
+            double corrente = Double.parseDouble(str);
+            double dial = Double.parseDouble(srt);
+            ArrayList<PontoCurva> a;
+            a = ((ReleEletromecanico) this.newRele).getPontosDialDeTempo(corrente, dial, Rele.INVERSA_NEUTRO);
+            
+            this.modeloNeutroExistenteDial.removeTodos();
+            this.modeloNeutroExistenteDial.add(a);
+            this.modeloNeutroExistenteDial.fireTableDataChanged();
+        } catch (NumberFormatException e) {
+            this.modeloNeutroExistenteDial.removeTodos();
+            this.modeloNeutroExistenteDial.fireTableDataChanged();
+        }
+    }
 
     private void faseCurvaCorrenteCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteCadastroActionPerformed
         // TODO add your handling code here:
@@ -1951,24 +1997,27 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_neutroCurvaCorrenteCadastroActionPerformed
 
     private void neutroCurvaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRemovePrimeiraActionPerformed
-        // TODO add your handling code here:
+        int selecionado = this.neutroCurvaPrimeira.getSelectedRow();
+        
+        this.modeloNeutroCriaDial.remove(selecionado);
+        this.modeloNeutroCriaDial.fireTableDataChanged();
     }//GEN-LAST:event_neutroCurvaRemovePrimeiraActionPerformed
 
     private void neutroCurvaAdicionaPrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaAdicionaPrimeiraActionPerformed
-        this.modeloFaseCriarDial.add(new PontoCurva(0, 0));
-        this.modeloFaseCriarDial.fireTableDataChanged();
+        this.modeloNeutroCriaDial.add(new PontoCurva(0, 0));
+        this.modeloNeutroCriaDial.fireTableDataChanged();
     }//GEN-LAST:event_neutroCurvaAdicionaPrimeiraActionPerformed
 
     private void neutroCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaSalvarActionPerformed
-        
+        this.salvarNeutroDialCadastradoComPontos();
     }//GEN-LAST:event_neutroCurvaSalvarActionPerformed
 
     private void neutroCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaDialExistenteActionPerformed
-        // TODO add your handling code here:
+        carregarNeutroPontosDeDial();
     }//GEN-LAST:event_neutroCurvaDialExistenteActionPerformed
 
     private void neutroCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaCorrenteExistenteActionPerformed
-        // TODO add your handling code here:
+        carregarNeutroDialCadastradoEmCorrente();
     }//GEN-LAST:event_neutroCurvaCorrenteExistenteActionPerformed
 
     private void criaSequencia(String min, String max, String pass) {

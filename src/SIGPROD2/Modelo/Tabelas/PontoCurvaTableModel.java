@@ -6,8 +6,6 @@ package SIGPROD2.Modelo.Tabelas;
 
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Modelo.PontoCurva;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,7 +40,11 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     }
 
     public ArrayList<PontoCurva> getArrayList() {
-        return this.pontos;
+        ArrayList<PontoCurva> ponto = new ArrayList();
+        for (PontoCurva p : this.pontos) {
+            ponto.add(new PontoCurva(p));
+        }
+        return ponto;
     }
 
     @Override

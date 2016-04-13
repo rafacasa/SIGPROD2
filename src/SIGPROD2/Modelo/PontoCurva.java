@@ -21,6 +21,13 @@ public class PontoCurva {
     }
 
     public PontoCurva() {
+    
+    }
+    
+    public PontoCurva (PontoCurva p) {
+        this.corrente = p.corrente;
+        this.tempo = p.tempo;
+        this.id = p.id;
     }
 
     public PontoCurva(double corrente, double tempo) {
