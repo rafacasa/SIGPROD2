@@ -3,7 +3,6 @@ package SIGPROD2.DAO;
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.BD.Conexao;
 import SIGPROD2.BD.Tables.ReleBD;
-import SIGPROD2.BD.Tables.CorrenteDigitalBD;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
 import SIGPROD2.Modelo.ReleEletromecanico;
@@ -34,8 +33,9 @@ public class ReleDao {
             + ReleBD.FATOR_INICIO_DEFINIDO_NEUTRO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
     public static void insereRele(Rele releParaInserir) throws SQLException {
-        releParaInserir.setCodigo(getCodigoRele());
-        atualizaCodigoRele();
+        int codigoAtual = getCodigoRele();
+        releParaInserir.setCodigo(codigoAtual);
+        atualizaCodigoRele(codigoAtual);
         inserirRele(releParaInserir);
         if (releParaInserir.isDigital()) {
             ReleDigitalDao.insereDadosReleDigital((ReleDigital) releParaInserir);
@@ -72,9 +72,8 @@ public class ReleDao {
         }
     }
 
-    private static void atualizaCodigoRele() {
+    private static void atualizaCodigoRele(int atual) {
         Gson json = new Gson();
-        int atual = getCodigoRele();
         String escrita = json.toJson(atual + 1);
 
         ARQUIVO_ID.escreverArquivo(escrita);

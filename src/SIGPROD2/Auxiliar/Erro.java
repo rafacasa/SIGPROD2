@@ -70,4 +70,8 @@ public class Erro {
     public static void selecioneUnidadeRele(JFrame janela) {
         mostraMensagem(janela, "Você deve selecionar pelo menos uma unidade para o Relé");
     }
+
+    public static void camposVazios(JFrame janela) {
+        mostraMensagem(janela, "Campos vazios");
+    }
 }

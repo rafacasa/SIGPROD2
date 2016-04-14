@@ -10,12 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
+ * lasse responsável por interagir com o Banco de Dados para inserir, alterar e
+ * remover os dados de um Rele Digital.
  *
  * @author Rafael Casa
  * @version 12/04/2016
  */
 public class ReleDigitalDao {
-    
+
     private static final String INSERT_CORRENTE = "INSERT INTO "
             + CorrenteDigitalBD.TABELA + " ("
             + CorrenteDigitalBD.CODIGO_RELE + ", "
@@ -30,18 +32,18 @@ public class ReleDigitalDao {
             + TempoDigitalBD.TEMPO_MAXIMO + ", "
             + TempoDigitalBD.TEMPO_MINIMO + ", "
             + TempoDigitalBD.TEMPO_PASSO + ") VALUES (?, ?, ?, ?, ?)";
-    
+
     public static void insereDadosReleDigital(ReleDigital releParaInserir) throws SQLException {
         insereTempo(releParaInserir);
         insereCorrente(releParaInserir);
         CaracteristicasCurvaDao.insereCaracteristicasCurva(releParaInserir);
     }
-    
+
     private static void insereTempo(ReleDigital releParaInserir) throws SQLException {
         insereTempo(releParaInserir, true);
         insereTempo(releParaInserir, false);
     }
-    
+
     private static void insereTempo(ReleDigital releParaInserir, boolean tipo) throws SQLException {
         int index;
         if (tipo) {
@@ -51,7 +53,7 @@ public class ReleDigitalDao {
         }
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(INSERT_TEMPO);
-        
+
         comando.setInt(1, releParaInserir.getCodigo());
         comando.setBoolean(2, tipo);
         comando.setDouble(3, releParaInserir.getTempoMax().get(index));
@@ -60,18 +62,18 @@ public class ReleDigitalDao {
         comando.executeUpdate();
         Conexao.fechaConexao();
     }
-    
+
     private static void insereCorrente(ReleDigital releParaInserir) throws SQLException {
         insereCorrente(releParaInserir, Rele.DEFINIDO_FASE);
         insereCorrente(releParaInserir, Rele.DEFINIDO_NEUTRO);
         insereCorrente(releParaInserir, Rele.INVERSA_FASE);
         insereCorrente(releParaInserir, Rele.INVERSA_NEUTRO);
     }
-    
+
     private static void insereCorrente(ReleDigital releParaInserir, int tipo) throws SQLException {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(INSERT_CORRENTE);
-        
+
         comando.setInt(1, releParaInserir.getCodigo());
         comando.setInt(2, tipo);
         comando.setDouble(3, releParaInserir.getCorrenteMax().get(tipo));

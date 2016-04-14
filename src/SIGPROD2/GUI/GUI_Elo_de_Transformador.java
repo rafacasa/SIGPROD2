@@ -1,5 +1,5 @@
 /*
- * Classe responsável por gerenciar a Janela de Elo de Transformadores.
+ * 
  */
 package SIGPROD2.GUI;
 
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 
 /**
+ * Classe responsável por gerenciar a Janela de Elo de Transformadores.
  *
  * @author Sérgio Brunetta Júnior
  * @version 15/03/2K16
- *
  */
 public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
 

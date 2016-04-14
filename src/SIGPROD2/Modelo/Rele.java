@@ -25,6 +25,10 @@ public abstract class Rele {
 
     public Rele() {
         this.fatorInicio = new ArrayList(4);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
     }
 
     public double getFatorInicio(int tipo) {
@@ -32,7 +36,7 @@ public abstract class Rele {
     }
 
     public void addFatorInicio(double fator, int tipo) {
-        this.fatorInicio.add(tipo, fator);
+        this.fatorInicio.set(tipo, fator);
     }
 
     public String getFabricante() {

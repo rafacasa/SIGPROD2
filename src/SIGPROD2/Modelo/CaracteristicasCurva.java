@@ -1,6 +1,8 @@
 package SIGPROD2.Modelo;
 
 /**
+ * Classe responsável por modelar as Características de Curva de um Relé
+ * digital.
  *
  * @author Rafael Casa
  * @version 07/04/2016
@@ -8,12 +10,12 @@ package SIGPROD2.Modelo;
 public class CaracteristicasCurva {
 
     private String nome;
-    private int a, b, p;
+    private double a, b, p;
 
     public CaracteristicasCurva() {
     }
 
-    public CaracteristicasCurva(String nome, int a, int b, int p) {
+    public CaracteristicasCurva(String nome, double a, double b, double p) {
         this.nome = nome;
         this.a = a;
         this.b = b;
@@ -28,27 +30,27 @@ public class CaracteristicasCurva {
         this.nome = nome;
     }
 
-    public int getA() {
+    public double getA() {
         return a;
     }
 
-    public void setA(int a) {
+    public void setA(double a) {
         this.a = a;
     }
 
-    public int getB() {
+    public double getB() {
         return b;
     }
 
-    public void setB(int b) {
+    public void setB(double b) {
         this.b = b;
     }
 
-    public int getP() {
+    public double getP() {
         return p;
     }
 
-    public void setP(int p) {
+    public void setP(double p) {
         this.p = p;
     }
 }

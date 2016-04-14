@@ -7,11 +7,10 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 12/04/2016
  */
-public class CorrentePickupDefinidoEletromecanicoBD {
+public class PickupDefinidaEletromecanico {
 
     public static String CODIGO_RELE = "codigoRele";
     public static String CORRENTE_PICKUP = "correntePickup";
     public static String IS_FASE = "isFase";
-    public static String TEMPO_ATUACAO = "tempoAtuacao";
     public static String TABELA = "CorrentePickupDefinidoEletromecanico";
 }

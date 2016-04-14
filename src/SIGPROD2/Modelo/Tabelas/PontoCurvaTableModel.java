@@ -14,12 +14,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Rafael Coelho
  * @version 16/08/2015
  */
-
 public class PontoCurvaTableModel extends DefaultTableModel {
 
     private ArrayList<PontoCurva> pontos;
     private String titulos[];
-    
+
     public PontoCurvaTableModel() {//REVISADO
         pontos = new ArrayList<>();
         titulos = new String[]{"Corrente", "Tempo"};
@@ -35,13 +34,17 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     public void add(ArrayList<PontoCurva> pontos) {
         this.pontos = pontos;
     }
-    
+
     public void add(PontoCurva a) {//REVISADO
         this.pontos.add(a);
     }
-    
-    public ArrayList<PontoCurva> getArrayList () {
-        return this.pontos;
+
+    public ArrayList<PontoCurva> getArrayList() {
+        ArrayList<PontoCurva> ponto = new ArrayList();
+        for (PontoCurva p : this.pontos) {
+            ponto.add(new PontoCurva(p));
+        }
+        return ponto;
     }
 
     @Override
@@ -61,7 +64,7 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     public Object getValueAt(int row, int col) {//REVISADO
         if (!pontos.isEmpty()) {
             PontoCurva a = pontos.get(row);
-
+            
             if (a != null) {
                 switch (col) {
                     case 0:
@@ -77,11 +80,6 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     @Override
     public String getColumnName(int col) {
         return titulos[col];
-    }
-    
-    @Override
-    public Class<?> getColumnClass (int coluna) {
-       return Double.class; 
     }
 
     @Override
@@ -103,13 +101,14 @@ public class PontoCurvaTableModel extends DefaultTableModel {
                     a.setTempo(valor);
             }
             fireTableCellUpdated(row, col);
-        } catch (NumberFormatException ex) {
+        } catch (Exception ex) {
             Erro.entradaSomenteNumeros(null);
+            ex.printStackTrace();
         }
     }
 
-    public void removeTodos () {
+    public void removeTodos() {
         this.pontos = new ArrayList<>();
     }
-    
+
 }

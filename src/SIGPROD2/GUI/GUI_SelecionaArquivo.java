@@ -1,6 +1,3 @@
-/*
- * Classe responsável por Seletor de Arquivos
- */
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
@@ -8,10 +5,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 /**
+ * Classe responsável por Seletor de Arquivos
  *
  * @author sbrunettajr
  * @version 10/03/2K16
- *
  */
 public class GUI_SelecionaArquivo extends javax.swing.JFrame {
 
@@ -26,7 +23,7 @@ public class GUI_SelecionaArquivo extends javax.swing.JFrame {
         initComponents();
         this.gui = gui;
         this.primeiraAba = primeiraAba;
-        
+
         setTitle("Selecione o arquivo com os Pontos de Curva");
         setAlwaysOnTop(true);
         fileChooser.setCurrentDirectory(new File("/home/user"));

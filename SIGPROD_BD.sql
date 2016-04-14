@@ -60,7 +60,7 @@ CREATE TABLE ElotransformadorTri (
 ) ENGINE = innodb;
 
 CREATE TABLE Rele (
-	codigo INT AUTO_INCREMENT PRIMARY KEY,
+	codigo INT PRIMARY KEY,
 	fabricante VARCHAR(50),
 	modelo VARCHAR(50),
 	isDigital BOOLEAN,
@@ -74,8 +74,15 @@ CREATE TABLE CorrentePickupDefinidoEletromecanico (
 	codigoRele INT,
 	correntePickup DOUBLE,
 	isFase BOOLEAN,
+	PRIMARY KEY (codigoRele, isFase, correntePickup),
+	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE TempoAtuacaoDefinidoEletromecanico (
+	codigoRele INT,
 	tempoAtuacao DOUBLE,
-	PRIMARY KEY (codigoRele, correntePickup, isFase, tempoAtuacao),
+	isFase BOOLEAN,
+	PRIMARY KEY (codigoRele, isFase, tempoAtuacao),
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
@@ -106,7 +113,7 @@ CREATE TABLE TempoDigital (
 	tempoMaximo DOUBLE, 
 	tempoMinimo DOUBLE,
 	tempoPasso DOUBLE,
-	PRIMARY KEY (codigoRele, isDigital),
+	PRIMARY KEY (codigoRele, isFase),
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
