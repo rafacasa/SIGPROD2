@@ -2,12 +2,12 @@ package SIGPROD2.Auxiliar;
 
 import java.io.*;
 
-/*
- * 
- * @author Sérgio
- * 
+/**
+ * Classe responsável por facilitar a manipulação de arquivos de texto.
+ *
+ * @author Sérgio Braunetta.
+ * @version 13/04/2016
  */
-
 public class Arquivo {
 
     private String nome;
@@ -15,7 +15,7 @@ public class Arquivo {
     private String texto;
     private BufferedReader br;
 
-    public Arquivo(String nomeArquivo) {        
+    public Arquivo(String nomeArquivo) {
         setNome(nomeArquivo);
     }
 
@@ -55,7 +55,7 @@ public class Arquivo {
             }
         }
     }
-    
+
     public void escreverArquivo(String textoArquivo) {
         this.texto = textoArquivo;
         getArquivoSaida().print(this.texto);
@@ -77,43 +77,28 @@ public class Arquivo {
     }
 
     public boolean abreArquivo() {
-       try {
-           br = new BufferedReader(new FileReader(getNome()));
-           return true;
-       } catch (IOException ex) {
-           return false;
-       }
+        try {
+            br = new BufferedReader(new FileReader(getNome()));
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
     }
-    
-    public String lerArquivo () {
+
+    public String lerArquivo() {
         abreArquivo();
         StringBuilder sb = new StringBuilder();
         try {
-            while (this.br.ready()) {   
+            while (this.br.ready()) {
                 String line = this.br.readLine() + "\r";
                 sb.append(line);
-            }            
+            }
             return sb.toString();
         } catch (IOException ex) {
             System.out.println("Error");
         }
         return "";
     }
-    
-    /*public void substituiArquivo(String novoTexto) {
-        File arquivo = new File(getNome());
-        arquivo.delete();
-
-        arquivo = new File(getNome());
-        try {
-            arquivo.createNewFile();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        abreArquivo();
-        escreverArquivo(novoTexto);
-        fechaArquivoSaida();
-    }*/
 
     public boolean existeArquivo() {
         return (new File(getNome())).exists();
@@ -122,15 +107,15 @@ public class Arquivo {
     public boolean apagaArquivo() {
         return (new File(getNome())).delete();
     }
-    
+
     public boolean podeLerArquivo() {
         return (new File(getNome())).canRead();
-    }    
+    }
 
     public boolean podeEscreverArquivo() {
         return (new File(getNome())).canWrite();
-    }    
-    
+    }
+
     public boolean ehDiretorio() {
         return (new File(getNome()).isDirectory());
     }
@@ -138,10 +123,10 @@ public class Arquivo {
     void apagaArquivosDiretorio() {
         if (ehDiretorio()) {
             File arquivos[] = new File(getNome()).listFiles();
-            
+
             for (int i = 0; i < arquivos.length; i++) {
                 File arquivo = arquivos[i];
-                
+
                 arquivo.delete();
             }
         }

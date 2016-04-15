@@ -8,8 +8,8 @@ package SIGPROD2.Modelo;
  */
 public class PontoCurva {
 
-    public static final boolean PONTODACURVAMAXIMA = true;
-    public static final boolean PONTODACURVAMINIMA = false;
+    public static final boolean PONTO_DA_CURVA_MAXIMA = true;
+    public static final boolean PONTO_DA_CURVA_MINIMA = false;
     private double corrente;
     private double tempo;
     private int id;
@@ -21,10 +21,9 @@ public class PontoCurva {
     }
 
     public PontoCurva() {
-    
     }
-    
-    public PontoCurva (PontoCurva p) {
+
+    public PontoCurva(PontoCurva p) {
         this.corrente = p.corrente;
         this.tempo = p.tempo;
         this.id = p.id;

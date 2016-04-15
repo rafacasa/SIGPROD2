@@ -12,9 +12,14 @@ public class DialDeTempoMecanico {
     private ArrayList<PontoCurva> pontosCurva;
     private double dial;
 
-    public DialDeTempoMecanico(double dial, ArrayList<PontoCurva> pontos) {
-        this.pontosCurva = pontos;
+    public DialDeTempoMecanico(double dial) {
+        this.pontosCurva = new ArrayList<>();
         this.dial = dial;
+    }
+
+    public DialDeTempoMecanico(double dial, ArrayList<PontoCurva> pontos) {
+        this.dial = dial;
+        this.pontosCurva = pontos;
     }
 
     public void addPontoCurva(PontoCurva ponto) {
@@ -32,14 +37,13 @@ public class DialDeTempoMecanico {
     public double getDial() {
         return dial;
     }
-    
+
     public void setDial(double dial) {
         this.dial = dial;
     }
-    
+
     @Override
-    public String toString () {
+    public String toString() {
         return String.valueOf(this.dial);
     }
-
 }

@@ -5,16 +5,15 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/*
+/**
+ * Classe responsável por renderizar as células da tabela de Elos de
+ * Transformador.
  *
- * @author sbrunettajr 
- * 08/03/2K16
- *
+ * @author Sérgio Brunetta
+ * @version 08/03/2K16
  */
-
 public class MyRenderer extends DefaultTableCellRenderer {
-    
-    @Override
+
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         if (column == 0) {
@@ -25,6 +24,6 @@ public class MyRenderer extends DefaultTableCellRenderer {
         setForeground(Color.BLACK);
         setHorizontalAlignment(CENTER);
         return c;
-    }  
+    }
 
 }

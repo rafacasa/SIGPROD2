@@ -1,0 +1,123 @@
+1. Dados Gerais :
+	
+	JTextField :
+		- fabricante
+		- modelo
+	JCheckBox :
+		- unidadeTemporizadaFase
+		- unidadeTemporizadaNeutro
+		- unidadeInstantaneaFase
+		- unidadeInstantaneaNeutro
+	JButton :
+		- avancarDadosGerais
+		- cancelarDadosGerais
+
+2. Unidade Temporizada de Fase :
+
+	2.1 : Corrente de Pickup :
+		
+		JTextField :
+			- faseCorrenteMinimo
+			- faseCorrenteMaximo
+			- faseCorrentePasso
+			- faseCorrenteValores
+			- faseCorrenteFator
+		JCheckBox :
+			- faseCorrentePassoConstante		
+		JButton :
+			- avancarFaseCorrente
+			- cancelarFaseCorrente
+			- retornarFaseCorrente
+
+	2.2 : Curvas :
+			- JTable :
+				- faseCurvaCaracteristicas
+				- faseCurvaPrimeira
+			- JComboBox :
+				- faseCurvaFormas
+				- faseCurvaCorrente
+			- JTextField :
+				- faseCurvaDialTempo
+				- faseCurvaMinimo
+				- faseCurvaMaximo
+				- faseCurvaPasso
+			- JButton :
+				- faseCurvaGrafico
+				- faseCurvaAddCaracteristicas
+				- faseCurvaRemoveCaracteristicas
+				- faseCurvaAddPrimeira
+				- faseCurvaRemovePrimeira
+				- avancarFaseCurva
+				- removerFaseCurva
+				- retornarFaseCurva
+
+3. Instantânea de Fase
+	
+	JTextField :
+			- faseInstantaneaMinimo
+			- faseInstantaneaMaximo
+			- faseInstantaneaPasso
+			- faseInstantaneaValores
+			- faseInstantaneaFator
+		JCheckBox :
+			- faseCorrentePassoConstante		
+		JButton :
+			- avancarFaseInstantanea
+			- cancelarFaseInstantanea
+			- retornarFaseInstantanea
+
+4. Unidade Temporizada de Fase :
+
+	4.1 : Corrente de Pickup :
+		
+		JTextField :
+			- neutroCorrenteMinimo
+			- neutroCorrenteMaximo
+			- neutroCorrentePasso
+			- neutroCorrenteValores
+			- neutroCorrenteFator
+		JCheckBox :
+			- neutroCorrentePassoConstante		
+		JButton :
+			- avancarNeutroCorrente
+			- cancelarNeutroCorrente
+			- retornarNeutroCorrente
+
+	4.2 : Curvas :
+			- JTable :
+				- faseCurvaCaracteristicas
+				- faseCurvaPrimeira
+			- JComboBox :
+				- faseCurvaFormas
+				- faseCurvaCorrente
+			- JTextField :
+				- faseCurvaDialTempo
+				- faseCurvaMinimo
+				- faseCurvaMaximo
+				- faseCurvaPasso
+			- JButton :
+				- faseCurvaGrafico
+				- faseCurvaAddCaracteristicas
+				- faseCurvaRemoveCaracteristicas
+				- faseCurvaAddPrimeira
+				- faseCurvaRemovePrimeira
+				- avancarFaseCurva
+				- removerFaseCurva
+				- retornarFaseCurva
+
+5. Instantânea de Neutro
+	
+	JTextField :
+			- neutroInstantaneaMinimo
+			- neutroInstantaneaMaximo
+			- neutroInstantaneaPasso
+			- neutroInstantaneaValores
+			- neutroInstantaneaFator
+		JCheckBox :
+			- neutroCorrentePassoConstante		
+		JButton :
+			- avancarNeutroInstantanea
+			- cancelarNeutroInstantanea
+			- retornarNeutroInstantanea
+		
+		

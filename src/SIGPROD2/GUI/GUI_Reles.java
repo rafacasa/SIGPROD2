@@ -3,18 +3,24 @@ package SIGPROD2.GUI;
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Perguntas;
+import SIGPROD2.DAO.ReleDao;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
-import SIGPROD2.Modelo.CaracteristicaCurva;
+import SIGPROD2.Modelo.CaracteristicasCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
 import SIGPROD2.Modelo.ReleEletromecanico;
 import com.google.gson.Gson;
 import java.awt.CardLayout;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 public class GUI_Reles extends javax.swing.JFrame {
 
@@ -699,7 +705,6 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addGroup(faseCurvaSecondLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(faseCurvaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addGroup(faseCurvaSecondLayout.createSequentialGroup()
                         .addGroup(faseCurvaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -715,8 +720,9 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addGroup(faseCurvaSecondLayout.createSequentialGroup()
                         .addComponent(faseCurvaAdicionaCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(faseCurvaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(489, Short.MAX_VALUE))
+                        .addComponent(faseCurvaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
         faseCurvaSecondLayout.setVerticalGroup(
             faseCurvaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1780,13 +1786,18 @@ public class GUI_Reles extends javax.swing.JFrame {
                 this.newRele.addFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
-                
+
                 Gson g = new Gson();
                 Arquivo a = new Arquivo("Gson.ini");
                 String s = g.toJson(this.newRele);
                 a.escreverArquivo(s);
-                
-                
+                /*try {
+                 ReleDao.insereRele(this.newRele);
+                 } catch (SQLException ex) {
+                 Erro.mostraMensagemSQL(this);
+                 ex.printStackTrace();
+                 }*/
+
             } else {
                 Erro.camposVazios(this);
             }
@@ -1833,7 +1844,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             if (!f.equals("") && !v.equals("")) {
                 double fator = Double.parseDouble(f);
                 ArrayList<Double> lista = this.separaValores(v);
-                
+
                 this.newRele.addFatorInicio(fator, Rele.INVERSA_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
                 this.addCorrentePickupNeutro(lista);
@@ -1853,12 +1864,12 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_faseCurvaMaximo1ActionPerformed
 
     private void neutroCurvaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaAdicionaCaracteristicasActionPerformed
-        this.modeloNeutroCaracteristicas.add(new CaracteristicaCurva("-", "-", "-", "-"));
+        this.modeloNeutroCaracteristicas.add(new CaracteristicasCurva("-", 0.0, 0.0, 0.0));
         this.modeloNeutroCaracteristicas.fireTableDataChanged();
     }//GEN-LAST:event_neutroCurvaAdicionaCaracteristicasActionPerformed
 
     private void faseCurvaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaAdicionaCaracteristicasActionPerformed
-        this.modeloFaseCaracteristicas.add(new CaracteristicaCurva("-", "-", "-", "-"));
+        this.modeloFaseCaracteristicas.add(new CaracteristicasCurva("-", 0.0, 0.0, 0.0));
         this.modeloFaseCaracteristicas.fireTableDataChanged();
     }//GEN-LAST:event_faseCurvaAdicionaCaracteristicasActionPerformed
 
@@ -1902,18 +1913,18 @@ public class GUI_Reles extends javax.swing.JFrame {
         String d = this.faseCurvaDial.getText();
         double dial = Double.parseDouble(d);
         ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
-        
-        ((ReleEletromecanico)this.newRele).addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
+
+        ((ReleEletromecanico) this.newRele).addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
     }
-    
+
     private void salvarNeutroDialCadastradoComPontos() {
         String c = String.valueOf(this.neutroCurvaCorrenteCadastro.getSelectedItem());
         double corrente = Double.parseDouble(c);
         String d = this.neutroCurvaDial.getText();
         double dial = Double.parseDouble(d);
         ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
-        
-        ((ReleEletromecanico)this.newRele).addDialDeTempo(Rele.INVERSA_NEUTRO, corrente, dial, pontos);
+
+        ((ReleEletromecanico) this.newRele).addDialDeTempo(Rele.INVERSA_NEUTRO, corrente, dial, pontos);
     }
 
     private void faseCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteExistenteActionPerformed
@@ -1923,7 +1934,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void carregarFaseDialCadastradoEmCorrente() {
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
         double corrente = Double.parseDouble(str);
-        
+
         ArrayList<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
         this.faseCurvaDialExistente.removeAllItems();
         for (Double d : dial) {
@@ -1934,14 +1945,14 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void carregarNeutroDialCadastradoEmCorrente() {
         String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
         double corrente = Double.parseDouble(str);
-        
+
         ArrayList<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
         this.neutroCurvaDialExistente.removeAllItems();
         for (Double d : dial) {
             this.neutroCurvaDialExistente.addItem(d);
         }
     }
-    
+
     private void faseCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaDialExistenteActionPerformed
         carregarFasePontosDeDial();
     }//GEN-LAST:event_faseCurvaDialExistenteActionPerformed
@@ -1949,13 +1960,13 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void carregarFasePontosDeDial() {
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
         String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
-        
+
         try {
             double corrente = Double.parseDouble(str);
             double dial = Double.parseDouble(srt);
             ArrayList<PontoCurva> a;
             a = ((ReleEletromecanico) this.newRele).getPontosDialDeTempo(corrente, dial, Rele.INVERSA_FASE);
-            
+
             this.modeloFaseExistenteDial.removeTodos();
             this.modeloFaseExistenteDial.add(a);
             this.modeloFaseExistenteDial.fireTableDataChanged();
@@ -1964,17 +1975,17 @@ public class GUI_Reles extends javax.swing.JFrame {
             this.modeloFaseExistenteDial.fireTableDataChanged();
         }
     }
-    
+
     private void carregarNeutroPontosDeDial() {
         String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
         String srt = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
-        
+
         try {
             double corrente = Double.parseDouble(str);
             double dial = Double.parseDouble(srt);
             ArrayList<PontoCurva> a;
             a = ((ReleEletromecanico) this.newRele).getPontosDialDeTempo(corrente, dial, Rele.INVERSA_NEUTRO);
-            
+
             this.modeloNeutroExistenteDial.removeTodos();
             this.modeloNeutroExistenteDial.add(a);
             this.modeloNeutroExistenteDial.fireTableDataChanged();
@@ -1998,7 +2009,7 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void neutroCurvaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRemovePrimeiraActionPerformed
         int selecionado = this.neutroCurvaPrimeira.getSelectedRow();
-        
+
         this.modeloNeutroCriaDial.remove(selecionado);
         this.modeloNeutroCriaDial.fireTableDataChanged();
     }//GEN-LAST:event_neutroCurvaRemovePrimeiraActionPerformed
@@ -2135,6 +2146,8 @@ public class GUI_Reles extends javax.swing.JFrame {
         for (String item : s) {
             if (!item.isEmpty()) {
                 String valor = item.trim();
+                double d = Double.parseDouble(valor);
+                Number
                 a.add(Double.parseDouble(valor));
             }
         }
@@ -2167,7 +2180,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     private boolean isEletromecanico() {
         return this.eletromecanico.isSelected();
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

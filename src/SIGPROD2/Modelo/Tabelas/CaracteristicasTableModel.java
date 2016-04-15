@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SIGPROD2.Modelo.Tabelas;
 
 import SIGPROD2.Auxiliar.Erro;
-import SIGPROD2.Modelo.PontoCurva;
-import SIGPROD2.Modelo.CaracteristicaCurva;
+import SIGPROD2.Modelo.CaracteristicasCurva;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CaracteristicasTableModel extends DefaultTableModel {
 
-    private ArrayList<CaracteristicaCurva> caracteristica;
+    private ArrayList<CaracteristicasCurva> caracteristica;
     private String[] titulos;
 
     public CaracteristicasTableModel() {
@@ -32,15 +26,15 @@ public class CaracteristicasTableModel extends DefaultTableModel {
         }
     }
 
-    public void add(ArrayList<CaracteristicaCurva> caracteristica) {
+    public void add(ArrayList<CaracteristicasCurva> caracteristica) {
         this.caracteristica = caracteristica;
     }
 
-    public void add(CaracteristicaCurva c) {//REVISADO
+    public void add(CaracteristicasCurva c) {//REVISADO
         this.caracteristica.add(c);
     }
 
-    public ArrayList<CaracteristicaCurva> getArrayList() {
+    public ArrayList<CaracteristicasCurva> getArrayList() {
         return this.caracteristica;
     }
 
@@ -60,7 +54,7 @@ public class CaracteristicasTableModel extends DefaultTableModel {
     @Override
     public Object getValueAt(int row, int col) {//REVISADO
         if (!this.caracteristica.isEmpty()) {
-            CaracteristicaCurva c = this.caracteristica.get(row);
+            CaracteristicasCurva c = this.caracteristica.get(row);
 
             if (c != null) {
                 switch (col) {
@@ -82,7 +76,7 @@ public class CaracteristicasTableModel extends DefaultTableModel {
     public String getColumnName(int col) {
         return titulos[col];
     }
-    
+
     @Override
     public boolean isCellEditable(int row, int col) {
         return true;
@@ -92,21 +86,21 @@ public class CaracteristicasTableModel extends DefaultTableModel {
     public void setValueAt(Object value, int row, int col) {
         try {
             String valor = (String) value;
-            CaracteristicaCurva c = caracteristica.get(row);
+            CaracteristicasCurva c = caracteristica.get(row);
 
             switch (col) {
-                case 0 :
+                case 0:
                     c.setNome(valor);
                     break;
-                case 1 :
-                    c.setA(valor);
+                case 1:
+                    c.setA(Double.valueOf(valor));
                     break;
-                case 2 :
-                    c.setB(valor);
+                case 2:
+                    c.setB(Double.valueOf(valor));
                     break;
-                case 3 :
-                    c.setP(valor);
-                    break;                    
+                case 3:
+                    c.setP(Double.valueOf(valor));
+                    break;
             }
             fireTableCellUpdated(row, col);
         } catch (NumberFormatException ex) {

@@ -1,13 +1,11 @@
-/*
- * Classe responsável por gerenciar a Janela de Elos.
- */
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.Auxiliar.Mensagem;
 import SIGPROD2.DAO.EloKDao;
-import SIGPROD2.DAO.PontoCurvaDAO;
+import SIGPROD2.DAO.PontoCurvaEloDao;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
@@ -17,13 +15,12 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 
-/*
+/**
+ * Classe responsável por gerenciar a Janela de Elos.
  *
  * @author Sérgio Brunetta Júnior
- * @version 10/03/2K16
- *
+ * @version 25/03/2016
  */
-
 public class GUI_Elo extends javax.swing.JFrame {
 
     private PontoCurvaTableModel modeloMaximo;
@@ -34,15 +31,20 @@ public class GUI_Elo extends javax.swing.JFrame {
     private ArrayList<EloK> correntes;
     private boolean abaCarregarEloSelecionada;
     private boolean abaElosTransformadorSelecionada;
-    
+
+    /**
+     * Método que constrói a janela de cadastro e recuperação de Elos tipo K
+     */
     public GUI_Elo() {
         initComponents();
         iniciaTabelas();
         carregarCorrentes();
     }
 
-    /*
-     * Carrega todas as correntes salvas no Banco de Dados para o JComboBox, na segunda aba.
+    /**
+     * Método responsável por acessar o Banco de Dados, verificar todos os Elos
+     * K salvos e colocar as respectivas correntes na JComboBox da aba de
+     * Carregar Elos
      */
     private void carregarCorrentes() {
         try {
@@ -56,13 +58,14 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
 
     }
-    
-    /*
-     * Carrega ponto do elo selecionado na segunda aba.
+
+    /**
+     * Método responsável por acessar o Banco de Dados, verificar os pontos de
+     * curva da corrente selecionada e colocar nas respectivas JTable's
      */
     private void carregarElo() {
         EloK selecionado = (EloK) this.listaCorrentes.getSelectedItem();
-          if (selecionado != null) {
+        if (selecionado != null) {
             try {
                 this.preferencialCarregar.setSelected(selecionado.isPreferencial());
                 carregarCurvaMaxima(selecionado);
@@ -75,30 +78,40 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }
 
-    /*
-     * Carrega os pontos minimos do elo selecionado na segunda aba.
+    /**
+     * Método responsável por carregar os Pontos de Curva de Mínima Fusão do Elo
+     * K selecionado
+     *
+     * @param selecionado O Elo K selecionado
+     * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
+     * Dados forem inválidos
      */
-    private ArrayList<PontoCurva> carregarCurvaMinima(EloK selecionado) throws SQLException {
+    private void carregarCurvaMinima(EloK selecionado) throws SQLException {
         ArrayList<PontoCurva> lista;
-        lista = PontoCurvaDAO.buscaPontosCurva(selecionado.getCorrenteNominal(),
-                PontoCurva.PONTODACURVAMINIMA);
+        lista = PontoCurvaEloDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
+                PontoCurva.PONTO_DA_CURVA_MINIMA);
         this.modeloMinimoCarregar.add(lista);
-        return lista;
+        selecionado.setCurvaDeMinimaFusao(lista);
     }
-    
-    /*
-     * Carrega os pontos máximos do elo selecionado na segunda aba.
+
+    /**
+     * Método responsável por carregar os Pontos de Curva de Máxima Interrupção
+     * do Elo K selecionado
+     *
+     * @param selecionado O Elo K selecionado
+     * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
+     * Dados forem inválidos
      */
-    private ArrayList<PontoCurva> carregarCurvaMaxima(EloK selecionado) throws SQLException {
+    private void carregarCurvaMaxima(EloK selecionado) throws SQLException {
         ArrayList<PontoCurva> lista;
-        lista = PontoCurvaDAO.buscaPontosCurva(selecionado.getCorrenteNominal(),
-                PontoCurva.PONTODACURVAMAXIMA);
+        lista = PontoCurvaEloDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
+                PontoCurva.PONTO_DA_CURVA_MAXIMA);
         this.modeloMaximoCarregar.add(lista);
-        return lista;
+        selecionado.setCurvaDeMaximaInterrupcao(lista);
     }
-    
-    /*
-     * Configura tabelas ao iniciar a classe.
+
+    /**
+     * Método responsável por configurar todas as JTables da tela
      */
     private void iniciaTabelas() {
         iniciarTabelaCurvaMaxima();
@@ -107,36 +120,52 @@ public class GUI_Elo extends javax.swing.JFrame {
         iniciarTabelaCurvaMaximaCarregar();
     }
 
+    /**
+     * Método responsável por iniciar a JTable da Curva de Máxima da tela de
+     * carregar Elo
+     */
     private void iniciarTabelaCurvaMaximaCarregar() {
-        modeloMaximoCarregar = new PontoCurvaTableModel();
-        
-        this.tabelaCurvaMaximaCarregar.setModel(modeloMaximoCarregar);
+        this.modeloMaximoCarregar = new PontoCurvaTableModel();
+
+        this.tabelaCurvaMaximaCarregar.setModel(this.modeloMaximoCarregar);
         this.tabelaCurvaMaximaCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMaximaCarregar.setRowSorter(new TableRowSorter(modeloMaximoCarregar));
+        this.tabelaCurvaMaximaCarregar.setRowSorter(new TableRowSorter(this.modeloMaximoCarregar));
     }
 
+    /**
+     * Método responsável por iniciar a JTable da Curva de Mínima da tela de
+     * carregar Elo
+     */
     private void iniciarTabelaCurvaMinimaCarregar() {
-        modeloMinimoCarregar = new PontoCurvaTableModel();
-        
-        this.tabelaCurvaMinimoCarregar.setModel(modeloMinimoCarregar);
+        this.modeloMinimoCarregar = new PontoCurvaTableModel();
+
+        this.tabelaCurvaMinimoCarregar.setModel(this.modeloMinimoCarregar);
         this.tabelaCurvaMinimoCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMinimoCarregar.setRowSorter(new TableRowSorter(modeloMinimoCarregar));
+        this.tabelaCurvaMinimoCarregar.setRowSorter(new TableRowSorter(this.modeloMinimoCarregar));
     }
 
+    /**
+     * Método responsável por iniciar a JTable da Curva de Mínima da tela de
+     * inserir Elo
+     */
     private void iniciarTabelaCurvaMinima() {
-        modeloMinimo = new PontoCurvaTableModel();
-        
-        this.tabelaCurvaMinimo.setModel(modeloMinimo);
+        this.modeloMinimo = new PontoCurvaTableModel();
+
+        this.tabelaCurvaMinimo.setModel(this.modeloMinimo);
         this.tabelaCurvaMinimo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMinimo.setRowSorter(new TableRowSorter(modeloMinimo));
+        this.tabelaCurvaMinimo.setRowSorter(new TableRowSorter(this.modeloMinimo));
     }
 
+    /**
+     * Método responsável por iniciar a JTable da Curva de Máxima da tela de
+     * inserir Elo
+     */
     private void iniciarTabelaCurvaMaxima() {
-        modeloMaximo = new PontoCurvaTableModel();
-        
-        this.tabelaCurvaMaxima.setModel(modeloMaximo);
+        this.modeloMaximo = new PontoCurvaTableModel();
+
+        this.tabelaCurvaMaxima.setModel(this.modeloMaximo);
         this.tabelaCurvaMaxima.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMaxima.setRowSorter(new TableRowSorter(modeloMaximo));
+        this.tabelaCurvaMaxima.setRowSorter(new TableRowSorter(this.modeloMaximo));
     }
 
     @SuppressWarnings("unchecked")
@@ -162,6 +191,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         inserir = new javax.swing.JButton();
         arquivoUm = new javax.swing.JButton();
         apagarDados = new javax.swing.JButton();
+        botaoGraficoInserir = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         type2 = new javax.swing.JLabel();
@@ -182,6 +212,7 @@ public class GUI_Elo extends javax.swing.JFrame {
         botaoDeletar = new javax.swing.JButton();
         botaoAtualizar = new javax.swing.JButton();
         apagarDadosCarregar = new javax.swing.JButton();
+        botaoGrafico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -270,7 +301,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addComponent(addCurvaMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeCurvaMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,6 +425,13 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         });
 
+        botaoGraficoInserir.setText("Gráfico");
+        botaoGraficoInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGraficoInserirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -410,10 +448,12 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(preferencial))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(apagarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoGraficoInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(arquivoUm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -422,7 +462,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -441,17 +481,12 @@ public class GUI_Elo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(arquivoUm)
                     .addComponent(inserir)
-                    .addComponent(apagarDados))
+                    .addComponent(apagarDados)
+                    .addComponent(botaoGraficoInserir))
                 .addGap(0, 0, 0))
         );
 
         jTabbedPane1.addTab("Novo Elo de Ramal", jPanel1);
-
-        jPanel8.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel8KeyPressed(evt);
-            }
-        });
 
         type2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         type2.setText("Tipo K");
@@ -505,11 +540,6 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         ));
         tabelaCurvaMinimoCarregar.setMinimumSize(new java.awt.Dimension(250, 250));
-        tabelaCurvaMinimoCarregar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaCurvaMinimoCarregarMouseClicked(evt);
-            }
-        });
         tabelaCurvaMinimoCarregar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tabelaCurvaMinimoCarregarKeyPressed(evt);
@@ -543,7 +573,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addComponent(addCurvaMinimaCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeCurvaMinimaCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -679,6 +709,13 @@ public class GUI_Elo extends javax.swing.JFrame {
             }
         });
 
+        botaoGrafico.setText("Gráfico");
+        botaoGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGraficoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -695,10 +732,12 @@ public class GUI_Elo extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(preferencialCarregar))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addComponent(apagarDadosCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -709,7 +748,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -729,7 +768,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addComponent(botaoDeletar)
                     .addComponent(botaoAtualizar)
                     .addComponent(arquivoDois)
-                    .addComponent(apagarDadosCarregar))
+                    .addComponent(apagarDadosCarregar)
+                    .addComponent(botaoGrafico))
                 .addGap(12, 12, 12))
         );
 
@@ -764,32 +804,44 @@ public class GUI_Elo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*
-     * Abre o seletor de arquivos na primeira aba.
+    /**
+     * Método responsável por abrir a janela de seleção de um arquivo .txt com
+     * os pontos de curva na aba de inserir Elo
+     *
+     * @param evt O evento ocorrido
      */
     private void arquivoUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoUmActionPerformed
         GUI_SelecionaArquivo select = new GUI_SelecionaArquivo(this, true);
         select.setVisible(true);
     }//GEN-LAST:event_arquivoUmActionPerformed
 
-    /*
-     * Abre o seletor de arquivos na segunda aba. 
+    /**
+     * Método responsável por abrir a janela de seleção de um arquivo .txt com
+     * os pontos de curva na aba de carregar Elo
+     *
+     * @param evt O evento ocorrido
      */
     private void arquivoDoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoDoisActionPerformed
         GUI_SelecionaArquivo select = new GUI_SelecionaArquivo(this, false);
         select.setVisible(true);
     }//GEN-LAST:event_arquivoDoisActionPerformed
 
-    /*
-     * Adiciona uma linha na tabela de curva minima da primeira aba.
+    /**
+     * Método responsável por adicionar uma linha na JTable de curva mínima na
+     * aba de inserir elo
+     *
+     * @param evt O evento ocorrido
      */
     private void addCurvaMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMinimaActionPerformed
         this.modeloMinimo.add(new PontoCurva(0, 0));
         this.modeloMinimo.fireTableDataChanged();
     }//GEN-LAST:event_addCurvaMinimaActionPerformed
 
-    /*
-     * Remove uma linha na tabela de curva minima da primeira aba.
+    /**
+     * Método responsável por remover uma linha na JTable de curva mínima na aba
+     * de inserir elo
+     *
+     * @param evt O evento ocorrido
      */
     private void removeCurvaMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCurvaMinimaActionPerformed
         int row = tabelaCurvaMinimo.getSelectedRow();
@@ -801,16 +853,22 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeCurvaMinimaActionPerformed
 
-    /*
-     * Adiciona uma linha na tabela de curva máxima da primeira aba.
+    /**
+     * Método responsável por adicionar uma linha na JTable de curva máxima na
+     * aba de inserir elo
+     *
+     * @param evt O evento ocorrido
      */
     private void addCurvaMaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMaximaActionPerformed
         this.modeloMaximo.add(new PontoCurva(0, 0));
         this.modeloMaximo.fireTableDataChanged();
     }//GEN-LAST:event_addCurvaMaximaActionPerformed
 
-    /*
-     * Insere no banco de dados um novo Elo
+    /**
+     * Método responsável por inserir um Elo tipo K no banco de dados, quando o
+     * botão inserir é pressionado
+     *
+     * @param evt O evento ocorrido
      */
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         if (!this.correnteNominal.getText().equals("")) {
@@ -832,8 +890,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inserirActionPerformed
 
-    /*
-     * Remove uma linha na tabela de curva máxima da primeira aba.
+    /**
+     * Método responsável por remover uma linha na JTable de curva máxima na aba
+     * de inserir elo
+     *
+     * @param evt O evento ocorrido
      */
     private void removeCurvaMaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCurvaMaximaActionPerformed
         int row = tabelaCurvaMaxima.getSelectedRow();
@@ -845,16 +906,22 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeCurvaMaximaActionPerformed
 
-    /* 
-     * Adiciona uma linha na tabela de curva mínima da segunda aba.
+    /**
+     * Método responsável por adicionar uma linha na JTable de curva mínima na
+     * aba de carregar elo
+     *
+     * @param evt O evento ocorrido
      */
     private void addCurvaMinimaCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMinimaCarregarActionPerformed
         this.modeloMinimoCarregar.add(new PontoCurva(0, 0));
         this.modeloMinimoCarregar.fireTableDataChanged();
     }//GEN-LAST:event_addCurvaMinimaCarregarActionPerformed
 
-    /* 
-     * Remove uma linha na tabela de curva mínima da segunda aba.
+    /**
+     * Método responsável por remover uma linha na JTable de curva mínima na aba
+     * de carregar elo
+     *
+     * @param evt O evento ocorrido
      */
     private void removeCurvaMinimaCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCurvaMinimaCarregarActionPerformed
         int row = tabelaCurvaMinimoCarregar.getSelectedRow();
@@ -866,16 +933,22 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeCurvaMinimaCarregarActionPerformed
 
-    /* 
-     * Adiciona uma linha na tabela de curva Máxima da segunda aba.
+    /**
+     * Método responsável por adicionar uma linha na JTable de curva máxima na
+     * aba de carregar elo
+     *
+     * @param evt O evento ocorrido
      */
     private void addCurvaMaximaCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCurvaMaximaCarregarActionPerformed
         this.modeloMaximoCarregar.add(new PontoCurva(0, 0));
         this.modeloMaximoCarregar.fireTableDataChanged();
     }//GEN-LAST:event_addCurvaMaximaCarregarActionPerformed
 
-    /* 
-     * Remove uma linha na tabela de curva Máxima da segunda aba.
+    /**
+     * Método responsável por remover uma linha na JTable de curva máxima na aba
+     * de carregar elo
+     *
+     * @param evt O evento ocorrido
      */
     private void removeCurvaMaximaCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCurvaMaximaCarregarActionPerformed
         int row = tabelaCurvaMaximaCarregar.getSelectedRow();
@@ -887,15 +960,22 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeCurvaMaximaCarregarActionPerformed
 
-    /*
-     * Carrega os pontos de curva do Elo selecionado, na segunda aba.
+    /**
+     * Método é chamado após selecionar uma corrente na JComboBox da tela de
+     * carregar elo. Faz os procedimentos necessários para carregar os pontos de
+     * curva desse elo nas JTables da aba de carregar elo.
+     *
+     * @param evt O evento ocorrido
      */
     private void listaCorrentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaCorrentesActionPerformed
         carregarElo();
     }//GEN-LAST:event_listaCorrentesActionPerformed
 
-    /*
-     * Deleta o Elo selecionado na segunda aba.
+    /**
+     * Método responsável por deletar um elo do banco de dados. Este método é
+     * executado após clicar no botão delete da aba de carregar elo
+     *
+     * @param evt O evento ocorrido
      */
     private void botaoDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDeletarActionPerformed
         if (this.listaCorrentes.getSelectedItem() != null) {
@@ -912,8 +992,12 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoDeletarActionPerformed
 
-    /*
-     * Atualiza o Elo selecionado no JComboBox na segunda aba.
+    /**
+     * Método responsável por atualizar as informações de um elo do banco de
+     * dados. Este método é executado após clicar no botão atualizar da aba de
+     * carregar elo
+     *
+     * @param evt O evento ocorrido
      */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
         if (this.listaCorrentes.getSelectedItem() != null) {
@@ -931,8 +1015,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
-    /*
-     * Quando botao DELETE é clicado, é excluida a linha selecionada na tabelaCurvaMinimoCarregar
+    /**
+     * Deleta a linha selecionada da JTable de curva mínima da aba de carregar
+     * elo quando a tecla delete do teclado é pressionada.
+     *
+     * @param evt O evento ocorrido
      */
     private void tabelaCurvaMinimoCarregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMinimoCarregarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
@@ -946,8 +1033,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaCurvaMinimoCarregarKeyPressed
 
-    /*
-     * Quando botao DELETE é clicado, é excluida a linha selecionada na tabelaCurvaMaximaCarregar
+    /**
+     * Deleta a linha selecionada da JTable de curva máxima da aba de carregar
+     * elo quando a tecla delete do teclado é pressionada.
+     *
+     * @param evt O evento ocorrido
      */
     private void tabelaCurvaMaximaCarregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMaximaCarregarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
@@ -961,8 +1051,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaCurvaMaximaCarregarKeyPressed
 
-    /*
-     * Quando botao DELETE é clicado, é excluida a linha selecionada na tabelaCurvaMinimo
+    /**
+     * Deleta a linha selecionada da JTable de curva mínima da aba de inserir
+     * elo quando a tecla delete do teclado é pressionada.
+     *
+     * @param evt O evento ocorrido
      */
     private void tabelaCurvaMinimoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMinimoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
@@ -976,8 +1069,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaCurvaMinimoKeyPressed
 
-    /*
-     * Quando botao DELETE é clicado, é excluida a linha selecionada na tabelaCurvaMaxima
+    /**
+     * Deleta a linha selecionada da JTable de curva máxima da aba de inserir
+     * elo quando a tecla delete do teclado é pressionada.
+     *
+     * @param evt O evento ocorrido
      */
     private void tabelaCurvaMaximaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMaximaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
@@ -991,31 +1087,62 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaCurvaMaximaKeyPressed
 
-    /*
-     * Responsável por limpar todos os dados na primeira aba.
+    /**
+     * Método responsável por apagar todos os dados da primeira aba. É chamado
+     * pelo botão limpar da primeira aba.
+     *
+     * @param evt O evento ocorrido
      */
     private void apagarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarDadosActionPerformed
         this.limparCampos(true);
     }//GEN-LAST:event_apagarDadosActionPerformed
 
-    /*
-     * Responsável por limpar todos os dados na segunda aba.
+    /**
+     * Método responsável por apagar todos os dados da segunda aba. É chamado
+     * pelo botão limpar da segunda aba.
+     *
+     * @param evt O evento ocorrido
      */
     private void apagarDadosCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarDadosCarregarActionPerformed
         this.limparCampos(false);
     }//GEN-LAST:event_apagarDadosCarregarActionPerformed
 
-    private void tabelaCurvaMinimoCarregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCurvaMinimoCarregarMouseClicked
+    /**
+     * Método responsável por exibir um gráfico da curva do Elo a ser inserido.
+     * É chamado pelo botão gráfico da primeira aba.
+     *
+     * @param evt O evento ocorrido.
+     */
+    private void botaoGraficoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoInserirActionPerformed
+        EloK elo;
+        if (!this.correnteNominal.getText().equals("")) {
+            elo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                    preferencial.isSelected(),
+                    this.modeloMinimo.getArrayList(),
+                    this.modeloMaximo.getArrayList());
+            Grafico.criarGrafico(elo).setVisible(true);
+        } else {
+            Erro.correnteVazia(this);
+        }
+    }//GEN-LAST:event_botaoGraficoInserirActionPerformed
 
-    }//GEN-LAST:event_tabelaCurvaMinimoCarregarMouseClicked
+    /**
+     * Método responsável por exibir um gráfico da curva do Elo recuperado do
+     * Banco de Dados. É chamado pelo botão gráfico da segunda aba.
+     *
+     * @param evt O evento ocorrido.
+     */
+    private void botaoGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoActionPerformed
+        EloK elo = (EloK) this.listaCorrentes.getSelectedItem();
+        Grafico.criarGrafico(elo).setVisible(true);
+    }//GEN-LAST:event_botaoGraficoActionPerformed
 
-    private void jPanel8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel8KeyPressed
- 
-    }//GEN-LAST:event_jPanel8KeyPressed
-
-    /*
-     * Arquivo selecionado é mandado para este método, juntamente com um boolean, informando
-     * qual a página em que está sendo carregado o arquivo, para saber quais PontoCurvaTableModel usar.
+    /**
+     * Método responsável por ler o arquivo selecionado pelo usuário.
+     *
+     * @param file O arquivo selecionado pelo usuário.
+     * @param page Informa em qual aba foi requisitado o arquivo (true =
+     * primeira aba; false = segunda aba).
      */
     public void setArquivo(Arquivo file, boolean page) {
         if (file != null && file.existeArquivo()) {
@@ -1051,13 +1178,22 @@ public class GUI_Elo extends javax.swing.JFrame {
     /*
      * Atribui, e exibe, os valores lidos no arquivo, conforme o PontoCurvaTableModel passado por parâmetro.
      */
+    /**
+     * Método responsável por receber os dados lidos no arquivo e adicionar-los
+     * aos JTables correspondentes.
+     *
+     * @param min O modelo da tabela de curva mínima.
+     * @param max O modelo da tabela de curva máxima.
+     * @param linhas O vetor de Strings lido no arquivo.
+     */
     public void setPontosCurvaTabela(PontoCurvaTableModel min, PontoCurvaTableModel max, String[] linhas) {
-        for (String linha : linhas) {
-            if (!linha.equals("")) {
-                String[] valores = linha.split(" ");
+        for (int i = 0; i < linhas.length; i++) {
+            if (!linhas[i].equals("")) {
+                String valores[] = linhas[i].split(" ");
                 double corrente = Double.parseDouble(valores[0]);
                 double tempo = Double.parseDouble(valores[1]);
                 int ehMax = Integer.parseInt(valores[2]);
+
                 if (ehMax == 1) {
                     max.add(new PontoCurva(corrente, tempo));
                 } else {
@@ -1069,8 +1205,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         min.fireTableDataChanged();
     }
 
-    /*
-     * Limpa campos da primeira ou segunda aba, dependendo do valor do boolean recebido.
+    /**
+     * Método responsável por limpar todos os dados de uma das abas da janela.
+     *
+     * @param first Informa a aba a ser limpa. true = aba de inserir elo; false
+     * = aba de carregar elo.
      */
     public void limparCampos(boolean first) {
         if (first) {
@@ -1097,22 +1236,28 @@ public class GUI_Elo extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GUI_Elo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GUI_Elo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GUI_Elo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_Elo.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 new GUI_Elo().setVisible(true);
             }
@@ -1130,6 +1275,8 @@ public class GUI_Elo extends javax.swing.JFrame {
     private javax.swing.JButton arquivoUm;
     private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoDeletar;
+    private javax.swing.JButton botaoGrafico;
+    private javax.swing.JButton botaoGraficoInserir;
     private javax.swing.JTextField correnteNominal;
     private javax.swing.JLabel corrente_nominal;
     private javax.swing.JLabel corrente_nominal2;

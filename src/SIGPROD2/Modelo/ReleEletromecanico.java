@@ -1,7 +1,6 @@
 package SIGPROD2.Modelo;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -24,20 +23,20 @@ public class ReleEletromecanico extends Rele {
         this.mapaNeutroPickupTempo = new TreeMap();
         this.qtdPontosCurva = 0;
         this.tempo = new ArrayList<>(2);
-        this.correntePickup = new ArrayList<>(4);
-        this.correntePickup.add(new ArrayList<>());
-        this.correntePickup.add(new ArrayList<>());
-        this.correntePickup.add(new ArrayList<>());
-        this.correntePickup.add(new ArrayList<>());
+        this.correntePickup = new ArrayList<>();
+        this.correntePickup.add(null);
+        this.correntePickup.add(null);
+        this.correntePickup.add(null);
+        this.correntePickup.add(null);
     }
 
     public void addCorrentePickup(ArrayList<Double> corrente, int tipo) {
-        this.correntePickup.add(tipo, corrente);
+        this.correntePickup.set(tipo, new ArrayList<>(corrente));
         if (tipo == INVERSA_FASE) {
             for (Double c : corrente) {
                 this.mapaFasePickupTempo.put(c, new ArrayList<>());
             }
-        } else {
+        } else if (tipo == INVERSA_NEUTRO) {
             for (Double c : corrente) {
                 this.mapaNeutroPickupTempo.put(c, new ArrayList<>());
             }
@@ -60,7 +59,6 @@ public class ReleEletromecanico extends Rele {
             array = this.mapaFasePickupTempo.get(corrente);
             array.add(dm);
             this.mapaFasePickupTempo.put(corrente, array);
-            this.qtdPontosCurva += pontos.size();
         } else {
             array = this.mapaNeutroPickupTempo.get(corrente);
             array.add(dm);
@@ -85,7 +83,7 @@ public class ReleEletromecanico extends Rele {
     }
 
     public ArrayList<PontoCurva> getPontosDialDeTempo(double corrente, double dial, int tipo) {
-        List<DialDeTempoMecanico> dt;
+        ArrayList<DialDeTempoMecanico> dt;
         if (tipo == Rele.INVERSA_FASE) {
             dt = this.mapaFasePickupTempo.get(corrente);
         } else {
@@ -104,7 +102,7 @@ public class ReleEletromecanico extends Rele {
         return qtdPontosCurva;
     }
 
-    public List<Double> getCorrentePickup(int tipo) {
+    public ArrayList<Double> getCorrentePickup(int tipo) {
         return this.correntePickup.get(tipo);
     }
 
@@ -113,7 +111,7 @@ public class ReleEletromecanico extends Rele {
         this.tempo.add(tipo, tempo);
     }
 
-    public List<Double> getTempoDeAtuacao(int tipo) {
+    public ArrayList<Double> getTempoDeAtuacao(int tipo) {
         tipo = tipo - 2;
         return this.tempo.get(tipo);
     }
