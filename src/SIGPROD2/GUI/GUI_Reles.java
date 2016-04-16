@@ -2,12 +2,14 @@ package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.Auxiliar.Perguntas;
 import SIGPROD2.DAO.ReleDao;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import SIGPROD2.Modelo.CaracteristicasCurva;
+import SIGPROD2.Modelo.DialDeTempoMecanico;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
 import SIGPROD2.Modelo.ReleEletromecanico;
@@ -498,6 +500,11 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         faseCurvaGrafico.setText("Gráfico");
         faseCurvaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
+        faseCurvaGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaGraficoActionPerformed(evt);
+            }
+        });
 
         faseCurvaRemovePrimeira.setText("-");
         faseCurvaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
@@ -2021,6 +2028,13 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void neutroCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaCorrenteExistenteActionPerformed
         carregarNeutroDialCadastradoEmCorrente();
     }//GEN-LAST:event_neutroCurvaCorrenteExistenteActionPerformed
+
+    private void faseCurvaGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaGraficoActionPerformed
+        String d = this.faseCurvaDial.getText();
+        double dial = Double.parseDouble(d);
+        DialDeTempoMecanico dialMecanico = new DialDeTempoMecanico(dial, this.modeloFaseCriarDial.getArrayList());
+        Grafico.criarGrafico(dialMecanico).setVisible(true);
+    }//GEN-LAST:event_faseCurvaGraficoActionPerformed
 
     private void criaSequencia(String min, String max, String pass) {
         int minimo = Integer.parseInt(min);

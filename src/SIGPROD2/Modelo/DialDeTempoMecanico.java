@@ -1,5 +1,6 @@
 package SIGPROD2.Modelo;
 
+import java.awt.Paint;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Rafael Casa
  * @version
  */
-public class DialDeTempoMecanico {
+public class DialDeTempoMecanico implements Curvas {
 
     private ArrayList<PontoCurva> pontosCurva;
     private double dial;
@@ -45,5 +46,30 @@ public class DialDeTempoMecanico {
     @Override
     public String toString() {
         return String.valueOf(this.dial);
+    }
+
+    @Override
+    public String getTitulo() {
+        return "Gráfico do Dial " + this.dial;
+    }
+
+    @Override
+    public int getQtdCurvas() {
+        return 1;
+    }
+
+    @Override
+    public String getNomeCurva(int index) {
+        return "Curva do Dial " + this.dial;
+    }
+
+    @Override
+    public ArrayList<PontoCurva> getCurva(int index) {
+        return new ArrayList<>(this.pontosCurva);
+    }
+
+    @Override
+    public Paint getCurvaPaint(int index) {
+        return java.awt.Color.BLACK;
     }
 }
