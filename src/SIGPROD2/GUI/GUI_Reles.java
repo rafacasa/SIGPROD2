@@ -4,14 +4,14 @@ import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.Auxiliar.Perguntas;
 import SIGPROD2.DAO.ReleDao;
-import SIGPROD2.Modelo.PontoCurva;
-import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
-import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import SIGPROD2.Modelo.CaracteristicasCurva;
 import SIGPROD2.Modelo.DialDeTempoMecanico;
+import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
 import SIGPROD2.Modelo.ReleEletromecanico;
+import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
+import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import java.awt.CardLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -304,7 +304,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                                         .addComponent(curvaTempoFase)
                                         .addGap(6, 6, 6)
                                         .addComponent(curvaTempoNeutro)))))
-                        .addGap(0, 522, Short.MAX_VALUE)))
+                        .addGap(0, 519, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         Painel1Layout.setVerticalGroup(
@@ -559,7 +559,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(faseCurvaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(faseCurvaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -579,11 +579,11 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(faseCurvaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(faseCurvaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(faseCurvaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1787,6 +1787,9 @@ public class GUI_Reles extends javax.swing.JFrame {
                 this.newRele.addFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
+                com.google.gson.Gson gson = new com.google.gson.Gson();
+                SIGPROD2.Auxiliar.Arquivo arq = new SIGPROD2.Auxiliar.Arquivo("rele.temp");
+                arq.escreverArquivo(gson.toJson(this.newRele));
                 try {
                     ReleDao.insereRele(this.newRele);
                 } catch (SQLException ex) {
@@ -1898,10 +1901,10 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_definidaNeutroCorrenteValoresActionPerformed
 
     private void faseCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaSalvarActionPerformed
-        salvarFaseDialCadastradoComPontos();
-        limparCamposfaseCurvaSalvar();
-        faseCurvaCorrenteExistenteActionPerformed(evt);
-        faseCurvaDialExistenteActionPerformed(evt);
+        this.salvarFaseDialCadastradoComPontos();
+        this.limparCamposfaseCurvaSalvar();
+        this.faseCurvaCorrenteExistenteActionPerformed(evt);
+        this.faseCurvaDialExistenteActionPerformed(evt);
     }//GEN-LAST:event_faseCurvaSalvarActionPerformed
 
     private void salvarFaseDialCadastradoComPontos() {
