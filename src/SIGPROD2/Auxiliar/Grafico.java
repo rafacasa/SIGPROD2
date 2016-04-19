@@ -27,6 +27,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class Grafico {
 
+    //<editor-fold defaultstate="collapsed" desc="comment">
     /**
      * Método responsável por criar um Dataset com todos os dados das curvas a
      * serem exibidas no gráfico.
@@ -36,6 +37,7 @@ public class Grafico {
      * @return Um objeto de {@link XYDataset} com todos os dados das curvas a
      * serem exibidas no gráfico.
      */
+//</editor-fold>
     private static XYDataset getDataSet(Curvas curvas) {
         int qtdCurvas = curvas.getQtdCurvas();
         XYSeriesCollection conjuntoLinhas = new XYSeriesCollection();

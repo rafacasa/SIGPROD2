@@ -68,6 +68,7 @@ public class ReleDao {
         } else {
             ARQUIVO_ID.criaArquivo();
             String escrita = json.toJson(0);
+            ARQUIVO_ID.escreverArquivo(escrita);
             return 0;
         }
     }

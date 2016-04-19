@@ -8,15 +8,22 @@ import java.util.List;
  * @author Rafael Casa
  * @version 12/04/2016
  */
-public class ReleDigital extends Rele {
+public class ReleDigital implements Rele {
 
+    private String fabricante;
+    private String modelo;
+    private int codigo;
+    private List<Double> fatorInicio;
     private List<CaracteristicasCurva> listaFase, listaNeutro;
     private List<Double> correnteMax, correnteMin, correntePasso;
     private List<Double> tempoMax, tempoMin, tempoPasso;
 
     public ReleDigital() {
-        super();
-        this.setTipo(DIGITAL);
+        this.fatorInicio = new ArrayList(4);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
         this.listaFase = new ArrayList();
         this.listaNeutro = new ArrayList();
         this.correnteMax = new ArrayList(4);
@@ -28,7 +35,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<Double> getTempoMax() {
-        return tempoMax;
+        return this.tempoMax;
     }
 
     public void setTempoMax(int tipo, double tempo) {
@@ -40,7 +47,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<Double> getTempoMin() {
-        return tempoMin;
+        return this.tempoMin;
     }
 
     public void setTempoMin(int tipo, double tempo) {
@@ -52,7 +59,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<Double> getTempoPasso() {
-        return tempoPasso;
+        return this.tempoPasso;
     }
 
     public void setTempoPasso(int tipo, double tempo) {
@@ -64,7 +71,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<Double> getCorrenteMax() {
-        return correnteMax;
+        return this.correnteMax;
     }
 
     public void setCorrenteMax(int tipo, double corrente) {
@@ -76,7 +83,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<Double> getCorrenteMin() {
-        return correnteMin;
+        return this.correnteMin;
     }
 
     public void setCorrenteMin(int tipo, double corrente) {
@@ -88,7 +95,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<Double> getCorrentePasso() {
-        return correntePasso;
+        return this.correntePasso;
     }
 
     public void setCorrentePasso(int tipo, double corrente) {
@@ -100,7 +107,7 @@ public class ReleDigital extends Rele {
     }
 
     public List<CaracteristicasCurva> getListaFase() {
-        return listaFase;
+        return this.listaFase;
     }
 
     public void setListaFase(List<CaracteristicasCurva> listaFase) {
@@ -108,10 +115,61 @@ public class ReleDigital extends Rele {
     }
 
     public List<CaracteristicasCurva> getListaNeutro() {
-        return listaNeutro;
+        return this.listaNeutro;
     }
 
     public void setListaNeutro(List<CaracteristicasCurva> listaNeutro) {
         this.listaNeutro = new ArrayList(listaNeutro);
+    }
+
+    @Override
+    public double getFatorInicio(int tipo) {
+        return this.fatorInicio.get(tipo);
+    }
+
+    @Override
+    public void addFatorInicio(double fator, int tipo) {
+        this.fatorInicio.set(tipo, fator);
+    }
+
+    @Override
+    public String getFabricante() {
+        return this.fabricante;
+    }
+
+    @Override
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    @Override
+    public String getModelo() {
+        return this.modelo;
+    }
+
+    @Override
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    @Override
+    public int getTipo() {
+        return DIGITAL;
+    }
+
+    @Override
+    public boolean isDigital() {
+        return true;
+
+    }
+
+    @Override
+    public int getCodigo() {
+        return this.codigo;
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 }

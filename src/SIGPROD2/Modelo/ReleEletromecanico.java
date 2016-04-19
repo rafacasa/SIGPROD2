@@ -8,8 +8,12 @@ import java.util.TreeMap;
  * @author Rafael Casa
  * @version 30/03/2016
  */
-public class ReleEletromecanico extends Rele {
+public class ReleEletromecanico implements Rele {
 
+    private String fabricante;
+    private String modelo;
+    private int codigo;
+    private ArrayList<Double> fatorInicio;
     private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaFasePickupTempo;
     private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaNeutroPickupTempo;
     private ArrayList<ArrayList<Double>> correntePickup;
@@ -17,8 +21,11 @@ public class ReleEletromecanico extends Rele {
     private int qtdPontosCurva;
 
     public ReleEletromecanico() {
-        super();
-        this.setTipo(ELETROMECANICO);
+        this.fatorInicio = new ArrayList(4);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
+        this.fatorInicio.add(0.0);
         this.mapaFasePickupTempo = new TreeMap();
         this.mapaNeutroPickupTempo = new TreeMap();
         this.qtdPontosCurva = 0;
@@ -114,5 +121,56 @@ public class ReleEletromecanico extends Rele {
     public ArrayList<Double> getTempoDeAtuacao(int tipo) {
         tipo = tipo - 2;
         return this.tempo.get(tipo);
+    }
+
+    @Override
+    public double getFatorInicio(int tipo) {
+        return this.fatorInicio.get(tipo);
+    }
+
+    @Override
+    public void addFatorInicio(double fator, int tipo) {
+        this.fatorInicio.set(tipo, fator);
+    }
+
+    @Override
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    @Override
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    @Override
+    public String getModelo() {
+        return modelo;
+    }
+
+    @Override
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    @Override
+    public int getTipo() {
+        return ELETROMECANICO;
+    }
+
+    @Override
+    public boolean isDigital() {
+        return false;
+
+    }
+
+    @Override
+    public int getCodigo() {
+        return codigo;
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 }

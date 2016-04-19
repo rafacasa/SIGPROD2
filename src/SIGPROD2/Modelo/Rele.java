@@ -1,78 +1,35 @@
 package SIGPROD2.Modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
- * @author Rafael Casa
- * @version 30/03/2016
+ * @author rafael
  */
-public abstract class Rele {
+public interface Rele {
 
-    private String fabricante;
-    private String modelo;
-    private int tipo;
-    private int codigo;
-    private List<Double> fatorInicio;
+    int DIGITAL = 0;
+    int ELETROMECANICO = 1;
+    int INVERSA_FASE = 0;
+    int INVERSA_NEUTRO = 1;
+    int DEFINIDO_FASE = 2;
+    int DEFINIDO_NEUTRO = 3;
 
-    public static final int DIGITAL = 0;
-    public static final int ELETROMECANICO = 1;
-    public static final int INVERSA_FASE = 0;
-    public static final int INVERSA_NEUTRO = 1;
-    public static final int DEFINIDO_FASE = 2;
-    public static final int DEFINIDO_NEUTRO = 3;
+    double getFatorInicio(int tipo);
+    
+    void addFatorInicio(double fator, int tipo);
 
-    public Rele() {
-        this.fatorInicio = new ArrayList(4);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-    }
+    String getFabricante();
 
-    public double getFatorInicio(int tipo) {
-        return this.fatorInicio.get(tipo);
-    }
+    void setFabricante(String fabricante);
 
-    public void addFatorInicio(double fator, int tipo) {
-        this.fatorInicio.set(tipo, fator);
-    }
+    String getModelo();
 
-    public String getFabricante() {
-        return fabricante;
-    }
+    void setModelo(String modelo);
 
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
+    int getTipo();
 
-    public String getModelo() {
-        return modelo;
-    }
+    boolean isDigital();
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
+    int getCodigo();
 
-    public int getTipo() {
-        return this.tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-
-    public boolean isDigital() {
-        return this.tipo == DIGITAL;
-
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
+    void setCodigo(int codigo);
 }
