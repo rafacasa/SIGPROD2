@@ -28,6 +28,7 @@ public class PontoCurvaReleDao {
             + PontoDeCurvaReleBD.DIAL + ", "
             + PontoDeCurvaReleBD.CODIGO_RELE + ") VALUES (?, ?, ?, ?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?, ?, ?, ?)";
+    private static final String BUSCAR = "";
 
     private static String montarComando(int qtd) {
         String comando = INSERT;
@@ -75,5 +76,10 @@ public class PontoCurvaReleDao {
             }
         }
         return contador;
+    }
+    
+    public static ReleEletromecanico buscarRele(ReleEletromecanico rele)
+    {
+        rele.
     }
 }

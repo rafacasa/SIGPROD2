@@ -33,7 +33,11 @@ public class ReleDao {
             + ReleBD.FATOR_INICIO_INVERSO_FASE + ", "
             + ReleBD.FATOR_INICIO_INVERSO_NEUTRO + ", "
             + ReleBD.FATOR_INICIO_DEFINIDO_FASE + ", "
-            + ReleBD.FATOR_INICIO_DEFINIDO_NEUTRO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            + ReleBD.FATOR_INICIO_DEFINIDO_NEUTRO + ", "
+            + ReleBD.EXISTE_CURVA_INVERSA_FASE + ", "
+            + ReleBD.EXISTE_CURVA_INVERSA_NEUTRO + ", "
+            + ReleBD.EXISTE_CURVA_DEFINIDA_FASE + ", "
+            + ReleBD.EXISTE_CURVA_DEFINIDA_NEUTRO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_TODOS = "SELECT * FROM " + ReleBD.TABELA;
 
     public static void insereRele(Rele releParaInserir) throws SQLException {
@@ -60,6 +64,10 @@ public class ReleDao {
         comando.setDouble(6, releParaInserir.getFatorInicio(Rele.INVERSA_NEUTRO));
         comando.setDouble(7, releParaInserir.getFatorInicio(Rele.DEFINIDO_FASE));
         comando.setDouble(8, releParaInserir.getFatorInicio(Rele.DEFINIDO_NEUTRO));
+        comando.setBoolean(9, releParaInserir.existeCurva(Rele.INVERSA_FASE));
+        comando.setBoolean(10, releParaInserir.existeCurva(Rele.INVERSA_NEUTRO));
+        comando.setBoolean(11, releParaInserir.existeCurva(Rele.DEFINIDO_FASE));
+        comando.setBoolean(12, releParaInserir.existeCurva(Rele.DEFINIDO_NEUTRO));
         comando.executeUpdate();
         Conexao.fechaConexao();
     }
@@ -90,14 +98,31 @@ public class ReleDao {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(SELECT_TODOS);
         ResultSet resultado = comando.executeQuery();
-
+        Conexao.fechaConexao();
         while (resultado.next()) {
             if (resultado.getBoolean(ReleBD.IS_DIGITAL)) {
                 releRecuperado = new ReleDigital();
             } else {
                 releRecuperado = new ReleEletromecanico();
             }
+            releRecuperado.setCodigo(resultado.getInt(ReleBD.CODIGO));
+            releRecuperado.setFabricante(resultado.getString(ReleBD.FABRICANTE));
+            releRecuperado.setModelo(resultado.getString(ReleBD.MODELO));
+            releRecuperado.setExisteCurva(Rele.INVERSA_FASE, resultado.getBoolean(ReleBD.EXISTE_CURVA_INVERSA_FASE));
+            releRecuperado.setExisteCurva(Rele.INVERSA_NEUTRO, resultado.getBoolean(ReleBD.EXISTE_CURVA_INVERSA_NEUTRO));
+            releRecuperado.setExisteCurva(Rele.DEFINIDO_FASE, resultado.getBoolean(ReleBD.EXISTE_CURVA_DEFINIDA_FASE));
+            releRecuperado.setExisteCurva(Rele.DEFINIDO_NEUTRO, resultado.getBoolean(ReleBD.EXISTE_CURVA_DEFINIDA_NEUTRO));
+            releRecuperado.setFatorInicio(resultado.getDouble(ReleBD.FATOR_INICIO_INVERSO_FASE), Rele.INVERSA_FASE);
+            releRecuperado.setFatorInicio(resultado.getDouble(ReleBD.FATOR_INICIO_INVERSO_NEUTRO), Rele.INVERSA_NEUTRO);
+            releRecuperado.setFatorInicio(resultado.getDouble(ReleBD.FATOR_INICIO_DEFINIDO_FASE), Rele.DEFINIDO_FASE);
+            releRecuperado.setFatorInicio(resultado.getDouble(ReleBD.FATOR_INICIO_DEFINIDO_NEUTRO), Rele.DEFINIDO_NEUTRO);
+            if (releRecuperado.isDigital()) {
+                lista.add(ReleDigitalDao.buscarRele(releRecuperado));
+            } else {
+                lista.add(ReleEletromecanicoDao.buscarReleEletromecanico(releRecuperado));
+            }
         }
+        return lista;
     }
 
     //public static Rele buscarRele(String fabricante, String modelo)

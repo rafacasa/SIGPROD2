@@ -7,7 +7,9 @@ import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleEletromecanico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,16 @@ public class ReleEletromecanicoDao {
             + TempoAtuacaoDefinidaEletromecanico.TEMPO_ATUACAO + ", "
             + TempoAtuacaoDefinidaEletromecanico.IS_FASE + ") VALUES (?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?)";
+    private static final String SELECT_CORRENTE = "SELECT "
+            + PickupDefinidaEletromecanico.CORRENTE_PICKUP + " FROM "
+            + PickupDefinidaEletromecanico.TABELA + " WHERE "
+            + PickupDefinidaEletromecanico.CODIGO_RELE + " = ? AND "
+            + TempoAtuacaoDefinidaEletromecanico.IS_FASE + " = ?";
+    private static final String SELECT_TEMPO_ATUACAO = "SELECT "
+            + TempoAtuacaoDefinidaEletromecanico.TEMPO_ATUACAO + " FROM "
+            + TempoAtuacaoDefinidaEletromecanico.TABELA + " WHERE "
+            + TempoAtuacaoDefinidaEletromecanico.CODIGO_RELE + " = ? AND "
+            + TempoAtuacaoDefinidaEletromecanico.IS_FASE + " = ?";
 
     public static void insereDadosReleEletromecanico(ReleEletromecanico releParaInserir) throws SQLException {
         inserirCorrentePickup(releParaInserir, Rele.DEFINIDO_FASE);
@@ -78,5 +90,73 @@ public class ReleEletromecanicoDao {
         }
         comando.executeUpdate();
         Conexao.fechaConexao();
+    }
+
+    public static ReleEletromecanico buscarReleEletromecanico(Rele rele) throws SQLException {
+        ReleEletromecanico releE = (ReleEletromecanico) rele;
+        releE = buscarCorrentes(releE);
+        releE = buscarTempos(releE);
+        releE = PontoCurvaReleDao.buscarRele(releE);
+        return releE;
+    }
+
+    private static ReleEletromecanico buscarTempos(ReleEletromecanico rele) throws SQLException {
+        if (rele.existeCurva(Rele.DEFINIDO_FASE)) {
+            rele = buscarTempos(rele, true);
+        }
+        if (rele.existeCurva(Rele.DEFINIDO_NEUTRO)) {
+            rele = buscarTempos(rele, false);
+        }
+        return rele;
+    }
+
+    private static ReleEletromecanico buscarTempos(ReleEletromecanico rele, boolean isFase) throws SQLException {
+        ArrayList<Double> lista = new ArrayList<>();
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(SELECT_TEMPO_ATUACAO);
+        comando.setInt(1, rele.getCodigo());
+        comando.setBoolean(2, isFase);
+        ResultSet resultado = comando.executeQuery();
+        Conexao.fechaConexao();
+
+        while (resultado.next()) {
+            lista.add(resultado.getDouble(TempoAtuacaoDefinidaEletromecanico.TEMPO_ATUACAO));
+        }
+        if (isFase) {
+            rele.addTempoDeAtuacao(lista, Rele.DEFINIDO_FASE);
+        } else {
+            rele.addTempoDeAtuacao(lista, Rele.DEFINIDO_NEUTRO);
+        }
+        return rele;
+    }
+
+    private static ReleEletromecanico buscarCorrentes(ReleEletromecanico rele) throws SQLException {
+        if (rele.existeCurva(Rele.DEFINIDO_FASE)) {
+            rele = buscarCorrentes(rele, true);
+        }
+        if (rele.existeCurva(Rele.DEFINIDO_NEUTRO)) {
+            rele = buscarCorrentes(rele, false);
+        }
+        return rele;
+    }
+
+    private static ReleEletromecanico buscarCorrentes(ReleEletromecanico rele, boolean isFase) throws SQLException {
+        ArrayList<Double> lista = new ArrayList<>();
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(SELECT_CORRENTE);
+        comando.setInt(1, rele.getCodigo());
+        comando.setBoolean(2, isFase);
+        ResultSet resultado = comando.executeQuery();
+        Conexao.fechaConexao();
+
+        while (resultado.next()) {
+            lista.add(resultado.getDouble(PickupDefinidaEletromecanico.CORRENTE_PICKUP));
+        }
+        if (isFase) {
+            rele.addCorrentePickup(lista, Rele.DEFINIDO_FASE);
+        } else {
+            rele.addCorrentePickup(lista, Rele.DEFINIDO_NEUTRO);
+        }
+        return rele;
     }
 }

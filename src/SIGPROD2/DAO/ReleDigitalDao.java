@@ -82,4 +82,8 @@ public class ReleDigitalDao {
         comando.executeUpdate();
         Conexao.fechaConexao();
     }
+
+    public static ReleDigital buscarRele(Rele rele) {
+
+    }
 }
