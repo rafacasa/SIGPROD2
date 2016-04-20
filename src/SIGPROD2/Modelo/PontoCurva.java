@@ -1,5 +1,7 @@
 package SIGPROD2.Modelo;
 
+import java.math.BigDecimal;
+
 /**
  * Esta classe representa um Ponto de Curva de um ELO
  *
@@ -29,7 +31,9 @@ public class PontoCurva {
     }
 
     public double getCorrente() {
-        return corrente;
+        String str = String.format("%,.2f",this.corrente);
+        str = str.replace(',','.');
+        return Double.parseDouble(str);
     }
 
     public void setCorrente(double corrente) {
@@ -37,7 +41,11 @@ public class PontoCurva {
     }
 
     public double getTempo() {
-        return tempo;
+        String str = String.format("%,.2f",this.tempo);
+        if(str.contains(",")){
+            str = str.replace(',','.');
+        }
+        return Double.parseDouble(str);
     }
 
     public void setTempo(double tempo) {

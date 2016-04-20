@@ -64,4 +64,7 @@ public class Erro {
     public static void configureBancoDados(JFrame janela) {
         mostraMensagem(janela, "Você deve configurar as informações de acesso ao Banco de Dados");
     }
+    public static void valoresVazios(JFrame janela){
+        mostraMensagem(janela,"Valores vazios");
+    }
 }

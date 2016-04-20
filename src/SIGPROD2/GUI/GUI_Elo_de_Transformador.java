@@ -424,7 +424,6 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     private void addLinhaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinhaMonofasicoActionPerformed
         ArrayList<Posicao> pos = new ArrayList<>();
         String rowValue = Entrada.valorLinha(this);
-
         if (this.isNumber(rowValue)) {
             pos.add(new Posicao(Integer.parseInt(rowValue)));
             for (int i = 1; i < this.modelMonofasico.getColumnCount(); i++) {
