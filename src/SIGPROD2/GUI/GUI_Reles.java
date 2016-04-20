@@ -1689,6 +1689,9 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_avancarDadosGeraisActionPerformed
 
     private void retornarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCurvaActionPerformed
+        if (this.newRele.getTipo() ==  Rele.ELETROMECANICO) {
+            ((ReleEletromecanico) this.newRele).removeDialDeTempo(Rele.INVERSA_FASE);
+        }
         int selecionado = this.temporizadaFase.getSelectedIndex();
 
         this.temporizadaFase.setSelectedIndex(selecionado - 1);
@@ -1917,6 +1920,9 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarNeutroCurvaActionPerformed
 
     private void retornarNeutroCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarNeutroCurvaActionPerformed
+        if (this.newRele.getTipo() == Rele.ELETROMECANICO) {
+            ((ReleEletromecanico) this.newRele).removeDialDeTempo(WIDTH);
+        }
         int selecionado = this.jTabbedPane1.getSelectedIndex();
 
         this.jTabbedPane1.setSelectedIndex(selecionado - 1);
