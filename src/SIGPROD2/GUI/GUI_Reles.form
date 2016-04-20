@@ -108,7 +108,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="522" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="519" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -597,7 +597,7 @@
                                                       <Component id="faseCurvaSalvar" min="-2" pref="94" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" attributes="0">
-                                                      <Component id="jScrollPane1" min="-2" pref="251" max="-2" attributes="0"/>
+                                                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="faseCurvaAdicionaPrimeira" min="-2" max="-2" attributes="0"/>
@@ -626,12 +626,12 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="faseCurvaAdicionaPrimeira" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="faseCurvaRemovePrimeira" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="jScrollPane1" min="-2" pref="250" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">

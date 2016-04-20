@@ -3,6 +3,7 @@ package SIGPROD2.Modelo.Tabelas;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Modelo.CaracteristicasCurva;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -10,39 +11,39 @@ import javax.swing.table.DefaultTableModel;
  * @author sbrunettajr
  */
 public class CaracteristicasTableModel extends DefaultTableModel {
-
-    private ArrayList<CaracteristicasCurva> caracteristica;
+    
+    private List<CaracteristicasCurva> caracteristica;
     private String[] titulos;
-
+    
     public CaracteristicasTableModel() {
         this.caracteristica = new ArrayList<>();
         this.titulos = new String[]{"Nome", "A", "B", "P"};
     }
-
+    
     public void remove(int row) {//REVISADO
         if (row != -1) {
             this.caracteristica.remove(row);
             fireTableRowsDeleted(row, row);
         }
     }
-
-    public void add(ArrayList<CaracteristicasCurva> caracteristica) {
-        this.caracteristica = caracteristica;
+    
+    public void add(List<CaracteristicasCurva> caracteristica) {
+        this.caracteristica = new ArrayList<>(caracteristica);
     }
-
+    
     public void add(CaracteristicasCurva c) {//REVISADO
         this.caracteristica.add(c);
     }
-
-    public ArrayList<CaracteristicasCurva> getArrayList() {
+    
+    public List<CaracteristicasCurva> getArrayList() {
         return this.caracteristica;
     }
-
+    
     @Override
     public int getColumnCount() {//REVISADO
         return 4;
     }
-
+    
     @Override
     public int getRowCount() {//REVISADO
         if (this.caracteristica == null) {
@@ -50,12 +51,12 @@ public class CaracteristicasTableModel extends DefaultTableModel {
         }
         return this.caracteristica.size();
     }
-
+    
     @Override
     public Object getValueAt(int row, int col) {//REVISADO
         if (!this.caracteristica.isEmpty()) {
             CaracteristicasCurva c = this.caracteristica.get(row);
-
+            
             if (c != null) {
                 switch (col) {
                     case 0:
@@ -71,23 +72,23 @@ public class CaracteristicasTableModel extends DefaultTableModel {
         }
         return null;
     }
-
+    
     @Override
     public String getColumnName(int col) {
         return titulos[col];
     }
-
+    
     @Override
     public boolean isCellEditable(int row, int col) {
         return true;
     }
-
+    
     @Override
     public void setValueAt(Object value, int row, int col) {
         try {
             String valor = (String) value;
             CaracteristicasCurva c = caracteristica.get(row);
-
+            
             switch (col) {
                 case 0:
                     c.setNome(valor);
@@ -107,9 +108,9 @@ public class CaracteristicasTableModel extends DefaultTableModel {
             Erro.entradaSomenteNumeros(null);
         }
     }
-
+    
     public void removeTodos() {
         this.caracteristica = new ArrayList<>();
     }
-
+    
 }

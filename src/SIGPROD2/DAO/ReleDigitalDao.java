@@ -56,9 +56,9 @@ public class ReleDigitalDao {
 
         comando.setInt(1, releParaInserir.getCodigo());
         comando.setBoolean(2, tipo);
-        comando.setDouble(3, releParaInserir.getTempoMax().get(index));
-        comando.setDouble(4, releParaInserir.getTempoMin().get(index));
-        comando.setDouble(5, releParaInserir.getTempoPasso().get(index));
+        comando.setDouble(3, releParaInserir.getTempoMax(index));
+        comando.setDouble(4, releParaInserir.getTempoMin(index));
+        comando.setDouble(5, releParaInserir.getTempoPasso(index));
         comando.executeUpdate();
         Conexao.fechaConexao();
     }
@@ -76,9 +76,9 @@ public class ReleDigitalDao {
 
         comando.setInt(1, releParaInserir.getCodigo());
         comando.setInt(2, tipo);
-        comando.setDouble(3, releParaInserir.getCorrenteMax().get(tipo));
-        comando.setDouble(4, releParaInserir.getCorrenteMin().get(tipo));
-        comando.setDouble(5, releParaInserir.getCorrentePasso().get(tipo));
+        comando.setDouble(3, releParaInserir.getCorrenteMax(tipo));
+        comando.setDouble(4, releParaInserir.getCorrenteMin(tipo));
+        comando.setDouble(5, releParaInserir.getCorrentePasso(tipo));
         comando.executeUpdate();
         Conexao.fechaConexao();
     }

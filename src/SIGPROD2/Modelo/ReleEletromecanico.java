@@ -19,15 +19,16 @@ public class ReleEletromecanico implements Rele {
     private ArrayList<ArrayList<Double>> correntePickup;
     private ArrayList<ArrayList<Double>> tempo;
     private int qtdPontosCurva;
+    private boolean[] existeCurva;
 
     public ReleEletromecanico() {
-        this.fatorInicio = new ArrayList(4);
+        this.fatorInicio = new ArrayList<>(4);
         this.fatorInicio.add(0.0);
         this.fatorInicio.add(0.0);
         this.fatorInicio.add(0.0);
         this.fatorInicio.add(0.0);
-        this.mapaFasePickupTempo = new TreeMap();
-        this.mapaNeutroPickupTempo = new TreeMap();
+        this.mapaFasePickupTempo = new TreeMap<>();
+        this.mapaNeutroPickupTempo = new TreeMap<>();
         this.qtdPontosCurva = 0;
         this.tempo = new ArrayList<>(2);
         this.correntePickup = new ArrayList<>();
@@ -35,6 +36,7 @@ public class ReleEletromecanico implements Rele {
         this.correntePickup.add(null);
         this.correntePickup.add(null);
         this.correntePickup.add(null);
+        this.existeCurva = new boolean[4];
     }
 
     public void addCorrentePickup(ArrayList<Double> corrente, int tipo) {
@@ -129,7 +131,7 @@ public class ReleEletromecanico implements Rele {
     }
 
     @Override
-    public void addFatorInicio(double fator, int tipo) {
+    public void setFatorInicio(double fator, int tipo) {
         this.fatorInicio.set(tipo, fator);
     }
 
@@ -172,5 +174,15 @@ public class ReleEletromecanico implements Rele {
     @Override
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public boolean existeCurva(int codigo) {
+        return this.existeCurva[codigo];
+    }
+
+    @Override
+    public void setExisteCurva(int codigo, boolean existeCurva) {
+        this.existeCurva[codigo] = existeCurva;
     }
 }

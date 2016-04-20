@@ -1,6 +1,7 @@
 package SIGPROD2.Modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,25 +18,24 @@ public class ReleDigital implements Rele {
     private List<CaracteristicasCurva> listaFase, listaNeutro;
     private List<Double> correnteMax, correnteMin, correntePasso;
     private List<Double> tempoMax, tempoMin, tempoPasso;
+    private boolean[] existeCurva;
 
     public ReleDigital() {
-        this.fatorInicio = new ArrayList(4);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.listaFase = new ArrayList();
-        this.listaNeutro = new ArrayList();
-        this.correnteMax = new ArrayList(4);
-        this.correnteMin = new ArrayList(4);
-        this.correntePasso = new ArrayList(4);
-        this.tempoMax = new ArrayList(2);
-        this.tempoMin = new ArrayList(2);
-        this.tempoPasso = new ArrayList(2);
+        this.fatorInicio = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.listaFase = new ArrayList<>();
+        this.listaNeutro = new ArrayList<>();
+        this.correnteMax = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.correnteMin = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.correntePasso = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoMax = Arrays.asList(0.0, 0.0);
+        this.tempoMin = Arrays.asList(0.0, 0.0);
+        this.tempoPasso = Arrays.asList(0.0, 0.0);
+        this.existeCurva = new boolean[4];
+
     }
 
-    public List<Double> getTempoMax() {
-        return this.tempoMax;
+    public Double getTempoMax(int tipo) {
+        return this.tempoMax.get(tipo);
     }
 
     public void setTempoMax(int tipo, double tempo) {
@@ -46,8 +46,8 @@ public class ReleDigital implements Rele {
         this.tempoMax = tempoMax;
     }
 
-    public List<Double> getTempoMin() {
-        return this.tempoMin;
+    public Double getTempoMin(int tipo) {
+        return this.tempoMin.get(tipo);
     }
 
     public void setTempoMin(int tipo, double tempo) {
@@ -58,8 +58,8 @@ public class ReleDigital implements Rele {
         this.tempoMin = tempoMin;
     }
 
-    public List<Double> getTempoPasso() {
-        return this.tempoPasso;
+    public Double getTempoPasso(int tipo) {
+        return this.tempoPasso.get(tipo);
     }
 
     public void setTempoPasso(int tipo, double tempo) {
@@ -70,8 +70,8 @@ public class ReleDigital implements Rele {
         this.tempoPasso = tempoPasso;
     }
 
-    public List<Double> getCorrenteMax() {
-        return this.correnteMax;
+    public Double getCorrenteMax(int tipo) {
+        return this.correnteMax.get(tipo);
     }
 
     public void setCorrenteMax(int tipo, double corrente) {
@@ -82,8 +82,8 @@ public class ReleDigital implements Rele {
         this.correnteMax = correnteMax;
     }
 
-    public List<Double> getCorrenteMin() {
-        return this.correnteMin;
+    public Double getCorrenteMin(int tipo) {
+        return this.correnteMin.get(tipo);
     }
 
     public void setCorrenteMin(int tipo, double corrente) {
@@ -94,8 +94,8 @@ public class ReleDigital implements Rele {
         this.correnteMin = correnteMin;
     }
 
-    public List<Double> getCorrentePasso() {
-        return this.correntePasso;
+    public Double getCorrentePasso(int tipo) {
+        return this.correntePasso.get(tipo);
     }
 
     public void setCorrentePasso(int tipo, double corrente) {
@@ -128,7 +128,7 @@ public class ReleDigital implements Rele {
     }
 
     @Override
-    public void addFatorInicio(double fator, int tipo) {
+    public void setFatorInicio(double fator, int tipo) {
         this.fatorInicio.set(tipo, fator);
     }
 
@@ -171,5 +171,15 @@ public class ReleDigital implements Rele {
     @Override
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public boolean existeCurva(int codigo) {
+        return this.existeCurva[codigo];
+    }
+
+    @Override
+    public void setExisteCurva(int codigo, boolean existeCurva) {
+        this.existeCurva[codigo] = existeCurva;
     }
 }

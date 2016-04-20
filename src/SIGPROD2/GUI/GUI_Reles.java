@@ -2062,15 +2062,20 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void habilitarPaineis() {
-        boolean faseTemporizada = this.curvaInversaFase.isSelected();
-        boolean faseInstantanea = this.curvaTempoFase.isSelected();
-        boolean neutroTemporizada = this.curvaInversaNeutro.isSelected();
-        boolean neutroInstantanea = this.curvaTempoNeutro.isSelected();
+        boolean faseInversa = this.curvaInversaFase.isSelected();
+        boolean faseDefinida = this.curvaTempoFase.isSelected();
+        boolean neutroInversa = this.curvaInversaNeutro.isSelected();
+        boolean neutroDefinida = this.curvaTempoNeutro.isSelected();
 
-        this.tabbedPane.setEnabledAt(1, faseTemporizada);
-        this.tabbedPane.setEnabledAt(2, faseInstantanea);
-        this.tabbedPane.setEnabledAt(3, neutroTemporizada);
-        this.tabbedPane.setEnabledAt(4, neutroInstantanea);
+        this.newRele.setExisteCurva(Rele.INVERSA_FASE, faseInversa);
+        this.newRele.setExisteCurva(Rele.INVERSA_NEUTRO, neutroInversa);
+        this.newRele.setExisteCurva(Rele.DEFINIDO_FASE, faseDefinida);
+        this.newRele.setExisteCurva(Rele.DEFINIDO_NEUTRO, neutroDefinida);
+
+        this.tabbedPane.setEnabledAt(1, faseInversa);
+        this.tabbedPane.setEnabledAt(2, faseDefinida);
+        this.tabbedPane.setEnabledAt(3, neutroInversa);
+        this.tabbedPane.setEnabledAt(4, neutroDefinida);
     }
 
     private void desabilitarPaineis() {

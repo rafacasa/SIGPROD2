@@ -14,8 +14,8 @@ public interface Rele {
     int DEFINIDO_NEUTRO = 3;
 
     double getFatorInicio(int tipo);
-    
-    void addFatorInicio(double fator, int tipo);
+
+    void setFatorInicio(double fator, int tipo);
 
     String getFabricante();
 
@@ -32,4 +32,8 @@ public interface Rele {
     int getCodigo();
 
     void setCodigo(int codigo);
+
+    boolean existeCurva(int codigo);
+
+    void setExisteCurva(int codigo, boolean existeCurva);
 }

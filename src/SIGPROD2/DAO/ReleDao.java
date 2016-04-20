@@ -9,7 +9,10 @@ import SIGPROD2.Modelo.ReleEletromecanico;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e
@@ -31,6 +34,7 @@ public class ReleDao {
             + ReleBD.FATOR_INICIO_INVERSO_NEUTRO + ", "
             + ReleBD.FATOR_INICIO_DEFINIDO_FASE + ", "
             + ReleBD.FATOR_INICIO_DEFINIDO_NEUTRO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    private static final String SELECT_TODOS = "SELECT * FROM " + ReleBD.TABELA;
 
     public static void insereRele(Rele releParaInserir) throws SQLException {
         int codigoAtual = getCodigoRele();
@@ -79,4 +83,24 @@ public class ReleDao {
 
         ARQUIVO_ID.escreverArquivo(escrita);
     }
+
+    public static List<Rele> buscarReles() throws SQLException {
+        Rele releRecuperado;
+        List<Rele> lista = new ArrayList<>();
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(SELECT_TODOS);
+        ResultSet resultado = comando.executeQuery();
+
+        while (resultado.next()) {
+            if (resultado.getBoolean(ReleBD.IS_DIGITAL)) {
+                releRecuperado = new ReleDigital();
+            } else {
+                releRecuperado = new ReleEletromecanico();
+            }
+        }
+    }
+
+    //public static Rele buscarRele(String fabricante, String modelo)
+    //{
+    //}
 }
