@@ -27,6 +27,18 @@ public class ReleDigital extends Rele {
         this.tempoPasso = new ArrayList(2);
     }
 
+    public void setValuesCorrente(int tipo, double min, double max, double pas) {
+        this.correnteMin.add(tipo, min);
+        this.correnteMax.add(tipo, max);
+        this.correntePasso.add(tipo, pas);
+    }
+
+    public void setValuesTempo(int tipo, double min, double max, double pas) {
+        this.tempoMax.add(tipo, min);
+        this.tempoMin.add(tipo, max);
+        this.tempoPasso.add(tipo, pas);
+    }
+
     public List<Double> getTempoMax() {
         return tempoMax;
     }
