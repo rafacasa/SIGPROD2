@@ -1,6 +1,7 @@
 package SIGPROD2.Modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,24 +20,24 @@ public class ReleDigital extends Rele {
         this.setTipo(DIGITAL);
         this.listaFase = new ArrayList();
         this.listaNeutro = new ArrayList();
-        this.correnteMax = new ArrayList(4);
-        this.correnteMin = new ArrayList(4);
-        this.correntePasso = new ArrayList(4);
-        this.tempoMax = new ArrayList(2);
-        this.tempoMin = new ArrayList(2);
-        this.tempoPasso = new ArrayList(2);
+        this.correnteMax = Arrays.asList(0.0, 0.0,0.0, 0.0);
+        this.correnteMin = Arrays.asList(0.0, 0.0,0.0, 0.0);
+        this.correntePasso = Arrays.asList(0.0, 0.0,0.0, 0.0);
+        this.tempoMax = Arrays.asList(0.0, 0.0);
+        this.tempoMin = Arrays.asList(0.0, 0.0);
+        this.tempoPasso = Arrays.asList(0.0, 0.0);
     }
 
     public void setValuesCorrente(int tipo, double min, double max, double pas) {
-        this.correnteMin.add(tipo, min);
-        this.correnteMax.add(tipo, max);
-        this.correntePasso.add(tipo, pas);
+        this.correnteMin.set(tipo, min);
+        this.correnteMax.set(tipo, max);
+        this.correntePasso.set(tipo, pas);
     }
 
     public void setValuesTempo(int tipo, double min, double max, double pas) {
-        this.tempoMax.add(tipo, min);
-        this.tempoMin.add(tipo, max);
-        this.tempoPasso.add(tipo, pas);
+        this.tempoMax.set(tipo, min);
+        this.tempoMin.set(tipo, max);
+        this.tempoPasso.set(tipo, pas);
     }
 
     public List<Double> getTempoMax() {

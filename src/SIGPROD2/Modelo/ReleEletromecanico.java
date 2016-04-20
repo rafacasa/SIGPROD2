@@ -30,7 +30,7 @@ public class ReleEletromecanico extends Rele {
         this.correntePickup.add(null);
     }
 
-    public void addCorrentePickup(ArrayList<Double> corrente, int tipo) {
+    public void setCorrentePickup(ArrayList<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, new ArrayList<>(corrente));
         if (tipo == INVERSA_FASE) {
             for (Double c : corrente) {
@@ -69,14 +69,14 @@ public class ReleEletromecanico extends Rele {
 
     public ArrayList<Double> getDialDeTempo(int tipo, double corrente) {
         ArrayList<Double> dial = new ArrayList<>();
-        ArrayList<DialDeTempoMecanico> diais;
+        ArrayList<DialDeTempoMecanico> dm;
+        
         if (tipo == INVERSA_FASE) {
-            diais = this.mapaFasePickupTempo.get(corrente);
+            dm = this.mapaFasePickupTempo.get(corrente);
         } else {
-            diais = this.mapaNeutroPickupTempo.get(corrente);
+            dm = this.mapaNeutroPickupTempo.get(corrente);
         }
-
-        for (DialDeTempoMecanico d : diais) {
+        for (DialDeTempoMecanico d : dm) {
             dial.add(d.getDial());
         }
         return dial;
@@ -106,9 +106,9 @@ public class ReleEletromecanico extends Rele {
         return this.correntePickup.get(tipo);
     }
 
-    public void addTempoDeAtuacao(ArrayList<Double> tempo, int tipo) {
+    public void setTempoDeAtuacao(ArrayList<Double> tempo, int tipo) {
         tipo = tipo - 2;
-        this.tempo.add(tipo, tempo);
+        this.tempo.set(tipo, tempo);
     }
 
     public ArrayList<Double> getTempoDeAtuacao(int tipo) {

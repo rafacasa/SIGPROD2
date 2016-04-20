@@ -549,9 +549,9 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(faseCurvaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(faseCurvaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(faseCurvaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1689,8 +1689,6 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_avancarDadosGeraisActionPerformed
 
     private void retornarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCurvaActionPerformed
-        this.removeCorrentePickupFase();
-        ((ReleEletromecanico) this.newRele).removeCorrentePickup(Rele.INVERSA_FASE);
         int selecionado = this.temporizadaFase.getSelectedIndex();
 
         this.temporizadaFase.setSelectedIndex(selecionado - 1);
@@ -1741,8 +1739,8 @@ public class GUI_Reles extends javax.swing.JFrame {
                     ArrayList<Double> valores = this.separaValores(valor);
                     double d = Double.parseDouble(f);
 
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(valores, Rele.INVERSA_FASE);
-                    this.newRele.addFatorInicio(d, Rele.INVERSA_FASE);
+                    ((ReleEletromecanico) this.newRele).setCorrentePickup(valores, Rele.INVERSA_FASE);
+                    this.newRele.setFatorInicio(d, Rele.INVERSA_FASE);
                     this.addCorrentePickupFase(valores);
                     int selecionado = this.temporizadaFase.getSelectedIndex();
 
@@ -1762,7 +1760,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     double pas = Double.parseDouble(passo);
 
                     if (this.verificaExpressao(min, max, pas)) {
-                        this.newRele.addFatorInicio(fator, Rele.INVERSA_FASE);
+                        this.newRele.setFatorInicio(fator, Rele.INVERSA_FASE);
                         ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_FASE, min, max, pas);
                         int selecionado = this.temporizadaFase.getSelectedIndex();
 
@@ -1787,12 +1785,12 @@ public class GUI_Reles extends javax.swing.JFrame {
                 double fator = Double.parseDouble(f);
 
                 if (!c.equals("") && !t.equals("")) {
-                    this.newRele.addFatorInicio(fator, Rele.DEFINIDO_FASE);
+                    this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
                     ArrayList<Double> lista_corrente = this.separaValores(c);
                     ArrayList<Double> lista_tempo = this.separaValores(t);
 
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_FASE);
-                    ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_FASE);
+                    ((ReleEletromecanico) this.newRele).setCorrentePickup(lista_corrente, Rele.DEFINIDO_FASE);
+                    ((ReleEletromecanico) this.newRele).setTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_FASE);
                     this.avancarTela();
                 } else {
                     Erro.camposVazios(this);
@@ -1809,7 +1807,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     double pas = Double.parseDouble(passo);
 
                     if (this.verificaExpressao(min, max, pas)) {
-                        this.newRele.addFatorInicio(fator, Rele.DEFINIDO_FASE);
+                        this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
                         ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_FASE, min, max, pas);
                         this.avancarTela();
                     }
@@ -1841,9 +1839,9 @@ public class GUI_Reles extends javax.swing.JFrame {
                     ArrayList<Double> lista_corrente = this.separaValores(c);
                     ArrayList<Double> lista_tempo = this.separaValores(t);
 
-                    this.newRele.addFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
-                    ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
+                    this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
+                    ((ReleEletromecanico) this.newRele).setCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
+                    ((ReleEletromecanico) this.newRele).setTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
 
                     Gson g = new Gson();
                     Arquivo a = new Arquivo("Gson.ini");
@@ -1872,7 +1870,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     if (this.verificaExpressao(min, max, pas)) {
                         ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_NEUTRO, min, max, pas);
                     }
-                    
+
                     Gson g = new Gson();
                     Arquivo a = new Arquivo("Gson.ini");
                     String s = g.toJson(this.newRele);
@@ -1941,10 +1939,10 @@ public class GUI_Reles extends javax.swing.JFrame {
                 double fator = Double.parseDouble(f);
 
                 if (!v.equals("")) {
-                    this.newRele.addFatorInicio(fator, Rele.INVERSA_NEUTRO);
+                    this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
                     ArrayList<Double> lista = this.separaValores(v);
 
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
+                    ((ReleEletromecanico) this.newRele).setCorrentePickup(lista, Rele.INVERSA_NEUTRO);
                     this.addCorrentePickupNeutro(lista);
                     int selecionado = this.jTabbedPane1.getSelectedIndex();
 
@@ -1962,7 +1960,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     double pas = Double.parseDouble(this.neutroCorrentePasso.getText());
 
                     if (this.verificaExpressao(min, max, pas)) {
-                        this.newRele.addFatorInicio(fator, Rele.INVERSA_NEUTRO);
+                        this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
                         ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_NEUTRO, min, max, pas);
                         int selecionado = this.jTabbedPane1.getSelectedIndex();
 
@@ -2021,27 +2019,27 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_definidaNeutroCorrenteValoresActionPerformed
 
     private void faseCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaSalvarActionPerformed
-        try {
-            salvarFaseDialCadastradoComPontos();
-        } catch (Exception ex) {
-            Erro.valorCadastrado(this);
-        }
+        salvarFaseDialCadastradoComPontos();
     }//GEN-LAST:event_faseCurvaSalvarActionPerformed
 
-    private void salvarFaseDialCadastradoComPontos() throws Exception {
+    private void salvarFaseDialCadastradoComPontos() {
         String c = String.valueOf(this.faseCurvaCorrenteCadastro.getSelectedItem());
-        double corrente = Double.parseDouble(c);
         String d = this.faseCurvaDial.getText();
-        double dial = Double.parseDouble(d);
-        ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
 
-        ArrayList<Double> valoresDial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
-        for (double vd : valoresDial) {
-            if (vd == dial) {
-                throw new Exception();
+        if (!c.equals("") && !d.equals("")) {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
+            ArrayList<Double> values = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
+            
+            if (values.isEmpty() || values.indexOf(d) != -1) {
+                ((ReleEletromecanico) this.newRele).addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
+            } else {
+                Erro.valorCadastrado(this);
             }
+        } else {
+            Erro.camposVazios(this);
         }
-        ((ReleEletromecanico) this.newRele).addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
     }
 
     private void salvarNeutroDialCadastradoComPontos() {
@@ -2055,17 +2053,26 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void faseCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteExistenteActionPerformed
-        carregarFaseDialCadastradoEmCorrente();
+        try {
+            carregarFaseDialCadastradoEmCorrente();
+        } catch (NullPointerException e) {
+            System.out.println("Error");
+        }
     }//GEN-LAST:event_faseCurvaCorrenteExistenteActionPerformed
 
-    private void carregarFaseDialCadastradoEmCorrente() {
+    private void carregarFaseDialCadastradoEmCorrente() throws NullPointerException {
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
-        double corrente = Double.parseDouble(str);
 
-        ArrayList<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
-        this.faseCurvaDialExistente.removeAllItems();
-        for (Double d : dial) {
-            this.faseCurvaDialExistente.addItem(d);
+        if (str.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(str);
+
+            ArrayList<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
+            this.faseCurvaDialExistente.removeAllItems();
+            for (Double d : dial) {
+                this.faseCurvaDialExistente.addItem(d);
+            }
         }
     }
 
@@ -2081,14 +2088,21 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void faseCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaDialExistenteActionPerformed
-        carregarFasePontosDeDial();
+        try {
+            carregarFasePontosDeDial();
+        } catch (NullPointerException e) {
+            System.out.println("Error");
+        }
+        
     }//GEN-LAST:event_faseCurvaDialExistenteActionPerformed
 
-    private void carregarFasePontosDeDial() {
+    private void carregarFasePontosDeDial() throws NullPointerException{
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
         String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
 
-        try {
+        if (str.equals("null") || srt.equals("null")) {
+            throw new NullPointerException();
+        } else {
             double corrente = Double.parseDouble(str);
             double dial = Double.parseDouble(srt);
             ArrayList<PontoCurva> a;
@@ -2097,7 +2111,6 @@ public class GUI_Reles extends javax.swing.JFrame {
             this.modeloFaseExistenteDial.removeTodos();
             this.modeloFaseExistenteDial.add(a);
             this.modeloFaseExistenteDial.fireTableDataChanged();
-        } catch (NumberFormatException e) {
             this.modeloFaseExistenteDial.removeTodos();
             this.modeloFaseExistenteDial.fireTableDataChanged();
         }
@@ -2288,7 +2301,9 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void addCorrentePickupFase(List<Double> valores) {
-        for (Double d : valores) {
+        this.faseCurvaCorrenteCadastro.removeAllItems();
+        this.faseCurvaCorrenteExistente.removeAllItems();
+        for (double d : valores) {
             this.faseCurvaCorrenteCadastro.addItem(d);
             this.faseCurvaCorrenteExistente.addItem(d);
         }
@@ -2299,11 +2314,6 @@ public class GUI_Reles extends javax.swing.JFrame {
             this.neutroCurvaCorrenteCadastro.addItem(d);
             this.neutroCurvaCorrenteExistente.addItem(d);
         }
-    }
-
-    private void removeCorrentePickupFase() {
-        this.faseCurvaCorrenteCadastro.removeAllItems();
-        this.faseCurvaCorrenteExistente.removeAllItems();
     }
 
     private int getSelected() {

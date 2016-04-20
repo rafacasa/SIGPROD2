@@ -1,6 +1,6 @@
 package SIGPROD2.Modelo;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,18 +24,14 @@ public abstract class Rele {
     public static final int DEFINIDO_NEUTRO = 3;
 
     public Rele() {
-        this.fatorInicio = new ArrayList(4);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
-        this.fatorInicio.add(0.0);
+        this.fatorInicio = Arrays.asList(0.0, 0.0, 0.0, 0.0);
     }
 
     public double getFatorInicio(int tipo) {
         return this.fatorInicio.get(tipo);
     }
 
-    public void addFatorInicio(double fator, int tipo) {
+    public void setFatorInicio(double fator, int tipo) {
         this.fatorInicio.set(tipo, fator);
     }
 
