@@ -11,8 +11,6 @@ import com.google.gson.Gson;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,5 +30,12 @@ public class inserirElos {
                 ex.printStackTrace();
             }
         });
+        /*List<Double> lista = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        lista.set(0, 1.1);
+        lista.set(1, 2.2);
+        lista.set(2, 3.3);
+        lista.set(3, 4.4);
+        lista.add(5.5);
+        lista.forEach(d -> System.out.println(d));*/
     }
 }

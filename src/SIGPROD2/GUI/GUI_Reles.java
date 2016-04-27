@@ -1728,7 +1728,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 double d = Double.parseDouble(fator);
 
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(v, Rele.INVERSA_FASE);
-                this.newRele.addFatorInicio(d, Rele.INVERSA_FASE);
+                this.newRele.setFatorInicio(d, Rele.INVERSA_FASE);
                 this.addCorrentePickupFase(v);
                 int selecionado = this.temporizadaFase.getSelectedIndex();
 
@@ -1753,7 +1753,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 ArrayList<Double> lista_corrente = this.separaValores(c);
                 ArrayList<Double> lista_tempo = this.separaValores(t);
 
-                this.newRele.addFatorInicio(fator, Rele.DEFINIDO_FASE);
+                this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_FASE);
                 ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_FASE);
                 this.avancarTela();
@@ -1784,7 +1784,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 ArrayList<Double> lista_corrente = this.separaValores(c);
                 ArrayList<Double> lista_tempo = this.separaValores(t);
 
-                this.newRele.addFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
+                this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
                 com.google.gson.Gson gson = new com.google.gson.Gson();
@@ -1842,7 +1842,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 double fator = Double.parseDouble(f);
                 ArrayList<Double> lista = this.separaValores(v);
 
-                this.newRele.addFatorInicio(fator, Rele.INVERSA_NEUTRO);
+                this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
                 ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
                 this.addCorrentePickupNeutro(lista);
                 int selecionado = this.jTabbedPane1.getSelectedIndex();
