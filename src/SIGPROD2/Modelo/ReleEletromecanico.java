@@ -18,7 +18,8 @@ public class ReleEletromecanico implements Rele {
     private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaNeutroPickupTempo;
     private ArrayList<ArrayList<Double>> correntePickup;
     private ArrayList<ArrayList<Double>> tempo;
-    private int qtdPontosCurva;
+    private int qtdPontosFase;
+    private int qtdPontosNeutro;
     private boolean[] existeCurva;
 
     public ReleEletromecanico() {
@@ -29,7 +30,8 @@ public class ReleEletromecanico implements Rele {
         this.fatorInicio.add(0.0);
         this.mapaFasePickupTempo = new TreeMap<>();
         this.mapaNeutroPickupTempo = new TreeMap<>();
-        this.qtdPontosCurva = 0;
+        this.qtdPontosFase = 0;
+        this.qtdPontosNeutro = 0;
         this.tempo = new ArrayList<>(2);
         this.correntePickup = new ArrayList<>();
         this.correntePickup.add(null);
@@ -64,16 +66,28 @@ public class ReleEletromecanico implements Rele {
     public void addDialDeTempo(int tipo, double corrente, double dial, ArrayList<PontoCurva> pontos) {
         DialDeTempoMecanico dm = new DialDeTempoMecanico(dial, pontos);
         ArrayList<DialDeTempoMecanico> array;
+
         if (tipo == INVERSA_FASE) {
             array = this.mapaFasePickupTempo.get(corrente);
             array.add(dm);
             this.mapaFasePickupTempo.put(corrente, array);
+            this.qtdPontosFase += pontos.size();
         } else {
             array = this.mapaNeutroPickupTempo.get(corrente);
             array.add(dm);
             this.mapaNeutroPickupTempo.put(corrente, array);
+            this.qtdPontosNeutro += pontos.size();
         }
-        this.qtdPontosCurva += pontos.size();
+    }
+
+    public void removeDialDeTempo(int tipo) {
+        if (tipo == Rele.INVERSA_FASE) {
+            this.mapaFasePickupTempo = new TreeMap<>();
+            this.qtdPontosFase = 0;
+        } else {
+            this.mapaNeutroPickupTempo = new TreeMap<>();
+            this.qtdPontosNeutro = 0;
+        }
     }
 
     public ArrayList<Double> getDialDeTempo(int tipo, double corrente) {
@@ -108,7 +122,7 @@ public class ReleEletromecanico implements Rele {
     }
 
     public int getQtdPontosCurva() {
-        return qtdPontosCurva;
+        return qtdPontosFase + qtdPontosNeutro;
     }
 
     public ArrayList<Double> getCorrentePickup(int tipo) {

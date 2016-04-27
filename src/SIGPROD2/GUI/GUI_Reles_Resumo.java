@@ -1,5 +1,7 @@
 package SIGPROD2.GUI;
 
+import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.DAO.ReleDao;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
@@ -11,13 +13,14 @@ import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 /**
  *
  * @author rafael
  */
-public class GUI_Reles_Resumo extends javax.swing.JFrame {
-    
+public class GUI_Reles_Resumo extends javax.swing.JDialog {
+
     private CaracteristicasTableModel modeloFaseCaracteristicas;
     private CaracteristicasTableModel modeloNeutroCaracteristicas;
     private PontoCurvaTableModel modeloFasePontoCurva;
@@ -30,7 +33,8 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
      *
      * @param rele
      */
-    public GUI_Reles_Resumo(Rele rele) {
+    public GUI_Reles_Resumo(java.awt.Frame parent, boolean modal, Rele rele) {
+        super(parent, modal);
         this.rele = rele;
         this.digital = rele.isDigital();
         this.initComponents();
@@ -38,54 +42,56 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
         this.configurarCardLayout();
         this.carregarInformacoesRele();
     }
-    
+
     private void configurarTabelas() {
         this.configurarTabelasDigitais();
         this.configurarTabelasEletromecanicas();
     }
-    
+
     private void configurarTabelasDigitais() {
         this.modeloFaseCaracteristicas = new CaracteristicasTableModel();
         this.modeloNeutroCaracteristicas = new CaracteristicasTableModel();
-        
+
         this.tabelaCaracteristicasFase.setModel(this.modeloFaseCaracteristicas);
         this.tabelaCaracteristicasNeutro.setModel(this.modeloNeutroCaracteristicas);
     }
-    
+
     private void configurarTabelasEletromecanicas() {
         this.modeloFasePontoCurva = new PontoCurvaTableModel();
         this.modeloNeutroPontoCurva = new PontoCurvaTableModel();
-        
+
         this.tabelaPontoCurvaFase.setModel(this.modeloFasePontoCurva);
         this.tabelaPontoCurvaNeutro.setModel(this.modeloNeutroPontoCurva);
         this.tabelaPontoCurvaFase.setEnabled(false);
         this.tabelaPontoCurvaNeutro.setEnabled(false);
     }
-    
+
     private void configurarCardLayout() {
         CardLayout card1 = (CardLayout) this.PanelItens.getLayout();
+        card1.addLayoutComponent(this.panelDigital, "panelDigital");
+        card1.addLayoutComponent(this.panelEletromecanico, "panelEletromecanico");
         if (this.digital) {
             card1.show(this.PanelItens, "panelDigital");
         } else {
             card1.show(this.PanelItens, "panelEletromecanico");
         }
     }
-    
+
     private void carregarInformacoesRele() {
         this.labelFabricante.setText(this.rele.getFabricante());
         this.labelModelo.setText(this.rele.getModelo());
         if (this.digital) {
-            this.labelTitulo.setText("Relé Digital");
+            this.setTitle("Rele Digital");
             this.carregarInformacoesReleDigital();
         } else {
-            this.labelTitulo.setText("Relé Eletromecânico");
+            this.setTitle("Rele Eletromecânico");
             this.carregarInformacoesReleEletromecanico();
         }
     }
-    
+
     private void carregarInformacoesReleDigital() {
         ReleDigital releDigital = (ReleDigital) this.rele;
-        
+
         if (this.rele.existeCurva(Rele.INVERSA_FASE)) {
             this.labelFatorInversaFaseDigital.setText(String.valueOf(this.rele.getFatorInicio(Rele.INVERSA_FASE)));
             this.carregarCorrentePickupDigital(releDigital, Rele.INVERSA_FASE);
@@ -101,7 +107,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             this.carregarCorrentePickupDigital(releDigital, Rele.INVERSA_NEUTRO);
             this.carregarTemposDigital(releDigital, Rele.INVERSA_NEUTRO);
             this.carregaTabelaDigitais(releDigital, Rele.INVERSA_NEUTRO);
-            
+
         } else {
             for (Component c : this.panelInversaNeutroDigital.getComponents()) {
                 c.setEnabled(false);
@@ -111,7 +117,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             this.labelFatorDefinidaFaseDigital.setText(String.valueOf(this.rele.getFatorInicio(Rele.DEFINIDO_FASE)));
             this.carregarCorrentePickupDigital(releDigital, Rele.DEFINIDO_FASE);
             this.carregarTemposDigital(releDigital, Rele.DEFINIDO_FASE);
-            
+
         } else {
             for (Component c : this.panelDefinidaFaseDigital.getComponents()) {
                 c.setEnabled(false);
@@ -127,10 +133,10 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void carregarInformacoesReleEletromecanico() {
         ReleEletromecanico releMecanico = (ReleEletromecanico) this.rele;
-        
+
         if (this.rele.existeCurva(Rele.INVERSA_FASE)) {
             this.labelFatorInversaFaseMecan.setText(String.valueOf(this.rele.getFatorInicio(Rele.INVERSA_FASE)));
             this.carregarCorrentesInversaEletromecanico(releMecanico, Rele.INVERSA_FASE);
@@ -166,7 +172,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void carregarCorrentePickupDigital(ReleDigital releDigital, int tipo) {
         switch (tipo) {
             case Rele.INVERSA_FASE:
@@ -191,7 +197,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
     private void carregarTemposDigital(ReleDigital releDigital, int tipo) {
         switch (tipo) {
             case Rele.INVERSA_FASE:
@@ -206,12 +212,12 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
     private void carregarTemposDeAtuacaoEletromecanico(ReleEletromecanico releMecanico, int tipo) {
         DefaultListModel<Double> modelo;
         if (tipo == Rele.DEFINIDO_FASE) {
             modelo = (DefaultListModel<Double>) this.listaTempoDefinidaFase.getModel();
-            
+
         } else {
             modelo = (DefaultListModel<Double>) this.listaTempoDefinidaNeutro.getModel();
         }
@@ -219,12 +225,12 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             modelo.addElement(corrente);
         });
     }
-    
+
     private void carregarCorrentesDefinidaEletromecanico(ReleEletromecanico releMecanico, int tipo) {
         DefaultListModel<Double> modelo;
         if (tipo == Rele.DEFINIDO_FASE) {
             modelo = (DefaultListModel<Double>) this.listaPickupDefinidaFase.getModel();
-            
+
         } else {
             modelo = (DefaultListModel<Double>) this.listaPickupDefinidaNeutro.getModel();
         }
@@ -232,7 +238,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             modelo.addElement(corrente);
         });
     }
-    
+
     private void carregarCorrentesInversaEletromecanico(ReleEletromecanico releMecanico, int tipo) {
         releMecanico.getCorrentePickup(tipo).forEach(corrente -> {
             if (tipo == Rele.INVERSA_FASE) {
@@ -242,7 +248,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void carregaTabelaDigitais(ReleDigital releDigital, int tipo) {
         switch (tipo) {
             case Rele.INVERSA_FASE:
@@ -265,49 +271,11 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelTitulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         labelFabricante = new javax.swing.JLabel();
         labelModelo = new javax.swing.JLabel();
         PanelItens = new javax.swing.JPanel();
-        panelEletromecanico = new javax.swing.JPanel();
-        panelInversaFaseEletromecanico = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        labelFatorInversaFaseMecan = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        listaPickupInversaFase = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        listaDialInversaFase = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaPontoCurvaFase = new javax.swing.JTable();
-        panelInversaNeutroEletromecanico = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        labelFatorInversaNeutroMecan = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        listaPickupInversaNeutro = new javax.swing.JComboBox<>();
-        listaDialInversaNeutro = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaPontoCurvaNeutro = new javax.swing.JTable();
-        panelDefinidaFaseEletromecanico = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        labelFatorDefinidaFaseMecan = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        listaPickupDefinidaFase = new javax.swing.JList<>();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        listaTempoDefinidaFase = new javax.swing.JList<>();
-        jLabel11 = new javax.swing.JLabel();
-        panelDefinidaNeutroEletromecanico = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        listaTempoDefinidaNeutro = new javax.swing.JList<>();
-        jLabel13 = new javax.swing.JLabel();
-        labelFatorDefinidaNeutroMecan = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        listaPickupDefinidaNeutro = new javax.swing.JList<>();
-        jLabel14 = new javax.swing.JLabel();
         panelDigital = new javax.swing.JPanel();
         panelInversaFaseDigital = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -369,11 +337,47 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         labelPickupPassoDefinidaNeutro = new javax.swing.JLabel();
         labelFatorDefinidaNeutroDigital = new javax.swing.JLabel();
+        panelEletromecanico = new javax.swing.JPanel();
+        panelInversaFaseEletromecanico = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        labelFatorInversaFaseMecan = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        listaPickupInversaFase = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        listaDialInversaFase = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaPontoCurvaFase = new javax.swing.JTable();
+        panelInversaNeutroEletromecanico = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        labelFatorInversaNeutroMecan = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        listaPickupInversaNeutro = new javax.swing.JComboBox<>();
+        listaDialInversaNeutro = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaPontoCurvaNeutro = new javax.swing.JTable();
+        panelDefinidaFaseEletromecanico = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        labelFatorDefinidaFaseMecan = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaPickupDefinidaFase = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaTempoDefinidaFase = new javax.swing.JList<>();
+        jLabel11 = new javax.swing.JLabel();
+        panelDefinidaNeutroEletromecanico = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaTempoDefinidaNeutro = new javax.swing.JList<>();
+        jLabel13 = new javax.swing.JLabel();
+        labelFatorDefinidaNeutroMecan = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        listaPickupDefinidaNeutro = new javax.swing.JList<>();
+        jLabel14 = new javax.swing.JLabel();
+        botaoSalvar = new javax.swing.JButton();
+        botaoRetornar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitulo.setText("Relé Eletromecânico");
 
         jLabel2.setText("Fabricante:");
 
@@ -384,297 +388,6 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
         labelModelo.setText("jLabel5");
 
         PanelItens.setLayout(new java.awt.CardLayout());
-
-        panelInversaFaseEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Inversa de Fase"));
-
-        jLabel1.setText("Fator de Início de Curva:");
-
-        labelFatorInversaFaseMecan.setText("jLabel4");
-
-        jLabel5.setText("Corrente de Pickup:");
-
-        listaPickupInversaFase.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaPickupInversaFaseActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Dial de Tempo:");
-
-        listaDialInversaFase.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaDialInversaFaseActionPerformed(evt);
-            }
-        });
-
-        tabelaPontoCurvaFase.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(tabelaPontoCurvaFase);
-
-        javax.swing.GroupLayout panelInversaFaseEletromecanicoLayout = new javax.swing.GroupLayout(panelInversaFaseEletromecanico);
-        panelInversaFaseEletromecanico.setLayout(panelInversaFaseEletromecanicoLayout);
-        panelInversaFaseEletromecanicoLayout.setHorizontalGroup(
-            panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInversaFaseEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(panelInversaFaseEletromecanicoLayout.createSequentialGroup()
-                        .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(listaPickupInversaFase, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelFatorInversaFaseMecan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(listaDialInversaFase, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelInversaFaseEletromecanicoLayout.setVerticalGroup(
-            panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInversaFaseEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(labelFatorInversaFaseMecan))
-                .addGap(18, 18, 18)
-                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listaPickupInversaFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listaDialInversaFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        panelInversaNeutroEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Inversa de Neutro"));
-
-        jLabel4.setText("Fator de Início de Curva:");
-
-        labelFatorInversaNeutroMecan.setText("jLabel5");
-
-        jLabel7.setText("Corrente de Pickup:");
-
-        listaPickupInversaNeutro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaPickupInversaNeutroActionPerformed(evt);
-            }
-        });
-
-        listaDialInversaNeutro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaDialInversaNeutroActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Dial de Tempo:");
-
-        tabelaPontoCurvaNeutro.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tabelaPontoCurvaNeutro);
-
-        javax.swing.GroupLayout panelInversaNeutroEletromecanicoLayout = new javax.swing.GroupLayout(panelInversaNeutroEletromecanico);
-        panelInversaNeutroEletromecanico.setLayout(panelInversaNeutroEletromecanicoLayout);
-        panelInversaNeutroEletromecanicoLayout.setHorizontalGroup(
-            panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
-                        .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(50, 50, 50)
-                        .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listaDialInversaNeutro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(listaPickupInversaNeutro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelFatorInversaNeutroMecan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        panelInversaNeutroEletromecanicoLayout.setVerticalGroup(
-            panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(labelFatorInversaNeutroMecan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(listaPickupInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(listaDialInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        panelDefinidaFaseEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Definida de Fase"));
-
-        jLabel9.setText("Fator de Início de Curva:");
-
-        labelFatorDefinidaFaseMecan.setText("jLabel10");
-
-        jLabel10.setText("Correntes de Pickup:");
-
-        listaPickupDefinidaFase.setModel(new DefaultListModel<Double>()
-        );
-        jScrollPane3.setViewportView(listaPickupDefinidaFase);
-
-        listaTempoDefinidaFase.setModel(new DefaultListModel<Double>());
-        jScrollPane4.setViewportView(listaTempoDefinidaFase);
-
-        jLabel11.setText("Tempo de Atuação");
-
-        javax.swing.GroupLayout panelDefinidaFaseEletromecanicoLayout = new javax.swing.GroupLayout(panelDefinidaFaseEletromecanico);
-        panelDefinidaFaseEletromecanico.setLayout(panelDefinidaFaseEletromecanicoLayout);
-        panelDefinidaFaseEletromecanicoLayout.setHorizontalGroup(
-            panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDefinidaFaseEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(labelFatorDefinidaFaseMecan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelDefinidaFaseEletromecanicoLayout.setVerticalGroup(
-            panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDefinidaFaseEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(labelFatorDefinidaFaseMecan))
-                .addGap(18, 18, 18)
-                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDefinidaFaseEletromecanicoLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 65, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        panelDefinidaNeutroEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Definida de Neutro"));
-
-        listaTempoDefinidaNeutro.setModel(new DefaultListModel<Double>());
-        jScrollPane5.setViewportView(listaTempoDefinidaNeutro);
-
-        jLabel13.setText("Correntes de Pickup:");
-
-        labelFatorDefinidaNeutroMecan.setText("jLabel10");
-
-        jLabel12.setText("Tempo de Atuação");
-
-        listaPickupDefinidaNeutro.setModel(new DefaultListModel<Double>());
-        jScrollPane6.setViewportView(listaPickupDefinidaNeutro);
-
-        jLabel14.setText("Fator de Início de Curva:");
-
-        javax.swing.GroupLayout panelDefinidaNeutroEletromecanicoLayout = new javax.swing.GroupLayout(panelDefinidaNeutroEletromecanico);
-        panelDefinidaNeutroEletromecanico.setLayout(panelDefinidaNeutroEletromecanicoLayout);
-        panelDefinidaNeutroEletromecanicoLayout.setHorizontalGroup(
-            panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDefinidaNeutroEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(labelFatorDefinidaNeutroMecan, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelDefinidaNeutroEletromecanicoLayout.setVerticalGroup(
-            panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDefinidaNeutroEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(labelFatorDefinidaNeutroMecan))
-                .addGap(18, 18, 18)
-                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDefinidaNeutroEletromecanicoLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout panelEletromecanicoLayout = new javax.swing.GroupLayout(panelEletromecanico);
-        panelEletromecanico.setLayout(panelEletromecanicoLayout);
-        panelEletromecanicoLayout.setHorizontalGroup(
-            panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelDefinidaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelInversaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelInversaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelDefinidaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelEletromecanicoLayout.setVerticalGroup(
-            panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEletromecanicoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelInversaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelInversaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelDefinidaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelDefinidaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        PanelItens.add(panelEletromecanico, "card2");
 
         panelInversaFaseDigital.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Inversa de Fase"));
 
@@ -1103,40 +816,356 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
 
         PanelItens.add(panelDigital, "card3");
 
+        panelInversaFaseEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Inversa de Fase"));
+
+        jLabel1.setText("Fator de Início de Curva:");
+
+        labelFatorInversaFaseMecan.setText("jLabel4");
+
+        jLabel5.setText("Corrente de Pickup:");
+
+        listaPickupInversaFase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaPickupInversaFaseActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Dial de Tempo:");
+
+        listaDialInversaFase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaDialInversaFaseActionPerformed(evt);
+            }
+        });
+
+        tabelaPontoCurvaFase.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaPontoCurvaFase);
+
+        javax.swing.GroupLayout panelInversaFaseEletromecanicoLayout = new javax.swing.GroupLayout(panelInversaFaseEletromecanico);
+        panelInversaFaseEletromecanico.setLayout(panelInversaFaseEletromecanicoLayout);
+        panelInversaFaseEletromecanicoLayout.setHorizontalGroup(
+            panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInversaFaseEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(panelInversaFaseEletromecanicoLayout.createSequentialGroup()
+                        .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(listaPickupInversaFase, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelFatorInversaFaseMecan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(listaDialInversaFase, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelInversaFaseEletromecanicoLayout.setVerticalGroup(
+            panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInversaFaseEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(labelFatorInversaFaseMecan))
+                .addGap(18, 18, 18)
+                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listaPickupInversaFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listaDialInversaFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelInversaNeutroEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Inversa de Neutro"));
+
+        jLabel4.setText("Fator de Início de Curva:");
+
+        labelFatorInversaNeutroMecan.setText("jLabel5");
+
+        jLabel7.setText("Corrente de Pickup:");
+
+        listaPickupInversaNeutro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaPickupInversaNeutroActionPerformed(evt);
+            }
+        });
+
+        listaDialInversaNeutro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaDialInversaNeutroActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Dial de Tempo:");
+
+        tabelaPontoCurvaNeutro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaPontoCurvaNeutro);
+
+        javax.swing.GroupLayout panelInversaNeutroEletromecanicoLayout = new javax.swing.GroupLayout(panelInversaNeutroEletromecanico);
+        panelInversaNeutroEletromecanico.setLayout(panelInversaNeutroEletromecanicoLayout);
+        panelInversaNeutroEletromecanicoLayout.setHorizontalGroup(
+            panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                        .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addGap(50, 50, 50)
+                        .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listaDialInversaNeutro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(listaPickupInversaNeutro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelFatorInversaNeutroMecan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        panelInversaNeutroEletromecanicoLayout.setVerticalGroup(
+            panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(labelFatorInversaNeutroMecan))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(listaPickupInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(listaDialInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        panelDefinidaFaseEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Definida de Fase"));
+
+        jLabel9.setText("Fator de Início de Curva:");
+
+        labelFatorDefinidaFaseMecan.setText("jLabel10");
+
+        jLabel10.setText("Correntes de Pickup:");
+
+        listaPickupDefinidaFase.setModel(new DefaultListModel<Double>()
+        );
+        jScrollPane3.setViewportView(listaPickupDefinidaFase);
+
+        listaTempoDefinidaFase.setModel(new DefaultListModel<Double>());
+        jScrollPane4.setViewportView(listaTempoDefinidaFase);
+
+        jLabel11.setText("Tempo de Atuação");
+
+        javax.swing.GroupLayout panelDefinidaFaseEletromecanicoLayout = new javax.swing.GroupLayout(panelDefinidaFaseEletromecanico);
+        panelDefinidaFaseEletromecanico.setLayout(panelDefinidaFaseEletromecanicoLayout);
+        panelDefinidaFaseEletromecanicoLayout.setHorizontalGroup(
+            panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDefinidaFaseEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(labelFatorDefinidaFaseMecan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelDefinidaFaseEletromecanicoLayout.setVerticalGroup(
+            panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDefinidaFaseEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(labelFatorDefinidaFaseMecan))
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDefinidaFaseEletromecanicoLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 65, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        panelDefinidaNeutroEletromecanico.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Definida de Neutro"));
+
+        listaTempoDefinidaNeutro.setModel(new DefaultListModel<Double>());
+        jScrollPane5.setViewportView(listaTempoDefinidaNeutro);
+
+        jLabel13.setText("Correntes de Pickup:");
+
+        labelFatorDefinidaNeutroMecan.setText("jLabel10");
+
+        jLabel12.setText("Tempo de Atuação");
+
+        listaPickupDefinidaNeutro.setModel(new DefaultListModel<Double>());
+        jScrollPane6.setViewportView(listaPickupDefinidaNeutro);
+
+        jLabel14.setText("Fator de Início de Curva:");
+
+        javax.swing.GroupLayout panelDefinidaNeutroEletromecanicoLayout = new javax.swing.GroupLayout(panelDefinidaNeutroEletromecanico);
+        panelDefinidaNeutroEletromecanico.setLayout(panelDefinidaNeutroEletromecanicoLayout);
+        panelDefinidaNeutroEletromecanicoLayout.setHorizontalGroup(
+            panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDefinidaNeutroEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(labelFatorDefinidaNeutroMecan, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelDefinidaNeutroEletromecanicoLayout.setVerticalGroup(
+            panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDefinidaNeutroEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(labelFatorDefinidaNeutroMecan))
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDefinidaNeutroEletromecanicoLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelEletromecanicoLayout = new javax.swing.GroupLayout(panelEletromecanico);
+        panelEletromecanico.setLayout(panelEletromecanicoLayout);
+        panelEletromecanicoLayout.setHorizontalGroup(
+            panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelDefinidaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelInversaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelInversaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelDefinidaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelEletromecanicoLayout.setVerticalGroup(
+            panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelInversaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelInversaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelDefinidaFaseEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelDefinidaNeutroEletromecanico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        PanelItens.add(panelEletromecanico, "card2");
+
+        botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvarActionPerformed(evt);
+            }
+        });
+
+        botaoRetornar.setText("Retornar");
+        botaoRetornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoRetornarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelItens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelModelo))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(labelFabricante)))
-                    .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelFabricante)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(30, 30, 30)
+                                .addComponent(labelModelo))
+                            .addComponent(PanelItens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoRetornar)
+                .addGap(18, 18, 18)
+                .addComponent(botaoSalvar)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(labelFabricante))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(labelModelo))
+                    .addComponent(labelModelo)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelItens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PanelItens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoSalvar)
+                    .addComponent(botaoRetornar))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -1145,7 +1174,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
     private void listaPickupInversaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaFaseActionPerformed
         double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
         ArrayList<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
-        
+
         this.listaDialInversaFase.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaFase.addItem(dial));
     }//GEN-LAST:event_listaPickupInversaFaseActionPerformed
@@ -1153,7 +1182,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
     private void listaPickupInversaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaNeutroActionPerformed
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
         ArrayList<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
-        
+
         this.listaDialInversaNeutro.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaNeutro.addItem(dial));
     }//GEN-LAST:event_listaPickupInversaNeutroActionPerformed
@@ -1165,7 +1194,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             ArrayList<PontoCurva> listaPontos;
             try {
                 listaPontos = ((ReleEletromecanico) this.rele).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_FASE);
-                
+
                 this.modeloFasePontoCurva.removeTodos();
                 this.modeloFasePontoCurva.add(listaPontos);
                 this.modeloFasePontoCurva.fireTableDataChanged();
@@ -1183,7 +1212,7 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             ArrayList<PontoCurva> listaPontos;
             try {
                 listaPontos = ((ReleEletromecanico) this.rele).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_NEUTRO);
-                
+
                 this.modeloNeutroPontoCurva.removeTodos();
                 this.modeloNeutroPontoCurva.add(listaPontos);
                 this.modeloNeutroPontoCurva.fireTableDataChanged();
@@ -1193,6 +1222,20 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_listaDialInversaNeutroActionPerformed
+
+    private void botaoRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRetornarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoRetornarActionPerformed
+
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        try {
+            ReleDao.insereRele(this.rele);
+            this.dispose();
+            ((JFrame) this.getParent()).dispose();
+        } catch (SQLException ex) {
+            Erro.mostraMensagemSQL((JFrame) this.getParent());
+        }
+    }//GEN-LAST:event_botaoSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1224,17 +1267,19 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new GUI_Reles_Resumo(SIGPROD2.DAO.ReleDao.buscarReles().get(0)).setVisible(true);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                //try {
+                //new GUI_Reles_Resumo(SIGPROD2.DAO.ReleDao.buscarReles().get(0)).setVisible(true);
+                //} catch (SQLException ex) {
+                //  ex.printStackTrace();
+                //}
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelItens;
+    private javax.swing.JButton botaoRetornar;
+    private javax.swing.JButton botaoSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1315,7 +1360,6 @@ public class GUI_Reles_Resumo extends javax.swing.JFrame {
     private javax.swing.JLabel labelTempoMinimoInversaNeutro;
     private javax.swing.JLabel labelTempoPassoInversaFase;
     private javax.swing.JLabel labelTempoPassoInversaNeutro;
-    private javax.swing.JLabel labelTitulo;
     private javax.swing.JComboBox<Double> listaDialInversaFase;
     private javax.swing.JComboBox<Double> listaDialInversaNeutro;
     private javax.swing.JList<Double> listaPickupDefinidaFase;

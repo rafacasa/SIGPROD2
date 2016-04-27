@@ -34,6 +34,18 @@ public class ReleDigital implements Rele {
 
     }
 
+    public void setValuesCorrente(int tipo, double min, double max, double pas) {
+        this.correnteMin.set(tipo, min);
+        this.correnteMax.set(tipo, max);
+        this.correntePasso.set(tipo, pas);
+    }
+
+    public void setValuesTempo(int tipo, double min, double max, double pas) {
+        this.tempoMax.set(tipo, min);
+        this.tempoMin.set(tipo, max);
+        this.tempoPasso.set(tipo, pas);
+    }
+    
     public Double getTempoMax(int tipo) {
         return this.tempoMax.get(tipo);
     }
