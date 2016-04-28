@@ -9,7 +9,6 @@ import SIGPROD2.Modelo.Rele;
 import static SIGPROD2.Modelo.Rele.*;
 import SIGPROD2.Modelo.ReleDigital;
 import SIGPROD2.Modelo.ReleEletromecanico;
-import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,11 +41,14 @@ public class ReleDao {
             + ReleBD.EXISTE_CURVA_DEFINIDA_FASE + ", "
             + ReleBD.EXISTE_CURVA_DEFINIDA_NEUTRO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String SELECT_TODOS = "SELECT * FROM " + ReleBD.TABELA;
+    private static final String GET_CODIGO = "SELECT max( "
+            + ReleBD.CODIGO + " ) FROM "
+            + ReleBD.TABELA + " GROUP BY "
+            + ReleBD.CODIGO;
 
     public static void insereRele(Rele releParaInserir) throws SQLException {
         int codigoAtual = getCodigoRele();
         releParaInserir.setCodigo(codigoAtual);
-        atualizaCodigoRele(codigoAtual);
         inserirRele(releParaInserir);
         if (releParaInserir.isDigital()) {
             insereDadosReleDigital((ReleDigital) releParaInserir);
@@ -75,26 +77,17 @@ public class ReleDao {
         Conexao.fechaConexao();
     }
 
-    private static int getCodigoRele() {
-        Gson json = new Gson();
-        if (ARQUIVO_ID.existeArquivo()) {
-            String leitura = ARQUIVO_ID.lerArquivo();
-            return json.fromJson(leitura, Integer.class);
-        } else {
-            ARQUIVO_ID.criaArquivo();
-            String escrita = json.toJson(0);
-            ARQUIVO_ID.escreverArquivo(escrita);
-            return 0;
+    private static int getCodigoRele() throws SQLException {
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(GET_CODIGO);
+        ResultSet resultado = comando.executeQuery();
+        while(resultado.next())
+        {
+            return (resultado.getInt("max( " + ReleBD.CODIGO + " )")) + 1;
         }
+        return 0;
     }
-
-    private static void atualizaCodigoRele(int atual) {
-        Gson json = new Gson();
-        String escrita = json.toJson(atual + 1);
-
-        ARQUIVO_ID.escreverArquivo(escrita);
-    }
-
+    
     public static List<Rele> buscarReles() throws SQLException {
         Rele releRecuperado;
         List<Rele> lista = new ArrayList<>();
