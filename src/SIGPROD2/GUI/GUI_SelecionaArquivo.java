@@ -1,17 +1,13 @@
-/*
- * Classe responsável por Seletor de Arquivos
- */
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import java.io.File;
-import javax.swing.JFileChooser;
 
 /**
+ * Classe responsável por Seletor de Arquivos
  *
  * @author sbrunettajr
  * @version 10/03/2K16
- *
  */
 public class GUI_SelecionaArquivo extends javax.swing.JFrame {
 
@@ -67,10 +63,8 @@ public class GUI_SelecionaArquivo extends javax.swing.JFrame {
      * Método responsável por mandar arquivo selecionado.
      */
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChooserActionPerformed
-        if (evt.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
-            this.gui.setArquivo(new Arquivo(fileChooser.getSelectedFile().getPath()), this.primeiraAba);
-        }
-        dispose();
+        this.gui.setArquivo(new Arquivo(this.fileChooser.getSelectedFile().getPath()), this.primeiraAba);
+        this.dispose();
     }//GEN-LAST:event_fileChooserActionPerformed
 
     public static void main(String args[]) {

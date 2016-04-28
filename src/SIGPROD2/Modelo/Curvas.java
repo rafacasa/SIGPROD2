@@ -18,14 +18,14 @@ public interface Curvas {
      *
      * @return O título do Gráfico a ser criado.
      */
-    public String getTitulo();
+    String getTitulo();
 
     /**
      * Este método deve retornar a quantidade de curvas que a entidade contém.
      *
      * @return A quantidade de curvas que a entidade contém.
      */
-    public int getQtdCurvas();
+    int getQtdCurvas();
 
     /**
      * Este método deve retornar o nome da curva informada pelo índice.
@@ -34,7 +34,7 @@ public interface Curvas {
      * 0 e qtdCurvas - 1.
      * @return O nome da curva informada pelo índice.
      */
-    public String getNomeCurva(int index);
+    String getNomeCurva(int index);
 
     /**
      * Este método retorna os pontos da curva informada pelo índice.
@@ -43,7 +43,7 @@ public interface Curvas {
      * 0 e qtdCurvas - 1.
      * @return Um ArrayList com todos os pontos da curva selecionada.
      */
-    public ArrayList<PontoCurva> getCurva(int index);
+    ArrayList<PontoCurva> getCurva(int index);
 
     /**
      * Este método retorna a cor desejada da curva informada pelo indice no
@@ -53,5 +53,5 @@ public interface Curvas {
      * 0 e qtdCurvas - 1.
      * @return a cor desejada da curva no gráfico.
      */
-    public java.awt.Paint getCurvaPaint(int index);
+    java.awt.Paint getCurvaPaint(int index);
 }

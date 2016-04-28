@@ -1,6 +1,3 @@
-/**
- * Esta Classe faz a conexão com o banco de dados.
- */
 package SIGPROD2.BD;
 
 import SIGPROD2.Auxiliar.Erro;
