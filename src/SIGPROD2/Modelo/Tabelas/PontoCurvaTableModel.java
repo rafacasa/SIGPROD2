@@ -90,7 +90,7 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     @Override
     public void setValueAt(Object value, int row, int col) {
         try {
-            double valor = Double.parseDouble((String) value);
+            double valor = (Double)value;
             PontoCurva a = pontos.get(row);
 
             switch (col) {

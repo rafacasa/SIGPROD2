@@ -1,6 +1,3 @@
-/*
- * 
- */
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Entrada;
@@ -14,7 +11,7 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 
 /**
- * Classe responsável por gerenciar a Janela de Elo de Transformadores.
+ * Classe responsável por gerenciar a Janela de Elo de Transformadores
  *
  * @author Sérgio Brunetta Júnior
  * @version 15/03/2K16
@@ -323,10 +320,10 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         this.modelTrifasico.addColumn(" ");
         this.modelTrifasico.fireTableStructureChanged();
     }
+
     /*
      * Configura tabela Trifasico
      */
-
     private void configuraTabelaMonofasico() {
         this.modelMonofasico = new TransformadorTableModel();
         this.tabelaMonofasico.setModel(this.modelMonofasico);
@@ -394,7 +391,6 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             Erro.mostraMensagemSQL(this);
         }
     }
-
     /*
      * Remove linha na tabela monofasico.
      */
@@ -444,7 +440,11 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         if (nomeColumn != null) {
             if (this.isNumber(nomeColumn)) {
                 this.modelMonofasico.addColumn(nomeColumn + " kV ");
+                for (int i = 0; i < this.modelMonofasico.getRowCount(); i++) {
+                    this.modelMonofasico.add(new Posicao(), i, this.modelMonofasico.getColumnCount() - 1);
+                }
                 this.modelMonofasico.fireTableStructureChanged();
+                this.modelMonofasico.fireTableDataChanged();
             }
         }
     }//GEN-LAST:event_addColunaMonofasicoActionPerformed
@@ -497,7 +497,11 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         if (nomeColumn != null) {
             if (this.isNumber(nomeColumn)) {
                 this.modelTrifasico.addColumn(nomeColumn + " kV ");
+                for (int i = 0; i < this.modelTrifasico.getRowCount(); i++) {
+                    this.modelTrifasico.add(new Posicao(), i, this.modelTrifasico.getColumnCount() - 1);
+                }
                 this.modelTrifasico.fireTableStructureChanged();
+                this.modelTrifasico.fireTableDataChanged();
             }
         }
     }//GEN-LAST:event_addColunaTrifasicoActionPerformed
