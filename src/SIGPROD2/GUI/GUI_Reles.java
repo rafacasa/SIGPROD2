@@ -189,6 +189,14 @@ public class GUI_Reles extends javax.swing.JFrame {
         faseMinimo = new javax.swing.JTextField();
         faseMaximo = new javax.swing.JTextField();
         fasePasso = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        campoMinimoTempoDefFase = new javax.swing.JTextField();
+        campoMaximoTempoDefFase = new javax.swing.JTextField();
+        campoPassoTempoDefFase = new javax.swing.JTextField();
         avancarDefinidaFase = new javax.swing.JButton();
         retornarDefinidaFase = new javax.swing.JButton();
         cancelarDefinidaFase = new javax.swing.JButton();
@@ -1356,12 +1364,21 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         jLabel42.setText("Passo (A) :");
 
+        jLabel35.setText("Multiplicador de Corrente");
+
+        jLabel37.setText("Multiplicador de Tempo");
+
+        jLabel38.setText("Mínimo (s) :");
+
+        jLabel53.setText("Máximo (s) :");
+
+        jLabel54.setText("Passo (s) :");
+
         javax.swing.GroupLayout faseInstantaneaSecondLayout = new javax.swing.GroupLayout(faseInstantaneaSecond);
         faseInstantaneaSecond.setLayout(faseInstantaneaSecondLayout);
         faseInstantaneaSecondLayout.setHorizontalGroup(
             faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseInstantaneaSecondLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel12)
@@ -1369,28 +1386,54 @@ public class GUI_Reles extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addComponent(jLabel42)))
                 .addGap(3, 3, 3)
+                .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(faseMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(fasePasso, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(faseMinimo))
+                .addGap(208, 208, 208)
+                .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel53)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fasePasso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(faseMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(faseMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(602, Short.MAX_VALUE))
+                    .addComponent(campoMaximoTempoDefFase, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoMinimoTempoDefFase, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoPassoTempoDefFase, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(faseInstantaneaSecondLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
+                .addComponent(jLabel37)
+                .addGap(192, 192, 192))
         );
         faseInstantaneaSecondLayout.setVerticalGroup(
             faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseInstantaneaSecondLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(22, 22, 22)
+                .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(faseMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38)
+                    .addComponent(campoMinimoTempoDefFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(faseMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel53)
+                    .addComponent(campoMaximoTempoDefFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(faseInstantaneaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42)
-                    .addComponent(fasePasso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(298, Short.MAX_VALUE))
+                    .addComponent(fasePasso, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel54)
+                    .addComponent(campoPassoTempoDefFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         cardLayout3.add(faseInstantaneaSecond, "faseInstantaneaSecond");
@@ -2409,6 +2452,9 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JButton avancarInversaFaseCorrente;
     private javax.swing.JButton avancarInversaNeutroCorrente;
     private javax.swing.JButton avancarNeutroCurva;
+    private javax.swing.JTextField campoMaximoTempoDefFase;
+    private javax.swing.JTextField campoMinimoTempoDefFase;
+    private javax.swing.JTextField campoPassoTempoDefFase;
     private javax.swing.JButton cancelarDadosGerais;
     private javax.swing.JButton cancelarDefinidaFase;
     private javax.swing.JButton cancelarDefinidaNeutro;
@@ -2498,7 +2544,10 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -2515,6 +2564,8 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
