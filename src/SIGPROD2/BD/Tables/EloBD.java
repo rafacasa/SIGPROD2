@@ -7,7 +7,7 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 23/03/2016
  */
-public class Elo {
+public class EloBD {
 
     public static final String CORRENTE_NOMINAL = "correnteNominal";
     public static final String PREFERENCIAL = "preferencial";

@@ -7,9 +7,9 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 23/03/2016
  */
-public class KvTri {
+public class KvMonoBD {
 
     public static String ID_KV = "id";
     public static String KV = "kv";
-    public static String TABELA = "kvTri";
+    public static String TABELA = "kvMono";
 }

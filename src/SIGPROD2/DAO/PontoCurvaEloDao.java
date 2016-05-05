@@ -1,7 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.PontoDeCurva;
+import SIGPROD2.BD.Tables.PontoDeCurvaEloBD;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import java.sql.Connection;
@@ -12,27 +12,27 @@ import java.util.ArrayList;
 
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e
- * remover pontos de curva
+ * remover pontos de curva de um Elo.
  *
  * @author Rafael Casa
- * @version 25/03/2016
+ * @version 06/04/2016
  */
-public class PontoCurvaDao {
+public class PontoCurvaEloDao {
 
     private static final String INSERT = "INSERT INTO "
-            + PontoDeCurva.TABELA + " ("
-            + PontoDeCurva.CORRENTE + ", "
-            + PontoDeCurva.TEMPO + ", "
-            + PontoDeCurva.EH_CURVA_DE_MAXIMA + ", "
-            + PontoDeCurva.CORRENTE_DO_ELO + ") VALUES (?, ?, ?, ?)";
+            + PontoDeCurvaEloBD.TABELA + " ("
+            + PontoDeCurvaEloBD.CORRENTE + ", "
+            + PontoDeCurvaEloBD.TEMPO + ", "
+            + PontoDeCurvaEloBD.EH_CURVA_DE_MAXIMA + ", "
+            + PontoDeCurvaEloBD.CORRENTE_DO_ELO + ") VALUES (?, ?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?, ?)";
-    private static final String DELETE = "DELETE FROM " + PontoDeCurva.TABELA + " WHERE " + PontoDeCurva.CORRENTE_DO_ELO + " = ?;";
-    private static final String BUSCAR = "SELECT " + PontoDeCurva.ID + ", "
-            + PontoDeCurva.CORRENTE + ", "
-            + PontoDeCurva.TEMPO + " FROM "
-            + PontoDeCurva.TABELA + " WHERE ("
-            + PontoDeCurva.CORRENTE_DO_ELO + " = ? AND "
-            + PontoDeCurva.EH_CURVA_DE_MAXIMA + " = ?);";
+    private static final String DELETE = "DELETE FROM " + PontoDeCurvaEloBD.TABELA + " WHERE " + PontoDeCurvaEloBD.CORRENTE_DO_ELO + " = ?;";
+    private static final String BUSCAR = "SELECT " + PontoDeCurvaEloBD.ID + ", "
+            + PontoDeCurvaEloBD.CORRENTE + ", "
+            + PontoDeCurvaEloBD.TEMPO + " FROM "
+            + PontoDeCurvaEloBD.TABELA + " WHERE ("
+            + PontoDeCurvaEloBD.CORRENTE_DO_ELO + " = ? AND "
+            + PontoDeCurvaEloBD.EH_CURVA_DE_MAXIMA + " = ?);";
 
     /**
      * Método responsável por inserir um Ponto de Curva no Banco de Dados

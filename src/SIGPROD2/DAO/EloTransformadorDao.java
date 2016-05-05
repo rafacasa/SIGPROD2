@@ -1,12 +1,12 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.EloTransformadorMono;
-import SIGPROD2.BD.Tables.EloTransformadorTri;
-import SIGPROD2.BD.Tables.KvMono;
-import SIGPROD2.BD.Tables.KvTri;
-import SIGPROD2.BD.Tables.PotenciaMono;
-import SIGPROD2.BD.Tables.PotenciaTri;
+import SIGPROD2.BD.Tables.EloTransformadorMonoBD;
+import SIGPROD2.BD.Tables.EloTransformadorTriBD;
+import SIGPROD2.BD.Tables.KvMonoBD;
+import SIGPROD2.BD.Tables.KvTriBD;
+import SIGPROD2.BD.Tables.PotenciaMonoBD;
+import SIGPROD2.BD.Tables.PotenciaTriBD;
 import SIGPROD2.Modelo.Posicao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,47 +23,47 @@ import java.util.ArrayList;
  */
 public class EloTransformadorDao {
 
-    private static final String SELECT_ELO_TRI = "SELECT * FROM " + EloTransformadorTri.TABELA;
-    private static final String SELECT_KV_TRI = "SELECT * FROM " + KvTri.TABELA;
-    private static final String SELECT_POT_TRI = "SELECT * FROM " + PotenciaTri.TABELA;
-    private static final String INSERT_KV_TRI = "INSERT INTO " + KvTri.TABELA + " ("
-            + KvTri.ID_KV + ", "
-            + KvTri.KV
+    private static final String SELECT_ELO_TRI = "SELECT * FROM " + EloTransformadorTriBD.TABELA;
+    private static final String SELECT_KV_TRI = "SELECT * FROM " + KvTriBD.TABELA;
+    private static final String SELECT_POT_TRI = "SELECT * FROM " + PotenciaTriBD.TABELA;
+    private static final String INSERT_KV_TRI = "INSERT INTO " + KvTriBD.TABELA + " ("
+            + KvTriBD.ID_KV + ", "
+            + KvTriBD.KV
             + ") VALUES (?, ?)";
-    private static final String INSERT_POT_TRI = "INSERT INTO " + PotenciaTri.TABELA + " ("
-            + PotenciaTri.ID_POTENCIA + ", "
-            + PotenciaTri.POTENCIA
+    private static final String INSERT_POT_TRI = "INSERT INTO " + PotenciaTriBD.TABELA + " ("
+            + PotenciaTriBD.ID_POTENCIA + ", "
+            + PotenciaTriBD.POTENCIA
             + ") VALUES (?, ?)";
-    private static final String INSERT_ELO_TRI = "INSERT INTO " + EloTransformadorTri.TABELA + " ("
-            + EloTransformadorTri.CORRENTE_ELO + ", "
-            + EloTransformadorTri.TIPO_ELO + ", "
-            + EloTransformadorTri.ID_KV + ", "
-            + EloTransformadorTri.ID_POTENCIA
+    private static final String INSERT_ELO_TRI = "INSERT INTO " + EloTransformadorTriBD.TABELA + " ("
+            + EloTransformadorTriBD.CORRENTE_ELO + ", "
+            + EloTransformadorTriBD.TIPO_ELO + ", "
+            + EloTransformadorTriBD.ID_KV + ", "
+            + EloTransformadorTriBD.ID_POTENCIA
             + ") VALUES (?, ?, ?, ?)";
-    private static final String DELETE_ELO_TRI = "DELETE FROM " + EloTransformadorMono.TABELA + " WHERE 1;";
-    private static final String DELETE_KV_TRI = "DELETE FROM " + KvMono.TABELA + " WHERE 1;";
-    private static final String DELETE_POT_TRI = "DELETE FROM " + PotenciaMono.TABELA + " WHERE 1;";
+    private static final String DELETE_ELO_TRI = "DELETE FROM " + EloTransformadorMonoBD.TABELA + " WHERE 1;";
+    private static final String DELETE_KV_TRI = "DELETE FROM " + KvMonoBD.TABELA + " WHERE 1;";
+    private static final String DELETE_POT_TRI = "DELETE FROM " + PotenciaMonoBD.TABELA + " WHERE 1;";
 
-    private static final String SELECT_ELO_MONO = "SELECT * FROM " + EloTransformadorMono.TABELA;
-    private static final String SELECT_KV_MONO = "SELECT * FROM " + KvMono.TABELA;
-    private static final String SELECT_POT_MONO = "SELECT * FROM " + PotenciaMono.TABELA;
-    private static final String INSERT_KV_MONO = "INSERT INTO " + KvMono.TABELA + " ("
-            + KvMono.ID_KV + ", "
-            + KvMono.KV
+    private static final String SELECT_ELO_MONO = "SELECT * FROM " + EloTransformadorMonoBD.TABELA;
+    private static final String SELECT_KV_MONO = "SELECT * FROM " + KvMonoBD.TABELA;
+    private static final String SELECT_POT_MONO = "SELECT * FROM " + PotenciaMonoBD.TABELA;
+    private static final String INSERT_KV_MONO = "INSERT INTO " + KvMonoBD.TABELA + " ("
+            + KvMonoBD.ID_KV + ", "
+            + KvMonoBD.KV
             + ") VALUES (?, ?)";
-    private static final String INSERT_POT_MONO = "INSERT INTO " + PotenciaMono.TABELA + " ("
-            + PotenciaMono.ID_POTENCIA + ", "
-            + PotenciaMono.POTENCIA
+    private static final String INSERT_POT_MONO = "INSERT INTO " + PotenciaMonoBD.TABELA + " ("
+            + PotenciaMonoBD.ID_POTENCIA + ", "
+            + PotenciaMonoBD.POTENCIA
             + ") VALUES (?, ?)";
-    private static final String INSERT_ELO_MONO = "INSERT INTO " + EloTransformadorMono.TABELA + " ("
-            + EloTransformadorMono.CORRENTE_ELO + ", "
-            + EloTransformadorMono.TIPO_ELO + ", "
-            + EloTransformadorMono.ID_KV + ", "
-            + EloTransformadorMono.ID_POTENCIA
+    private static final String INSERT_ELO_MONO = "INSERT INTO " + EloTransformadorMonoBD.TABELA + " ("
+            + EloTransformadorMonoBD.CORRENTE_ELO + ", "
+            + EloTransformadorMonoBD.TIPO_ELO + ", "
+            + EloTransformadorMonoBD.ID_KV + ", "
+            + EloTransformadorMonoBD.ID_POTENCIA
             + ") VALUES (?, ?, ?, ?)";
-    private static final String DELETE_ELO_MONO = "DELETE FROM " + EloTransformadorMono.TABELA + " WHERE 1;";
-    private static final String DELETE_KV_MONO = "DELETE FROM " + KvMono.TABELA + " WHERE 1;";
-    private static final String DELETE_POT_MONO = "DELETE FROM " + PotenciaMono.TABELA + " WHERE 1;";
+    private static final String DELETE_ELO_MONO = "DELETE FROM " + EloTransformadorMonoBD.TABELA + " WHERE 1;";
+    private static final String DELETE_KV_MONO = "DELETE FROM " + KvMonoBD.TABELA + " WHERE 1;";
+    private static final String DELETE_POT_MONO = "DELETE FROM " + PotenciaMonoBD.TABELA + " WHERE 1;";
 
     private static final String VARIAVEIS_ELO = ", (?, ?, ?, ?)";
     private static final String VARIAVEIS_KV_POT = ", (?, ?)";
@@ -157,30 +157,6 @@ public class EloTransformadorDao {
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
      * Dados forem inválidos.
      */
-    /*public static void inserirEloTransformador(Posicao[][] matriz, int quantidadeKv, int quantidadePot, boolean trifasico) throws SQLException {
-     String comandoSql = trifasico ? DELETEELOTRI : DELETEELOMONO;
-     Connection conexao = Conexao.getConexao();
-     PreparedStatement comando = conexao.prepareStatement(comandoSql);
-        
-     comando.executeUpdate();
-        
-     comandoSql = trifasico ? INSERTELOTRI : INSERTELOMONO;
-     int qtd = matriz[0].length;
-     comandoSql = montarComandoSql(comandoSql, VARIAVEISELO, qtd);
-
-     for (int x = 1; x < quantidadeKv + 1; x++) {
-     comando = conexao.prepareStatement(comandoSql);
-
-     for (int y = 0; y < quantidadePot * 4; y += 4) {
-     comando.setInt(y + 1, matriz[x][y / 4].getCorrente());
-     comando.setString(y + 2, matriz[x][y / 4].getTipo());
-     comando.setInt(y + 3, x);
-     comando.setInt(y + 4, y / 4);
-     }
-     comando.executeUpdate();
-     }
-     Conexao.fechaConexao();
-     }*/
     public static void inserirEloTransformador(String[][] matriz, int quantidadeKv, int quantidadePot, boolean trifasico) throws SQLException {
         Posicao temp;
         String comandoSql = trifasico ? INSERT_ELO_TRI : INSERT_ELO_MONO;

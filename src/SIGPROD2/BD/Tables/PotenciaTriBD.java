@@ -7,7 +7,7 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 23/03/2016
  */
-public class PotenciaTri {
+public class PotenciaTriBD {
 
     public static String POTENCIA = "potencia";
     public static String ID_POTENCIA = "id";

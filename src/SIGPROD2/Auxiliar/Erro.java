@@ -1,16 +1,15 @@
-/*
- * Esta classe tem métodos estáticos para apresentar mensagens de erro ao usuário.
- */
 package SIGPROD2.Auxiliar;
 
+import SIGPROD2.GUI.GUI_Reles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Esta classe tem métodos estáticos para apresentar mensagens de erro ao
+ * usuário.
  *
  * @author Rafael Coelho
  * @version 16/08/2015
- *
  */
 public class Erro {
 
@@ -64,7 +63,24 @@ public class Erro {
     public static void configureBancoDados(JFrame janela) {
         mostraMensagem(janela, "Você deve configurar as informações de acesso ao Banco de Dados");
     }
+
     public static void valoresVazios(JFrame janela){
         mostraMensagem(janela,"Valores vazios");
+	}
+
+    public static void selecioneTipoRele(JFrame janela) {
+        mostraMensagem(janela, "Você deve selecionar o tipo de Relé que deseja inserir");
+    }
+
+    public static void selecioneUnidadeRele(JFrame janela) {
+        mostraMensagem(janela, "Você deve selecionar pelo menos uma unidade para o Relé");
+    }
+
+    public static void camposVazios(JFrame janela) {
+        mostraMensagem(janela, "Campos vazios");
+    }
+
+    public static void valorCadastrado(JFrame janela) {
+        mostraMensagem(janela, "Dial já cadastrado");
     }
 }
