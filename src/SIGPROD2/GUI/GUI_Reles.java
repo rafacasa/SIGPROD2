@@ -1871,7 +1871,7 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarDefinidaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaNeutroActionPerformed
         String f = this.definidaNeutroFator.getText();
-
+        try{
         if (!f.equals("")) {
             double fator = Double.parseDouble(f);
 
@@ -1913,6 +1913,9 @@ public class GUI_Reles extends javax.swing.JFrame {
             } catch (Exception e) {
                 
             }
+        }
+        }catch(NumberFormatException e){
+            Erro.entradaSomenteNumeros(this);
         }
     }//GEN-LAST:event_avancarDefinidaNeutroActionPerformed
 
@@ -2297,7 +2300,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void avancarTela() {
         while (true && this.getSelected() < this.tabbedPane.getComponentCount()) {
             int selecionado = this.getSelected() + 1;
-
+            
             this.tabbedPane.setSelectedIndex(selecionado);
             if (this.panels[selecionado]) {
                 this.desabilitarPaineis(selecionado);
