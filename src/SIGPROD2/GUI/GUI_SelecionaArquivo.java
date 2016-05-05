@@ -2,6 +2,7 @@ package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  * Classe responsável por Seletor de Arquivos
