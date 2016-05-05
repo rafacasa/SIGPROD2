@@ -64,6 +64,10 @@ public class Erro {
         mostraMensagem(janela, "Você deve configurar as informações de acesso ao Banco de Dados");
     }
 
+    public static void valoresVazios(JFrame janela){
+        mostraMensagem(janela,"Valores vazios");
+	}
+
     public static void selecioneTipoRele(JFrame janela) {
         mostraMensagem(janela, "Você deve selecionar o tipo de Relé que deseja inserir");
     }

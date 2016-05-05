@@ -46,7 +46,10 @@ public class PontoCurvaTableModel extends DefaultTableModel {
         }
         return ponto;
     }
-
+    public void setArrayList(ArrayList<PontoCurva> pontos){
+        this.pontos = pontos;
+    }
+    
     @Override
     public int getColumnCount() {//REVISADO
         return 2;
@@ -81,6 +84,11 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     public String getColumnName(int col) {
         return titulos[col];
     }
+    
+    @Override
+    public Class<?> getColumnClass (int coluna) {
+        return String.class;
+    }
 
     @Override
     public boolean isCellEditable(int row, int col) {
@@ -90,7 +98,9 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     @Override
     public void setValueAt(Object value, int row, int col) {
         try {
-            double valor = (Double)value;
+            String val = value.toString();
+            val = val.replace(',', '.');
+            double valor = Double.parseDouble(val);
             PontoCurva a = pontos.get(row);
 
             switch (col) {
