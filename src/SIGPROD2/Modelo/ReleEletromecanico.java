@@ -1,6 +1,8 @@
 package SIGPROD2.Modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -12,8 +14,8 @@ public class ReleEletromecanico extends Rele {
 
     private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaFasePickupTempo;
     private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaNeutroPickupTempo;
-    private ArrayList<ArrayList<Double>> correntePickup;
-    private ArrayList<ArrayList<Double>> tempo;
+    private List<ArrayList<Double>> correntePickup;
+    private List<ArrayList<Double>> tempo;
     private int qtdPontosFase;
     private int qtdPontosNeutro;
 
@@ -24,15 +26,11 @@ public class ReleEletromecanico extends Rele {
         this.mapaNeutroPickupTempo = new TreeMap();
         this.qtdPontosFase = 0;
         this.qtdPontosNeutro = 0;
-        this.tempo = new ArrayList<>(2);
-        this.correntePickup = new ArrayList<>();
-        this.correntePickup.add(null);
-        this.correntePickup.add(null);
-        this.correntePickup.add(null);
-        this.correntePickup.add(null);
+        this.tempo = Arrays.asList(new ArrayList(), new ArrayList());
+        this.correntePickup = Arrays.asList(new ArrayList(), new ArrayList(), new ArrayList(), new ArrayList());
     }
 
-    public void setCorrentePickup(ArrayList<Double> corrente, int tipo) {
+    public void setCorrentePickup(List<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, new ArrayList<>(corrente));
         if (tipo == INVERSA_FASE) {
             for (Double c : corrente) {
@@ -111,9 +109,9 @@ public class ReleEletromecanico extends Rele {
         return this.correntePickup.get(tipo);
     }
 
-    public void setTempoDeAtuacao(ArrayList<Double> tempo, int tipo) {
+    public void setTempoDeAtuacao(List<Double> tempo, int tipo) {
         tipo = tipo - 2;
-        this.tempo.set(tipo, tempo);
+        this.tempo.set(tipo, new ArrayList(tempo));
     }
 
     public ArrayList<Double> getTempoDeAtuacao(int tipo) {
