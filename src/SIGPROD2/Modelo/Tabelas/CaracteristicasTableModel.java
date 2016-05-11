@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author sbrunettajr
+ * 
+ * @version 16/03/2016
  */
 public class CaracteristicasTableModel extends DefaultTableModel {
     

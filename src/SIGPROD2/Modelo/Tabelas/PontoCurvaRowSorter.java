@@ -14,6 +14,7 @@ import javax.swing.table.TableRowSorter;
 /**
  *
  * @author Lucas
+ * @version 21/03/2016
  */
 public class PontoCurvaRowSorter extends TableRowSorter<PontoCurvaTableModel> {
 

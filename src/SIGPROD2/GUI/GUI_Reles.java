@@ -13,7 +13,9 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-
+/**
+*   @version 10/04/2016
+*/
 public class GUI_Reles extends javax.swing.JFrame {
 
     private CaracteristicasTableModel modeloFaseCaracteristicas;

@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 /**
  *
  * @author rafael
+ * @version 25/04/2016
  */
 public class GUI_Reles_Resumo extends javax.swing.JDialog {
 
