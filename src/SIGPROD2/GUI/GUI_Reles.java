@@ -1712,19 +1712,22 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void avancarDadosGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDadosGeraisActionPerformed
         String fab = this.fabricante.getText();
         String mod = this.modelo.getText();
-
-        if (!fab.equals("") && !mod.equals("")) {
-            if (this.isEletromecanico()) {
-                this.newRele = new ReleEletromecanico();
+        try {
+            if (!fab.equals("") && !mod.equals("")) {
+                if (this.isEletromecanico()) {
+                    this.newRele = new ReleEletromecanico();
+                } else {
+                    this.newRele = new ReleDigital();
+                }
+                this.newRele.setFabricante(fab);
+                this.newRele.setModelo(mod);
+                this.configurePanels();
+                this.selecionarCards();
+                this.avancarTela();
             } else {
-                this.newRele = new ReleDigital();
+                Erro.camposVazios(this);
             }
-            this.newRele.setFabricante(fab);
-            this.newRele.setModelo(mod);
-            this.configurePanels();
-            this.selecionarCards();
-            this.avancarTela();
-        } else {
+        } catch (IndexOutOfBoundsException e) {
             Erro.camposVazios(this);
         }
     }//GEN-LAST:event_avancarDadosGeraisActionPerformed
@@ -1774,7 +1777,7 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarInversaFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaFaseCorrenteActionPerformed
         String f = this.InversaFaseCorrenteFator.getText();
-
+        try{
         if (!f.equals("")) {
             if (this.isEletromecanico()) {
                 String valor = this.inversaFaseCorrenteValores.getText();
@@ -1815,49 +1818,53 @@ public class GUI_Reles extends javax.swing.JFrame {
                 }
             }
         }
-
-
+    }catch(NumberFormatException e){
+        Erro.entradaSomenteNumeros(this);
+    }
     }//GEN-LAST:event_avancarInversaFaseCorrenteActionPerformed
 
     private void avancarDefinidaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaFaseActionPerformed
         String f = this.definidaFaseFator.getText();
+        try {
+            if (!f.equals("")) {
+                if (this.isEletromecanico()) {
+                    String c = this.definidaFaseCorrenteValores.getText();
+                    String t = this.definidaFaseTempoValores.getText();
+                    double fator = Double.parseDouble(f);
 
-        if (!f.equals("")) {
-            if (this.isEletromecanico()) {
-                String c = this.definidaFaseCorrenteValores.getText();
-                String t = this.definidaFaseTempoValores.getText();
-                double fator = Double.parseDouble(f);
-
-                if (!c.equals("") && !t.equals("")) {
-                    this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
-                    ArrayList<Double> lista_corrente = this.separaValores(c);
-                    ArrayList<Double> lista_tempo = this.separaValores(t);
-
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_FASE);
-                    ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_FASE);
-                    this.avancarTela();
-                } else {
-                    Erro.camposVazios(this);
-                }
-            } else {
-                String minimo = this.faseMinimo.getText();
-                String maximo = this.faseMaximo.getText();
-                String passo = this.fasePasso.getText();
-                double fator = Double.parseDouble(f);
-
-                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                    double min = Double.parseDouble(minimo);
-                    double max = Double.parseDouble(maximo);
-                    double pas = Double.parseDouble(passo);
-
-                    if (this.verificaExpressao(min, max, pas)) {
+                    if (!c.equals("") && !t.equals("")) {
                         this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_FASE, min, max, pas);
-                        this.avancarTela();
-                    }
-                }
+                        ArrayList<Double> lista_corrente = this.separaValores(c);
+                        ArrayList<Double> lista_tempo = this.separaValores(t);
 
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_FASE);
+                        ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_FASE);
+                        this.avancarTela();
+                    } else {
+                        Erro.camposVazios(this);
+                    }
+                } else {
+                    String minimo = this.faseMinimo.getText();
+                    String maximo = this.faseMaximo.getText();
+                    String passo = this.fasePasso.getText();
+                    double fator = Double.parseDouble(f);
+
+                    if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                        double min = Double.parseDouble(minimo);
+                        double max = Double.parseDouble(maximo);
+                        double pas = Double.parseDouble(passo);
+
+                        if (this.verificaExpressao(min, max, pas)) {
+                            this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
+                            ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_FASE, min, max, pas);
+                            this.avancarTela();
+                        }
+                    }
+
+                }
             }
+        } catch (NumberFormatException e) {
+            Erro.entradaSomenteNumeros(this);
         }
     }//GEN-LAST:event_avancarDefinidaFaseActionPerformed
 
@@ -1871,50 +1878,50 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarDefinidaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaNeutroActionPerformed
         String f = this.definidaNeutroFator.getText();
-        try{
-        if (!f.equals("")) {
-            double fator = Double.parseDouble(f);
+        try {
+            if (!f.equals("")) {
+                double fator = Double.parseDouble(f);
 
-            if (this.isEletromecanico()) {
-                String c = this.definidaNeutroCorrenteValores.getText();
-                String t = this.definidaNeutroTempoValores.getText();
+                if (this.isEletromecanico()) {
+                    String c = this.definidaNeutroCorrenteValores.getText();
+                    String t = this.definidaNeutroTempoValores.getText();
 
-                if (!c.equals("") && !t.equals("")) {
-                    ArrayList<Double> lista_corrente = this.separaValores(c);
-                    ArrayList<Double> lista_tempo = this.separaValores(t);
+                    if (!c.equals("") && !t.equals("")) {
+                        ArrayList<Double> lista_corrente = this.separaValores(c);
+                        ArrayList<Double> lista_tempo = this.separaValores(t);
 
-                    this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
-                    ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
-                } else {
-                    Erro.camposVazios(this);
-                }
-            } else {
-                String minimo = this.neutroMinimo.getText();
-                String maximo = this.neutroMaximo.getText();
-                String passo = this.neutroPasso.getText();
-
-                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                    double min = Double.parseDouble(minimo);
-                    double max = Double.parseDouble(this.neutroMaximo.getText());
-                    double pas = Double.parseDouble(this.neutroPasso.getText());
-
-                    if (this.verificaExpressao(min, max, pas)) {
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_NEUTRO, min, max, pas);
+                        this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
+                        ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
+                    } else {
+                        Erro.camposVazios(this);
                     }
                 } else {
-                    Erro.camposVazios(this);
+                    String minimo = this.neutroMinimo.getText();
+                    String maximo = this.neutroMaximo.getText();
+                    String passo = this.neutroPasso.getText();
+
+                    if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                        double min = Double.parseDouble(minimo);
+                        double max = Double.parseDouble(this.neutroMaximo.getText());
+                        double pas = Double.parseDouble(this.neutroPasso.getText());
+
+                        if (this.verificaExpressao(min, max, pas)) {
+                            ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_NEUTRO, min, max, pas);
+                        }
+                    } else {
+                        Erro.camposVazios(this);
+                    }
+                }
+                try {
+                    GUI_Reles_Resumo resumo = new GUI_Reles_Resumo(this, true, newRele);
+                    resumo.setAlwaysOnTop(true);
+                    resumo.setVisible(true);
+                } catch (Exception e) {
+
                 }
             }
-            try {
-                GUI_Reles_Resumo resumo = new GUI_Reles_Resumo(this, true, newRele);
-                resumo.setAlwaysOnTop(true);
-                resumo.setVisible(true);
-            } catch (Exception e) {
-                
-            }
-        }
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             Erro.entradaSomenteNumeros(this);
         }
     }//GEN-LAST:event_avancarDefinidaNeutroActionPerformed
@@ -1928,6 +1935,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarDefinidaNeutroActionPerformed
 
     private void avancarNeutroCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurvaActionPerformed
+        try{
         if (!this.isEletromecanico()) {
             String minimo = this.neutroCurvaMinimo.getText();
             String maximo = this.neutroCurvaMaximo.getText();
@@ -1946,6 +1954,9 @@ public class GUI_Reles extends javax.swing.JFrame {
             }
         } else {
             this.avancarTela();
+        }
+        }catch(NumberFormatException e){
+                Erro.entradaSomenteNumeros(this);
         }
     }//GEN-LAST:event_avancarNeutroCurvaActionPerformed
 
@@ -1972,43 +1983,46 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarInversaNeutroCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaNeutroCorrenteActionPerformed
         String f = this.inversaNeutroCorrenteFator.getText();
+        try {
+            if (!f.equals("")) {
+                if (this.isEletromecanico()) {
+                    String v = this.inversaNeutroCorrenteValores.getText();
+                    double fator = Double.parseDouble(f);
 
-        if (!f.equals("")) {
-            if (this.isEletromecanico()) {
-                String v = this.inversaNeutroCorrenteValores.getText();
-                double fator = Double.parseDouble(f);
-
-                if (!v.equals("")) {
-                    this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
-                    ArrayList<Double> lista = this.separaValores(v);
-
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
-                    this.addCorrentePickupNeutro(lista);
-                    int selecionado = this.jTabbedPane1.getSelectedIndex();
-
-                    this.jTabbedPane1.setSelectedIndex(selecionado + 1);
-                }
-            } else {
-                String minimo = this.neutroCorrenteMinimo.getText();
-                String maximo = this.neutroCorrenteMaximo.getText();
-                String passo = this.neutroCorrentePasso.getText();
-                double fator = Double.parseDouble(f);
-
-                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                    double min = Double.parseDouble(this.neutroCorrenteMinimo.getText());
-                    double max = Double.parseDouble(this.neutroCorrenteMaximo.getText());
-                    double pas = Double.parseDouble(this.neutroCorrentePasso.getText());
-
-                    if (this.verificaExpressao(min, max, pas)) {
+                    if (!v.equals("")) {
                         this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_NEUTRO, min, max, pas);
+                        ArrayList<Double> lista = this.separaValores(v);
+
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
+                        this.addCorrentePickupNeutro(lista);
                         int selecionado = this.jTabbedPane1.getSelectedIndex();
 
                         this.jTabbedPane1.setSelectedIndex(selecionado + 1);
                     }
-                }
+                } else {
+                    String minimo = this.neutroCorrenteMinimo.getText();
+                    String maximo = this.neutroCorrenteMaximo.getText();
+                    String passo = this.neutroCorrentePasso.getText();
+                    double fator = Double.parseDouble(f);
 
+                    if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                        double min = Double.parseDouble(this.neutroCorrenteMinimo.getText());
+                        double max = Double.parseDouble(this.neutroCorrenteMaximo.getText());
+                        double pas = Double.parseDouble(this.neutroCorrentePasso.getText());
+
+                        if (this.verificaExpressao(min, max, pas)) {
+                            this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
+                            ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_NEUTRO, min, max, pas);
+                            int selecionado = this.jTabbedPane1.getSelectedIndex();
+
+                            this.jTabbedPane1.setSelectedIndex(selecionado + 1);
+                        }
+                    }
+
+                }
             }
+        } catch (NumberFormatException e) {
+            Erro.entradaSomenteNumeros(this);
         }
 
 
@@ -2297,10 +2311,9 @@ public class GUI_Reles extends javax.swing.JFrame {
         }
     }
 
-    private void avancarTela() {
+    private void avancarTela() throws IndexOutOfBoundsException {
         while (true && this.getSelected() < this.tabbedPane.getComponentCount()) {
             int selecionado = this.getSelected() + 1;
-            
             this.tabbedPane.setSelectedIndex(selecionado);
             if (this.panels[selecionado]) {
                 this.desabilitarPaineis(selecionado);
