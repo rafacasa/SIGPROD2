@@ -1,8 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.CorrenteDigitalBD;
-import SIGPROD2.BD.Tables.TempoDigitalBD;
+import SIGPROD2.BD.Tables.CorrenteTempoDigitalBD;
 import static SIGPROD2.DAO.CaracteristicasCurvaDao.insereCaracteristicasCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
@@ -19,113 +18,66 @@ import java.sql.SQLException;
  * @version 12/04/2016
  */
 public class ReleDigitalDao {
-
-    private static final String INSERT_CORRENTE = "INSERT INTO "
-            + CorrenteDigitalBD.TABELA + " ("
-            + CorrenteDigitalBD.CODIGO_RELE + ", "
-            + CorrenteDigitalBD.TIPO + ", "
-            + CorrenteDigitalBD.CORRENTE_MAXIMO + ", "
-            + CorrenteDigitalBD.CORRENTE_MINIMO + ", "
-            + CorrenteDigitalBD.CORRENTE_PASSO + ") VALUES (?, ?, ?, ?, ?)";
-    private static final String INSERT_TEMPO = "INSERT INTO "
-            + TempoDigitalBD.TABELA + " ("
-            + TempoDigitalBD.CODIGO_RELE + ", "
-            + TempoDigitalBD.IS_FASE + ", "
-            + TempoDigitalBD.TEMPO_MAXIMO + ", "
-            + TempoDigitalBD.TEMPO_MINIMO + ", "
-            + TempoDigitalBD.TEMPO_PASSO + ") VALUES (?, ?, ?, ?, ?)";
-    private static final String SELECT_CORRENTE = "SELECT * FROM "
-            + CorrenteDigitalBD.TABELA + " WHERE "
-            + CorrenteDigitalBD.CODIGO_RELE + " = ?";
-    private static final String SELECT_TEMPO = "SELECT * FROM "
-            + TempoDigitalBD.TABELA + " WHERE "
-            + TempoDigitalBD.CODIGO_RELE + " = ?";
-
+    
+    private static final String INSERT = "INSERT INTO "
+            + CorrenteTempoDigitalBD.TABELA + " ("
+            + CorrenteTempoDigitalBD.CODIGO_RELE + ", "
+            + CorrenteTempoDigitalBD.TIPO + ", "
+            + CorrenteTempoDigitalBD.CORRENTE_MAXIMO + ", "
+            + CorrenteTempoDigitalBD.CORRENTE_MINIMO + ", "
+            + CorrenteTempoDigitalBD.CORRENTE_PASSO + ", "
+            + CorrenteTempoDigitalBD.TEMPO_MAXIMO + ", "
+            + CorrenteTempoDigitalBD.TEMPO_MINIMO + ", "
+            + CorrenteTempoDigitalBD.TEMPO_PASSO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT = "SELECT * FROM "
+            + CorrenteTempoDigitalBD.TABELA + " WHERE "
+            + CorrenteTempoDigitalBD.CODIGO_RELE + " = ?";
+    
     public static void insereDadosReleDigital(ReleDigital releParaInserir) throws SQLException {
-        insereTempo(releParaInserir);
-        insereCorrente(releParaInserir);
+        insereDadosReleDigital(releParaInserir, Rele.DEFINIDO_FASE);
+        insereDadosReleDigital(releParaInserir, Rele.DEFINIDO_NEUTRO);
+        insereDadosReleDigital(releParaInserir, Rele.INVERSA_FASE);
+        insereDadosReleDigital(releParaInserir, Rele.INVERSA_NEUTRO);
         insereCaracteristicasCurva(releParaInserir);
     }
-
-    private static void insereTempo(ReleDigital releParaInserir) throws SQLException {
-        insereTempo(releParaInserir, true);
-        insereTempo(releParaInserir, false);
-    }
-
-    private static void insereTempo(ReleDigital releParaInserir, boolean tipo) throws SQLException {
-        int index;
-        if (tipo) {
-            index = Rele.INVERSA_FASE;
-        } else {
-            index = Rele.INVERSA_NEUTRO;
-        }
+    
+    public static void insereDadosReleDigital(ReleDigital releParaInserir, int tipo) throws SQLException {
         Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(INSERT_TEMPO);
-
-        comando.setInt(1, releParaInserir.getCodigo());
-        comando.setBoolean(2, tipo);
-        comando.setDouble(3, releParaInserir.getTempoMax(index));
-        comando.setDouble(4, releParaInserir.getTempoMin(index));
-        comando.setDouble(5, releParaInserir.getTempoPasso(index));
-        comando.executeUpdate();
-        Conexao.fechaConexao();
-    }
-
-    private static void insereCorrente(ReleDigital releParaInserir) throws SQLException {
-        insereCorrente(releParaInserir, Rele.DEFINIDO_FASE);
-        insereCorrente(releParaInserir, Rele.DEFINIDO_NEUTRO);
-        insereCorrente(releParaInserir, Rele.INVERSA_FASE);
-        insereCorrente(releParaInserir, Rele.INVERSA_NEUTRO);
-    }
-
-    private static void insereCorrente(ReleDigital releParaInserir, int tipo) throws SQLException {
-        Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(INSERT_CORRENTE);
-
+        PreparedStatement comando = conexao.prepareStatement(INSERT);
+        
         comando.setInt(1, releParaInserir.getCodigo());
         comando.setInt(2, tipo);
         comando.setDouble(3, releParaInserir.getCorrenteMax(tipo));
         comando.setDouble(4, releParaInserir.getCorrenteMin(tipo));
         comando.setDouble(5, releParaInserir.getCorrentePasso(tipo));
+        comando.setDouble(6, releParaInserir.getTempoMax(tipo));
+        comando.setDouble(7, releParaInserir.getTempoMin(tipo));
+        comando.setDouble(8, releParaInserir.getTempoPasso(tipo));
         comando.executeUpdate();
-        Conexao.fechaConexao();
-    }
-
-    public static ReleDigital buscarRele(Rele rele) throws SQLException {
-        ReleDigital releDigital = (ReleDigital) rele;
-        buscarCorrentes(releDigital);
-        buscarTempos(releDigital);
-        
-        return releDigital;
-    }
-
-    private static void buscarCorrentes(ReleDigital rele) throws SQLException {
-        int tipo;
-        Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(SELECT_CORRENTE);
-        comando.setInt(1, rele.getCodigo());
-        ResultSet resultado = comando.executeQuery();
-
-        while (resultado.next()) {
-            tipo = resultado.getInt(CorrenteDigitalBD.TIPO);
-            rele.setCorrenteMax(tipo, resultado.getDouble(CorrenteDigitalBD.CORRENTE_MAXIMO));
-            rele.setCorrenteMin(tipo, resultado.getDouble(CorrenteDigitalBD.CORRENTE_MINIMO));
-            rele.setCorrentePasso(tipo, resultado.getDouble(CorrenteDigitalBD.CORRENTE_PASSO));
-        }
     }
     
-    private static void buscarTempos(ReleDigital rele) throws SQLException {
+    public static ReleDigital buscarRele(Rele rele) throws SQLException {
+        ReleDigital releDigital = (ReleDigital) rele;
+        buscarDadosReleDigital(releDigital);
+        CaracteristicasCurvaDao.buscarCaracteristicasCurva(releDigital);
+        return releDigital;
+    }
+    
+    private static void buscarDadosReleDigital(ReleDigital rele) throws SQLException {
         int tipo;
         Connection conexao = Conexao.getConexao();
-        PreparedStatement comando = conexao.prepareStatement(SELECT_TEMPO);
+        PreparedStatement comando = conexao.prepareStatement(SELECT);
         comando.setInt(1, rele.getCodigo());
         ResultSet resultado = comando.executeQuery();
-
+        
         while (resultado.next()) {
-            tipo = resultado.getBoolean(TempoDigitalBD.IS_FASE) ? Rele.INVERSA_FASE : Rele.INVERSA_NEUTRO;
-            rele.setTempoMax(tipo, resultado.getDouble(TempoDigitalBD.TEMPO_MAXIMO));
-            rele.setTempoMin(tipo, resultado.getDouble(TempoDigitalBD.TEMPO_MINIMO));
-            rele.setTempoPasso(tipo, resultado.getDouble(TempoDigitalBD.TEMPO_PASSO));
+            tipo = resultado.getInt(CorrenteTempoDigitalBD.TIPO);
+            rele.setCorrenteMax(tipo, resultado.getDouble(CorrenteTempoDigitalBD.CORRENTE_MAXIMO));
+            rele.setCorrenteMin(tipo, resultado.getDouble(CorrenteTempoDigitalBD.CORRENTE_MINIMO));
+            rele.setCorrentePasso(tipo, resultado.getDouble(CorrenteTempoDigitalBD.CORRENTE_PASSO));
+            rele.setTempoMax(tipo, resultado.getDouble(CorrenteTempoDigitalBD.TEMPO_MAXIMO));
+            rele.setTempoMin(tipo, resultado.getDouble(CorrenteTempoDigitalBD.TEMPO_MINIMO));
+            rele.setTempoPasso(tipo, resultado.getDouble(CorrenteTempoDigitalBD.TEMPO_PASSO));
         }
     }
 }
