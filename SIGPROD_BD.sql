@@ -101,23 +101,16 @@ CREATE TABLE PontoCurvaRele (
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE CorrenteDigital (
+CREATE TABLE CorrenteTempoDigital (
 	codigoRele INT,
 	tipo INT,
 	correnteMinino DOUBLE,
 	correnteMaximo DOUBLE,
 	correntePasso DOUBLE,
-	PRIMARY KEY (codigoRele, tipo),
-	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
-) ENGINE = innodb;
-
-CREATE TABLE TempoDigital (
-	codigoRele INT,
-	isFase BOOLEAN,
 	tempoMaximo DOUBLE, 
 	tempoMinimo DOUBLE,
 	tempoPasso DOUBLE,
-	PRIMARY KEY (codigoRele, isFase),
+	PRIMARY KEY (codigoRele, tipo),
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 

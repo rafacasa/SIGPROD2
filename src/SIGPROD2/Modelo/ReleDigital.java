@@ -27,9 +27,9 @@ public class ReleDigital implements Rele {
         this.correnteMax = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.correnteMin = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.correntePasso = Arrays.asList(0.0, 0.0, 0.0, 0.0);
-        this.tempoMax = Arrays.asList(0.0, 0.0);
-        this.tempoMin = Arrays.asList(0.0, 0.0);
-        this.tempoPasso = Arrays.asList(0.0, 0.0);
+        this.tempoMax = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoMin = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoPasso = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.existeCurva = new boolean[4];
 
     }
