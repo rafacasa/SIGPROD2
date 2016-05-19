@@ -78,9 +78,9 @@ public class PontoCurvaEloDao {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
-        for (int i = 0; i < qtd * 5; i += 5) {
-            comando.setDouble(i + 1, lista.get(i / 5).getCorrente());
-            comando.setDouble(i + 2, lista.get(i / 5).getTempo());
+        for (int i = 0; i < qtd * 4; i += 4) {
+            comando.setDouble(i + 1, lista.get(i / 4).getCorrente());
+            comando.setDouble(i + 2, lista.get(i / 4).getTempo());
             comando.setBoolean(i + 3, ehCurvaMaxima);
             comando.setInt(i + 4, correnteElo);
         }

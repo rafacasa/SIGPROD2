@@ -8,6 +8,7 @@ import SIGPROD2.DAO.EloKDao;
 import SIGPROD2.DAO.PontoCurvaEloDao;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
+import SIGPROD2.Modelo.Tabelas.PontoCurvaRowSorter;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import com.sun.glass.events.KeyEvent;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ public class GUI_Elo extends javax.swing.JFrame {
     private ArrayList<EloK> correntes;
     private boolean abaCarregarEloSelecionada;
     private boolean abaElosTransformadorSelecionada;
+    private GUI_SelecionaArquivo seletor;
 
     /**
      * Método que constrói a janela de cadastro e recuperação de Elos tipo K
@@ -129,7 +131,7 @@ public class GUI_Elo extends javax.swing.JFrame {
 
         this.tabelaCurvaMaximaCarregar.setModel(this.modeloMaximoCarregar);
         this.tabelaCurvaMaximaCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMaximaCarregar.setRowSorter(new TableRowSorter(this.modeloMaximoCarregar));
+        this.tabelaCurvaMaximaCarregar.setRowSorter(new PontoCurvaRowSorter(this.modeloMaximoCarregar));
     }
 
     /**
@@ -141,7 +143,7 @@ public class GUI_Elo extends javax.swing.JFrame {
 
         this.tabelaCurvaMinimoCarregar.setModel(this.modeloMinimoCarregar);
         this.tabelaCurvaMinimoCarregar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMinimoCarregar.setRowSorter(new TableRowSorter(this.modeloMinimoCarregar));
+        this.tabelaCurvaMinimoCarregar.setRowSorter(new PontoCurvaRowSorter(this.modeloMinimoCarregar));
     }
 
     /**
@@ -153,7 +155,7 @@ public class GUI_Elo extends javax.swing.JFrame {
 
         this.tabelaCurvaMinimo.setModel(this.modeloMinimo);
         this.tabelaCurvaMinimo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMinimo.setRowSorter(new TableRowSorter(this.modeloMinimo));
+        this.tabelaCurvaMinimo.setRowSorter(new PontoCurvaRowSorter(this.modeloMinimo));
     }
 
     /**
@@ -165,7 +167,7 @@ public class GUI_Elo extends javax.swing.JFrame {
 
         this.tabelaCurvaMaxima.setModel(this.modeloMaximo);
         this.tabelaCurvaMaxima.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaCurvaMaxima.setRowSorter(new TableRowSorter(this.modeloMaximo));
+        this.tabelaCurvaMaxima.setRowSorter(new PontoCurvaRowSorter(this.modeloMaximo));
     }
 
     @SuppressWarnings("unchecked")
@@ -478,12 +480,14 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(arquivoUm)
-                    .addComponent(inserir)
-                    .addComponent(apagarDados)
-                    .addComponent(botaoGraficoInserir))
-                .addGap(0, 0, 0))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(inserir)
+                        .addComponent(apagarDados)
+                        .addComponent(botaoGraficoInserir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(arquivoUm, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         jTabbedPane1.addTab("Novo Elo de Ramal", jPanel1);
@@ -811,8 +815,8 @@ public class GUI_Elo extends javax.swing.JFrame {
      * @param evt O evento ocorrido
      */
     private void arquivoUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoUmActionPerformed
-        GUI_SelecionaArquivo select = new GUI_SelecionaArquivo(this, true);
-        select.setVisible(true);
+        this.seletor = new GUI_SelecionaArquivo(this, true);
+        seletor.setVisible(true);
     }//GEN-LAST:event_arquivoUmActionPerformed
 
     /**
@@ -872,18 +876,23 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         if (!this.correnteNominal.getText().equals("")) {
-            this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
-                    preferencial.isSelected(),
-                    this.modeloMinimo.getArrayList(),
-                    this.modeloMaximo.getArrayList());
-
             try {
+                if(this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0){
+                this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                preferencial.isSelected(),
+                this.modeloMinimo.getArrayList(),
+                this.modeloMaximo.getArrayList());
                 EloKDao.insereEloK(novoElo);
                 this.listaCorrentes.addItem(novoElo);
                 Mensagem.mostraMensagemInsercao(this, novoElo.getCorrenteNominal());
                 this.limparCampos(true);
+                }else{
+                    Erro.valoresVazios(this);
+                }
             } catch (SQLException ex) {
                 Erro.correnteExistente(this);
+            } catch(NumberFormatException ex){
+                Erro.entradaInvalida(this);
             }
         } else {
             Erro.correnteVazia(this);
@@ -1171,7 +1180,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                 Erro.naoPermitidaLeitura(this);
             }
         } else {
-            Erro.arquivoInexistente(this);
+            Erro.arquivoInexistente(this.seletor);
         }
     }
 

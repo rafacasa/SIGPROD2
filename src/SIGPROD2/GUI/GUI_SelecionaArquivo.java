@@ -64,7 +64,9 @@ public class GUI_SelecionaArquivo extends javax.swing.JFrame {
      * Método responsável por mandar arquivo selecionado.
      */
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChooserActionPerformed
-        this.gui.setArquivo(new Arquivo(fileChooser.getSelectedFile().getName()), this.primeiraAba);
+        if (!evt.getActionCommand().equals(JFileChooser.CANCEL_SELECTION)) {
+            this.gui.setArquivo(new Arquivo(fileChooser.getSelectedFile().getPath()), this.primeiraAba);
+        }
         dispose();
     }//GEN-LAST:event_fileChooserActionPerformed
 

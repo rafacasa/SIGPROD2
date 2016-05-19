@@ -157,30 +157,6 @@ public class EloTransformadorDao {
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
      * Dados forem inválidos.
      */
-    /*public static void inserirEloTransformador(Posicao[][] matriz, int quantidadeKv, int quantidadePot, boolean trifasico) throws SQLException {
-     String comandoSql = trifasico ? DELETEELOTRI : DELETEELOMONO;
-     Connection conexao = Conexao.getConexao();
-     PreparedStatement comando = conexao.prepareStatement(comandoSql);
-        
-     comando.executeUpdate();
-        
-     comandoSql = trifasico ? INSERTELOTRI : INSERTELOMONO;
-     int qtd = matriz[0].length;
-     comandoSql = montarComandoSql(comandoSql, VARIAVEISELO, qtd);
-
-     for (int x = 1; x < quantidadeKv + 1; x++) {
-     comando = conexao.prepareStatement(comandoSql);
-
-     for (int y = 0; y < quantidadePot * 4; y += 4) {
-     comando.setInt(y + 1, matriz[x][y / 4].getCorrente());
-     comando.setString(y + 2, matriz[x][y / 4].getTipo());
-     comando.setInt(y + 3, x);
-     comando.setInt(y + 4, y / 4);
-     }
-     comando.executeUpdate();
-     }
-     Conexao.fechaConexao();
-     }*/
     public static void inserirEloTransformador(String[][] matriz, int quantidadeKv, int quantidadePot, boolean trifasico) throws SQLException {
         Posicao temp;
         String comandoSql = trifasico ? INSERT_ELO_TRI : INSERT_ELO_MONO;

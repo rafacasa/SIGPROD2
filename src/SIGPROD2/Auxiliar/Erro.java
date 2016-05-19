@@ -1,5 +1,6 @@
 package SIGPROD2.Auxiliar;
 
+import SIGPROD2.GUI.GUI_Reles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -63,6 +64,10 @@ public class Erro {
         mostraMensagem(janela, "Você deve configurar as informações de acesso ao Banco de Dados");
     }
 
+    public static void valoresVazios(JFrame janela){
+        mostraMensagem(janela,"Valores vazios");
+	}
+
     public static void selecioneTipoRele(JFrame janela) {
         mostraMensagem(janela, "Você deve selecionar o tipo de Relé que deseja inserir");
     }
@@ -77,9 +82,5 @@ public class Erro {
 
     public static void valorCadastrado(JFrame janela) {
         mostraMensagem(janela, "Dial já cadastrado");
-    }
-
-    public static void expressaoInvalida(JFrame janela) {
-        mostraMensagem(janela, "Expressão Inválida");
     }
 }

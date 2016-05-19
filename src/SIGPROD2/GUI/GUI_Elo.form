@@ -105,13 +105,17 @@
                           <Component id="jPanel3" pref="327" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="arquivoUm" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="inserir" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="apagarDados" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoGraficoInserir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="inserir" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="apagarDados" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoGraficoInserir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="arquivoUm" pref="24" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -168,7 +172,7 @@
                                   <Component id="removeCurvaMinima" min="-2" pref="115" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -495,7 +499,7 @@
                                       <Component id="removeCurvaMinimaCarregar" min="-2" pref="115" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="36" max="32767" attributes="0"/>
+                              <EmptySpace pref="34" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

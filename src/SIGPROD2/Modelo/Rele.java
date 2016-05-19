@@ -1,74 +1,39 @@
 package SIGPROD2.Modelo;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  *
- * @author Rafael Casa
- * @version 30/03/2016
+ * @author rafael
  */
-public abstract class Rele {
+public interface Rele {
 
-    private String fabricante;
-    private String modelo;
-    private int tipo;
-    private int codigo;
-    private List<Double> fatorInicio;
+    int DIGITAL = 0;
+    int ELETROMECANICO = 1;
+    int INVERSA_FASE = 0;
+    int INVERSA_NEUTRO = 1;
+    int DEFINIDO_FASE = 2;
+    int DEFINIDO_NEUTRO = 3;
 
-    public static final int DIGITAL = 0;
-    public static final int ELETROMECANICO = 1;
-    public static final int INVERSA_FASE = 0;
-    public static final int INVERSA_NEUTRO = 1;
-    public static final int DEFINIDO_FASE = 2;
-    public static final int DEFINIDO_NEUTRO = 3;
+    double getFatorInicio(int tipo);
 
-    public Rele() {
-        this.fatorInicio = Arrays.asList(0.0, 0.0, 0.0, 0.0);
-    }
+    void setFatorInicio(double fator, int tipo);
 
-    public double getFatorInicio(int tipo) {
-        return this.fatorInicio.get(tipo);
-    }
+    String getFabricante();
 
-    public void setFatorInicio(double fator, int tipo) {
-        this.fatorInicio.set(tipo, fator);
-    }
+    void setFabricante(String fabricante);
 
-    public String getFabricante() {
-        return fabricante;
-    }
+    String getModelo();
 
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
+    void setModelo(String modelo);
 
-    public String getModelo() {
-        return modelo;
-    }
+    int getTipo();
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
+    boolean isDigital();
 
-    public int getTipo() {
-        return this.tipo;
-    }
+    int getCodigo();
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
+    void setCodigo(int codigo);
 
-    public boolean isDigital() {
-        return this.tipo == DIGITAL;
+    boolean existeCurva(int codigo);
 
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
+    void setExisteCurva(int codigo, boolean existeCurva);
 }
