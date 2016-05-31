@@ -16,11 +16,12 @@ public class ReligadorDigital implements Religador {
     private int codigo;
     private List<Double> fatorInicio;
     private List<Double> correnteMax, correnteMin, correntePasso;
-    private List<Double> tempoMax, tempoMin, tempoPasso;
+    private List<Double> tempoRapidoMax, tempoRapidoMin, tempoRapidoPasso;
+    private List<Double> tempoLentoMax, tempoLentoMin, tempoLentoPasso;
     private List<CaracteristicasCurva> listaLentaFase, listaLentaNeutro, listaRapidaFase, listaRapidaNeutro;
     private boolean[] existeCurva;
     private double religamentoMin, religamentoMax, religamentoPasso;
-    
+
     public ReligadorDigital() {
         this.fatorInicio = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.listaLentaFase = new ArrayList<>();
@@ -30,9 +31,12 @@ public class ReligadorDigital implements Religador {
         this.correnteMax = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.correnteMin = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.correntePasso = Arrays.asList(0.0, 0.0, 0.0, 0.0);
-        this.tempoMax = Arrays.asList(0.0, 0.0);
-        this.tempoMin = Arrays.asList(0.0, 0.0);
-        this.tempoPasso = Arrays.asList(0.0, 0.0);
+        this.tempoRapidoMax = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoRapidoMin = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoRapidoPasso = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoLentoMax = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoLentoMin = Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        this.tempoLentoPasso = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.existeCurva = new boolean[4];
     }
 
@@ -42,12 +46,40 @@ public class ReligadorDigital implements Religador {
         this.correntePasso.set(tipo, pas);
     }
 
-    public void setValuesTempo(int tipo, double min, double max, double pas) {
-        this.tempoMax.set(tipo, min);
-        this.tempoMin.set(tipo, max);
-        this.tempoPasso.set(tipo, pas);
+    public void setValuesTempo(int tipo, double min, double max, double pas, boolean rapida) {
+        if (rapida) {
+            this.tempoRapidoMin.set(tipo, min);
+            this.tempoRapidoMax.set(tipo, max);
+            this.tempoRapidoPasso.set(tipo, pas);
+        } else {
+            this.tempoLentoMin.set(tipo, min);
+            this.tempoLentoMax.set(tipo, max);
+            this.tempoLentoPasso.set(tipo, pas);
+        }
     }
-    
+
+    public void setValuesReligamento(int min, int max, int pas) {
+        this.religamentoMin = min;
+        this.religamentoMax = max;
+        this.religamentoPasso = pas;
+    }
+
+    public void setListaFaseRapida(List<CaracteristicasCurva> lista) {
+        this.listaRapidaFase = new ArrayList<>(lista);
+    }
+
+    public void setListaFaseLenta(List<CaracteristicasCurva> lista) {
+        this.listaLentaFase = new ArrayList<>(lista);
+    }
+
+    public void setListaNeutroRapida(List<CaracteristicasCurva> lista) {
+        this.listaRapidaNeutro = new ArrayList<>(lista);
+    }
+
+    public void setListaNeutroLenta(List<CaracteristicasCurva> lista) {
+        this.listaLentaNeutro = new ArrayList<>(lista);
+    }
+
     @Override
     public double getFatorInicio(int tipo) {
         return this.fatorInicio.get(tipo);
@@ -96,5 +128,15 @@ public class ReligadorDigital implements Religador {
     @Override
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public boolean existeCurva(int codigo) {
+        return this.existeCurva[codigo];
+    }
+
+    @Override
+    public void setExisteCurva(int codigo, boolean existeCurva) {
+        this.existeCurva[codigo] = existeCurva;
     }
 }
