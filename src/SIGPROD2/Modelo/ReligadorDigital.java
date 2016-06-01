@@ -139,4 +139,40 @@ public class ReligadorDigital implements Religador {
     public void setExisteCurva(int codigo, boolean existeCurva) {
         this.existeCurva[codigo] = existeCurva;
     }
+
+    public double getCorrenteMax(int tipo) {
+        return this.correnteMax.get(tipo);
+    }
+
+    public double getCorrenteMin(int tipo) {
+        return this.correnteMin.get(tipo);
+    }
+
+    public double getCorrentePasso(int tipo) {
+        return this.correntePasso.get(tipo);
+    }
+
+    public double getTempoMax(int tipo, boolean rapida) {
+        if(rapida) {
+            return this.tempoRapidoMax.get(tipo);
+        } else {
+            return this.tempoLentoMax.get(tipo);
+        }
+    }
+
+    public double getTempoMin(int tipo, boolean rapida) {
+        if(rapida) {
+            return this.tempoRapidoMin.get(tipo);
+        } else {
+            return this.tempoLentoMin.get(tipo);
+        }
+    }
+
+    public double getTempoPasso(int tipo, boolean rapida) {
+        if(rapida) {
+            return this.tempoRapidoPasso.get(tipo);
+        } else {
+            return this.tempoLentoPasso.get(tipo);
+        }
+    }
 }

@@ -15,6 +15,7 @@ public class CaracteristicasCurvaBD {
     public static String NOME = "nome";
     public static String CODIGO_RELIGADOR = "codigoReligador";
     public static String IS_FASE = "isFase";
+    public static String IS_RAPIDA = "isRapida";
     public static String ID = "id";
     public static String TABELA = "CaracteristicasCurvaReligador";
 }
