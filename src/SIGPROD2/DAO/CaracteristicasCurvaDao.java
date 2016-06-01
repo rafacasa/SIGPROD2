@@ -1,7 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.CaracteristicasCurvaBD;
+import SIGPROD2.BD.Tables.Rele.CaracteristicasCurvaBD;
 import SIGPROD2.Modelo.CaracteristicasCurva;
 import SIGPROD2.Modelo.ReleDigital;
 import java.sql.Connection;

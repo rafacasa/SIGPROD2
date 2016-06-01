@@ -1,4 +1,4 @@
-package SIGPROD2.BD.Tables;
+package SIGPROD2.BD.Tables.Rele;
 
 /**
  * Classe responsável por manter os nomes das colunas e da tabela de informações

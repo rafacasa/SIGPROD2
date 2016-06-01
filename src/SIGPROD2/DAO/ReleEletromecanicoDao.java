@@ -1,8 +1,8 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.PickupDefinidaEletromecanico;
-import SIGPROD2.BD.Tables.TempoAtuacaoDefinidaEletromecanico;
+import SIGPROD2.BD.Tables.Rele.PickupDefinidaEletromecanico;
+import SIGPROD2.BD.Tables.Rele.TempoAtuacaoDefinidaEletromecanico;
 import static SIGPROD2.DAO.PontoCurvaReleDao.*;
 import SIGPROD2.Modelo.Rele;
 import static SIGPROD2.Modelo.Rele.*;

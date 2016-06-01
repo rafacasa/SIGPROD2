@@ -1,7 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.PontoDeCurvaEloBD;
+import SIGPROD2.BD.Tables.Elo.PontoDeCurvaBD;
 import SIGPROD2.Modelo.EloK;
 import SIGPROD2.Modelo.PontoCurva;
 import java.sql.Connection;
@@ -20,19 +20,19 @@ import java.util.ArrayList;
 public class PontoCurvaEloDao {
 
     private static final String INSERT = "INSERT INTO "
-            + PontoDeCurvaEloBD.TABELA + " ("
-            + PontoDeCurvaEloBD.CORRENTE + ", "
-            + PontoDeCurvaEloBD.TEMPO + ", "
-            + PontoDeCurvaEloBD.EH_CURVA_DE_MAXIMA + ", "
-            + PontoDeCurvaEloBD.CORRENTE_DO_ELO + ") VALUES (?, ?, ?, ?)";
+            + PontoDeCurvaBD.TABELA + " ("
+            + PontoDeCurvaBD.CORRENTE + ", "
+            + PontoDeCurvaBD.TEMPO + ", "
+            + PontoDeCurvaBD.EH_CURVA_DE_MAXIMA + ", "
+            + PontoDeCurvaBD.CORRENTE_DO_ELO + ") VALUES (?, ?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?, ?)";
-    private static final String DELETE = "DELETE FROM " + PontoDeCurvaEloBD.TABELA + " WHERE " + PontoDeCurvaEloBD.CORRENTE_DO_ELO + " = ?;";
-    private static final String BUSCAR = "SELECT " + PontoDeCurvaEloBD.ID + ", "
-            + PontoDeCurvaEloBD.CORRENTE + ", "
-            + PontoDeCurvaEloBD.TEMPO + " FROM "
-            + PontoDeCurvaEloBD.TABELA + " WHERE ("
-            + PontoDeCurvaEloBD.CORRENTE_DO_ELO + " = ? AND "
-            + PontoDeCurvaEloBD.EH_CURVA_DE_MAXIMA + " = ?);";
+    private static final String DELETE = "DELETE FROM " + PontoDeCurvaBD.TABELA + " WHERE " + PontoDeCurvaBD.CORRENTE_DO_ELO + " = ?;";
+    private static final String BUSCAR = "SELECT " + PontoDeCurvaBD.ID + ", "
+            + PontoDeCurvaBD.CORRENTE + ", "
+            + PontoDeCurvaBD.TEMPO + " FROM "
+            + PontoDeCurvaBD.TABELA + " WHERE ("
+            + PontoDeCurvaBD.CORRENTE_DO_ELO + " = ? AND "
+            + PontoDeCurvaBD.EH_CURVA_DE_MAXIMA + " = ?);";
 
     /**
      * Método responsável por inserir um Ponto de Curva no Banco de Dados
