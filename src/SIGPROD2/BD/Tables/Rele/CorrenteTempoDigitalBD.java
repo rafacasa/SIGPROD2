@@ -17,5 +17,5 @@ public class CorrenteTempoDigitalBD {
     public static String TEMPO_MINIMO = "tempoMinimo";
     public static String TEMPO_PASSO = "tempoPasso";
     public static String TIPO = "tipo";
-    public static String TABELA = "CorrenteTempoDigital";
+    public static String TABELA = "CorrenteTempoDigitalRele";
 }
