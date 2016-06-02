@@ -83,4 +83,9 @@ public class Erro {
     public static void valorCadastrado(JFrame janela) {
         mostraMensagem(janela, "Dial já cadastrado");
     }
+    
+    public static void expressaoInvalida(JFrame janela) {
+        mostraMensagem(janela, "Expressão Inválida");
+    }
+    
 }

@@ -44,17 +44,18 @@ public class StringUtils {
         }
         return true;
     }
+    
+    public static boolean verificaExpressao(double min, double max, double pas) {
+        if (min < max && (max - min) >= pas) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static void main(String[] args) {
-        ArrayList<Double> a = new ArrayList();
-
-        if (separaValores("2, 3, 4, 5, 5, 4", a)) {
-
-            for (Double valore : a) {
-                System.out.println(valore);
-            }
-        } else {
-            System.out.println("Bug");
-        }
+        
+        System.out.println(verificaExpressao(1, 3, 2));
+        
     }
 }
