@@ -4,6 +4,7 @@ import SIGPROD2.BD.Conexao;
 import SIGPROD2.BD.Tables.Religador.ReligadorBD;
 import SIGPROD2.Modelo.Religador;
 import static SIGPROD2.Modelo.Religador.*;
+import SIGPROD2.Modelo.ReligadorDigital;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -33,8 +34,8 @@ public class ReligadorDao {
         int codigoAtual = getCodigoReligador();
         religadorParaInserir.setCodigo(codigoAtual);
         inserirReligador(religadorParaInserir);
-        if(religadorParaInserir.isDigital()) {
-            
+        if( religadorParaInserir.isDigital() ) {
+            ReligadorDigitalDao.insereDadosReligadorDigital((ReligadorDigital) religadorParaInserir);
         } else {
             
         }

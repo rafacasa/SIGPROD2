@@ -1,6 +1,5 @@
 package SIGPROD2.Auxiliar;
 
-import SIGPROD2.GUI.GUI_Reles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -82,5 +81,9 @@ public class Erro {
 
     public static void valorCadastrado(JFrame janela) {
         mostraMensagem(janela, "Dial já cadastrado");
+    }
+    
+    public static void expressaoInvalida(JFrame janela) {
+        mostraMensagem(janela, "Expressão Inválida");
     }
 }

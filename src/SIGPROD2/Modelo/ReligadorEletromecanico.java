@@ -28,9 +28,8 @@ public class ReligadorEletromecanico implements Religador {
     private List<Double> tempoDefinidaNeutraLenta;
     private List<Double> tempoDefinidaFaseRapida;
     private List<Double> tempoDefinidaNeutraRapida;
+    private int qtdPontosFaseRapida, qtdPontosFaseLenta, qtdPontosNeutroRapida, qtdPontosNeutroLenta;
 
-    /*private int qtdPontosFase;
-    private int qtdPontosNeutro;*/
     public ReligadorEletromecanico() {
         this.fatorInicio = Arrays.asList(0.0, 0.0, 0.0, 0.0);
         this.correntePickup = Arrays.asList(null, null, null, null);
@@ -44,9 +43,13 @@ public class ReligadorEletromecanico implements Religador {
         this.tempoDefinidaNeutraRapida = new ArrayList<>();
         this.tempoDefinidaNeutraLenta = new ArrayList<>();
         this.existeCurva = new boolean[4];
+        this.qtdPontosFaseRapida = 0;
+        this.qtdPontosNeutroRapida = 0;
+        this.qtdPontosFaseLenta = 0;
+        this.qtdPontosNeutroLenta = 0;
     }
 
-    public void addCorrentePickup(ArrayList<Double> corrente, int tipo) {
+    public void addCorrentePickup(List<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, new ArrayList<>(corrente));
         if (tipo == INVERSA_FASE) {
             for (Double c : corrente) {
@@ -72,8 +75,34 @@ public class ReligadorEletromecanico implements Religador {
         }
     }
 
-    public void addDialDeTempo(int tipo, boolean rapida, double corrente, double dial, ArrayList<PontoCurva> pontos) {
-        DialDeTempoMecanico dm = new DialDeTempoMecanico(dial, pontos);
+    public List<Double> getCorrentePickup(int tipo) {
+        return this.correntePickup.get(tipo);
+    }
+
+    public void addTempoDeAtuacao(int tipo, List<Double> a, boolean rapida) {
+        if (tipo == Religador.DEFINIDO_FASE) {
+            if (rapida) {
+                this.tempoDefinidaFaseRapida = new ArrayList<>(a);
+            } else {
+                this.tempoDefinidaFaseLenta = new ArrayList<>(a);
+            }
+        } else if (rapida) {
+            this.tempoDefinidaNeutraRapida = new ArrayList<>(a);
+        } else {
+            this.tempoDefinidaNeutraLenta = new ArrayList<>(a);
+        }
+    }
+
+    public List<Double> getTempoAtuacao(int tipo, boolean rapida) {
+        if (tipo == Religador.DEFINIDO_FASE) {
+            return (rapida) ? this.tempoDefinidaFaseRapida : this.tempoDefinidaFaseLenta;
+        } else {
+            return (rapida) ? this.tempoDefinidaNeutraRapida : this.tempoDefinidaNeutraLenta;
+        }
+    }
+
+    public void addDialDeTempo(int tipo, boolean rapida, double corrente, double dial, List<PontoCurva> pontos) {
+        DialDeTempoMecanico dm = new DialDeTempoMecanico(dial, (ArrayList<PontoCurva>) pontos);
         List<DialDeTempoMecanico> array;
 
         if (tipo == INVERSA_FASE) {
@@ -81,24 +110,24 @@ public class ReligadorEletromecanico implements Religador {
                 array = this.mapaFaseRapidaPickupTempo.get(corrente);
                 array.add(dm);
                 this.mapaFaseRapidaPickupTempo.put(corrente, array);
-                //this.qtdPontosFase += pontos.size();
+                this.qtdPontosFaseRapida += pontos.size();
             } else {
                 array = this.mapaFaseLentaPickupTempo.get(corrente);
                 array.add(dm);
                 this.mapaFaseLentaPickupTempo.put(corrente, array);
-                //this.qtdPontosFase += pontos.size();
+                this.qtdPontosFaseLenta += pontos.size();
             }
 
         } else if (rapida) {
             array = this.mapaNeutroRapidaPickupTempo.get(corrente);
             array.add(dm);
             this.mapaNeutroRapidaPickupTempo.put(corrente, array);
-            //this.qtdPontosNeutro += pontos.size();
+            this.qtdPontosNeutroRapida += pontos.size();
         } else {
             array = this.mapaNeutroLentaPickupTempo.get(corrente);
             array.add(dm);
             this.mapaNeutroLentaPickupTempo.put(corrente, array);
-            //this.qtdPontosNeutro += pontos.size();
+            this.qtdPontosNeutroLenta += pontos.size();
         }
     }
 
@@ -106,18 +135,18 @@ public class ReligadorEletromecanico implements Religador {
         if (tipo == Rele.INVERSA_FASE) {
             if (rapida) {
                 this.mapaFaseRapidaPickupTempo = new TreeMap<>();
-                //this.qtdPontosFase = 0;
+                this.qtdPontosFaseRapida = 0;
             } else {
                 this.mapaFaseLentaPickupTempo = new TreeMap<>();
-                //this.qtdPontosFase = 0;
+                this.qtdPontosFaseLenta = 0;
             }
 
         } else if (rapida) {
             this.mapaNeutroRapidaPickupTempo = new TreeMap<>();
-            //this.qtdPontosNeutro = 0;
+            this.qtdPontosNeutroRapida = 0;
         } else {
             this.mapaNeutroLentaPickupTempo = new TreeMap<>();
-            //this.qtdPontosFase = 0;
+            this.qtdPontosFaseLenta = 0;
         }
     }
 
@@ -162,6 +191,10 @@ public class ReligadorEletromecanico implements Religador {
             }
         }
         return null;
+    }
+
+    public int getQtdPontosCurva() {
+        return this.qtdPontosFaseRapida + this.qtdPontosNeutroRapida + this.qtdPontosFaseLenta + this.qtdPontosNeutroLenta;
     }
 
     @Override

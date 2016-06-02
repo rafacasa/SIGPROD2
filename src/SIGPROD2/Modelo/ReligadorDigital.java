@@ -80,6 +80,22 @@ public class ReligadorDigital implements Religador {
         this.listaLentaNeutro = new ArrayList<>(lista);
     }
 
+    public List<CaracteristicasCurva> getListaLentaFase() {
+        return this.listaLentaFase;
+    }
+
+    public List<CaracteristicasCurva> getListaLentaNeutro() {
+        return this.listaLentaNeutro;
+    }
+
+    public List<CaracteristicasCurva> getListaRapidaFase() {
+        return this.listaRapidaFase;
+    }
+
+    public List<CaracteristicasCurva> getListaRapidaNeutro() {
+        return this.listaRapidaNeutro;
+    }
+    
     @Override
     public double getFatorInicio(int tipo) {
         return this.fatorInicio.get(tipo);
