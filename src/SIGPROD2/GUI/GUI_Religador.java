@@ -129,21 +129,21 @@ public class GUI_Religador extends javax.swing.JFrame {
         cardLayout8 = new javax.swing.JPanel();
         faseCurvaRapidaFirst = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
-        faseCurvaLentaDial = new javax.swing.JTextField();
+        faseCurvaRapidaDial = new javax.swing.JTextField();
         jLabel54 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         faseCurvaRapidaPrimeira = new javax.swing.JTable();
         faseCurvaRapidaGrafico = new javax.swing.JButton();
-        faseCurvaLentaRemovePrimeira = new javax.swing.JButton();
-        faseCurvaLentaAdicionaPrimeira = new javax.swing.JButton();
-        faseCurvaLentaSalvar = new javax.swing.JButton();
-        faseCurvaLentaCorrenteCadastro = new javax.swing.JComboBox();
+        faseCurvaRapidaRemovePrimeira = new javax.swing.JButton();
+        faseCurvaRapidaAdicionaPrimeira = new javax.swing.JButton();
+        faseCurvaRapidaSalvar = new javax.swing.JButton();
+        faseCurvaRapidaCorrenteCadastro = new javax.swing.JComboBox();
         jLabel55 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         faseCurvaRapidaSegunda = new javax.swing.JTable();
-        faseCurvaLentaDialExistente = new javax.swing.JComboBox();
-        faseCurvaLentaCorrenteExistente = new javax.swing.JComboBox();
+        faseCurvaRapidaDialExistente = new javax.swing.JComboBox();
+        faseCurvaRapidaCorrenteExistente = new javax.swing.JComboBox();
         jLabel56 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         faseCurvaRapidaSecond = new javax.swing.JPanel();
@@ -236,25 +236,25 @@ public class GUI_Religador extends javax.swing.JFrame {
         neutroCurvaRemoveCaracteristicas2 = new javax.swing.JButton();
         neutroCurvaRapidaFirst = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
-        neutroCurvaDial1 = new javax.swing.JTextField();
+        neutroCurvaRapidaDial = new javax.swing.JTextField();
         jLabel90 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         neutroCurvaRapidaPrimeira = new javax.swing.JTable();
-        neutroCurvaGrafico1 = new javax.swing.JButton();
+        neutroCurvaRapidaGrafico = new javax.swing.JButton();
         neutroCurvaRapidaRemovePrimeira = new javax.swing.JButton();
         neutroCurvaRapidaAdicionaPrimeira = new javax.swing.JButton();
-        neutroCurvaSalvar1 = new javax.swing.JButton();
-        neutroCurvaCorrenteCadastro1 = new javax.swing.JComboBox();
+        neutroCurvaRapidaSalvar = new javax.swing.JButton();
+        neutroCurvaRapidaCorrenteCadastro = new javax.swing.JComboBox();
         jLabel91 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         neutroCurvaRapidaSegunda = new javax.swing.JTable();
-        neutroCurvaRappidaDialExistente = new javax.swing.JComboBox();
+        neutroCurvaRapidaDialExistente = new javax.swing.JComboBox();
         neutroCurvaRapidaCorrenteExistente = new javax.swing.JComboBox();
         jLabel92 = new javax.swing.JLabel();
         jLabel93 = new javax.swing.JLabel();
-        avancarNeutroCurva1 = new javax.swing.JButton();
-        cancelarNeutroCurva1 = new javax.swing.JButton();
+        avancarNeutroCurvaRapida = new javax.swing.JButton();
+        cancelarNeutroCurvaRapida = new javax.swing.JButton();
         retornarNeutroCurvaRapida = new javax.swing.JButton();
         Painel3 = new javax.swing.JPanel();
         correntePickup1 = new javax.swing.JPanel();
@@ -935,27 +935,27 @@ public class GUI_Religador extends javax.swing.JFrame {
         faseCurvaRapidaGrafico.setText("Gráfico");
         faseCurvaRapidaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
 
-        faseCurvaLentaRemovePrimeira.setText("-");
-        faseCurvaLentaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
-        faseCurvaLentaRemovePrimeira.addActionListener(new java.awt.event.ActionListener() {
+        faseCurvaRapidaRemovePrimeira.setText("-");
+        faseCurvaRapidaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaRapidaRemovePrimeira.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                faseCurvaLentaRemovePrimeiraActionPerformed(evt);
+                faseCurvaRapidaRemovePrimeiraActionPerformed(evt);
             }
         });
 
-        faseCurvaLentaAdicionaPrimeira.setText("+");
-        faseCurvaLentaAdicionaPrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
-        faseCurvaLentaAdicionaPrimeira.addActionListener(new java.awt.event.ActionListener() {
+        faseCurvaRapidaAdicionaPrimeira.setText("+");
+        faseCurvaRapidaAdicionaPrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
+        faseCurvaRapidaAdicionaPrimeira.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                faseCurvaLentaAdicionaPrimeiraActionPerformed(evt);
+                faseCurvaRapidaAdicionaPrimeiraActionPerformed(evt);
             }
         });
 
-        faseCurvaLentaSalvar.setText("Salvar");
-        faseCurvaLentaSalvar.setPreferredSize(new java.awt.Dimension(78, 26));
-        faseCurvaLentaSalvar.addActionListener(new java.awt.event.ActionListener() {
+        faseCurvaRapidaSalvar.setText("Salvar");
+        faseCurvaRapidaSalvar.setPreferredSize(new java.awt.Dimension(78, 26));
+        faseCurvaRapidaSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                faseCurvaLentaSalvarActionPerformed(evt);
+                faseCurvaRapidaSalvarActionPerformed(evt);
             }
         });
 
@@ -973,24 +973,24 @@ public class GUI_Religador extends javax.swing.JFrame {
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel54)
                                 .addGap(6, 6, 6)
-                                .addComponent(faseCurvaLentaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(faseCurvaRapidaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel55)
                                 .addGap(6, 6, 6)
-                                .addComponent(faseCurvaLentaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(faseCurvaRapidaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(53, 53, 53))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(faseCurvaRapidaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(faseCurvaLentaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(faseCurvaRapidaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(faseCurvaLentaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(faseCurvaLentaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(faseCurvaRapidaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(faseCurvaRapidaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
         );
         jPanel17Layout.setVerticalGroup(
@@ -998,18 +998,18 @@ public class GUI_Religador extends javax.swing.JFrame {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faseCurvaLentaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaRapidaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel55))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faseCurvaLentaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaRapidaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel54))
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(faseCurvaLentaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(faseCurvaRapidaAdicionaPrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(faseCurvaLentaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(faseCurvaRapidaRemovePrimeira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(198, 198, 198))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1017,7 +1017,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(faseCurvaRapidaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(faseCurvaLentaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseCurvaRapidaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -1026,15 +1026,15 @@ public class GUI_Religador extends javax.swing.JFrame {
 
         jScrollPane7.setViewportView(faseCurvaRapidaSegunda);
 
-        faseCurvaLentaDialExistente.addActionListener(new java.awt.event.ActionListener() {
+        faseCurvaRapidaDialExistente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                faseCurvaLentaDialExistenteActionPerformed(evt);
+                faseCurvaRapidaDialExistenteActionPerformed(evt);
             }
         });
 
-        faseCurvaLentaCorrenteExistente.addActionListener(new java.awt.event.ActionListener() {
+        faseCurvaRapidaCorrenteExistente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                faseCurvaLentaCorrenteExistenteActionPerformed(evt);
+                faseCurvaRapidaCorrenteExistenteActionPerformed(evt);
             }
         });
 
@@ -1052,11 +1052,11 @@ public class GUI_Religador extends javax.swing.JFrame {
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel57)
                         .addGap(49, 49, 49)
-                        .addComponent(faseCurvaLentaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(faseCurvaRapidaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel56)
                         .addGap(6, 6, 6)
-                        .addComponent(faseCurvaLentaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(faseCurvaRapidaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(57, 57, 57))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
@@ -1068,15 +1068,15 @@ public class GUI_Religador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faseCurvaLentaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaRapidaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel56))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(faseCurvaLentaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(faseCurvaRapidaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel57))
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout faseCurvaRapidaFirstLayout = new javax.swing.GroupLayout(faseCurvaRapidaFirst);
@@ -1086,7 +1086,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             .addGroup(faseCurvaRapidaFirstLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1094,10 +1094,12 @@ public class GUI_Religador extends javax.swing.JFrame {
             faseCurvaRapidaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(faseCurvaRapidaFirstLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(faseCurvaRapidaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(faseCurvaRapidaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(faseCurvaRapidaFirstLayout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         cardLayout8.add(faseCurvaRapidaFirst, "faseCurvaRapidaFirst");
@@ -1164,7 +1166,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(faseCurvaRapidaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         faseCurvaRapidaSecondLayout.setVerticalGroup(
             faseCurvaRapidaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1435,12 +1437,6 @@ public class GUI_Religador extends javax.swing.JFrame {
 
         jLabel51.setText("Passo (A) :");
         jLabel51.setPreferredSize(new java.awt.Dimension(85, 15));
-
-        neutroCurvaMaximo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neutroCurvaMaximoActionPerformed(evt);
-            }
-        });
 
         jScrollPane6.setViewportView(neutroCurvaCaracteristicas);
 
@@ -1772,12 +1768,6 @@ public class GUI_Religador extends javax.swing.JFrame {
         jLabel88.setText("Passo (A) :");
         jLabel88.setPreferredSize(new java.awt.Dimension(85, 15));
 
-        neutroCurvaRapidaMaximo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neutroCurvaRapidaMaximoActionPerformed(evt);
-            }
-        });
-
         jScrollPane8.setViewportView(neutroCurvaRapidaCaracteristicas);
 
         jLabel89.setText("Características da curva :");
@@ -1864,8 +1854,8 @@ public class GUI_Religador extends javax.swing.JFrame {
         jScrollPane5.setPreferredSize(new java.awt.Dimension(251, 250));
         jScrollPane5.setViewportView(neutroCurvaRapidaPrimeira);
 
-        neutroCurvaGrafico1.setText("Gráfico");
-        neutroCurvaGrafico1.setPreferredSize(new java.awt.Dimension(84, 26));
+        neutroCurvaRapidaGrafico.setText("Gráfico");
+        neutroCurvaRapidaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
 
         neutroCurvaRapidaRemovePrimeira.setText("-");
         neutroCurvaRapidaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
@@ -1883,11 +1873,11 @@ public class GUI_Religador extends javax.swing.JFrame {
             }
         });
 
-        neutroCurvaSalvar1.setText("Salvar");
-        neutroCurvaSalvar1.setPreferredSize(new java.awt.Dimension(78, 26));
-        neutroCurvaSalvar1.addActionListener(new java.awt.event.ActionListener() {
+        neutroCurvaRapidaSalvar.setText("Salvar");
+        neutroCurvaRapidaSalvar.setPreferredSize(new java.awt.Dimension(78, 26));
+        neutroCurvaRapidaSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neutroCurvaSalvar1ActionPerformed(evt);
+                neutroCurvaRapidaSalvarActionPerformed(evt);
             }
         });
 
@@ -1903,15 +1893,15 @@ public class GUI_Religador extends javax.swing.JFrame {
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel91)
                         .addGap(6, 6, 6)
-                        .addComponent(neutroCurvaCorrenteCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(neutroCurvaRapidaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel90)
                         .addGap(6, 6, 6)
-                        .addComponent(neutroCurvaDial1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(neutroCurvaRapidaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(neutroCurvaGrafico1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(neutroCurvaRapidaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(neutroCurvaSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(neutroCurvaRapidaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1926,10 +1916,10 @@ public class GUI_Religador extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel91)
-                    .addComponent(neutroCurvaCorrenteCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(neutroCurvaRapidaCorrenteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(neutroCurvaDial1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(neutroCurvaRapidaDial, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel90))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1940,8 +1930,8 @@ public class GUI_Religador extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(neutroCurvaGrafico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(neutroCurvaSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(neutroCurvaRapidaGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(neutroCurvaRapidaSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1951,9 +1941,9 @@ public class GUI_Religador extends javax.swing.JFrame {
         jScrollPane10.setPreferredSize(new java.awt.Dimension(251, 250));
         jScrollPane10.setViewportView(neutroCurvaRapidaSegunda);
 
-        neutroCurvaRappidaDialExistente.addActionListener(new java.awt.event.ActionListener() {
+        neutroCurvaRapidaDialExistente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neutroCurvaRappidaDialExistenteActionPerformed(evt);
+                neutroCurvaRapidaDialExistenteActionPerformed(evt);
             }
         });
 
@@ -1982,7 +1972,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addComponent(jLabel93)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(neutroCurvaRappidaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(neutroCurvaRapidaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(57, 57, 57))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1997,7 +1987,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                     .addComponent(jLabel92))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(neutroCurvaRappidaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(neutroCurvaRapidaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel93))
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2027,17 +2017,17 @@ public class GUI_Religador extends javax.swing.JFrame {
 
         cardLayout7.add(neutroCurvaRapidaFirst, "neutroCurvaRapidaFirst");
 
-        avancarNeutroCurva1.setText("Avançar");
-        avancarNeutroCurva1.addActionListener(new java.awt.event.ActionListener() {
+        avancarNeutroCurvaRapida.setText("Avançar");
+        avancarNeutroCurvaRapida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avancarNeutroCurva1ActionPerformed(evt);
+                avancarNeutroCurvaRapidaActionPerformed(evt);
             }
         });
 
-        cancelarNeutroCurva1.setText("Cancelar");
-        cancelarNeutroCurva1.addActionListener(new java.awt.event.ActionListener() {
+        cancelarNeutroCurvaRapida.setText("Cancelar");
+        cancelarNeutroCurvaRapida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarNeutroCurva1ActionPerformed(evt);
+                cancelarNeutroCurvaRapidaActionPerformed(evt);
             }
         });
 
@@ -2054,11 +2044,11 @@ public class GUI_Religador extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelarNeutroCurva1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelarNeutroCurvaRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(retornarNeutroCurvaRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(avancarNeutroCurva1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(avancarNeutroCurvaRapida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
             .addComponent(cardLayout7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -2068,9 +2058,9 @@ public class GUI_Religador extends javax.swing.JFrame {
                 .addComponent(cardLayout7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avancarNeutroCurva1)
+                    .addComponent(avancarNeutroCurvaRapida)
                     .addComponent(retornarNeutroCurvaRapida)
-                    .addComponent(cancelarNeutroCurva1))
+                    .addComponent(cancelarNeutroCurvaRapida))
                 .addGap(10, 10, 10))
         );
 
@@ -2652,6 +2642,7 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void retornarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCurvaActionPerformed
         if (this.newReligador.getTipo() == Religador.ELETROMECANICO) {
             ((ReligadorEletromecanico) this.newReligador).removeDialDeTempo(Religador.INVERSA_FASE, false);
+            this.faseCurvaDialExistente.removeAllItems();
         }
         int selecionado = this.temporizadaFase.getSelectedIndex();
 
@@ -2664,17 +2655,17 @@ public class GUI_Religador extends javax.swing.JFrame {
 
     private void avancarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarFaseCurvaActionPerformed
         if (!this.isEletromecanico()) {
-            String minimo = this.faseCurvaMinimo.getText();
-            String maximo = this.faseCurvaMaximo.getText();
-            String passo = this.faseCurvaPasso.getText();
+            String min = this.faseCurvaMinimo.getText();
+            String max = this.faseCurvaMaximo.getText();
+            String pas = this.faseCurvaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                double min = Double.parseDouble(minimo);
-                double max = Double.parseDouble(maximo);
-                double pas = Double.parseDouble(passo);
+            if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                double minimo = Double.parseDouble(min);
+                double maximo = Double.parseDouble(max);
+                double passo = Double.parseDouble(pas);
 
-                if (StringUtils.verificaExpressao(min, max, pas)) {
-                    ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.INVERSA_FASE, min, max, pas, false);
+                if (StringUtils.verificaExpressao(minimo, maximo, passo)) {
+                    ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.INVERSA_FASE, minimo, maximo, passo, false);
                     ((ReligadorDigital) this.newReligador).setListaFaseLenta(this.modeloFaseCaracteristicas.getArrayList());
                     int selecionado = this.temporizadaFase.getSelectedIndex();
 
@@ -2682,6 +2673,8 @@ public class GUI_Religador extends javax.swing.JFrame {
                 } else {
                     Erro.expressaoInvalida(this);
                 }
+            } else {
+                Erro.camposVazios(this);
             }
         } else {
             int selecionado = this.temporizadaFase.getSelectedIndex();
@@ -2701,49 +2694,49 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void avancarInversaFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaFaseCorrenteActionPerformed
         String f = this.InversaFaseCorrenteFator.getText();
 
-        if ( !f.equals( "" ) ) {
-            if ( this.isEletromecanico() ) {
+        if (!f.equals("")) {
+            if (this.isEletromecanico()) {
                 String valores = this.inversaFaseCorrenteValores.getText();
 
-                if ( !valores.equals( "" ) ) {
-                    ArrayList<Double> list = this.separaValores( valores );
-                    double fator = Double.parseDouble( f );
+                if (!valores.equals("")) {
+                    ArrayList<Double> list = this.separaValores(valores);
+                    double fator = Double.parseDouble(f);
 
-                    ( ( ReligadorEletromecanico ) this.newReligador ).addCorrentePickup( list, Religador.INVERSA_FASE );
-                    this.newReligador.setFatorInicio( fator, Religador.INVERSA_FASE );
-                    this.addCorrentePickupFase( list );
+                    ((ReligadorEletromecanico) this.newReligador).addCorrentePickup(list, Religador.INVERSA_FASE);
+                    this.newReligador.setFatorInicio(fator, Religador.INVERSA_FASE);
+                    this.addCorrentePickupFase(list);
                     int selecionado = this.temporizadaFase.getSelectedIndex();
 
-                    this.temporizadaFase.setSelectedIndex( selecionado + 1 );
+                    this.temporizadaFase.setSelectedIndex(selecionado + 1);
                 } else {
-                    Erro.camposVazios( this );
+                    Erro.camposVazios(this);
                 }
             } else {
-                String minimo = this.faseCorrenteMinimo.getText();
-                String maximo = this.faseCorrenteMaximo.getText();
-                String passo = this.faseCorrentePasso.getText();
+                String min = this.faseCorrenteMinimo.getText();
+                String max = this.faseCorrenteMaximo.getText();
+                String pas = this.faseCorrentePasso.getText();
 
-                if ( !minimo.equals( "" ) && !maximo.equals( "" ) && !passo.equals( "" ) ) {
-                    double min = Double.parseDouble( minimo );
-                    double max = Double.parseDouble( maximo );
-                    double pas = Double.parseDouble( passo );
-                    double fator = Double.parseDouble( f );
+                if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                    double minimo = Double.parseDouble(min);
+                    double maximo = Double.parseDouble(max);
+                    double passo = Double.parseDouble(pas);
+                    double fator = Double.parseDouble(f);
 
-                    if ( StringUtils.verificaExpressao( min, max, pas ) ) {
-                        this.newReligador.setFatorInicio( fator, Religador.INVERSA_FASE );
-                        ( ( ReligadorDigital ) this.newReligador ).setValuesCorrente( Religador.INVERSA_FASE, min, max, pas );
+                    if (StringUtils.verificaExpressao(minimo, maximo, passo)) {
+                        this.newReligador.setFatorInicio(fator, Religador.INVERSA_FASE);
+                        ((ReligadorDigital) this.newReligador).setValuesCorrente(Religador.INVERSA_FASE, minimo, maximo, passo);
                         int selecionado = this.temporizadaFase.getSelectedIndex();
 
-                        this.temporizadaFase.setSelectedIndex( selecionado + 1 );
+                        this.temporizadaFase.setSelectedIndex(selecionado + 1);
                     } else {
-                        Erro.expressaoInvalida( this );
+                        Erro.expressaoInvalida(this);
                     }
                 } else {
-                    Erro.camposVazios( this );
+                    Erro.camposVazios(this);
                 }
             }
         } else {
-            Erro.camposVazios( this );
+            Erro.camposVazios(this);
         }
     }//GEN-LAST:event_avancarInversaFaseCorrenteActionPerformed
 
@@ -2757,7 +2750,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                 String t_2 = this.definidaFaseTempoRapida.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!c.equals("") && !t_1.equals("") && t_2.equals("")) {
+                if (!c.equals("") && !t_1.equals("") && !t_2.equals("")) {
                     this.newReligador.setFatorInicio(fator, Religador.DEFINIDO_FASE);
                     ArrayList<Double> lista_corrente = this.separaValores(c);
                     ArrayList<Double> tempoLento = this.separaValores(t_1);
@@ -2786,8 +2779,8 @@ public class GUI_Religador extends javax.swing.JFrame {
                 double fator = Double.parseDouble(f);
 
                 if ((!minimo_corrente.equals("") && !maximo_corrente.equals("") && !passo_corrente.equals(""))
-                        && (!minimo_tempoLento.equals("") && !maximo_tempoLento.equals("") && !passo_tempoLento.equals(""))
-                        && (!minimo_tempoRapido.equals("") && !maximo_tempoRapido.equals("") && !passo_tempoRapido.equals(""))) {
+                    && (!minimo_tempoLento.equals("") && !maximo_tempoLento.equals("") && !passo_tempoLento.equals(""))
+                    && (!minimo_tempoRapido.equals("") && !maximo_tempoRapido.equals("") && !passo_tempoRapido.equals(""))) {
 
                     double min_c = Double.parseDouble(minimo_corrente);
                     double max_c = Double.parseDouble(maximo_corrente);
@@ -2839,16 +2832,19 @@ public class GUI_Religador extends javax.swing.JFrame {
 
             if (this.isEletromecanico()) {
                 String c = this.definidaNeutroCorrenteValores.getText();
-                String t = this.definidaNeutroTempoLenta.getText();
+                String t_1 = this.definidaNeutroTempoLenta.getText();
+                String t_2 = this.definidaNeutroTempoRapida.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!c.equals("") && !t.equals("")) {
-                    ArrayList<Double> lista_corrente = this.separaValores(c);
-                    ArrayList<Double> lista_tempo = this.separaValores(t);
-
+                if (!c.equals("") && !t_1.equals("") && !t_2.equals("")) {
+                    List<Double> lista_corrente = this.separaValores(c);
+                    List<Double> lista_tempoLenta = this.separaValores(t_1);
+                    List<Double> lista_tempoRapida = this.separaValores(t_2);
+                    
                     this.newReligador.setFatorInicio(fator, Religador.DEFINIDO_NEUTRO);
                     ((ReligadorEletromecanico) this.newReligador).addCorrentePickup(lista_corrente, Religador.DEFINIDO_NEUTRO);
-                    ((ReligadorEletromecanico) this.newReligador).addCorrentePickup(lista_tempo, Religador.DEFINIDO_NEUTRO);
+                    ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoLenta,  false);
+                    ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoRapida, true);
 
                     Gson g = new Gson();
                     Arquivo a = new Arquivo("Gson.ini");
@@ -2928,17 +2924,17 @@ public class GUI_Religador extends javax.swing.JFrame {
 
     private void avancarNeutroCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurvaActionPerformed
         if (!this.isEletromecanico()) {
-            String minimo = this.neutroCurvaMinimo.getText();
-            String maximo = this.neutroCurvaMaximo.getText();
-            String passo = this.neutroCurvaPasso.getText();
+            String min = this.neutroCurvaMinimo.getText();
+            String max = this.neutroCurvaMaximo.getText();
+            String pas = this.neutroCurvaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                double min = Double.parseDouble(this.neutroCurvaMinimo.getText());
-                double max = Double.parseDouble(this.neutroCurvaMaximo.getText());
-                double pas = Double.parseDouble(this.neutroCurvaPasso.getText());
+            if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                double minimo = Double.parseDouble(this.neutroCurvaMinimo.getText());
+                double maximo = Double.parseDouble(this.neutroCurvaMaximo.getText());
+                double passo = Double.parseDouble(this.neutroCurvaPasso.getText());
 
-                if (StringUtils.verificaExpressao(min, max, pas)) {
-                    ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.INVERSA_NEUTRO, min, max, pas, false);
+                if (StringUtils.verificaExpressao(minimo, maximo, passo)) {
+                    ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.INVERSA_NEUTRO, minimo, maximo, passo, false);
                     ((ReligadorDigital) this.newReligador).setListaNeutroLenta(this.modeloNeutroCaracteristicas.getArrayList());
                     int selecionado = this.jTabbedPane1.getSelectedIndex();
 
@@ -2983,7 +2979,7 @@ public class GUI_Religador extends javax.swing.JFrame {
 
                 if (!v.equals("")) {
                     this.newReligador.setFatorInicio(fator, Religador.INVERSA_NEUTRO);
-                    ArrayList<Double> lista = this.separaValores(v);
+                    List<Double> lista = this.separaValores(v);
 
                     ((ReligadorEletromecanico) this.newReligador).addCorrentePickup(lista, Religador.INVERSA_NEUTRO);
                     this.addCorrentePickupNeutro(lista);
@@ -2992,34 +2988,27 @@ public class GUI_Religador extends javax.swing.JFrame {
                     this.jTabbedPane1.setSelectedIndex(selecionado + 1);
                 }
             } else {
-                String minimo = this.neutroCorrenteMinimo.getText();
-                String maximo = this.neutroCorrenteMaximo.getText();
-                String passo = this.neutroCorrentePasso.getText();
+                String min = this.neutroCorrenteMinimo.getText();
+                String max = this.neutroCorrenteMaximo.getText();
+                String pas = this.neutroCorrentePasso.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                    double min = Double.parseDouble(this.neutroCorrenteMinimo.getText());
-                    double max = Double.parseDouble(this.neutroCorrenteMaximo.getText());
-                    double pas = Double.parseDouble(this.neutroCorrentePasso.getText());
+                if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                    double minimo = Double.parseDouble(this.neutroCorrenteMinimo.getText());
+                    double maximo = Double.parseDouble(this.neutroCorrenteMaximo.getText());
+                    double passo = Double.parseDouble(this.neutroCorrentePasso.getText());
 
-                    if (StringUtils.verificaExpressao(min, max, pas)) {
+                    if (StringUtils.verificaExpressao(minimo, maximo, passo)) {
                         this.newReligador.setFatorInicio(fator, Religador.INVERSA_NEUTRO);
-                        ((ReligadorDigital) this.newReligador).setValuesCorrente(Religador.INVERSA_NEUTRO, min, max, pas);
+                        ((ReligadorDigital) this.newReligador).setValuesCorrente(Religador.INVERSA_NEUTRO, minimo, maximo, passo);
                         int selecionado = this.jTabbedPane1.getSelectedIndex();
 
                         this.jTabbedPane1.setSelectedIndex(selecionado + 1);
                     }
                 }
-
             }
         }
-
-
     }//GEN-LAST:event_avancarInversaNeutroCorrenteActionPerformed
-
-    private void neutroCurvaMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaMaximoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neutroCurvaMaximoActionPerformed
 
     private void neutroCurvaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaAdicionaCaracteristicasActionPerformed
         this.modeloNeutroCaracteristicas.add(new CaracteristicasCurva("-", 0.0, 0.0, 0.0));
@@ -3072,14 +3061,17 @@ public class GUI_Religador extends javax.swing.JFrame {
         if (!c.equals("") && !d.equals("")) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
-            ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
-            /*ArrayList<Double> values = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, corrente);
+            List<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
+            List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, false, corrente);
 
-             if (values.isEmpty() || values.indexOf(d) != -1) {
-             ((ReligadorEletromecanico) this.newReligador).addDialDeTempo(Religador.INVERSA_FASE, corrente, dial, pontos);
-             } else {
-             Erro.valorCadastrado(this);
-             }*/
+            if (valores.isEmpty() || valores.indexOf(dial) == -1) {
+                ((ReligadorEletromecanico) this.newReligador).addDialDeTempo(Religador.INVERSA_FASE, false, corrente, dial, (ArrayList<PontoCurva>) pontos);
+                this.faseCurvaDial.setText("");
+                this.modeloFaseCriarDial.removeTodos();
+                this.modeloFaseCriarDial.fireTableDataChanged();
+            } else {
+                Erro.valorCadastrado(this);
+            }
         } else {
             Erro.camposVazios(this);
         }
@@ -3087,12 +3079,26 @@ public class GUI_Religador extends javax.swing.JFrame {
 
     private void salvarNeutroDialCadastradoComPontos() {
         String c = String.valueOf(this.neutroCurvaCorrenteCadastro.getSelectedItem());
-        double corrente = Double.parseDouble(c);
         String d = this.neutroCurvaDial.getText();
-        double dial = Double.parseDouble(d);
-        ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
-        (ReligadorEletromecanico) this.newReligador
-        ).addDialDeTempo(Religador.INVERSA_NEUTRO, corrente, dial, pontos);
+
+        if (!c.equals("") && !d.equals("")) {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
+            List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, false, corrente);
+
+            if (valores.isEmpty() || valores.indexOf(dial) == -1) {
+                ((ReligadorEletromecanico) this.newReligador).addDialDeTempo(Religador.INVERSA_NEUTRO, false, corrente, dial, pontos);
+                this.neutroCurvaDial.setText("");
+                this.modeloNeutroCriaDial.removeTodos();
+                this.modeloNeutroCriaDial.fireTableDataChanged();
+            } else {
+                Erro.valorCadastrado(this);
+            }
+        } else {
+            Erro.camposVazios(this);
+        }
+
     }
 
     private void faseCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteExistenteActionPerformed
@@ -3111,11 +3117,13 @@ public class GUI_Religador extends javax.swing.JFrame {
         } else {
             double corrente = Double.parseDouble(str);
 
-            /*ArrayList<Double> dial = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, corrente);
-             this.faseCurvaDialExistente.removeAllItems();
-             for (Double d : dial) {
-             this.faseCurvaDialExistente.addItem(d);
-             }*/
+            List<Double> dial;
+            dial = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, false, corrente);
+            System.out.println(dial.size());
+            this.faseCurvaDialExistente.removeAllItems();
+            for (Double d : dial) {
+                this.faseCurvaDialExistente.addItem(d);
+            }
         }
     }
 
@@ -3134,48 +3142,46 @@ public class GUI_Religador extends javax.swing.JFrame {
         try {
             carregarFasePontosDeDial();
         } catch (NullPointerException e) {
-            System.out.println("Error");
+            this.modeloFaseExistenteDial.removeTodos();
+            this.modeloFaseExistenteDial.fireTableDataChanged();
         }
-
     }//GEN-LAST:event_faseCurvaDialExistenteActionPerformed
 
     private void carregarFasePontosDeDial() throws NullPointerException {
-        String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
-        String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
+        String c = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
 
-        if (str.equals("null") || srt.equals("null")) {
+        if (c.equals("null") || d.equals("null")) {
             throw new NullPointerException();
         } else {
-            double corrente = Double.parseDouble(str);
-            double dial = Double.parseDouble(srt);
-            ArrayList<PontoCurva> a;
-            /*a = ((ReligadorEletromecanico) this.newReligador).getPontosDialDeTempo(corrente, dial, Religador.INVERSA_FASE);
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            List<PontoCurva> list;
+            list = ((ReligadorEletromecanico) this.newReligador).getPontosDialDeTempo(corrente, dial, Religador.INVERSA_FASE, false);
 
-             this.modeloFaseExistenteDial.removeTodos();
-             this.modeloFaseExistenteDial.add(a);
-             this.modeloFaseExistenteDial.fireTableDataChanged();
-             this.modeloFaseExistenteDial.removeTodos();
-             this.modeloFaseExistenteDial.fireTableDataChanged();*/
+            this.modeloFaseExistenteDial.removeTodos();
+            this.modeloFaseExistenteDial.add((ArrayList<PontoCurva>) list);
+            this.modeloFaseExistenteDial.fireTableDataChanged();
         }
     }
 
-    private void carregarNeutroPontosDeDial() {
-        String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
-        String srt = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
+    private void carregarNeutroPontosDeDial() throws NullPointerException {
+        String c = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
 
-        try {
-            double corrente = Double.parseDouble(str);
-            double dial = Double.parseDouble(srt);
-            ArrayList<PontoCurva> a;
-            /*a = ((ReligadorEletromecanico) this.newReligador).getPontosDialDeTempo(corrente, dial, Religador.INVERSA_NEUTRO);
+        if (c.equals("null") || d.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            List<PontoCurva> list;
+            list = ((ReligadorEletromecanico) this.newReligador).getPontosDialDeTempo(corrente, dial, Religador.INVERSA_NEUTRO, false);
 
-             this.modeloNeutroExistenteDial.removeTodos();
-             this.modeloNeutroExistenteDial.add(a);
-             this.modeloNeutroExistenteDial.fireTableDataChanged();*/
-        } catch (NumberFormatException e) {
             this.modeloNeutroExistenteDial.removeTodos();
+            this.modeloNeutroExistenteDial.add((ArrayList<PontoCurva>) list);
             this.modeloNeutroExistenteDial.fireTableDataChanged();
         }
+
     }
 
     private void neutroCurvaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRemovePrimeiraActionPerformed
@@ -3195,16 +3201,38 @@ public class GUI_Religador extends javax.swing.JFrame {
     }//GEN-LAST:event_neutroCurvaSalvarActionPerformed
 
     private void neutroCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaDialExistenteActionPerformed
-        carregarNeutroPontosDeDial();
+        try {
+            carregarNeutroPontosDeDial();
+        } catch (NullPointerException e) {
+            this.modeloNeutroExistenteDial.removeTodos();
+            this.modeloNeutroExistenteDial.fireTableDataChanged();
+        }
     }//GEN-LAST:event_neutroCurvaDialExistenteActionPerformed
 
     private void neutroCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaCorrenteExistenteActionPerformed
-        carregarNeutroDialCadastradoEmCorrente(Religador.INVERSA_NEUTRO);
+        try {
+            carregarNeutroDialCadastradoEmCorrente();
+        } catch (NullPointerException e) {
+            System.out.println("error");
+        }
     }//GEN-LAST:event_neutroCurvaCorrenteExistenteActionPerformed
 
-    private void neutroCurvaRapidaMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRapidaMaximoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neutroCurvaRapidaMaximoActionPerformed
+    private void carregarNeutroDialCadastradoEmCorrente() throws NullPointerException {
+        String c = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
+
+        if (c.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(c);
+            List<Double> dial;
+            dial = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, false, corrente);
+
+            this.neutroCurvaDialExistente.removeAllItems();
+            for (Double d : dial) {
+                this.neutroCurvaDialExistente.addItem(d);
+            }
+        }
+    }
 
     private void neutroCurvaAdicionaCaracteristicas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaAdicionaCaracteristicas2ActionPerformed
         this.modeloNeutroCaracteristicasRapida.add(new CaracteristicasCurva("-", 0.0, 0.0, 0.0));
@@ -3230,19 +3258,86 @@ public class GUI_Religador extends javax.swing.JFrame {
         this.modeloNeutroCriaDialRapido.fireTableDataChanged();
     }//GEN-LAST:event_neutroCurvaRapidaAdicionaPrimeiraActionPerformed
 
-    private void neutroCurvaSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaSalvar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neutroCurvaSalvar1ActionPerformed
+    private void neutroCurvaRapidaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRapidaSalvarActionPerformed
+        this.salvarNeutroDialCadastradoComPontosRapido();
+    }//GEN-LAST:event_neutroCurvaRapidaSalvarActionPerformed
 
-    private void neutroCurvaRappidaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRappidaDialExistenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neutroCurvaRappidaDialExistenteActionPerformed
+    private void salvarNeutroDialCadastradoComPontosRapido() {
+        String c = String.valueOf(this.neutroCurvaRapidaCorrenteCadastro.getSelectedItem());
+        String d = this.neutroCurvaRapidaDial.getText();
 
+        if (!c.equals("") && !d.equals("")) {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            List<PontoCurva> pontos = this.modeloNeutroCriaDialRapido.getArrayList();
+            List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, true, corrente);
+            
+            if (valores.isEmpty() || valores.indexOf(dial) == -1) {
+                ((ReligadorEletromecanico) this.newReligador).addDialDeTempo(Religador.INVERSA_NEUTRO, true, corrente, dial, (ArrayList<PontoCurva>) pontos);
+                this.neutroCurvaRapidaDial.setText("");
+                this.modeloNeutroCriaDialRapido.removeTodos();
+                this.modeloNeutroCriaDialRapido.fireTableDataChanged();
+            } else {
+                Erro.valorCadastrado(this);
+            }
+        } else {
+            Erro.camposVazios(this);
+        }
+    }
+    
+    private void neutroCurvaRapidaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRapidaDialExistenteActionPerformed
+        try {
+            carregarNeutroPontosDeDialRapido();
+        } catch (NullPointerException e) {
+            this.modeloNeutroExistenteDialRapido.removeTodos();
+            this.modeloNeutroExistenteDialRapido.fireTableDataChanged();
+        }
+    }//GEN-LAST:event_neutroCurvaRapidaDialExistenteActionPerformed
+
+    private void carregarNeutroPontosDeDialRapido() throws NullPointerException {
+        String c = String.valueOf(this.neutroCurvaRapidaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.neutroCurvaRapidaDialExistente.getSelectedItem());
+
+        if (c.equals("null") || d.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            List<PontoCurva> list;
+            list = ((ReligadorEletromecanico) this.newReligador).getPontosDialDeTempo(corrente, dial, Religador.INVERSA_NEUTRO, true);
+
+            this.modeloNeutroExistenteDialRapido.removeTodos();
+            this.modeloNeutroExistenteDialRapido.add((ArrayList<PontoCurva>) list);
+            this.modeloNeutroExistenteDialRapido.fireTableDataChanged();
+        }
+    }
+    
     private void neutroCurvaRapidaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRapidaCorrenteExistenteActionPerformed
-        // TODO add your handling code here:
+        try {
+            carregarNeutroDialCadastradoEmCorrenteRapida();
+        } catch (NullPointerException e) {
+            System.out.println("error");
+        }
     }//GEN-LAST:event_neutroCurvaRapidaCorrenteExistenteActionPerformed
 
-    private void avancarNeutroCurva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurva1ActionPerformed
+    private void carregarNeutroDialCadastradoEmCorrenteRapida() throws NullPointerException {
+        String c = String.valueOf(this.neutroCurvaRapidaCorrenteExistente.getSelectedItem());
+
+        if (c.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(c);
+            List<Double> dial;
+            dial = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, true, corrente);
+
+            this.neutroCurvaRapidaDialExistente.removeAllItems();
+            for (Double d : dial) {
+                this.neutroCurvaRapidaDialExistente.addItem(d);
+            }
+        }
+    }
+    
+    private void avancarNeutroCurvaRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurvaRapidaActionPerformed
         if (!this.isEletromecanico()) {
             String minimo = this.neutroCurvaRapidaMinimo.getText();
             String maximo = this.neutroCurvaRapidaMaximo.getText();
@@ -3262,11 +3357,11 @@ public class GUI_Religador extends javax.swing.JFrame {
         } else {
             this.avancarTela();
         }
-    }//GEN-LAST:event_avancarNeutroCurva1ActionPerformed
+    }//GEN-LAST:event_avancarNeutroCurvaRapidaActionPerformed
 
-    private void cancelarNeutroCurva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarNeutroCurva1ActionPerformed
+    private void cancelarNeutroCurvaRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarNeutroCurvaRapidaActionPerformed
         this.cancelOption();
-    }//GEN-LAST:event_cancelarNeutroCurva1ActionPerformed
+    }//GEN-LAST:event_cancelarNeutroCurvaRapidaActionPerformed
 
     private void retornarNeutroCurvaRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarNeutroCurvaRapidaActionPerformed
         if (this.newReligador.getTipo() == Religador.ELETROMECANICO) {
@@ -3281,45 +3376,115 @@ public class GUI_Religador extends javax.swing.JFrame {
         String fab = this.fabricante.getText();
         String mod = this.modelo.getText();
 
-        if ( !fab.equals( "" ) && !mod.equals( "" ) ) {
-            if ( this.isEletromecanico() ) {
+        if (!fab.equals("") && !mod.equals("")) {
+            if (this.isEletromecanico()) {
                 this.newReligador = new ReligadorEletromecanico();
             } else {
                 this.newReligador = new ReligadorDigital();
             }
-            this.newReligador.setFabricante( fab );
-            this.newReligador.setModelo( mod );
+            this.newReligador.setFabricante(fab);
+            this.newReligador.setModelo(mod);
             this.configurarPaineis();
             this.selecionarCards();
             this.avancarTela();
         } else {
-            Erro.camposVazios( this );
+            Erro.camposVazios(this);
         }
     }//GEN-LAST:event_avancarDadosGeraisActionPerformed
 
-    private void faseCurvaLentaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaLentaRemovePrimeiraActionPerformed
+    private void faseCurvaRapidaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRapidaRemovePrimeiraActionPerformed
         int selecionado = this.faseCurvaRapidaPrimeira.getSelectedRow();
 
         this.modeloFaseCriarDialRapido.remove(selecionado);
         this.modeloFaseCriarDialRapido.fireTableDataChanged();
-    }//GEN-LAST:event_faseCurvaLentaRemovePrimeiraActionPerformed
+    }//GEN-LAST:event_faseCurvaRapidaRemovePrimeiraActionPerformed
 
-    private void faseCurvaLentaAdicionaPrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaLentaAdicionaPrimeiraActionPerformed
+    private void faseCurvaRapidaAdicionaPrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRapidaAdicionaPrimeiraActionPerformed
         this.modeloFaseCriarDialRapido.add(new PontoCurva(0, 0));
         this.modeloFaseCriarDialRapido.fireTableDataChanged();
-    }//GEN-LAST:event_faseCurvaLentaAdicionaPrimeiraActionPerformed
+    }//GEN-LAST:event_faseCurvaRapidaAdicionaPrimeiraActionPerformed
 
-    private void faseCurvaLentaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaLentaSalvarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_faseCurvaLentaSalvarActionPerformed
+    private void faseCurvaRapidaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRapidaSalvarActionPerformed
+        salvarFaseDialCadastradoComPontosRapidos();
+    }//GEN-LAST:event_faseCurvaRapidaSalvarActionPerformed
 
-    private void faseCurvaLentaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaLentaDialExistenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_faseCurvaLentaDialExistenteActionPerformed
+    private void salvarFaseDialCadastradoComPontosRapidos() {
+        String c = String.valueOf(this.faseCurvaRapidaCorrenteCadastro.getSelectedItem());
+        String d = String.valueOf(this.faseCurvaRapidaDial.getText());
 
-    private void faseCurvaLentaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaLentaCorrenteExistenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_faseCurvaLentaCorrenteExistenteActionPerformed
+        if (!c.equals("") && !d.equals("")) {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            ArrayList<PontoCurva> pontos = this.modeloFaseCriarDialRapido.getArrayList();
+            List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, false, corrente);
+
+            if (valores.isEmpty() || valores.indexOf(dial) == -1) {
+                ((ReligadorEletromecanico) this.newReligador).addDialDeTempo(Religador.INVERSA_FASE, true, corrente, dial, (ArrayList<PontoCurva>) pontos);
+                this.faseCurvaRapidaDial.setText("");
+                this.modeloFaseCriarDialRapido.removeTodos();
+                this.modeloFaseCriarDialRapido.fireTableDataChanged();
+            } else {
+                Erro.valorCadastrado(this);
+            }
+        } else {
+            Erro.camposVazios(this);
+        }
+    }
+
+
+    private void faseCurvaRapidaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRapidaDialExistenteActionPerformed
+        try {
+            carregarFasePontosDeDialRapido();
+        } catch (NullPointerException e) {
+            this.modeloFaseExistenteDialRapido.removeTodos();
+            this.modeloFaseExistenteDialRapido.fireTableDataChanged();
+        }
+    }//GEN-LAST:event_faseCurvaRapidaDialExistenteActionPerformed
+
+    private void carregarFasePontosDeDialRapido() throws NullPointerException {
+        String c = String.valueOf(this.faseCurvaRapidaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.faseCurvaRapidaDialExistente.getSelectedItem());
+
+        System.out.println(c + " " + d);
+
+        if (c.equals("null") || d.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
+            List<PontoCurva> list;
+            list = ((ReligadorEletromecanico) this.newReligador).getPontosDialDeTempo(corrente, dial, Religador.INVERSA_FASE, true);
+
+            this.modeloFaseExistenteDialRapido.removeTodos();
+            this.modeloFaseExistenteDialRapido.add((ArrayList<PontoCurva>) list);
+            this.modeloFaseExistenteDialRapido.fireTableDataChanged();
+        }
+    }
+
+    private void faseCurvaRapidaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRapidaCorrenteExistenteActionPerformed
+        try {
+            carregarFaseDialCadastradoEmCorrenteRapida();
+        } catch (NullPointerException e) {
+            System.out.println("Error");
+        }
+    }//GEN-LAST:event_faseCurvaRapidaCorrenteExistenteActionPerformed
+
+    private void carregarFaseDialCadastradoEmCorrenteRapida() throws NullPointerException {
+        String str = String.valueOf(this.faseCurvaRapidaCorrenteExistente.getSelectedItem());
+
+        if (str.equals("null")) {
+            throw new NullPointerException();
+        } else {
+            double corrente = Double.parseDouble(str);
+
+            List<Double> dial;
+            dial = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, true, corrente);
+            this.faseCurvaRapidaDialExistente.removeAllItems();
+            for (Double d : dial) {
+                this.faseCurvaRapidaDialExistente.addItem(d);
+            }
+        }
+    }
 
     private void faseCurvaRapidaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaRapidaAdicionaCaracteristicasActionPerformed
         this.modeloFaseCaracteristicasRapida.add(new CaracteristicasCurva("-", 0.0, 0.0, 0.0));
@@ -3335,17 +3500,17 @@ public class GUI_Religador extends javax.swing.JFrame {
 
     private void avancarFaseCurvaRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarFaseCurvaRapidaActionPerformed
         if (!this.isEletromecanico()) {
-            String minimo = this.faseCurvaRapidaMinimo.getText();
-            String maximo = this.faseCurvaRapidaMaximo.getText();
-            String passo = this.faseCurvaRapidaPasso.getText();
+            String min = this.faseCurvaRapidaMinimo.getText();
+            String max = this.faseCurvaRapidaMaximo.getText();
+            String pas = this.faseCurvaRapidaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                double min = Double.parseDouble(minimo);
-                double max = Double.parseDouble(maximo);
-                double pas = Double.parseDouble(passo);
+            if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                double minimo = Double.parseDouble(min);
+                double maximo = Double.parseDouble(max);
+                double passo = Double.parseDouble(pas);
 
-                if (StringUtils.verificaExpressao(min, max, pas)) {
-                    ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.INVERSA_FASE, min, max, pas, true);
+                if (StringUtils.verificaExpressao(minimo, maximo, passo)) {
+                    ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.INVERSA_FASE, minimo, maximo, passo, true);
                     ((ReligadorDigital) this.newReligador).setListaFaseRapida(this.modeloFaseCaracteristicasRapida.getArrayList());
                     this.avancarTela();
                 } else {
@@ -3364,6 +3529,7 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void retornarFaseCurvaRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCurvaRapidaActionPerformed
         if (this.newReligador.getTipo() == Religador.ELETROMECANICO) {
             ((ReligadorEletromecanico) this.newReligador).removeDialDeTempo(Religador.INVERSA_FASE, true);
+            this.faseCurvaRapidaDialExistente.removeAllItems();
         }
         int selecionado = this.temporizadaFase.getSelectedIndex();
 
@@ -3390,7 +3556,7 @@ public class GUI_Religador extends javax.swing.JFrame {
 
     private void desabilitarPaineis(int selecionado) {
         int tabs = this.tabbedPane.getTabCount();
-        
+
         for (int i = 0; i < tabs; i++) {
             if (i == selecionado) {
                 tabbedPane.setEnabledAt(i, true);
@@ -3519,20 +3685,26 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void addCorrentePickupFase(List<Double> valores) {
         this.faseCurvaCorrenteCadastro.removeAllItems();
         this.faseCurvaCorrenteExistente.removeAllItems();
-        this.faseCurvaLentaCorrenteCadastro.removeAllItems();
-        this.faseCurvaLentaCorrenteExistente.removeAllItems();
+        this.faseCurvaRapidaCorrenteCadastro.removeAllItems();
+        this.faseCurvaRapidaCorrenteExistente.removeAllItems();
         for (double d : valores) {
             this.faseCurvaCorrenteCadastro.addItem(d);
             this.faseCurvaCorrenteExistente.addItem(d);
-            this.faseCurvaLentaCorrenteCadastro.addItem(d);
-            this.faseCurvaLentaCorrenteExistente.addItem(d);
+            this.faseCurvaRapidaCorrenteCadastro.addItem(d);
+            this.faseCurvaRapidaCorrenteExistente.addItem(d);
         }
     }
 
     private void addCorrentePickupNeutro(List<Double> valores) {
+        this.neutroCurvaCorrenteCadastro.removeAllItems();
+        this.neutroCurvaCorrenteExistente.removeAllItems();
+        this.neutroCurvaRapidaCorrenteCadastro.removeAllItems();
+        this.neutroCurvaRapidaCorrenteExistente.removeAllItems();
         for (Double d : valores) {
             this.neutroCurvaCorrenteCadastro.addItem(d);
             this.neutroCurvaCorrenteExistente.addItem(d);
+            this.neutroCurvaRapidaCorrenteCadastro.addItem(d);
+            this.neutroCurvaRapidaCorrenteExistente.addItem(d);
         }
     }
 
@@ -3600,7 +3772,7 @@ public class GUI_Religador extends javax.swing.JFrame {
     private javax.swing.JButton avancarInversaFaseCorrente;
     private javax.swing.JButton avancarInversaNeutroCorrente;
     private javax.swing.JButton avancarNeutroCurva;
-    private javax.swing.JButton avancarNeutroCurva1;
+    private javax.swing.JButton avancarNeutroCurvaRapida;
     private javax.swing.JButton cancelarDadosGerais;
     private javax.swing.JButton cancelarDefinidaFase;
     private javax.swing.JButton cancelarDefinidaNeutro;
@@ -3609,7 +3781,7 @@ public class GUI_Religador extends javax.swing.JFrame {
     private javax.swing.JButton cancelarInversaFaseCorrente;
     private javax.swing.JButton cancelarInversaNeutroCorrente;
     private javax.swing.JButton cancelarNeutroCurva;
-    private javax.swing.JButton cancelarNeutroCurva1;
+    private javax.swing.JButton cancelarNeutroCurvaRapida;
     private javax.swing.JPanel cardLayout1;
     private javax.swing.JPanel cardLayout2;
     private javax.swing.JPanel cardLayout3;
@@ -3651,19 +3823,17 @@ public class GUI_Religador extends javax.swing.JFrame {
     private javax.swing.JComboBox faseCurvaDialExistente;
     private javax.swing.JPanel faseCurvaFirst;
     private javax.swing.JButton faseCurvaGrafico;
-    private javax.swing.JButton faseCurvaLentaAdicionaPrimeira;
-    private javax.swing.JComboBox faseCurvaLentaCorrenteCadastro;
-    private javax.swing.JComboBox faseCurvaLentaCorrenteExistente;
-    private javax.swing.JTextField faseCurvaLentaDial;
-    private javax.swing.JComboBox faseCurvaLentaDialExistente;
-    private javax.swing.JButton faseCurvaLentaRemovePrimeira;
-    private javax.swing.JButton faseCurvaLentaSalvar;
     private javax.swing.JTextField faseCurvaMaximo;
     private javax.swing.JTextField faseCurvaMinimo;
     private javax.swing.JTextField faseCurvaPasso;
     private javax.swing.JTable faseCurvaPrimeira;
     private javax.swing.JButton faseCurvaRapidaAdicionaCaracteristicas;
+    private javax.swing.JButton faseCurvaRapidaAdicionaPrimeira;
     private javax.swing.JTable faseCurvaRapidaCaracteristicas;
+    private javax.swing.JComboBox faseCurvaRapidaCorrenteCadastro;
+    private javax.swing.JComboBox faseCurvaRapidaCorrenteExistente;
+    private javax.swing.JTextField faseCurvaRapidaDial;
+    private javax.swing.JComboBox faseCurvaRapidaDialExistente;
     private javax.swing.JPanel faseCurvaRapidaFirst;
     private javax.swing.JButton faseCurvaRapidaGrafico;
     private javax.swing.JTextField faseCurvaRapidaMaximo;
@@ -3671,6 +3841,8 @@ public class GUI_Religador extends javax.swing.JFrame {
     private javax.swing.JTextField faseCurvaRapidaPasso;
     private javax.swing.JTable faseCurvaRapidaPrimeira;
     private javax.swing.JButton faseCurvaRapidaRemoveCaracteristicas;
+    private javax.swing.JButton faseCurvaRapidaRemovePrimeira;
+    private javax.swing.JButton faseCurvaRapidaSalvar;
     private javax.swing.JPanel faseCurvaRapidaSecond;
     private javax.swing.JTable faseCurvaRapidaSegunda;
     private javax.swing.JButton faseCurvaRemoveCaracteristicas;
@@ -3821,35 +3993,35 @@ public class GUI_Religador extends javax.swing.JFrame {
     private javax.swing.JButton neutroCurvaAdicionaPrimeira;
     private javax.swing.JTable neutroCurvaCaracteristicas;
     private javax.swing.JComboBox neutroCurvaCorrenteCadastro;
-    private javax.swing.JComboBox neutroCurvaCorrenteCadastro1;
     private javax.swing.JComboBox neutroCurvaCorrenteExistente;
     private javax.swing.JTextField neutroCurvaDial;
-    private javax.swing.JTextField neutroCurvaDial1;
     private javax.swing.JComboBox neutroCurvaDialExistente;
     private javax.swing.JPanel neutroCurvaFirst;
     private javax.swing.JButton neutroCurvaGrafico;
-    private javax.swing.JButton neutroCurvaGrafico1;
     private javax.swing.JTextField neutroCurvaMaximo;
     private javax.swing.JTextField neutroCurvaMinimo;
     private javax.swing.JTextField neutroCurvaPasso;
     private javax.swing.JTable neutroCurvaPrimeira;
     private javax.swing.JButton neutroCurvaRapidaAdicionaPrimeira;
     private javax.swing.JTable neutroCurvaRapidaCaracteristicas;
+    private javax.swing.JComboBox neutroCurvaRapidaCorrenteCadastro;
     private javax.swing.JComboBox neutroCurvaRapidaCorrenteExistente;
+    private javax.swing.JTextField neutroCurvaRapidaDial;
+    private javax.swing.JComboBox neutroCurvaRapidaDialExistente;
     private javax.swing.JPanel neutroCurvaRapidaFirst;
+    private javax.swing.JButton neutroCurvaRapidaGrafico;
     private javax.swing.JTextField neutroCurvaRapidaMaximo;
     private javax.swing.JTextField neutroCurvaRapidaMinimo;
     private javax.swing.JTextField neutroCurvaRapidaPasso;
     private javax.swing.JTable neutroCurvaRapidaPrimeira;
     private javax.swing.JButton neutroCurvaRapidaRemovePrimeira;
+    private javax.swing.JButton neutroCurvaRapidaSalvar;
     private javax.swing.JPanel neutroCurvaRapidaSecond;
     private javax.swing.JTable neutroCurvaRapidaSegunda;
-    private javax.swing.JComboBox neutroCurvaRappidaDialExistente;
     private javax.swing.JButton neutroCurvaRemoveCaracteristicas;
     private javax.swing.JButton neutroCurvaRemoveCaracteristicas2;
     private javax.swing.JButton neutroCurvaRemovePrimeira;
     private javax.swing.JButton neutroCurvaSalvar;
-    private javax.swing.JButton neutroCurvaSalvar1;
     private javax.swing.JPanel neutroCurvaSecond;
     private javax.swing.JTable neutroCurvaSegunda;
     private javax.swing.JPanel neutroInstantaneaFirst;
@@ -3875,4 +4047,5 @@ public class GUI_Religador extends javax.swing.JFrame {
     private javax.swing.JTabbedPane temporizadaFase;
     private javax.swing.ButtonGroup tipoDeEquipamento;
     // End of variables declaration//GEN-END:variables
+
 }

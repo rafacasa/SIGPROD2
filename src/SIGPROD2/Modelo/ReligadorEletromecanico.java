@@ -64,7 +64,7 @@ public class ReligadorEletromecanico implements Religador {
         
     }
     
-    public void addCorrentePickup(ArrayList<Double> corrente, int tipo) {
+    public void addCorrentePickup(List<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, new ArrayList<>(corrente));
         if (tipo == INVERSA_FASE) {
             for (Double c : corrente) {

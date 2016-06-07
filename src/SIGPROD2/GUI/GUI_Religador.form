@@ -1079,7 +1079,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jPanel17" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -1087,13 +1087,16 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jPanel17" alignment="0" max="-2" attributes="0"/>
-                                          <Component id="jPanel18" alignment="0" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jPanel17" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="jPanel18" alignment="1" pref="447" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1120,12 +1123,12 @@
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                          <Component id="faseCurvaLentaDial" min="-2" pref="150" max="-2" attributes="0"/>
+                                                          <Component id="faseCurvaRapidaDial" min="-2" pref="150" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                          <Component id="faseCurvaLentaCorrenteCadastro" min="-2" pref="150" max="-2" attributes="0"/>
+                                                          <Component id="faseCurvaRapidaCorrenteCadastro" min="-2" pref="150" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -1135,14 +1138,14 @@
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="faseCurvaRapidaGrafico" min="-2" pref="122" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="faseCurvaLentaSalvar" min="-2" pref="121" max="-2" attributes="0"/>
+                                                          <Component id="faseCurvaRapidaSalvar" min="-2" pref="121" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="jScrollPane3" min="-2" pref="251" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="faseCurvaLentaAdicionaPrimeira" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="faseCurvaLentaRemovePrimeira" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="faseCurvaRapidaAdicionaPrimeira" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="faseCurvaRapidaRemovePrimeira" alignment="0" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                   </Group>
@@ -1157,20 +1160,20 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="faseCurvaLentaCorrenteCadastro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="faseCurvaRapidaCorrenteCadastro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                               <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="faseCurvaLentaDial" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="faseCurvaRapidaDial" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                               <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                                  <Component id="faseCurvaLentaAdicionaPrimeira" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="faseCurvaRapidaAdicionaPrimeira" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="faseCurvaLentaRemovePrimeira" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="faseCurvaRapidaRemovePrimeira" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
@@ -1181,7 +1184,7 @@
                                           </Group>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="faseCurvaRapidaGrafico" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="faseCurvaLentaSalvar" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="faseCurvaRapidaSalvar" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                       </Group>
@@ -1189,7 +1192,7 @@
                                 </DimensionLayout>
                               </Layout>
                               <SubComponents>
-                                <Component class="javax.swing.JTextField" name="faseCurvaLentaDial">
+                                <Component class="javax.swing.JTextField" name="faseCurvaRapidaDial">
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel54">
                                   <Properties>
@@ -1217,7 +1220,7 @@
                                     </Property>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="faseCurvaLentaRemovePrimeira">
+                                <Component class="javax.swing.JButton" name="faseCurvaRapidaRemovePrimeira">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="-"/>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1225,10 +1228,10 @@
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaLentaRemovePrimeiraActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaRapidaRemovePrimeiraActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="faseCurvaLentaAdicionaPrimeira">
+                                <Component class="javax.swing.JButton" name="faseCurvaRapidaAdicionaPrimeira">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="+"/>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1236,10 +1239,10 @@
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaLentaAdicionaPrimeiraActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaRapidaAdicionaPrimeiraActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="faseCurvaLentaSalvar">
+                                <Component class="javax.swing.JButton" name="faseCurvaRapidaSalvar">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Salvar"/>
                                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -1247,10 +1250,10 @@
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaLentaSalvarActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaRapidaSalvarActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JComboBox" name="faseCurvaLentaCorrenteCadastro">
+                                <Component class="javax.swing.JComboBox" name="faseCurvaRapidaCorrenteCadastro">
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel55">
                                   <Properties>
@@ -1280,12 +1283,12 @@
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                                  <Component id="faseCurvaLentaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Component id="faseCurvaRapidaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="faseCurvaLentaCorrenteExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Component id="faseCurvaRapidaCorrenteExistente" min="-2" pref="150" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
@@ -1302,17 +1305,17 @@
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="faseCurvaLentaCorrenteExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="faseCurvaRapidaCorrenteExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                               <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="faseCurvaLentaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="faseCurvaRapidaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                               <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane7" min="-2" pref="250" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane7" min="-2" pref="258" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1326,14 +1329,14 @@
                                     </Component>
                                   </SubComponents>
                                 </Container>
-                                <Component class="javax.swing.JComboBox" name="faseCurvaLentaDialExistente">
+                                <Component class="javax.swing.JComboBox" name="faseCurvaRapidaDialExistente">
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaLentaDialExistenteActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaRapidaDialExistenteActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JComboBox" name="faseCurvaLentaCorrenteExistente">
+                                <Component class="javax.swing.JComboBox" name="faseCurvaRapidaCorrenteExistente">
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaLentaCorrenteExistenteActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaRapidaCorrenteExistenteActionPerformed"/>
                                   </Events>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel56">
@@ -1385,7 +1388,7 @@
                                           </Group>
                                           <Component id="jScrollPane13" alignment="0" min="-2" pref="650" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="207" max="32767" attributes="0"/>
+                                      <EmptySpace pref="212" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1971,9 +1974,6 @@
                             <Component class="javax.swing.JTextField" name="neutroCurvaMinimo">
                             </Component>
                             <Component class="javax.swing.JTextField" name="neutroCurvaMaximo">
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaMaximoActionPerformed"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JTextField" name="neutroCurvaPasso">
                             </Component>
@@ -2346,11 +2346,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="cancelarNeutroCurva1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="cancelarNeutroCurvaRapida" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="retornarNeutroCurvaRapida" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="avancarNeutroCurva1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="avancarNeutroCurvaRapida" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       </Group>
                       <Component id="cardLayout7" alignment="0" max="32767" attributes="0"/>
@@ -2362,9 +2362,9 @@
                           <Component id="cardLayout7" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="avancarNeutroCurva1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="avancarNeutroCurvaRapida" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="retornarNeutroCurvaRapida" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cancelarNeutroCurva1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cancelarNeutroCurvaRapida" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -2479,9 +2479,6 @@
                         <Component class="javax.swing.JTextField" name="neutroCurvaRapidaMinimo">
                         </Component>
                         <Component class="javax.swing.JTextField" name="neutroCurvaRapidaMaximo">
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaRapidaMaximoActionPerformed"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="neutroCurvaRapidaPasso">
                         </Component>
@@ -2581,17 +2578,17 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Component id="neutroCurvaCorrenteCadastro1" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="neutroCurvaRapidaCorrenteCadastro" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Component id="neutroCurvaDial1" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="neutroCurvaRapidaDial" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="neutroCurvaGrafico1" min="-2" pref="122" max="-2" attributes="0"/>
+                                              <Component id="neutroCurvaRapidaGrafico" min="-2" pref="122" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="neutroCurvaSalvar1" min="-2" pref="121" max="-2" attributes="0"/>
+                                              <Component id="neutroCurvaRapidaSalvar" min="-2" pref="121" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jScrollPane5" min="-2" pref="251" max="-2" attributes="0"/>
@@ -2612,11 +2609,11 @@
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="neutroCurvaCorrenteCadastro1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Component id="neutroCurvaRapidaCorrenteCadastro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="neutroCurvaDial1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Component id="neutroCurvaRapidaDial" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="jLabel90" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -2630,8 +2627,8 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="neutroCurvaGrafico1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="neutroCurvaSalvar1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="neutroCurvaRapidaGrafico" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="neutroCurvaRapidaSalvar" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -2639,7 +2636,7 @@
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JTextField" name="neutroCurvaDial1">
+                            <Component class="javax.swing.JTextField" name="neutroCurvaRapidaDial">
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel90">
                               <Properties>
@@ -2659,7 +2656,7 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Component class="javax.swing.JButton" name="neutroCurvaGrafico1">
+                            <Component class="javax.swing.JButton" name="neutroCurvaRapidaGrafico">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Gr&#xe1;fico"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -2689,7 +2686,7 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaRapidaAdicionaPrimeiraActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JButton" name="neutroCurvaSalvar1">
+                            <Component class="javax.swing.JButton" name="neutroCurvaRapidaSalvar">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Salvar"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -2697,10 +2694,10 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaSalvar1ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaRapidaSalvarActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="neutroCurvaCorrenteCadastro1">
+                            <Component class="javax.swing.JComboBox" name="neutroCurvaRapidaCorrenteCadastro">
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel91">
                               <Properties>
@@ -2736,7 +2733,7 @@
                                               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                               <Component id="jLabel93" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="neutroCurvaRappidaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="neutroCurvaRapidaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
@@ -2757,7 +2754,7 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="neutroCurvaRappidaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Component id="neutroCurvaRapidaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="jLabel93" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -2781,9 +2778,9 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Component class="javax.swing.JComboBox" name="neutroCurvaRappidaDialExistente">
+                            <Component class="javax.swing.JComboBox" name="neutroCurvaRapidaDialExistente">
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaRappidaDialExistenteActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaRapidaDialExistenteActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="neutroCurvaRapidaCorrenteExistente">
@@ -2807,20 +2804,20 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="avancarNeutroCurva1">
+                <Component class="javax.swing.JButton" name="avancarNeutroCurvaRapida">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Avan&#xe7;ar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="avancarNeutroCurva1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="avancarNeutroCurvaRapidaActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="cancelarNeutroCurva1">
+                <Component class="javax.swing.JButton" name="cancelarNeutroCurvaRapida">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cancelar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarNeutroCurva1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarNeutroCurvaRapidaActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="retornarNeutroCurvaRapida">
