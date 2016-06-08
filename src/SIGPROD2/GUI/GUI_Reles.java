@@ -1938,14 +1938,14 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void avancarDefinidaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaNeutroActionPerformed
         String f = this.definidaNeutroFator.getText();
 
-        if (!f.equals("")) {
+        if (!"".equals(f)) {
             double fator = Double.parseDouble(f);
 
             if (this.isEletromecanico()) {
                 String c = this.definidaNeutroCorrenteValores.getText();
                 String t = this.definidaNeutroTempoValores.getText();
 
-                if (!c.equals("") && !t.equals("")) {
+                if (!"".equals(c) && !"".equals(t)) {
                     ArrayList<Double> lista_corrente = this.separaValores(c);
                     ArrayList<Double> lista_tempo = this.separaValores(t);
 
@@ -2004,7 +2004,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             String maximo = this.neutroCurvaMaximo.getText();
             String passo = this.neutroCurvaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+            if (!"".equals(minimo) && !"".equals(maximo) && !"".equals(passo)) {
                 double min = Double.parseDouble(this.neutroCurvaMinimo.getText());
                 double max = Double.parseDouble(this.neutroCurvaMaximo.getText());
                 double pas = Double.parseDouble(this.neutroCurvaPasso.getText());
@@ -2146,7 +2146,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         String c = String.valueOf(this.faseCurvaCorrenteCadastro.getSelectedItem());
         String d = this.faseCurvaDial.getText();
 
-        if (!c.equals("") && !d.equals("")) {
+        if (!"".equals(c) && !"".equals(d)) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
             ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
@@ -2249,7 +2249,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
         String srt = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
 
-        if (str.equals("null") || srt.equals("null")) {
+        if ("null".equals(str) || "null".equals(srt)) {
             this.modeloNeutroExistenteDial.removeTodos();
             this.modeloNeutroExistenteDial.fireTableDataChanged();
             throw new NullPointerException();

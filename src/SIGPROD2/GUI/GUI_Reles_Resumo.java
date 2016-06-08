@@ -211,6 +211,8 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 this.labelTempoMinimoInversaNeutro.setText(String.valueOf(releDigital.getTempoMin(tipo)));
                 this.labelTempoPassoInversaNeutro.setText(String.valueOf(releDigital.getTempoPasso(tipo)));
                 break;
+            default:
+                break;
         }
     }
 

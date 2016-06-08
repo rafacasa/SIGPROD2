@@ -2659,7 +2659,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             String max = this.faseCurvaMaximo.getText();
             String pas = this.faseCurvaPasso.getText();
 
-            if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+            if (!"".equals(min) && !"".equals(max) && !"".equals(pas)) {
                 double minimo = Double.parseDouble(min);
                 double maximo = Double.parseDouble(max);
                 double passo = Double.parseDouble(pas);
@@ -2828,7 +2828,7 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void avancarDefinidaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaNeutroActionPerformed
         String f = this.definidaNeutroFator.getText();
 
-        if (!f.equals("")) {
+        if (!"".equals(f)) {
 
             if (this.isEletromecanico()) {
                 String c = this.definidaNeutroCorrenteValores.getText();
@@ -3169,7 +3169,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         String c = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
         String d = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
 
-        if (c.equals("null") || d.equals("null")) {
+        if ("null".equals(c) || "null".equals(d)) {
             throw new NullPointerException();
         } else {
             double corrente = Double.parseDouble(c);
@@ -3266,7 +3266,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         String c = String.valueOf(this.neutroCurvaRapidaCorrenteCadastro.getSelectedItem());
         String d = this.neutroCurvaRapidaDial.getText();
 
-        if (!c.equals("") && !d.equals("")) {
+        if (!"".equals(c) && !"".equals(d)) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
             List<PontoCurva> pontos = this.modeloNeutroCriaDialRapido.getArrayList();
@@ -3343,7 +3343,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             String maximo = this.neutroCurvaRapidaMaximo.getText();
             String passo = this.neutroCurvaRapidaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+            if (!"".equals(minimo) && !"".equals(maximo) && !"".equals(passo)) {
                 double min = Double.parseDouble(this.neutroCurvaRapidaMinimo.getText());
                 double max = Double.parseDouble(this.neutroCurvaRapidaMaximo.getText());
                 double pas = Double.parseDouble(this.neutroCurvaRapidaPasso.getText());
@@ -3376,7 +3376,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         String fab = this.fabricante.getText();
         String mod = this.modelo.getText();
 
-        if (!fab.equals("") && !mod.equals("")) {
+        if (!"".equals(fab) && !"".equals(mod)) {
             if (this.isEletromecanico()) {
                 this.newReligador = new ReligadorEletromecanico();
             } else {
@@ -3472,7 +3472,7 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void carregarFaseDialCadastradoEmCorrenteRapida() throws NullPointerException {
         String str = String.valueOf(this.faseCurvaRapidaCorrenteExistente.getSelectedItem());
 
-        if (str.equals("null")) {
+        if ("null".equals(str)) {
             throw new NullPointerException();
         } else {
             double corrente = Double.parseDouble(str);
