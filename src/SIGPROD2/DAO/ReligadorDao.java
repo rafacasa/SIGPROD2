@@ -5,6 +5,7 @@ import SIGPROD2.BD.Tables.Religador.ReligadorBD;
 import SIGPROD2.Modelo.Religador;
 import static SIGPROD2.Modelo.Religador.*;
 import SIGPROD2.Modelo.ReligadorDigital;
+import SIGPROD2.Modelo.ReligadorEletromecanico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
  * @version 01/06/2016
  */
 public class ReligadorDao {
+    
     private static final String INSERT = "INSERT INTO "
             + ReligadorBD.TABELA + " ("
             + ReligadorBD.CODIGO + ", "
@@ -34,17 +36,17 @@ public class ReligadorDao {
         int codigoAtual = getCodigoReligador();
         religadorParaInserir.setCodigo(codigoAtual);
         inserirReligador(religadorParaInserir);
-        if( religadorParaInserir.isDigital() ) {
+        if (religadorParaInserir.isDigital()) {
             ReligadorDigitalDao.insereDadosReligadorDigital((ReligadorDigital) religadorParaInserir);
         } else {
-            
+            ReligadorEletromecanicoDao.inserirDadosReligadorEletromecanico((ReligadorEletromecanico) religadorParaInserir);
         }
     }
     
     public static void inserirReligador(Religador religadorParaInserir) throws SQLException {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(INSERT);
-
+        
         comando.setInt(1, religadorParaInserir.getCodigo());
         comando.setString(2, religadorParaInserir.getFabricante());
         comando.setString(3, religadorParaInserir.getModelo());

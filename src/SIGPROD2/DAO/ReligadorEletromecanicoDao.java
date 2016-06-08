@@ -44,6 +44,12 @@ public class ReligadorEletromecanicoDao {
     private static final String VARIAVEIS_INSERT_TEMPO = ", (?, ?, ?, ?)";
     private static final String VARIAVEIS_INSERT_PONTO_CURVA = ", (?, ?, ?, ?, ?, ?, ?)";
 
+    public static void inserirDadosReligadorEletromecanico(ReligadorEletromecanico religadorParaInserir) throws SQLException {
+        insereCorrentePickupDefinida(religadorParaInserir);
+        insereTempoAtuacaoDefinido(religadorParaInserir);
+        inserePontosCurva(religadorParaInserir);
+    }
+
     private static void inserirCorrentePickupDefinida(ReligadorEletromecanico religadorParaInserir, int tipo) throws SQLException {
         List<Double> listaParaInserir = religadorParaInserir.getCorrentePickup(tipo);
         int qtd = listaParaInserir.size();
@@ -105,7 +111,7 @@ public class ReligadorEletromecanicoDao {
         return contador;
     }
 
-    public static void inserePontosCurva(ReligadorEletromecanico religadorParaInserir) throws SQLException {
+    private static void inserePontosCurva(ReligadorEletromecanico religadorParaInserir) throws SQLException {
         int parou = 0;
         int qtd = religadorParaInserir.getQtdPontosCurva();
         String comandoString = montarComandoSQL(qtd, INSERT_PONTOS_CURVA, VARIAVEIS_INSERT_PONTO_CURVA);
@@ -124,7 +130,7 @@ public class ReligadorEletromecanicoDao {
         Conexao.fechaConexao();
     }
 
-    public static void insereTempoAtuacaoDefinido(ReligadorEletromecanico religadorParaInserir) throws SQLException {
+    private static void insereTempoAtuacaoDefinido(ReligadorEletromecanico religadorParaInserir) throws SQLException {
         if (religadorParaInserir.existeCurva(Religador.DEFINIDO_FASE)) {
             inserirTempoAtuacaoDefinido(religadorParaInserir, Religador.DEFINIDO_FASE, true);
             inserirTempoAtuacaoDefinido(religadorParaInserir, Religador.DEFINIDO_FASE, false);
@@ -135,7 +141,7 @@ public class ReligadorEletromecanicoDao {
         }
     }
 
-    public static void insereCorrentePickupDefinida(ReligadorEletromecanico religadorParaInserir) throws SQLException {
+    private static void insereCorrentePickupDefinida(ReligadorEletromecanico religadorParaInserir) throws SQLException {
         if (religadorParaInserir.existeCurva(Religador.DEFINIDO_FASE)) {
             inserirCorrentePickupDefinida(religadorParaInserir, Religador.DEFINIDO_FASE);
         }
