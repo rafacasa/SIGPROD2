@@ -8,6 +8,7 @@ import SIGPROD2.Modelo.ReligadorDigital;
 import SIGPROD2.Modelo.ReligadorEletromecanico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -16,7 +17,7 @@ import java.sql.SQLException;
  * @version 01/06/2016
  */
 public class ReligadorDao {
-    
+
     private static final String INSERT = "INSERT INTO "
             + ReligadorBD.TABELA + " ("
             + ReligadorBD.CODIGO + ", "
@@ -31,7 +32,11 @@ public class ReligadorDao {
             + ReligadorBD.EXISTE_CURVA_INVERSA_NEUTRO + ", "
             + ReligadorBD.EXISTE_CURVA_DEFINIDA_FASE + ", "
             + ReligadorBD.EXISTE_CURVA_DEFINIDA_NEUTRO + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    
+    private static final String GET_CODIGO = "SELECT max( "
+            + ReligadorBD.CODIGO + " ) FROM "
+            + ReligadorBD.TABELA + " GROUP BY "
+            + ReligadorBD.CODIGO;
+
     public static void insereReligador(Religador religadorParaInserir) throws SQLException {
         int codigoAtual = getCodigoReligador();
         religadorParaInserir.setCodigo(codigoAtual);
@@ -42,11 +47,11 @@ public class ReligadorDao {
             ReligadorEletromecanicoDao.inserirDadosReligadorEletromecanico((ReligadorEletromecanico) religadorParaInserir);
         }
     }
-    
-    public static void inserirReligador(Religador religadorParaInserir) throws SQLException {
+
+    private static void inserirReligador(Religador religadorParaInserir) throws SQLException {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(INSERT);
-        
+
         comando.setInt(1, religadorParaInserir.getCodigo());
         comando.setString(2, religadorParaInserir.getFabricante());
         comando.setString(3, religadorParaInserir.getModelo());
@@ -62,8 +67,14 @@ public class ReligadorDao {
         comando.executeUpdate();
         Conexao.fechaConexao();
     }
-    
-    public static int getCodigoReligador() {
+
+    private static int getCodigoReligador() throws SQLException {
+        Connection conexao = Conexao.getConexao();
+        PreparedStatement comando = conexao.prepareStatement(GET_CODIGO);
+        ResultSet resultado = comando.executeQuery();
+        while (resultado.next()) {
+            return (resultado.getInt("max( " + ReligadorBD.CODIGO + " )")) + 1;
+        }
         return 0;
     }
 }
