@@ -346,7 +346,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             Posicao[] linha;
 
             for (String coluna : listaColunas) {
-                if (!coluna.equals(" ")) {
+                if (!" ".equals(coluna)) {
                     this.modelMonofasico.addColumn(coluna);
                 }
             }
@@ -459,7 +459,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
                 String newValue = Entrada.alteraValorPosicao(this, oldValue);
 
                 if (newValue != null) {
-                    if (newValue.contains(":") && !newValue.equals(":")) {
+                    if (newValue.contains(":") && !":".equals(newValue)) {
                         String[] tt = newValue.split(":");
 
                         if (tt.length == 2) {
@@ -703,10 +703,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     public boolean isLetter(char digit) {
         int value = (int) digit;
 
-        if ((value >= 65 && value <= 90) || (value >= 97 && value <= 122)) {
-            return true;
-        }
-        return false;
+        return (value >= 65 && value <= 90) || (value >= 97 && value <= 122);
     }
 
     public static void main(String args[]) {

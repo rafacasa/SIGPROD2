@@ -260,6 +260,8 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 this.modeloNeutroCaracteristicas.add(releDigital.getListaNeutro());
                 this.modeloNeutroCaracteristicas.fireTableDataChanged();
                 break;
+            default:
+                break;
         }
     }
 

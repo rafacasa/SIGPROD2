@@ -2694,11 +2694,11 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void avancarInversaFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaFaseCorrenteActionPerformed
         String f = this.InversaFaseCorrenteFator.getText();
 
-        if (!f.equals("")) {
+        if (!"".equals(f)) {
             if (this.isEletromecanico()) {
                 String valores = this.inversaFaseCorrenteValores.getText();
 
-                if (!valores.equals("")) {
+                if (!"".equals(valores)) {
                     ArrayList<Double> list = this.separaValores(valores);
                     double fator = Double.parseDouble(f);
 
@@ -2716,7 +2716,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                 String max = this.faseCorrenteMaximo.getText();
                 String pas = this.faseCorrentePasso.getText();
 
-                if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                if (!"".equals(min) && !"".equals(max) && !"".equals(pas)) {
                     double minimo = Double.parseDouble(min);
                     double maximo = Double.parseDouble(max);
                     double passo = Double.parseDouble(pas);
@@ -2743,14 +2743,14 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void avancarDefinidaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaFaseActionPerformed
         String f = this.definidaFaseFator.getText();
 
-        if (!f.equals("")) {
+        if (!"".equals(f)) {
             if (this.isEletromecanico()) {
                 String c = this.definidaFaseCorrenteValores.getText();
                 String t_1 = this.definidaFaseTempoLenta.getText();
                 String t_2 = this.definidaFaseTempoRapida.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!c.equals("") && !t_1.equals("") && !t_2.equals("")) {
+                if (!"".equals(c) && !"".equals(t_1) && !"".equals(t_2)) {
                     this.newReligador.setFatorInicio(fator, Religador.DEFINIDO_FASE);
                     ArrayList<Double> lista_corrente = this.separaValores(c);
                     ArrayList<Double> tempoLento = this.separaValores(t_1);
@@ -2778,9 +2778,9 @@ public class GUI_Religador extends javax.swing.JFrame {
 
                 double fator = Double.parseDouble(f);
 
-                if ((!minimo_corrente.equals("") && !maximo_corrente.equals("") && !passo_corrente.equals(""))
-                    && (!minimo_tempoLento.equals("") && !maximo_tempoLento.equals("") && !passo_tempoLento.equals(""))
-                    && (!minimo_tempoRapido.equals("") && !maximo_tempoRapido.equals("") && !passo_tempoRapido.equals(""))) {
+                if ((!"".equals(minimo_corrente) && !"".equals(maximo_corrente) && !"".equals(passo_corrente))
+                    && (!"".equals(minimo_tempoLento) && !"".equals(maximo_tempoLento) && !"".equals(passo_tempoLento))
+                    && (!"".equals(minimo_tempoRapido) && !"".equals(maximo_tempoRapido) && !"".equals(passo_tempoRapido))) {
 
                     double min_c = Double.parseDouble(minimo_corrente);
                     double max_c = Double.parseDouble(maximo_corrente);
@@ -2836,7 +2836,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                 String t_2 = this.definidaNeutroTempoRapida.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!c.equals("") && !t_1.equals("") && !t_2.equals("")) {
+                if (!"".equals(c) && !"".equals(t_1) && !"".equals(t_2)) {
                     List<Double> lista_corrente = this.separaValores(c);
                     List<Double> lista_tempoLenta = this.separaValores(t_1);
                     List<Double> lista_tempoRapida = this.separaValores(t_2);
@@ -2875,9 +2875,9 @@ public class GUI_Religador extends javax.swing.JFrame {
 
                 double fator = Double.parseDouble(f);
 
-                if (!minimo_corrente.equals("") && !maximo_corrente.equals("") && !passo_corrente.equals("")
-                        && !minimo_tempoLento.equals("") && !maximo_tempoLento.equals("") && !passo_tempoLento.equals("")
-                        && !minimo_tempoRapido.equals("") && !maximo_tempoRapido.equals("") && !passo_tempoRapido.equals("")) {
+                if (!"".equals(minimo_corrente) && !"".equals(maximo_corrente) && !"".equals(passo_corrente)
+                        && !"".equals(minimo_tempoLento) && !"".equals(maximo_tempoLento) && !"".equals(passo_tempoLento)
+                        && !"".equals(minimo_tempoRapido) && !"".equals(maximo_tempoRapido) && !"".equals(passo_tempoRapido)) {
 
                     double min_c = Double.parseDouble(minimo_corrente);
                     double max_c = Double.parseDouble(maximo_corrente);
@@ -2972,12 +2972,12 @@ public class GUI_Religador extends javax.swing.JFrame {
     private void avancarInversaNeutroCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaNeutroCorrenteActionPerformed
         String f = this.inversaNeutroCorrenteFator.getText();
 
-        if (!f.equals("")) {
+        if (!"".equals(f)) {
             if (this.isEletromecanico()) {
                 String v = this.inversaNeutroCorrenteValores.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!v.equals("")) {
+                if (!"".equals(v)) {
                     this.newReligador.setFatorInicio(fator, Religador.INVERSA_NEUTRO);
                     List<Double> lista = this.separaValores(v);
 
@@ -2993,7 +2993,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                 String pas = this.neutroCorrentePasso.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!min.equals("") && !max.equals("") && !pas.equals("")) {
+                if (!"".equals(min) && !"".equals(max) && !"".equals(pas)) {
                     double minimo = Double.parseDouble(this.neutroCorrenteMinimo.getText());
                     double maximo = Double.parseDouble(this.neutroCorrenteMaximo.getText());
                     double passo = Double.parseDouble(this.neutroCorrentePasso.getText());
