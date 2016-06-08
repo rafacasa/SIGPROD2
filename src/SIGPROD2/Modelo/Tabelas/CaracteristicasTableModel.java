@@ -106,6 +106,8 @@ public class CaracteristicasTableModel extends DefaultTableModel {
                 case 3:
                     c.setP(Double.valueOf(valor));
                     break;
+                default:
+                    break;
             }
             fireTableCellUpdated(row, col);
         } catch (NumberFormatException ex) {
