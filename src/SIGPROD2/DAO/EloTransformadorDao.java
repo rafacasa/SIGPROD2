@@ -1,12 +1,12 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.EloTransformadorMonoBD;
-import SIGPROD2.BD.Tables.EloTransformadorTriBD;
-import SIGPROD2.BD.Tables.KvMonoBD;
-import SIGPROD2.BD.Tables.KvTriBD;
-import SIGPROD2.BD.Tables.PotenciaMonoBD;
-import SIGPROD2.BD.Tables.PotenciaTriBD;
+import SIGPROD2.BD.Tables.EloTransformador.EloTransformadorMonoBD;
+import SIGPROD2.BD.Tables.EloTransformador.EloTransformadorTriBD;
+import SIGPROD2.BD.Tables.EloTransformador.KvMonoBD;
+import SIGPROD2.BD.Tables.EloTransformador.KvTriBD;
+import SIGPROD2.BD.Tables.EloTransformador.PotenciaMonoBD;
+import SIGPROD2.BD.Tables.EloTransformador.PotenciaTriBD;
 import SIGPROD2.Modelo.Posicao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

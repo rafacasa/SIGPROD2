@@ -1,7 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.CorrenteTempoDigitalBD;
+import SIGPROD2.BD.Tables.Rele.CorrenteTempoDigitalBD;
 import static SIGPROD2.DAO.CaracteristicasCurvaDao.insereCaracteristicasCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;

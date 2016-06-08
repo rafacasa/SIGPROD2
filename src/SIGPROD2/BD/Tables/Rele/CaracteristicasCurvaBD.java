@@ -1,4 +1,4 @@
-package SIGPROD2.BD.Tables;
+package SIGPROD2.BD.Tables.Rele;
 
 /**
  * Classe responsável por manter os nomes das colunas e da tabela de
@@ -16,5 +16,5 @@ public class CaracteristicasCurvaBD {
     public static String CODIGO_RELE = "codigoRele";
     public static String IS_FASE = "isFase";
     public static String ID = "id";
-    public static String TABELA = "CaracteristicasCurva";
+    public static String TABELA = "CaracteristicasCurvaRele";
 }

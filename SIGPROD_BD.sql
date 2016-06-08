@@ -74,7 +74,7 @@ CREATE TABLE Rele (
 	fatorInicioDefNeutro DOUBLE
 ) ENGINE = innodb;
 
-CREATE TABLE CorrentePickupDefinidoEletromecanico (
+CREATE TABLE CorrentePickupDefinidoEletromecanicoRele (
 	codigoRele INT,
 	correntePickup DOUBLE,
 	isFase BOOLEAN,
@@ -82,7 +82,7 @@ CREATE TABLE CorrentePickupDefinidoEletromecanico (
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE TempoAtuacaoDefinidoEletromecanico (
+CREATE TABLE TempoAtuacaoDefinidoEletromecanicoRele (
 	codigoRele INT,
 	tempoAtuacao DOUBLE,
 	isFase BOOLEAN,
@@ -101,7 +101,7 @@ CREATE TABLE PontoCurvaRele (
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE CorrenteTempoDigital (
+CREATE TABLE CorrenteTempoDigitalRele (
 	codigoRele INT,
 	tipo INT,
 	correnteMinino DOUBLE,
@@ -114,7 +114,7 @@ CREATE TABLE CorrenteTempoDigital (
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
 ) ENGINE = innodb;
 
-CREATE TABLE CaracteristicasCurva (
+CREATE TABLE CaracteristicasCurvaRele (
 	codigoRele INT,
 	isFase BOOLEAN,
 	nome VARCHAR(50),
@@ -123,4 +123,76 @@ CREATE TABLE CaracteristicasCurva (
 	p DOUBLE,
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	FOREIGN KEY (codigoRele) REFERENCES Rele(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE Religador (
+	codigo INT PRIMARY KEY,
+	fabricante VARCHAR(50),
+	modelo VARCHAR(50),
+	isDigital BOOLEAN,
+	existeDefinidaFase BOOLEAN NOT NULL,
+	existeDefinidaNeutro BOOLEAN NOT NULL,
+	existeInversaFase BOOLEAN NOT NULL,
+	existeInversaNeutro BOOLEAN NOT NULL,
+	fatorInicioInvFase DOUBLE,
+	fatorInicioInvNeutro DOUBLE,
+	fatorInicioDefFase DOUBLE,
+	fatorInicioDefNeutro DOUBLE
+) ENGINE = innodb;
+
+CREATE TABLE CorrentePickupDefinidoEletromecanicoReligador (
+	codigoReligador INT,
+	correntePickup DOUBLE,
+	isFase BOOLEAN,
+	PRIMARY KEY (codigoReligador, isFase, correntePickup),
+	FOREIGN KEY (codigoReligador) REFERENCES Religador(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE TempoAtuacaoDefinidoEletromecanicoReligador (
+	codigoReligador INT,
+	tempoAtuacao DOUBLE,
+	isFase BOOLEAN,
+	isRapida BOOLEAN,
+	PRIMARY KEY (codigoReligador, isFase, tempoAtuacao, isRapida),
+	FOREIGN KEY (codigoReligador) REFERENCES Religador(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE PontoCurvaReligador (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    corrente DOUBLE,
+	tempo DOUBLE,
+	correntePickup DOUBLE,
+	isFase BOOLEAN,
+	isRapida BOOLEAN,
+	dial DOUBLE,
+	codigoReligador INT,
+	FOREIGN KEY (codigoReligador) REFERENCES Religador(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE CorrenteTempoDigitalReligador (
+	codigoReligador INT,
+	tipo INT,
+	correnteMinino DOUBLE,
+	correnteMaximo DOUBLE,
+	correntePasso DOUBLE,
+	tempoMaximoRapido DOUBLE, 
+	tempoMinimoRapido DOUBLE,
+	tempoPassoRapido DOUBLE,
+	tempoMaximoLento DOUBLE, 
+	tempoMinimoLento DOUBLE,
+	tempoPassoLento DOUBLE,
+	PRIMARY KEY (codigoReligador, tipo),
+	FOREIGN KEY (codigoReligador) REFERENCES Religador(codigo)
+) ENGINE = innodb;
+
+CREATE TABLE CaracteristicasCurvaReligador (
+	codigoReligador INT,
+	isFase BOOLEAN,
+	isRapida BOOLEAN,
+	nome VARCHAR(50),
+	a DOUBLE,
+	b DOUBLE,
+	p DOUBLE,
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	FOREIGN KEY (codigoReligador) REFERENCES Religador(codigo)
 ) ENGINE = innodb;

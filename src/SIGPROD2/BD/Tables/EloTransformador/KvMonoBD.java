@@ -1,4 +1,4 @@
-package SIGPROD2.BD.Tables;
+package SIGPROD2.BD.Tables.EloTransformador;
 
 /**
  * Classe responsável por manter os nomes das colunas e da tabela de Kv de Elos
@@ -7,9 +7,9 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 23/03/2016
  */
-public class KvTriBD {
+public class KvMonoBD {
 
     public static String ID_KV = "id";
     public static String KV = "kv";
-    public static String TABELA = "kvTri";
+    public static String TABELA = "kvMono";
 }

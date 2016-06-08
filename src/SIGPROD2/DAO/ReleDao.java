@@ -2,7 +2,7 @@ package SIGPROD2.DAO;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.ReleBD;
+import SIGPROD2.BD.Tables.Rele.ReleBD;
 import static SIGPROD2.DAO.ReleDigitalDao.*;
 import static SIGPROD2.DAO.ReleEletromecanicoDao.*;
 import SIGPROD2.Modelo.Rele;

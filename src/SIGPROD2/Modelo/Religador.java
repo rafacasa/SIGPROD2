@@ -35,4 +35,8 @@ public interface Religador {
     int getCodigo();
 
     void setCodigo(int codigo);
+    
+    boolean existeCurva(int codigo);
+
+    void setExisteCurva(int codigo, boolean existeCurva);
 }
