@@ -81,13 +81,12 @@ public class ReleDao {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(GET_CODIGO);
         ResultSet resultado = comando.executeQuery();
-        while(resultado.next())
-        {
+        if (resultado.next()) {
             return (resultado.getInt("max( " + ReleBD.CODIGO + " )")) + 1;
         }
         return 0;
     }
-    
+
     public static List<Rele> buscarReles() throws SQLException {
         Rele releRecuperado;
         List<Rele> lista = new ArrayList<>();

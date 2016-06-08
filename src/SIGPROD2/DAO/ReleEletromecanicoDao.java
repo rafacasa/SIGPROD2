@@ -109,10 +109,10 @@ public class ReleEletromecanicoDao {
 
     private static ReleEletromecanico buscarTempos(ReleEletromecanico rele) throws SQLException {
         if (rele.existeCurva(DEFINIDO_FASE)) {
-            rele = buscarTempos(rele, true);
+            buscarTempos(rele, true);
         }
         if (rele.existeCurva(DEFINIDO_NEUTRO)) {
-            rele = buscarTempos(rele, false);
+            buscarTempos(rele, false);
         }
         return rele;
     }
@@ -138,10 +138,10 @@ public class ReleEletromecanicoDao {
 
     private static ReleEletromecanico buscarCorrentes(ReleEletromecanico rele) throws SQLException {
         if (rele.existeCurva(DEFINIDO_FASE)) {
-            rele = buscarCorrentes(rele, true);
+            buscarCorrentes(rele, true);
         }
         if (rele.existeCurva(DEFINIDO_NEUTRO)) {
-            rele = buscarCorrentes(rele, false);
+            buscarCorrentes(rele, false);
         }
         return rele;
     }

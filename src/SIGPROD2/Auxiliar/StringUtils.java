@@ -54,11 +54,7 @@ public class StringUtils {
     }
     
     public static boolean verificaExpressao(double min, double max, double pas) {
-        if (min < max && (max - min) >= pas) {
-            return true;
-        } else {
-            return false;
-        }
+        return min < max && (max - min) >= pas;
     }
 
     public static void main(String[] args) {

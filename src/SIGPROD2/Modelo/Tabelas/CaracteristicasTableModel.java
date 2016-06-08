@@ -69,6 +69,8 @@ public class CaracteristicasTableModel extends DefaultTableModel {
                         return c.getB();
                     case 3:
                         return c.getP();
+                    default:
+                        break;
                 }
             }
         }

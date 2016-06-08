@@ -19,7 +19,7 @@ import javax.swing.table.TableRowSorter;
 public class PontoCurvaRowSorter extends TableRowSorter<PontoCurvaTableModel> {
 
     private static int cont;// gambiarra para contar os cliques para ordenar
-    PontoCurvaTableModel model;// para pegar a referência model para usar no método de ordenação
+    private PontoCurvaTableModel model;// para pegar a referência model para usar no método de ordenação
 
     public PontoCurvaRowSorter(PontoCurvaTableModel model) {
         super(model);

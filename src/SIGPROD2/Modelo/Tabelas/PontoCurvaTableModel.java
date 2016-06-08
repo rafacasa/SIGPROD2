@@ -74,6 +74,8 @@ public class PontoCurvaTableModel extends DefaultTableModel {
                         return a.getCorrente();
                     case 1:
                         return a.getTempo();
+                    default:
+                        break;
                 }
             }
         }
@@ -109,6 +111,9 @@ public class PontoCurvaTableModel extends DefaultTableModel {
                     break;
                 case 1:
                     a.setTempo(valor);
+                    break;
+                default:
+                    break;
             }
             fireTableCellUpdated(row, col);
         } catch (Exception ex) {
