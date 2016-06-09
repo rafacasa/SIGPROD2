@@ -72,7 +72,7 @@ public class ReligadorDao {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(GET_CODIGO);
         ResultSet resultado = comando.executeQuery();
-        while (resultado.next()) {
+        if (resultado.next()) {
             return (resultado.getInt("max( " + ReligadorBD.CODIGO + " )")) + 1;
         }
         return 0;

@@ -130,13 +130,13 @@ public class ReleEletromecanico implements Rele {
     }
 
     public void addTempoDeAtuacao(ArrayList<Double> tempo, int tipo) {
-        tipo = tipo - 2;
-        this.tempo.add(tipo, tempo);
+        int temp = tipo - 2;
+        this.tempo.add(temp, tempo);
     }
 
     public ArrayList<Double> getTempoDeAtuacao(int tipo) {
-        tipo = tipo - 2;
-        return this.tempo.get(tipo);
+        int temp = tipo - 2;
+        return this.tempo.get(temp);
     }
 
     @Override

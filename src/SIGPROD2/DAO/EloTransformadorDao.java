@@ -138,10 +138,11 @@ public class EloTransformadorDao {
      * @return O comando sql montado e pronto para ser usado.
      */
     private static String montarComandoSql(String comandoSql, String variaveis, int tamanho) {
+        String s = comandoSql;
         for (int i = 1; i < tamanho; i++) {
-            comandoSql += variaveis;
+            s += variaveis;
         }
-        return comandoSql;
+        return s;
     }
 
     /**

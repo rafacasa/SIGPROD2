@@ -120,7 +120,7 @@ public class Arquivo {
         return (new File(getNome()).isDirectory());
     }
 
-    void apagaArquivosDiretorio() {
+    public void apagaArquivosDiretorio() {
         if (ehDiretorio()) {
             File arquivos[] = new File(getNome()).listFiles();
 

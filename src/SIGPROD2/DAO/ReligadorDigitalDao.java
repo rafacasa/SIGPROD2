@@ -103,10 +103,10 @@ public class ReligadorDigitalDao {
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
         for (int i = 0; i < qtd * 7; i += 7) {
-            comando.setInt(qtd + 1, religadorParaInserir.getCodigo());
-            comando.setBoolean(qtd + 2, isFase);
-            comando.setBoolean(qtd + 3, isRapida);
-            comando.setString(qtd + 4, listaParaInserir.get(i / 7).getNome());
+            comando.setInt(i + 1, religadorParaInserir.getCodigo());
+            comando.setBoolean(i + 2, isFase);
+            comando.setBoolean(i + 3, isRapida);
+            comando.setString(i + 4, listaParaInserir.get(i / 7).getNome());
             comando.setDouble(i + 5, listaParaInserir.get(i / 7).getA());
             comando.setDouble(i + 6, listaParaInserir.get(i / 7).getB());
             comando.setDouble(i + 7, listaParaInserir.get(i / 7).getP());

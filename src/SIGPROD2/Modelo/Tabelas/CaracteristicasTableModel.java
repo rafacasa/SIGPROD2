@@ -69,6 +69,8 @@ public class CaracteristicasTableModel extends DefaultTableModel {
                         return c.getB();
                     case 3:
                         return c.getP();
+                    default:
+                        break;
                 }
             }
         }
@@ -103,6 +105,8 @@ public class CaracteristicasTableModel extends DefaultTableModel {
                     break;
                 case 3:
                     c.setP(Double.valueOf(valor));
+                    break;
+                default:
                     break;
             }
             fireTableCellUpdated(row, col);
