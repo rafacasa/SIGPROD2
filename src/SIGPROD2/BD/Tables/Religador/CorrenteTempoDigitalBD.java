@@ -16,7 +16,7 @@ public class CorrenteTempoDigitalBD {
     public static String TEMPO_MAXIMO_LENTA = "tempoMaximoLento";
     public static String TEMPO_MINIMO_LENTA = "tempoMinimoLento";
     public static String TEMPO_PASSO_LENTA = "tempoPassoLento";
-    public static String TEMPO_MAXIMO_RAPIDA = "tempoMaximoLento";
+    public static String TEMPO_MAXIMO_RAPIDA = "tempoMaximoRapido";
     public static String TEMPO_MINIMO_RAPIDA = "tempoMinimoRapido";
     public static String TEMPO_PASSO_RAPIDA = "tempoPassoRapido";
     public static String TIPO = "tipo";

@@ -59,7 +59,13 @@ public class StringUtils {
 
     public static void main(String[] args) {
         
-        System.out.println(verificaExpressao(1, 3, 2));
+        //System.out.println(verificaExpressao(1, 3, 2));
+        String s, r;
+        s = null;
+        r = "....";
+        
+        //System.out.println(s.equals("-"));
+        System.out.println("-".equals(s));
         
     }
 }

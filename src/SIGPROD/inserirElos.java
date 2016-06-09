@@ -31,12 +31,14 @@ public class inserirElos {
                 ex.printStackTrace();
             }
         });
-        /*List<Double> lista = Arrays.asList(0.0, 0.0, 0.0, 0.0);
-        lista.set(0, 1.1);
-        lista.set(1, 2.2);
-        lista.set(2, 3.3);
-        lista.set(3, 4.4);
-        lista.add(5.5);
-        lista.forEach(d -> System.out.println(d));*/
+
+        /*Arquivo arq = new Arquivo("Gson.ini");
+        String s = arq.lerArquivo();
+        
+        try {
+        SIGPROD2.DAO.ReligadorDao.insereReligador(json.fromJson(s, SIGPROD2.Modelo.ReligadorDigital.class));
+        } catch (SQLException ex) {
+        ex.printStackTrace();
+        }*/
     }
 }

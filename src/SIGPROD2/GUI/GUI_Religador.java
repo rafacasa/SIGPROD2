@@ -1,9 +1,9 @@
 package SIGPROD2.GUI;
 
-import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Perguntas;
 import SIGPROD2.Auxiliar.StringUtils;
+import SIGPROD2.DAO.ReligadorDao;
 import SIGPROD2.Modelo.CaracteristicasCurva;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Religador;
@@ -11,8 +11,8 @@ import SIGPROD2.Modelo.ReligadorDigital;
 import SIGPROD2.Modelo.ReligadorEletromecanico;
 import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
-import com.google.gson.Gson;
 import java.awt.CardLayout;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -2779,8 +2779,8 @@ public class GUI_Religador extends javax.swing.JFrame {
                 double fator = Double.parseDouble(f);
 
                 if ((!"".equals(minimo_corrente) && !"".equals(maximo_corrente) && !"".equals(passo_corrente))
-                    && (!"".equals(minimo_tempoLento) && !"".equals(maximo_tempoLento) && !"".equals(passo_tempoLento))
-                    && (!"".equals(minimo_tempoRapido) && !"".equals(maximo_tempoRapido) && !"".equals(passo_tempoRapido))) {
+                        && (!"".equals(minimo_tempoLento) && !"".equals(maximo_tempoLento) && !"".equals(passo_tempoLento))
+                        && (!"".equals(minimo_tempoRapido) && !"".equals(maximo_tempoRapido) && !"".equals(passo_tempoRapido))) {
 
                     double min_c = Double.parseDouble(minimo_corrente);
                     double max_c = Double.parseDouble(maximo_corrente);
@@ -2840,22 +2840,17 @@ public class GUI_Religador extends javax.swing.JFrame {
                     List<Double> lista_corrente = this.separaValores(c);
                     List<Double> lista_tempoLenta = this.separaValores(t_1);
                     List<Double> lista_tempoRapida = this.separaValores(t_2);
-                    
+
                     this.newReligador.setFatorInicio(fator, Religador.DEFINIDO_NEUTRO);
                     ((ReligadorEletromecanico) this.newReligador).addCorrentePickup(lista_corrente, Religador.DEFINIDO_NEUTRO);
-                    ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoLenta,  false);
+                    ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoLenta, false);
                     ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoRapida, true);
 
-                    Gson g = new Gson();
-                    Arquivo a = new Arquivo("Gson.ini");
-                    String s = g.toJson(this.newReligador);
-                    a.escreverArquivo(s);
-                    /*try {
-                     ReligadorDao.insereReligador(this.newReligador);
-                     } catch (SQLException ex) {
-                     Erro.mostraMensagemSQL(this);
-                     ex.printStackTrace();
-                     }*/
+                    try {
+                        ReligadorDao.insereReligador(this.newReligador);
+                    } catch (SQLException ex) {
+                        Erro.mostraMensagemSQL(this);
+                    }
 
                 } else {
                     Erro.camposVazios(this);
@@ -2903,7 +2898,11 @@ public class GUI_Religador extends javax.swing.JFrame {
 
                         ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.DEFINIDO_NEUTRO, min_tr, max_tr, pas_tr, true);
 
-                        this.avancarTela();
+                        try {
+                            ReligadorDao.insereReligador(this.newReligador);
+                        } catch (SQLException ex) {
+                            Erro.mostraMensagemSQL(this);
+                        }
                     } else {
                         Erro.expressaoInvalida(this);
                     }
@@ -3271,7 +3270,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             double dial = Double.parseDouble(d);
             List<PontoCurva> pontos = this.modeloNeutroCriaDialRapido.getArrayList();
             List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, true, corrente);
-            
+
             if (valores.isEmpty() || valores.indexOf(dial) == -1) {
                 ((ReligadorEletromecanico) this.newReligador).addDialDeTempo(Religador.INVERSA_NEUTRO, true, corrente, dial, (ArrayList<PontoCurva>) pontos);
                 this.neutroCurvaRapidaDial.setText("");
@@ -3284,7 +3283,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             Erro.camposVazios(this);
         }
     }
-    
+
     private void neutroCurvaRapidaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRapidaDialExistenteActionPerformed
         try {
             carregarNeutroPontosDeDialRapido();
@@ -3311,7 +3310,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             this.modeloNeutroExistenteDialRapido.fireTableDataChanged();
         }
     }
-    
+
     private void neutroCurvaRapidaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRapidaCorrenteExistenteActionPerformed
         try {
             carregarNeutroDialCadastradoEmCorrenteRapida();
@@ -3336,7 +3335,7 @@ public class GUI_Religador extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void avancarNeutroCurvaRapidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurvaRapidaActionPerformed
         if (!this.isEletromecanico()) {
             String minimo = this.neutroCurvaRapidaMinimo.getText();
@@ -3541,17 +3540,21 @@ public class GUI_Religador extends javax.swing.JFrame {
     }//GEN-LAST:event_neutroMinimoLentoActionPerformed
 
     private void configurarPaineis() {
-        boolean faseTemporizada = this.curvaInversaFase.isSelected();
-        boolean faseInstantanea = this.curvaTempoFase.isSelected();
-        boolean neutroTemporizada = this.curvaInversaNeutro.isSelected();
-        boolean neutroInstantanea = this.curvaTempoNeutro.isSelected();
+        boolean faseInversa = this.curvaInversaFase.isSelected();
+        boolean faseDefinida = this.curvaTempoFase.isSelected();
+        boolean neutroInversa = this.curvaInversaNeutro.isSelected();
+        boolean neutroDefinida = this.curvaTempoNeutro.isSelected();
         this.paineis = new boolean[5];
 
+        this.newReligador.setExisteCurva(Religador.INVERSA_FASE, faseInversa);
+        this.newReligador.setExisteCurva(Religador.INVERSA_NEUTRO, neutroInversa);
+        this.newReligador.setExisteCurva(Religador.DEFINIDO_FASE, faseDefinida);
+        this.newReligador.setExisteCurva(Religador.DEFINIDO_NEUTRO, neutroDefinida);
         this.paineis[0] = true;
-        this.paineis[1] = faseTemporizada;
-        this.paineis[2] = faseInstantanea;
-        this.paineis[3] = neutroTemporizada;
-        this.paineis[4] = neutroInstantanea;
+        this.paineis[1] = faseInversa;
+        this.paineis[2] = faseDefinida;
+        this.paineis[3] = neutroInversa;
+        this.paineis[4] = neutroDefinida;
     }
 
     private void desabilitarPaineis(int selecionado) {

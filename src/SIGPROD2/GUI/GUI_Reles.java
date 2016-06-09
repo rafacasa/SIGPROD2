@@ -2130,7 +2130,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_definidaNeutroCorrenteValoresActionPerformed
 
     private void faseCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaSalvarActionPerformed
-        salvarFaseDialCadastradoComPontos();
+        this.salvarFaseDialCadastradoComPontos();
         this.limparCamposfaseCurvaSalvar();
         this.faseCurvaCorrenteExistenteActionPerformed(evt);
         this.faseCurvaDialExistenteActionPerformed(evt);
