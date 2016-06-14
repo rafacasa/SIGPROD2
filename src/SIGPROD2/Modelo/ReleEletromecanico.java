@@ -1,6 +1,7 @@
 package SIGPROD2.Modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -103,6 +104,22 @@ public class ReleEletromecanico implements Rele {
             dial.add(d.getDial());
         }
         return dial;
+    }
+
+    public DialDeTempoMecanico getDial(int tipo, double corrente, double dial) {
+        List<DialDeTempoMecanico> dt;
+        if (tipo == Rele.INVERSA_FASE) {
+            dt = this.mapaFasePickupTempo.get(corrente);
+        } else {
+            dt = this.mapaNeutroPickupTempo.get(corrente);
+        }
+
+        for (DialDeTempoMecanico d : dt) {
+            if (d.getDial() == dial) {
+                return d;
+            }
+        }
+        return null;
     }
 
     public ArrayList<PontoCurva> getPontosDialDeTempo(double corrente, double dial, int tipo) {

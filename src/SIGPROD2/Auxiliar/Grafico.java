@@ -6,6 +6,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -181,6 +182,26 @@ public class Grafico {
      */
     public static JFrame criarGrafico(Curvas curvas) {
         JFrame janela = new JFrame(curvas.getTitulo());
+        XYDataset dados = getDataSet(curvas);
+        JFreeChart grafico = ChartFactory.createXYLineChart(curvas.getTitulo(),
+                "Corrente (A)",
+                "Tempo (s)",
+                dados,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false);
+        XYPlot plot = grafico.getXYPlot();
+
+        configurarPlot(plot, curvas);
+        janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        janela.setContentPane(new ChartPanel(grafico));
+        janela.pack();
+        return janela;
+    }
+
+    public static JDialog criarGrafico(Curvas curvas, JFrame parent) {
+        JDialog janela = new JDialog(parent, curvas.getTitulo(), true);
         XYDataset dados = getDataSet(curvas);
         JFreeChart grafico = ChartFactory.createXYLineChart(curvas.getTitulo(),
                 "Corrente (A)",

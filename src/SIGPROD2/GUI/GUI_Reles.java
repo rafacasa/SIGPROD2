@@ -1,8 +1,10 @@
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.Auxiliar.Perguntas;
 import SIGPROD2.Modelo.CaracteristicasCurva;
+import SIGPROD2.Modelo.DialDeTempoMecanico;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleDigital;
@@ -509,6 +511,11 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         faseCurvaGrafico.setText("Gráfico");
         faseCurvaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
+        faseCurvaGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                faseCurvaGraficoActionPerformed(evt);
+            }
+        });
 
         faseCurvaRemovePrimeira.setText("-");
         faseCurvaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
@@ -1076,6 +1083,11 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         neutroCurvaGrafico.setText("Gráfico");
         neutroCurvaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
+        neutroCurvaGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                neutroCurvaGraficoActionPerformed(evt);
+            }
+        });
 
         neutroCurvaRemovePrimeira.setText("-");
         neutroCurvaRemovePrimeira.setPreferredSize(new java.awt.Dimension(44, 26));
@@ -2313,6 +2325,30 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void neutroCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaCorrenteExistenteActionPerformed
         carregarNeutroDialCadastradoEmCorrente();
     }//GEN-LAST:event_neutroCurvaCorrenteExistenteActionPerformed
+
+    private void faseCurvaGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaGraficoActionPerformed
+        String c = String.valueOf(this.faseCurvaCorrenteCadastro.getSelectedItem());
+        String d = this.faseCurvaDial.getText();
+
+        if (!"".equals(c) && !"".equals(d)) {
+            double dial = Double.parseDouble(d);
+            ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
+            DialDeTempoMecanico dialTempo = new DialDeTempoMecanico(dial, pontos);
+            Grafico.criarGrafico(dialTempo).setVisible(true);
+        }
+    }//GEN-LAST:event_faseCurvaGraficoActionPerformed
+
+    private void neutroCurvaGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaGraficoActionPerformed
+        String c = String.valueOf(this.neutroCurvaCorrenteCadastro.getSelectedItem());
+        String d = this.neutroCurvaDial.getText();
+
+        if (!"".equals(c) && !"".equals(d)) {
+            double dial = Double.parseDouble(d);
+            ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
+            DialDeTempoMecanico dialTempo = new DialDeTempoMecanico(dial, pontos);
+            Grafico.criarGrafico(dialTempo).setVisible(true);
+        }
+    }//GEN-LAST:event_neutroCurvaGraficoActionPerformed
 
     private void configurePanels() {
         boolean faseInversa = this.curvaInversaFase.isSelected();
