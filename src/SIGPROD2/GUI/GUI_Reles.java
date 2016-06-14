@@ -2334,7 +2334,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             double dial = Double.parseDouble(d);
             ArrayList<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
             DialDeTempoMecanico dialTempo = new DialDeTempoMecanico(dial, pontos);
-            Grafico.criarGrafico(dialTempo).setVisible(true);
+            Grafico.criarGrafico(dialTempo, this).setVisible(true);
         }
     }//GEN-LAST:event_faseCurvaGraficoActionPerformed
 
@@ -2346,7 +2346,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             double dial = Double.parseDouble(d);
             ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
             DialDeTempoMecanico dialTempo = new DialDeTempoMecanico(dial, pontos);
-            Grafico.criarGrafico(dialTempo).setVisible(true);
+            Grafico.criarGrafico(dialTempo, this).setVisible(true);
         }
     }//GEN-LAST:event_neutroCurvaGraficoActionPerformed
 

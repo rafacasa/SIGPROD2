@@ -4,6 +4,8 @@ import SIGPROD2.Modelo.Curvas;
 import SIGPROD2.Modelo.PontoCurva;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.Frame;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JDialog;
@@ -25,7 +27,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @see org.jfree.chart.JFreeChart
  * @author Rafael Casa
- * @version 05/04/2016
+ * @version 14/06/2016
  */
 public class Grafico {
 
@@ -180,8 +182,7 @@ public class Grafico {
      * {@link SIGPROD2.Modelo.Curvas} do qual será criado o gráfico.
      * @return Uma janela {@link javax.swing.JFrame} com o gráfico criado.
      */
-    public static JFrame criarGrafico(Curvas curvas) {
-        JFrame janela = new JFrame(curvas.getTitulo());
+    private static JDialog criarGrafico(Curvas curvas, JDialog janela) {
         XYDataset dados = getDataSet(curvas);
         JFreeChart grafico = ChartFactory.createXYLineChart(curvas.getTitulo(),
                 "Corrente (A)",
@@ -200,23 +201,29 @@ public class Grafico {
         return janela;
     }
 
-    public static JDialog criarGrafico(Curvas curvas, JFrame parent) {
+    /**
+     * Método responsável por criar um Gráfico.
+     *
+     * @param curvas Um objeto de uma implementação de
+     * {@link SIGPROD2.Modelo.Curvas} do qual será criado o gráfico.
+     * @param parent Dialog pai
+     * @return Uma janela {@link javax.swing.JFrame} com o gráfico criado.
+     */
+    public static JDialog criarGrafico(Curvas curvas, Dialog parent) {
         JDialog janela = new JDialog(parent, curvas.getTitulo(), true);
-        XYDataset dados = getDataSet(curvas);
-        JFreeChart grafico = ChartFactory.createXYLineChart(curvas.getTitulo(),
-                "Corrente (A)",
-                "Tempo (s)",
-                dados,
-                PlotOrientation.VERTICAL,
-                true,
-                false,
-                false);
-        XYPlot plot = grafico.getXYPlot();
+        return criarGrafico(curvas, janela);
+    }
 
-        configurarPlot(plot, curvas);
-        janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        janela.setContentPane(new ChartPanel(grafico));
-        janela.pack();
-        return janela;
+    /**
+     * Método responsável por criar um Gráfico.
+     *
+     * @param curvas Um objeto de uma implementação de
+     * {@link SIGPROD2.Modelo.Curvas} do qual será criado o gráfico.
+     * @param parent Frame Pai
+     * @return Uma janela {@link javax.swing.JFrame} com o gráfico criado.
+     */
+    public static JDialog criarGrafico(Curvas curvas, Frame parent) {
+        JDialog janela = new JDialog(parent, curvas.getTitulo(), true);
+        return criarGrafico(curvas, janela);
     }
 }

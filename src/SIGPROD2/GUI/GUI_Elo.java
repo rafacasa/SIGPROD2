@@ -876,21 +876,21 @@ public class GUI_Elo extends javax.swing.JFrame {
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
         if (!"".equals(this.correnteNominal.getText())) {
             try {
-                if(this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0){
-                this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
-                preferencial.isSelected(),
-                this.modeloMinimo.getArrayList(),
-                this.modeloMaximo.getArrayList());
-                EloKDao.insereEloK(novoElo);
-                this.listaCorrentes.addItem(novoElo);
-                Mensagem.mostraMensagemInsercao(this, novoElo.getCorrenteNominal());
-                this.limparCampos(true);
-                }else{
+                if (this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0) {
+                    this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                            preferencial.isSelected(),
+                            this.modeloMinimo.getArrayList(),
+                            this.modeloMaximo.getArrayList());
+                    EloKDao.insereEloK(novoElo);
+                    this.listaCorrentes.addItem(novoElo);
+                    Mensagem.mostraMensagemInsercao(this, novoElo.getCorrenteNominal());
+                    this.limparCampos(true);
+                } else {
                     Erro.valoresVazios(this);
                 }
             } catch (SQLException ex) {
                 Erro.correnteExistente(this);
-            } catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 Erro.entradaInvalida(this);
             }
         } else {
@@ -1128,7 +1128,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                     preferencial.isSelected(),
                     this.modeloMinimo.getArrayList(),
                     this.modeloMaximo.getArrayList());
-            Grafico.criarGrafico(elo).setVisible(true);
+            Grafico.criarGrafico(elo, this).setVisible(true);
         } else {
             Erro.correnteVazia(this);
         }
@@ -1142,7 +1142,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void botaoGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoActionPerformed
         EloK elo = (EloK) this.listaCorrentes.getSelectedItem();
-        Grafico.criarGrafico(elo).setVisible(true);
+        Grafico.criarGrafico(elo, this).setVisible(true);
     }//GEN-LAST:event_botaoGraficoActionPerformed
 
     /**

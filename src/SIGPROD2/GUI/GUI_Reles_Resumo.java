@@ -22,7 +22,7 @@ import javax.swing.JFrame;
  * @version 25/04/2016
  */
 public class GUI_Reles_Resumo extends javax.swing.JDialog {
-
+    
     private CaracteristicasTableModel modeloFaseCaracteristicas;
     private CaracteristicasTableModel modeloNeutroCaracteristicas;
     private PontoCurvaTableModel modeloFasePontoCurva;
@@ -44,30 +44,30 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         this.configurarCardLayout();
         this.carregarInformacoesRele();
     }
-
+    
     private void configurarTabelas() {
         this.configurarTabelasDigitais();
         this.configurarTabelasEletromecanicas();
     }
-
+    
     private void configurarTabelasDigitais() {
         this.modeloFaseCaracteristicas = new CaracteristicasTableModel();
         this.modeloNeutroCaracteristicas = new CaracteristicasTableModel();
-
+        
         this.tabelaCaracteristicasFase.setModel(this.modeloFaseCaracteristicas);
         this.tabelaCaracteristicasNeutro.setModel(this.modeloNeutroCaracteristicas);
     }
-
+    
     private void configurarTabelasEletromecanicas() {
         this.modeloFasePontoCurva = new PontoCurvaTableModel();
         this.modeloNeutroPontoCurva = new PontoCurvaTableModel();
-
+        
         this.tabelaPontoCurvaFase.setModel(this.modeloFasePontoCurva);
         this.tabelaPontoCurvaNeutro.setModel(this.modeloNeutroPontoCurva);
         this.tabelaPontoCurvaFase.setEnabled(false);
         this.tabelaPontoCurvaNeutro.setEnabled(false);
     }
-
+    
     private void configurarCardLayout() {
         CardLayout card1 = (CardLayout) this.PanelItens.getLayout();
         card1.addLayoutComponent(this.panelDigital, "panelDigital");
@@ -78,7 +78,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             card1.show(this.PanelItens, "panelEletromecanico");
         }
     }
-
+    
     private void carregarInformacoesRele() {
         this.labelFabricante.setText(this.rele.getFabricante());
         this.labelModelo.setText(this.rele.getModelo());
@@ -90,10 +90,10 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             this.carregarInformacoesReleEletromecanico();
         }
     }
-
+    
     private void carregarInformacoesReleDigital() {
         ReleDigital releDigital = (ReleDigital) this.rele;
-
+        
         if (this.rele.existeCurva(Rele.INVERSA_FASE)) {
             this.labelFatorInversaFaseDigital.setText(String.valueOf(this.rele.getFatorInicio(Rele.INVERSA_FASE)));
             this.carregarCorrentePickupDigital(releDigital, Rele.INVERSA_FASE);
@@ -109,7 +109,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             this.carregarCorrentePickupDigital(releDigital, Rele.INVERSA_NEUTRO);
             this.carregarTemposDigital(releDigital, Rele.INVERSA_NEUTRO);
             this.carregaTabelaDigitais(releDigital, Rele.INVERSA_NEUTRO);
-
+            
         } else {
             for (Component c : this.panelInversaNeutroDigital.getComponents()) {
                 c.setEnabled(false);
@@ -119,7 +119,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             this.labelFatorDefinidaFaseDigital.setText(String.valueOf(this.rele.getFatorInicio(Rele.DEFINIDO_FASE)));
             this.carregarCorrentePickupDigital(releDigital, Rele.DEFINIDO_FASE);
             this.carregarTemposDigital(releDigital, Rele.DEFINIDO_FASE);
-
+            
         } else {
             for (Component c : this.panelDefinidaFaseDigital.getComponents()) {
                 c.setEnabled(false);
@@ -135,10 +135,10 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             }
         }
     }
-
+    
     private void carregarInformacoesReleEletromecanico() {
         ReleEletromecanico releMecanico = (ReleEletromecanico) this.rele;
-
+        
         if (this.rele.existeCurva(Rele.INVERSA_FASE)) {
             this.labelFatorInversaFaseMecan.setText(String.valueOf(this.rele.getFatorInicio(Rele.INVERSA_FASE)));
             this.carregarCorrentesInversaEletromecanico(releMecanico, Rele.INVERSA_FASE);
@@ -174,7 +174,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             }
         }
     }
-
+    
     private void carregarCorrentePickupDigital(ReleDigital releDigital, int tipo) {
         switch (tipo) {
             case Rele.INVERSA_FASE:
@@ -201,7 +201,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 break;
         }
     }
-
+    
     private void carregarTemposDigital(ReleDigital releDigital, int tipo) {
         switch (tipo) {
             case Rele.INVERSA_FASE:
@@ -218,12 +218,12 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 break;
         }
     }
-
+    
     private void carregarTemposDeAtuacaoEletromecanico(ReleEletromecanico releMecanico, int tipo) {
         DefaultListModel<Double> modelo;
         if (tipo == Rele.DEFINIDO_FASE) {
             modelo = (DefaultListModel<Double>) this.listaTempoDefinidaFase.getModel();
-
+            
         } else {
             modelo = (DefaultListModel<Double>) this.listaTempoDefinidaNeutro.getModel();
         }
@@ -231,12 +231,12 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             modelo.addElement(corrente);
         });
     }
-
+    
     private void carregarCorrentesDefinidaEletromecanico(ReleEletromecanico releMecanico, int tipo) {
         DefaultListModel<Double> modelo;
         if (tipo == Rele.DEFINIDO_FASE) {
             modelo = (DefaultListModel<Double>) this.listaPickupDefinidaFase.getModel();
-
+            
         } else {
             modelo = (DefaultListModel<Double>) this.listaPickupDefinidaNeutro.getModel();
         }
@@ -244,7 +244,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             modelo.addElement(corrente);
         });
     }
-
+    
     private void carregarCorrentesInversaEletromecanico(ReleEletromecanico releMecanico, int tipo) {
         releMecanico.getCorrentePickup(tipo).forEach(corrente -> {
             if (tipo == Rele.INVERSA_FASE) {
@@ -254,7 +254,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             }
         });
     }
-
+    
     private void carregaTabelaDigitais(ReleDigital releDigital, int tipo) {
         switch (tipo) {
             case Rele.INVERSA_FASE:
@@ -1209,7 +1209,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
     private void listaPickupInversaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaFaseActionPerformed
         double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
         ArrayList<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
-
+        
         this.listaDialInversaFase.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaFase.addItem(dial));
     }//GEN-LAST:event_listaPickupInversaFaseActionPerformed
@@ -1217,7 +1217,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
     private void listaPickupInversaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaNeutroActionPerformed
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
         ArrayList<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
-
+        
         this.listaDialInversaNeutro.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaNeutro.addItem(dial));
     }//GEN-LAST:event_listaPickupInversaNeutroActionPerformed
@@ -1229,7 +1229,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             ArrayList<PontoCurva> listaPontos;
             try {
                 listaPontos = ((ReleEletromecanico) this.rele).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_FASE);
-
+                
                 this.modeloFasePontoCurva.removeTodos();
                 this.modeloFasePontoCurva.add(listaPontos);
                 this.modeloFasePontoCurva.fireTableDataChanged();
@@ -1247,7 +1247,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             ArrayList<PontoCurva> listaPontos;
             try {
                 listaPontos = ((ReleEletromecanico) this.rele).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_NEUTRO);
-
+                
                 this.modeloNeutroPontoCurva.removeTodos();
                 this.modeloNeutroPontoCurva.add(listaPontos);
                 this.modeloNeutroPontoCurva.fireTableDataChanged();
@@ -1283,7 +1283,9 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
     private void botaoGraficoNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoNeutroActionPerformed
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
         double dialTempo = this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex());
-        Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_NEUTRO, corrente, dialTempo)).setVisible(true);
+        this.setModal(false);
+        Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_NEUTRO, corrente, dialTempo), this).setVisible(true);
+        this.setModal(true);
     }//GEN-LAST:event_botaoGraficoNeutroActionPerformed
 
     /**
