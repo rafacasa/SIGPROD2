@@ -196,6 +196,8 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 this.labelPickupMaximoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrenteMax(tipo)));
                 this.labelPickupPassoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrentePasso(tipo)));
                 break;
+            default:
+                break;
         }
     }
 

@@ -1857,7 +1857,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                 String passo = this.faseCorrentePasso.getText();
                 double fator = Double.parseDouble(f);
 
-                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                if (!"".equals(minimo) && !"".equals(maximo) && !"".equals(passo)) {
                     double min = Double.parseDouble(minimo);
                     double max = Double.parseDouble(maximo);
                     double pas = Double.parseDouble(passo);
@@ -2229,7 +2229,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
         String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
 
-        if (str.equals("null") || srt.equals("null")) {
+        if ("null".equals(str) || "null".equals(srt)) {
             this.modeloFaseExistenteDial.removeTodos();
             this.modeloFaseExistenteDial.fireTableDataChanged();
             throw new NullPointerException();

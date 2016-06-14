@@ -14,7 +14,6 @@ import com.sun.glass.events.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.table.TableRowSorter;
 
 /**
  * Classe responsável por gerenciar a Janela de Elos.
@@ -875,7 +874,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      * @param evt O evento ocorrido
      */
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
-        if (!this.correnteNominal.getText().equals("")) {
+        if (!"".equals(this.correnteNominal.getText())) {
             try {
                 if(this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0){
                 this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
@@ -1124,7 +1123,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void botaoGraficoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoInserirActionPerformed
         EloK elo;
-        if (!this.correnteNominal.getText().equals("")) {
+        if (!"".equals(this.correnteNominal.getText())) {
             elo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
                     preferencial.isSelected(),
                     this.modeloMinimo.getArrayList(),
@@ -1197,7 +1196,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     public void setPontosCurvaTabela(PontoCurvaTableModel min, PontoCurvaTableModel max, String[] linhas) {
         for (int i = 0; i < linhas.length; i++) {
-            if (!linhas[i].equals("")) {
+            if (!"".equals(linhas[i])) {
                 String valores[] = linhas[i].split(" ");
                 double corrente = Double.parseDouble(valores[0]);
                 double tempo = Double.parseDouble(valores[1]);
