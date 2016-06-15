@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e
@@ -83,11 +84,12 @@ public class EloKDao {
      * @return ArrayList com os elos encontrados
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados
      */
-    public static ArrayList<EloK> buscarCorrentes() throws SQLException {
-        ArrayList<EloK> lista = new ArrayList<>();
+    public static List<EloK> buscarCorrentes() throws SQLException {
+        List<EloK> lista = new ArrayList<>();
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(BUSCAR);
         ResultSet resultado = comando.executeQuery();
+        
         while (resultado.next()) {
             EloK elo = new EloK();
             elo.setCorrenteNominal(resultado.getInt("correnteNominal"));

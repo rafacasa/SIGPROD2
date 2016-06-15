@@ -13,8 +13,8 @@ import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import com.sun.glass.events.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
-import javax.swing.table.TableRowSorter;
 
 /**
  * Classe responsável por gerenciar a Janela de Elos.
@@ -29,9 +29,7 @@ public class GUI_Elo extends javax.swing.JFrame {
     private PontoCurvaTableModel modeloMinimoCarregar;
     private PontoCurvaTableModel modeloMaximoCarregar;
     private EloK novoElo;
-    private ArrayList<EloK> correntes;
-    private boolean abaCarregarEloSelecionada;
-    private boolean abaElosTransformadorSelecionada;
+    private List<EloK> correntes;
     private GUI_SelecionaArquivo seletor;
 
     /**
@@ -67,6 +65,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void carregarElo() {
         EloK selecionado = (EloK) this.listaCorrentes.getSelectedItem();
+
         if (selecionado != null) {
             try {
                 this.preferencialCarregar.setSelected(selecionado.isPreferencial());
@@ -89,11 +88,12 @@ public class GUI_Elo extends javax.swing.JFrame {
      * Dados forem inválidos
      */
     private void carregarCurvaMinima(EloK selecionado) throws SQLException {
-        ArrayList<PontoCurva> lista;
+        List<PontoCurva> lista;
         lista = PontoCurvaEloDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
                 PontoCurva.PONTO_DA_CURVA_MINIMA);
-        this.modeloMinimoCarregar.add(lista);
-        selecionado.setCurvaDeMinimaFusao(lista);
+
+        this.modeloMinimoCarregar.add((ArrayList<PontoCurva>) lista);
+        selecionado.setCurvaDeMinimaFusao((ArrayList<PontoCurva>) lista);
     }
 
     /**
@@ -105,11 +105,12 @@ public class GUI_Elo extends javax.swing.JFrame {
      * Dados forem inválidos
      */
     private void carregarCurvaMaxima(EloK selecionado) throws SQLException {
-        ArrayList<PontoCurva> lista;
+        List<PontoCurva> lista;
         lista = PontoCurvaEloDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
                 PontoCurva.PONTO_DA_CURVA_MAXIMA);
-        this.modeloMaximoCarregar.add(lista);
-        selecionado.setCurvaDeMaximaInterrupcao(lista);
+
+        this.modeloMaximoCarregar.add((ArrayList<PontoCurva>) lista);
+        selecionado.setCurvaDeMaximaInterrupcao((ArrayList<PontoCurva>) lista);
     }
 
     /**
@@ -816,6 +817,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void arquivoUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoUmActionPerformed
         this.seletor = new GUI_SelecionaArquivo(this, true);
+
         seletor.setVisible(true);
     }//GEN-LAST:event_arquivoUmActionPerformed
 
@@ -827,6 +829,7 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void arquivoDoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoDoisActionPerformed
         GUI_SelecionaArquivo select = new GUI_SelecionaArquivo(this, false);
+
         select.setVisible(true);
     }//GEN-LAST:event_arquivoDoisActionPerformed
 
@@ -875,23 +878,24 @@ public class GUI_Elo extends javax.swing.JFrame {
      * @param evt O evento ocorrido
      */
     private void inserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirActionPerformed
-        if (!this.correnteNominal.getText().equals("")) {
+        if (!"".equals(this.correnteNominal.getText())) {
             try {
-                if(this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0){
-                this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
-                preferencial.isSelected(),
-                this.modeloMinimo.getArrayList(),
-                this.modeloMaximo.getArrayList());
-                EloKDao.insereEloK(novoElo);
-                this.listaCorrentes.addItem(novoElo);
-                Mensagem.mostraMensagemInsercao(this, novoElo.getCorrenteNominal());
-                this.limparCampos(true);
-                }else{
+                if (this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0) {
+                    this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
+                            preferencial.isSelected(),
+                            this.modeloMinimo.getArrayList(),
+                            this.modeloMaximo.getArrayList());
+                    
+                    EloKDao.insereEloK(novoElo);
+                    this.listaCorrentes.addItem(novoElo);
+                    Mensagem.mostraMensagemInsercao(this, novoElo.getCorrenteNominal());
+                    this.limparCampos(true);
+                } else {
                     Erro.valoresVazios(this);
                 }
             } catch (SQLException ex) {
                 Erro.correnteExistente(this);
-            } catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 Erro.entradaInvalida(this);
             }
         } else {
@@ -1032,13 +1036,9 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void tabelaCurvaMinimoCarregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMinimoCarregarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tabelaCurvaMinimoCarregar.getSelectedRow();
+            int linha = tabelaCurvaMinimoCarregar.getSelectedRow();
 
-            if (row != -1) {
-                this.modeloMinimoCarregar.remove(row);
-            } else {
-                Erro.linhaNaoSelecionada(this);
-            }
+            removeLinha(linha, modeloMinimoCarregar);
         }
     }//GEN-LAST:event_tabelaCurvaMinimoCarregarKeyPressed
 
@@ -1050,13 +1050,9 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void tabelaCurvaMaximaCarregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMaximaCarregarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tabelaCurvaMaximaCarregar.getSelectedRow();
+            int linha = tabelaCurvaMaximaCarregar.getSelectedRow();
 
-            if (row != -1) {
-                this.modeloMaximoCarregar.remove(row);
-            } else {
-                Erro.linhaNaoSelecionada(this);
-            }
+            removeLinha(linha, modeloMaximoCarregar);
         }
     }//GEN-LAST:event_tabelaCurvaMaximaCarregarKeyPressed
 
@@ -1068,13 +1064,9 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void tabelaCurvaMinimoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMinimoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tabelaCurvaMinimo.getSelectedRow();
+            int linha = tabelaCurvaMinimo.getSelectedRow();
 
-            if (row != -1) {
-                this.modeloMinimo.remove(row);
-            } else {
-                Erro.linhaNaoSelecionada(this);
-            }
+            removeLinha(linha, modeloMinimo);
         }
     }//GEN-LAST:event_tabelaCurvaMinimoKeyPressed
 
@@ -1086,15 +1078,19 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void tabelaCurvaMaximaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaCurvaMaximaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            int row = tabelaCurvaMaxima.getSelectedRow();
-
-            if (row != -1) {
-                this.modeloMaximo.remove(row);
-            } else {
-                Erro.linhaNaoSelecionada(this);
-            }
+            int linha = tabelaCurvaMaxima.getSelectedRow();
+            
+            removeLinha(linha, modeloMaximo);
         }
     }//GEN-LAST:event_tabelaCurvaMaximaKeyPressed
+
+    private void removeLinha(int linha, PontoCurvaTableModel modelo) {
+        if (linha != -1) {
+            modelo.remove(linha);
+        } else {
+            Erro.linhaNaoSelecionada(this);
+        }
+    }
 
     /**
      * Método responsável por apagar todos os dados da primeira aba. É chamado
@@ -1124,11 +1120,12 @@ public class GUI_Elo extends javax.swing.JFrame {
      */
     private void botaoGraficoInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoInserirActionPerformed
         EloK elo;
-        if (!this.correnteNominal.getText().equals("")) {
+        if (!"".equals(this.correnteNominal.getText())) {
             elo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
                     preferencial.isSelected(),
                     this.modeloMinimo.getArrayList(),
                     this.modeloMaximo.getArrayList());
+
             Grafico.criarGrafico(elo).setVisible(true);
         } else {
             Erro.correnteVazia(this);
@@ -1150,29 +1147,29 @@ public class GUI_Elo extends javax.swing.JFrame {
      * Método responsável por ler o arquivo selecionado pelo usuário.
      *
      * @param file O arquivo selecionado pelo usuário.
-     * @param page Informa em qual aba foi requisitado o arquivo (true =
+     * @param primeiraAba Informa em qual aba foi requisitado o arquivo (true =
      * primeira aba; false = segunda aba).
      */
-    public void setArquivo(Arquivo file, boolean page) {
+    public void setArquivo(Arquivo file, boolean primeiraAba) {
         if (file != null && file.existeArquivo()) {
             if (file.podeLerArquivo()) {
                 if (file.abreArquivo()) {
-                    PontoCurvaTableModel pc_Maximo;
-                    PontoCurvaTableModel pc_Minimo;
+                    PontoCurvaTableModel maximo;
+                    PontoCurvaTableModel minimo;
 
-                    if (page) {
-                        pc_Maximo = this.modeloMaximo;
-                        pc_Minimo = this.modeloMinimo;
+                    if (primeiraAba) {
+                        maximo = this.modeloMaximo;
+                        minimo = this.modeloMinimo;
                     } else {
-                        pc_Maximo = this.modeloMaximoCarregar;
-                        pc_Minimo = this.modeloMinimoCarregar;
+                        maximo = this.modeloMaximoCarregar;
+                        minimo = this.modeloMinimoCarregar;
                     }
-                    pc_Maximo.removeTodos();
-                    pc_Minimo.removeTodos();
+                    maximo.removeTodos();
+                    minimo.removeTodos();
                     String texto = file.lerArquivo();
                     String linhas[] = texto.split("\r");
 
-                    this.setPontosCurvaTabela(pc_Minimo, pc_Maximo, linhas);
+                    this.setPontosCurvaTabela(minimo, maximo, linhas);
                 } else {
                     Erro.aberturaDeArquivo(this);
                 }
@@ -1191,37 +1188,37 @@ public class GUI_Elo extends javax.swing.JFrame {
      * Método responsável por receber os dados lidos no arquivo e adicionar-los
      * aos JTables correspondentes.
      *
-     * @param min O modelo da tabela de curva mínima.
-     * @param max O modelo da tabela de curva máxima.
+     * @param minimo O modelo da tabela de curva mínima.
+     * @param maximo O modelo da tabela de curva máxima.
      * @param linhas O vetor de Strings lido no arquivo.
      */
-    public void setPontosCurvaTabela(PontoCurvaTableModel min, PontoCurvaTableModel max, String[] linhas) {
+    public void setPontosCurvaTabela(PontoCurvaTableModel minimo, PontoCurvaTableModel maximo, String[] linhas) {
         for (int i = 0; i < linhas.length; i++) {
-            if (!linhas[i].equals("")) {
+            if (!"".equals(linhas[i])) {
                 String valores[] = linhas[i].split(" ");
                 double corrente = Double.parseDouble(valores[0]);
                 double tempo = Double.parseDouble(valores[1]);
                 int ehMax = Integer.parseInt(valores[2]);
 
                 if (ehMax == 1) {
-                    max.add(new PontoCurva(corrente, tempo));
+                    maximo.add(new PontoCurva(corrente, tempo));
                 } else {
-                    min.add(new PontoCurva(corrente, tempo));
+                    minimo.add(new PontoCurva(corrente, tempo));
                 }
             }
         }
-        max.fireTableDataChanged();
-        min.fireTableDataChanged();
+        maximo.fireTableDataChanged();
+        minimo.fireTableDataChanged();
     }
 
     /**
      * Método responsável por limpar todos os dados de uma das abas da janela.
      *
-     * @param first Informa a aba a ser limpa. true = aba de inserir elo; false
-     * = aba de carregar elo.
+     * @param primeiraAba Informa a aba a ser limpa. true = aba de inserir elo;
+     * false = aba de carregar elo.
      */
-    public void limparCampos(boolean first) {
-        if (first) {
+    public void limparCampos(boolean primeiraAba) {
+        if (primeiraAba) {
             this.preferencial.setSelected(false);
             this.correnteNominal.setText(null);
             this.modeloMaximo.removeTodos();
@@ -1236,7 +1233,7 @@ public class GUI_Elo extends javax.swing.JFrame {
             this.modeloMinimoCarregar.fireTableDataChanged();
         }
     }
-
+    
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

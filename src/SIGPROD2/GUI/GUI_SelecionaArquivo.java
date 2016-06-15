@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
  */
 public class GUI_SelecionaArquivo extends javax.swing.JFrame {
 
-    private GUI_Elo gui;
+    private GUI_Elo GUI;
     private boolean primeiraAba;
 
     public GUI_SelecionaArquivo() {
@@ -21,12 +21,12 @@ public class GUI_SelecionaArquivo extends javax.swing.JFrame {
 
     public GUI_SelecionaArquivo(GUI_Elo gui, boolean primeiraAba) {
         initComponents();
-        this.gui = gui;
+        this.GUI = gui;
         this.primeiraAba = primeiraAba;
 
         setTitle("Selecione o arquivo com os Pontos de Curva");
-        setAlwaysOnTop(true);
         fileChooser.setCurrentDirectory(new File("/home/user"));
+        setAlwaysOnTop(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -65,7 +65,7 @@ public class GUI_SelecionaArquivo extends javax.swing.JFrame {
      */
     private void fileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChooserActionPerformed
         if (!evt.getActionCommand().equals(JFileChooser.CANCEL_SELECTION)) {
-            this.gui.setArquivo(new Arquivo(fileChooser.getSelectedFile().getPath()), this.primeiraAba);
+            this.GUI.setArquivo(new Arquivo(fileChooser.getSelectedFile().getPath()), this.primeiraAba);
         }
         dispose();
     }//GEN-LAST:event_fileChooserActionPerformed

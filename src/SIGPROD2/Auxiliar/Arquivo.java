@@ -86,7 +86,6 @@ public class Arquivo {
     }
 
     public String lerArquivo() {
-        abreArquivo();
         StringBuilder sb = new StringBuilder();
         try {
             while (this.br.ready()) {

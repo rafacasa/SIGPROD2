@@ -1,6 +1,5 @@
 package SIGPROD2.Auxiliar;
 
-import SIGPROD2.GUI.GUI_Reles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
