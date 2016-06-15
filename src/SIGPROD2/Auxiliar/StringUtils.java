@@ -21,7 +21,7 @@ public class StringUtils {
             String str = item.trim();
             
             if (!str.isEmpty()) {
-                if (isNumeric(str)) {
+                if (isNumber(str)) {
                     double valor = Double.parseDouble(str);
                     
                     a.add(valor);
@@ -35,7 +35,7 @@ public class StringUtils {
         return true;
     }
     
-    public static boolean isNumeric (String valor) {
+    public static boolean isNumber (String valor) {
         try {
             double d = Double.parseDouble(valor);
             
@@ -43,6 +43,15 @@ public class StringUtils {
             return false;
         }
         return true;
+    }
+    
+    public static boolean isLetter(char digit) {
+        int value = (int) digit;
+
+        if ((value >= 65 && value <= 90) || (value >= 97 && value <= 122)) {
+            return true;
+        }
+        return false;
     }
     
     public static boolean verificaExpressao(double min, double max, double pas) {

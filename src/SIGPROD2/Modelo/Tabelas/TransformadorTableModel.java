@@ -6,6 +6,7 @@ package SIGPROD2.Modelo.Tabelas;
 
 import SIGPROD2.Modelo.Posicao;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,12 +18,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class TransformadorTableModel extends DefaultTableModel {
 
-    private ArrayList<ArrayList<String>> pos;
-    private ArrayList<String> titulos;
+    private List<List<String>> pos;
+    private List<String> titulos;
 
     public TransformadorTableModel() {
-        pos = new ArrayList<>();
+        this.pos = new ArrayList<>();
         this.titulos = new ArrayList<>();
+        
+        this.titulos.add(" ");
     }
 
     public void remove(int row) {
@@ -44,8 +47,8 @@ public class TransformadorTableModel extends DefaultTableModel {
         this.pos.get(row).add(col, a.toString());
     }
 
-    public void add(ArrayList<Posicao> a) {        
-        ArrayList<String> p = new ArrayList();
+    public void add(List<Posicao> a) {        
+        List<String> p = new ArrayList();
         
         for (Posicao a1 : a) {
             if (a1.getCorrente() == -1)
@@ -67,7 +70,7 @@ public class TransformadorTableModel extends DefaultTableModel {
             if (pos.get(0).size() > 0) {
                 String[][] vetor = new String[pos.size()][pos.get(0).size()];
                 for (int i = 0; i < pos.size(); i++) {
-                    ArrayList<String> linha = pos.get(i);
+                    List<String> linha = pos.get(i);
                     for (int j = 0; j < linha.size(); j++) {
                         vetor[i][j] = linha.get(j);
                         System.out.println(linha.get(j));
@@ -133,6 +136,6 @@ public class TransformadorTableModel extends DefaultTableModel {
     }
 
     public void removeTodos() {
-        pos = new ArrayList<ArrayList<String>>();
+        pos = new ArrayList<List<String>>();
     }
 }

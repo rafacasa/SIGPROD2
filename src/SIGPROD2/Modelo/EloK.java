@@ -1,5 +1,6 @@
 package SIGPROD2.Modelo;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ public class EloK implements Curvas {
 
     private int correnteNominal;
     private boolean preferencial;
-    private ArrayList<PontoCurva> curvaDeMinimaFusao,
+    private List<PontoCurva> curvaDeMinimaFusao,
             curvaDeMaximaInterrupcao;
 
     public EloK(int correnteNominal, boolean preferencial) {
@@ -27,7 +28,7 @@ public class EloK implements Curvas {
         this.curvaDeMaximaInterrupcao = new ArrayList<>();
     }
 
-    public EloK(int correnteNominal, boolean preferencial, ArrayList<PontoCurva> curvaDeMinimaFusao, ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
+    public EloK(int correnteNominal, boolean preferencial, List<PontoCurva> curvaDeMinimaFusao, List<PontoCurva> curvadeMaximaInterrupcao) {
         this.correnteNominal = correnteNominal;
         this.preferencial = preferencial;
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
@@ -58,19 +59,19 @@ public class EloK implements Curvas {
         this.preferencial = preferencial;
     }
 
-    public ArrayList<PontoCurva> getCurvaDeMinimaFusao() {
+    public List<PontoCurva> getCurvaDeMinimaFusao() {
         return curvaDeMinimaFusao;
     }
 
-    public void setCurvaDeMinimaFusao(ArrayList<PontoCurva> curvaDeMinimaFusao) {
+    public void setCurvaDeMinimaFusao(List<PontoCurva> curvaDeMinimaFusao) {
         this.curvaDeMinimaFusao = curvaDeMinimaFusao;
     }
 
-    public ArrayList<PontoCurva> getCurvaDeMaximaInterrupcao() {
+    public List<PontoCurva> getCurvaDeMaximaInterrupcao() {
         return curvaDeMaximaInterrupcao;
     }
 
-    public void setCurvaDeMaximaInterrupcao(ArrayList<PontoCurva> curvadeMaximaInterrupcao) {
+    public void setCurvaDeMaximaInterrupcao(List<PontoCurva> curvadeMaximaInterrupcao) {
         this.curvaDeMaximaInterrupcao = curvadeMaximaInterrupcao;
     }
 
@@ -102,7 +103,7 @@ public class EloK implements Curvas {
     }
 
     @Override
-    public ArrayList<PontoCurva> getCurva(int index) {
+    public List<PontoCurva> getCurva(int index) {
         switch (index) {
             case 0:
                 return getCurvaDeMinimaFusao();

@@ -7,6 +7,7 @@ package SIGPROD2.Modelo.Tabelas;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Modelo.PontoCurva;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PontoCurvaTableModel extends DefaultTableModel {
 
-    private ArrayList<PontoCurva> pontos;
+    private List<PontoCurva> pontos;
     private String titulos[];
 
     public PontoCurvaTableModel() {//REVISADO
@@ -31,7 +32,7 @@ public class PontoCurvaTableModel extends DefaultTableModel {
         }
     }
 
-    public void add(ArrayList<PontoCurva> pontos) {
+    public void add(List<PontoCurva> pontos) {
         this.pontos = pontos;
     }
 
@@ -39,14 +40,14 @@ public class PontoCurvaTableModel extends DefaultTableModel {
         this.pontos.add(a);
     }
 
-    public ArrayList<PontoCurva> getArrayList() {
-        ArrayList<PontoCurva> ponto = new ArrayList();
+    public List<PontoCurva> getList() {
+        List<PontoCurva> ponto = new ArrayList();
         for (PontoCurva p : this.pontos) {
             ponto.add(new PontoCurva(p));
         }
         return ponto;
     }
-    public void setArrayList(ArrayList<PontoCurva> pontos){
+    public void setList(List<PontoCurva> pontos){
         this.pontos = pontos;
     }
     

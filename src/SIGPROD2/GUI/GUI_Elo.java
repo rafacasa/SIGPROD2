@@ -12,7 +12,6 @@ import SIGPROD2.Modelo.Tabelas.PontoCurvaRowSorter;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import com.sun.glass.events.KeyEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
@@ -92,8 +91,8 @@ public class GUI_Elo extends javax.swing.JFrame {
         lista = PontoCurvaEloDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
                 PontoCurva.PONTO_DA_CURVA_MINIMA);
 
-        this.modeloMinimoCarregar.add((ArrayList<PontoCurva>) lista);
-        selecionado.setCurvaDeMinimaFusao((ArrayList<PontoCurva>) lista);
+        this.modeloMinimoCarregar.add(lista);
+        selecionado.setCurvaDeMinimaFusao(lista);
     }
 
     /**
@@ -109,8 +108,8 @@ public class GUI_Elo extends javax.swing.JFrame {
         lista = PontoCurvaEloDao.buscaPontosCurva(selecionado.getCorrenteNominal(),
                 PontoCurva.PONTO_DA_CURVA_MAXIMA);
 
-        this.modeloMaximoCarregar.add((ArrayList<PontoCurva>) lista);
-        selecionado.setCurvaDeMaximaInterrupcao((ArrayList<PontoCurva>) lista);
+        this.modeloMaximoCarregar.add(lista);
+        selecionado.setCurvaDeMaximaInterrupcao(lista);
     }
 
     /**
@@ -883,8 +882,8 @@ public class GUI_Elo extends javax.swing.JFrame {
                 if (this.modeloMinimo.getRowCount() != 0 && this.modeloMaximo.getRowCount() != 0) {
                     this.novoElo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
                             preferencial.isSelected(),
-                            this.modeloMinimo.getArrayList(),
-                            this.modeloMaximo.getArrayList());
+                            this.modeloMinimo.getList(),
+                            this.modeloMaximo.getList());
                     
                     EloKDao.insereEloK(novoElo);
                     this.listaCorrentes.addItem(novoElo);
@@ -1017,8 +1016,8 @@ public class GUI_Elo extends javax.swing.JFrame {
             EloK elo = (EloK) this.listaCorrentes.getSelectedItem();
 
             elo.setPreferencial(this.preferencialCarregar.isSelected());
-            elo.setCurvaDeMinimaFusao(this.modeloMinimoCarregar.getArrayList());
-            elo.setCurvaDeMaximaInterrupcao(this.modeloMaximoCarregar.getArrayList());
+            elo.setCurvaDeMinimaFusao(this.modeloMinimoCarregar.getList());
+            elo.setCurvaDeMaximaInterrupcao(this.modeloMaximoCarregar.getList());
             try {
                 EloKDao.deletaEloK(elo);
                 EloKDao.insereEloK(elo);
@@ -1123,8 +1122,8 @@ public class GUI_Elo extends javax.swing.JFrame {
         if (!"".equals(this.correnteNominal.getText())) {
             elo = new EloK(Integer.parseInt(this.correnteNominal.getText()),
                     preferencial.isSelected(),
-                    this.modeloMinimo.getArrayList(),
-                    this.modeloMaximo.getArrayList());
+                    this.modeloMinimo.getList(),
+                    this.modeloMaximo.getList());
 
             Grafico.criarGrafico(elo).setVisible(true);
         } else {
