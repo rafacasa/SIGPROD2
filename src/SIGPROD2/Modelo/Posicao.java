@@ -13,6 +13,7 @@ package SIGPROD2.Modelo;
 
 public class Posicao {
     
+    private boolean first;
     private String tipo;
     private int corrente;
 
@@ -21,8 +22,9 @@ public class Posicao {
         this.corrente = 0;
     }
     
-    public Posicao (int corrente) {
+    public Posicao (int corrente, boolean first) {
         this.corrente = corrente;
+        this.first = first;
         this.tipo = null;
     }
     
@@ -49,23 +51,23 @@ public class Posicao {
 
     public static Posicao getPosicao(String texto) {
         Posicao temp = new Posicao();
-        String[] split = texto.split(":");
-        temp.setTipo(split[1]);
-        temp.setCorrente(Integer.parseInt(split[0]));
+        String[] list = texto.split(":");
+        
+        temp.setTipo(list[1]);
+        temp.setCorrente(Integer.parseInt(list[0]));
         return temp;
     }
     
     @Override
     public String toString() {
-        if (this.corrente == 0 && this.tipo == null) {
-            return ":";
+        if ( this.first ) {
+            return String.valueOf(this.corrente) + " kVA ";
         } else {
-            if (this.corrente > 0 && this.tipo == null) {
-                return String.valueOf(this.corrente) + " kVA ";
-            }
+            if ( this.corrente == 0 && this.tipo == null ) {
+                return " : ";                
+            } 
         }
-        return this.corrente + ":" + this.tipo;
+        return this.corrente + " : " + this.tipo;
     }
-    
     
 }

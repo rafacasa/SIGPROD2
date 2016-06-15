@@ -123,7 +123,8 @@ public class TransformadorTableModel extends DefaultTableModel {
                 if (valor.getCorrente() != -1)
                     pos.get(row).set(col, valor.toString());
                 else
-                    pos.get(row).set(col, valor.getTipo());
+                    //pos.get(row).set(col, valor.getTipo());
+                    System.out.println("Hello");
             }
             fireTableCellUpdated(row, col);
         } catch (NumberFormatException ex) {

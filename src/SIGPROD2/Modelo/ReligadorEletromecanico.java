@@ -171,6 +171,28 @@ public class ReligadorEletromecanico implements Religador {
         return dial;
     }
 
+    public DialDeTempoMecanico getDial(int tipo, boolean rapida, double corrente, double dialTempo) {
+        List<DialDeTempoMecanico> diais;
+        if (tipo == INVERSA_FASE) {
+            if (rapida) {
+                diais = this.mapaFaseRapidaPickupTempo.get(corrente);
+            } else {
+                diais = this.mapaFaseLentaPickupTempo.get(corrente);
+            }
+        } else if (rapida) {
+            diais = this.mapaNeutroRapidaPickupTempo.get(corrente);
+        } else {
+            diais = this.mapaNeutroLentaPickupTempo.get(corrente);
+        }
+
+        for (DialDeTempoMecanico d : diais) {
+            if (d.getDial() == dialTempo) {
+                return d;
+            }
+        }
+        return null;
+    }
+
     public List<PontoCurva> getPontosDialDeTempo(double corrente, double dial, int tipo, boolean rapida) {
         List<DialDeTempoMecanico> dt;
         if (tipo == Rele.INVERSA_FASE) {

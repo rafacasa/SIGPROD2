@@ -9,6 +9,7 @@ import SIGPROD2.Modelo.Tabelas.TransformadorTableModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
+import SIGPROD2.Auxiliar.StringUtils;
 
 /**
  * Classe responsável por gerenciar a Janela de Elo de Transformadores
@@ -346,7 +347,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             Posicao[] linha;
 
             for (String coluna : listaColunas) {
-                if (!" ".equals(coluna)) {
+                if (!coluna.equals(" ")) {
                     this.modelMonofasico.addColumn(coluna);
                 }
             }
@@ -373,7 +374,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             Posicao[] linha;
 
             for (String coluna : listaColunas) {
-                if (!" ".equals(coluna)) {
+                if (!coluna.equals(" ")) {
                     this.modelTrifasico.addColumn(coluna);
                 }
             }
@@ -419,15 +420,17 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
      */
     private void addLinhaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinhaMonofasicoActionPerformed
         ArrayList<Posicao> pos = new ArrayList<>();
-        String rowValue = Entrada.valorLinha(this);
+        String valor = Entrada.valorLinha(this);
 
-        if (this.isNumber(rowValue)) {
-            pos.add(new Posicao(Integer.parseInt(rowValue)));
+        if (StringUtils.isNumeric(valor) && Integer.parseInt(valor) != 0) {
+            pos.add(new Posicao(Integer.parseInt(valor), true));
             for (int i = 1; i < this.modelMonofasico.getColumnCount(); i++) {
                 pos.add(new Posicao());
             }
             this.modelMonofasico.add(pos);
             this.modelMonofasico.fireTableDataChanged();
+        } else {
+            Erro.entradaInvalida(this);
         }
     }//GEN-LAST:event_addLinhaMonofasicoActionPerformed
 
@@ -435,17 +438,17 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
      * Adiciona coluna na tabela monofasico.
      */
     private void addColunaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaMonofasicoActionPerformed
-        String nomeColumn = Entrada.valorColuna(this);
+        String valor = Entrada.valorColuna(this);
 
-        if (nomeColumn != null) {
-            if (this.isNumber(nomeColumn)) {
-                this.modelMonofasico.addColumn(nomeColumn + " kV ");
-                for (int i = 0; i < this.modelMonofasico.getRowCount(); i++) {
-                    this.modelMonofasico.add(new Posicao(), i, this.modelMonofasico.getColumnCount() - 1);
-                }
-                this.modelMonofasico.fireTableStructureChanged();
-                this.modelMonofasico.fireTableDataChanged();
+        if (valor != null && StringUtils.isNumeric(valor) && Integer.parseInt(valor) != 0) {
+            this.modelMonofasico.addColumn(valor + " kV ");
+            for (int i = 0; i < this.modelMonofasico.getRowCount(); i++) {
+                this.modelMonofasico.add(new Posicao(), i, this.modelMonofasico.getColumnCount() - 1);
             }
+            this.modelMonofasico.fireTableStructureChanged();
+            this.modelMonofasico.fireTableDataChanged();
+        } else {
+            Erro.entradaInvalida(this);
         }
     }//GEN-LAST:event_addColunaMonofasicoActionPerformed
 
@@ -459,7 +462,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
                 String newValue = Entrada.alteraValorPosicao(this, oldValue);
 
                 if (newValue != null) {
-                    if (newValue.contains(":") && !":".equals(newValue)) {
+                    if (newValue.contains(":") && !newValue.equals(":")) {
                         String[] tt = newValue.split(":");
 
                         if (tt.length == 2) {
@@ -492,17 +495,15 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
      * Adiciona coluna na tabela trifasico.
      */
     private void addColunaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaTrifasicoActionPerformed
-        String nomeColumn = Entrada.valorColuna(this);
+        String valor = Entrada.valorColuna(this);
 
-        if (nomeColumn != null) {
-            if (this.isNumber(nomeColumn)) {
-                this.modelTrifasico.addColumn(nomeColumn + " kV ");
-                for (int i = 0; i < this.modelTrifasico.getRowCount(); i++) {
-                    this.modelTrifasico.add(new Posicao(), i, this.modelTrifasico.getColumnCount() - 1);
-                }
-                this.modelTrifasico.fireTableStructureChanged();
-                this.modelTrifasico.fireTableDataChanged();
+        if (valor != null && StringUtils.isNumeric(valor) && Integer.parseInt(valor) != 0) {
+            this.modelTrifasico.addColumn(valor + " kV ");
+            for (int i = 0; i < this.modelTrifasico.getRowCount(); i++) {
+                this.modelTrifasico.add(new Posicao(), i, this.modelTrifasico.getColumnCount() - 1);
             }
+            this.modelTrifasico.fireTableStructureChanged();
+            this.modelTrifasico.fireTableDataChanged();
         }
     }//GEN-LAST:event_addColunaTrifasicoActionPerformed
 
@@ -526,7 +527,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         String rowValue = Entrada.valorLinha(this);
 
         if (this.isNumber(rowValue)) {
-            pos.add(new Posicao(Integer.parseInt(rowValue)));
+            pos.add(new Posicao(Integer.parseInt(rowValue), true));
             for (int i = 1; i < this.modelTrifasico.getColumnCount(); i++) {
                 pos.add(new Posicao());
             }
@@ -570,7 +571,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
                 String newValue = Entrada.alteraValorPosicao(this, oldValue);
 
                 if (newValue != null) {
-                    if (newValue.contains(":") && !":".equals(newValue)) {
+                    if (newValue.contains(":") && !newValue.equals(":")) {
                         String[] tt = newValue.split(":");
 
                         if (tt.length == 2) {
@@ -703,7 +704,10 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     public boolean isLetter(char digit) {
         int value = (int) digit;
 
-        return (value >= 65 && value <= 90) || (value >= 97 && value <= 122);
+        if ((value >= 65 && value <= 90) || (value >= 97 && value <= 122)) {
+            return true;
+        }
+        return false;
     }
 
     public static void main(String args[]) {

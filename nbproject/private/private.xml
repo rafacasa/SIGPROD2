@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lucas/Desktop/sigprog/SIGPROD2/src/SIGPROD2/GUI/GUI_Reles.java</file>
+            <file>file:/home/rafael/sigprod2/src/SIGPROD2/DAO/ReleDao.java</file>
+            <file>file:/home/rafael/sigprod2/src/SIGPROD2/Modelo/DialDeTempoMecanico.java</file>
+            <file>file:/home/rafael/sigprod2/src/SIGPROD2/GUI/GUI_Reles_Resumo.java</file>
+            <file>file:/home/rafael/sigprod2/src/SIGPROD2/GUI/GUI_Reles.java</file>
+            <file>file:/home/rafael/sigprod2/src/SIGPROD2/Auxiliar/Grafico.java</file>
+            <file>file:/home/rafael/sigprod2/src/SIGPROD2/Modelo/ReleEletromecanico.java</file>
         </group>
     </open-files>
 </project-private>

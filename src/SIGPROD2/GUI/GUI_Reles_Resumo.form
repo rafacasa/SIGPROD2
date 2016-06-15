@@ -134,18 +134,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="panelInversaNeutroDigital" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelDefinidaNeutroDigital" min="-2" max="-2" attributes="0"/>
+                              <Component id="panelDefinidaNeutroDigital" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="panelInversaFaseDigital" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelDefinidaFaseDigital" min="-2" max="-2" attributes="0"/>
+                              <Component id="panelDefinidaFaseDigital" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -376,27 +376,34 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel46" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel49" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="labelTempoDefinidoFaseMinimo" min="-2" max="-2" attributes="0"/>
                                       <Component id="labelPickupPassoDefinidaFase" min="-2" max="-2" attributes="0"/>
                                       <Component id="labelPickupMaximoDefinidaFase" min="-2" max="-2" attributes="0"/>
                                       <Component id="labelPickupMinimoDefinidaFase" min="-2" max="-2" attributes="0"/>
                                       <Component id="labelFatorDefinidaFaseDigital" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelTempoDefinidoFaseMaximo" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelTempoDefinidoFasePasso" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="53" max="32767" attributes="0"/>
                       </Group>
@@ -426,6 +433,23 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelPickupPassoDefinidaFase" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTempoDefinidoFaseMinimo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTempoDefinidoFaseMaximo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel49" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTempoDefinidoFasePasso" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -476,6 +500,41 @@
                 <Component class="javax.swing.JLabel" name="labelFatorDefinidaFaseDigital">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel18"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel46">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tempo de Atua&#xe7;&#xe3;o:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel47">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="M&#xed;nimo (s):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel48">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="M&#xe1;ximo (s):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel49">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Passo (s):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelTempoDefinidoFaseMinimo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel50"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelTempoDefinidoFaseMaximo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel51"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelTempoDefinidoFasePasso">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel52"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -702,30 +761,46 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel42" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel42" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labelPickupPassoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelPickupMaximoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelPickupMinimoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelFatorDefinidaNeutroDigital" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelTempoDefinidoNeutroMaximo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelTempoDefinidoNeutroMinimo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="labelTempoDefinidoNeutroPasso" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labelPickupPassoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelPickupMaximoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelPickupMinimoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelFatorDefinidaNeutroDigital" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel40" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel45" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jLabel40" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel50" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <EmptySpace pref="53" max="32767" attributes="0"/>
                       </Group>
@@ -755,6 +830,23 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelPickupPassoDefinidaNeutro" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel42" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTempoDefinidoNeutroMaximo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTempoDefinidoNeutroMinimo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTempoDefinidoNeutroPasso" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -805,6 +897,41 @@
                 <Component class="javax.swing.JLabel" name="labelFatorDefinidaNeutroDigital">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel18"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel45">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tempo de Atua&#xe7;&#xe3;o:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel50">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="M&#xed;nimo (s):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel51">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="M&#xe1;xima (s):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel52">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Passo (s):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelTempoDefinidoNeutroMaximo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel53"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelTempoDefinidoNeutroMinimo">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel54"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelTempoDefinidoNeutroPasso">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="jLabel55"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1045,7 +1172,7 @@
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="labelFatorInversaNeutroMecan" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="listaPickupInversaNeutro" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1055,8 +1182,8 @@
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="listaDialInversaNeutro" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="234" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="botaoGraficoNeutro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>

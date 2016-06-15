@@ -4,16 +4,16 @@ import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.DAO.ReligadorDao;
 import SIGPROD2.Modelo.PontoCurva;
-import SIGPROD2.Modelo.Rele;
-import SIGPROD2.Modelo.ReleDigital;
-import SIGPROD2.Modelo.ReleEletromecanico;
 import SIGPROD2.Modelo.Religador;
+import SIGPROD2.Modelo.ReligadorDigital;
+import SIGPROD2.Modelo.ReligadorEletromecanico;
 import SIGPROD2.Modelo.Tabelas.CaracteristicasTableModel;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
@@ -23,7 +23,7 @@ import javax.swing.JFrame;
  * @version 25/04/2016
  */
 public class GUI_Religador_Resumo extends javax.swing.JDialog {
-    
+
     private CaracteristicasTableModel modeloFaseCaracteristicas;
     private CaracteristicasTableModel modeloNeutroCaracteristicas;
     private PontoCurvaTableModel modeloFasePontoCurva;
@@ -31,39 +31,39 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
     private final Religador religador;
     private final boolean digital;
 
-    public GUI_Religador_Resumo(java.awt.Frame parent, boolean modal, Religador rele) {
+    public GUI_Religador_Resumo(java.awt.Frame parent, boolean modal, Religador religador) {
         super(parent, modal);
-        this.religador = rele;
-        this.digital = rele.isDigital();
+        this.religador = religador;
+        this.digital = religador.isDigital();
         this.initComponents();
         this.configurarTabelas();
         this.configurarCardLayout();
-        this.carregarInformacoesRele();
+        this.carregarInformacoesReligador();
     }
-    
+
     private void configurarTabelas() {
         this.configurarTabelasDigitais();
         this.configurarTabelasEletromecanicas();
     }
-    
+
     private void configurarTabelasDigitais() {
         this.modeloFaseCaracteristicas = new CaracteristicasTableModel();
         this.modeloNeutroCaracteristicas = new CaracteristicasTableModel();
-        
+
         this.tabelaCaracteristicasFase.setModel(this.modeloFaseCaracteristicas);
         this.tabelaCaracteristicasNeutro.setModel(this.modeloNeutroCaracteristicas);
     }
-    
+
     private void configurarTabelasEletromecanicas() {
         this.modeloFasePontoCurva = new PontoCurvaTableModel();
         this.modeloNeutroPontoCurva = new PontoCurvaTableModel();
-        
+
         this.tabelaPontoCurvaFase.setModel(this.modeloFasePontoCurva);
         this.tabelaPontoCurvaNeutro.setModel(this.modeloNeutroPontoCurva);
         this.tabelaPontoCurvaFase.setEnabled(false);
         this.tabelaPontoCurvaNeutro.setEnabled(false);
     }
-    
+
     private void configurarCardLayout() {
         CardLayout card1 = (CardLayout) this.PanelItens.getLayout();
         card1.addLayoutComponent(this.panelDigital, "panelDigital");
@@ -74,191 +74,212 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
             card1.show(this.PanelItens, "panelEletromecanico");
         }
     }
-    
-    private void carregarInformacoesRele() {
+
+    private void carregarInformacoesReligador() {
         this.labelFabricante.setText(this.religador.getFabricante());
         this.labelModelo.setText(this.religador.getModelo());
         if (this.digital) {
-            this.setTitle("Rele Digital");
-            this.carregarInformacoesReleDigital();
+            this.setTitle("Religador Digital");
+            this.carregarInformacoesReligadorDigital();
         } else {
-            this.setTitle("Rele Eletromecânico");
-            this.carregarInformacoesReleEletromecanico();
+            this.setTitle("Religador Eletromecânico");
+            this.carregarInformacoesReligadorEletromecanico();
         }
     }
-    
-    private void carregarInformacoesReleDigital() {
-        ReleDigital releDigital = (ReleDigital) this.religador;
-        
-        if (this.religador.existeCurva(Rele.INVERSA_FASE)) {
-            this.labelFatorInversaFaseDigital.setText(String.valueOf(this.religador.getFatorInicio(Rele.INVERSA_FASE)));
-            this.carregarCorrentePickupDigital(releDigital, Rele.INVERSA_FASE);
-            this.carregarTemposDigital(releDigital, Rele.INVERSA_FASE);
-            this.carregaTabelaDigitais(releDigital, Rele.INVERSA_FASE);
+
+    private void carregarInformacoesReligadorDigital() {
+        ReligadorDigital religadorDigital = (ReligadorDigital) this.religador;
+
+        if (this.religador.existeCurva(Religador.INVERSA_FASE)) {
+            this.labelFatorInversaFaseDigital.setText(String.valueOf(this.religador.getFatorInicio(Religador.INVERSA_FASE)));
+            this.carregarCorrentePickupDigital(religadorDigital, Religador.INVERSA_FASE);
+            this.carregarTemposDigital(religadorDigital, Religador.INVERSA_FASE);
+            this.carregaTabelaDigitais(religadorDigital, Religador.INVERSA_FASE);
         } else {
             for (Component c : this.panelInversaFaseDigital.getComponents()) {
                 c.setEnabled(false);
             }
         }
-        if (this.religador.existeCurva(Rele.INVERSA_NEUTRO)) {
-            this.labelFatorInversaNeutroDigital.setText(String.valueOf(this.religador.getFatorInicio(Rele.INVERSA_NEUTRO)));
-            this.carregarCorrentePickupDigital(releDigital, Rele.INVERSA_NEUTRO);
-            this.carregarTemposDigital(releDigital, Rele.INVERSA_NEUTRO);
-            this.carregaTabelaDigitais(releDigital, Rele.INVERSA_NEUTRO);
-            
+        if (this.religador.existeCurva(Religador.INVERSA_NEUTRO)) {
+            this.labelFatorInversaNeutroDigital.setText(String.valueOf(this.religador.getFatorInicio(Religador.INVERSA_NEUTRO)));
+            this.carregarCorrentePickupDigital(religadorDigital, Religador.INVERSA_NEUTRO);
+            this.carregarTemposDigital(religadorDigital, Religador.INVERSA_NEUTRO);
+            this.carregaTabelaDigitais(religadorDigital, Religador.INVERSA_NEUTRO);
+
         } else {
             for (Component c : this.panelInversaNeutroDigital.getComponents()) {
                 c.setEnabled(false);
             }
         }
-        if (this.religador.existeCurva(Rele.DEFINIDO_FASE)) {
-            this.labelFatorDefinidaFaseDigital.setText(String.valueOf(this.religador.getFatorInicio(Rele.DEFINIDO_FASE)));
-            this.carregarCorrentePickupDigital(releDigital, Rele.DEFINIDO_FASE);
-            this.carregarTemposDigital(releDigital, Rele.DEFINIDO_FASE);
-            
+        if (this.religador.existeCurva(Religador.DEFINIDO_FASE)) {
+            this.labelFatorDefinidaFaseDigital.setText(String.valueOf(this.religador.getFatorInicio(Religador.DEFINIDO_FASE)));
+            this.carregarCorrentePickupDigital(religadorDigital, Religador.DEFINIDO_FASE);
+            this.carregarTemposDigital(religadorDigital, Religador.DEFINIDO_FASE);
+
         } else {
             for (Component c : this.panelDefinidaFaseDigital.getComponents()) {
                 c.setEnabled(false);
             }
         }
-        if (this.religador.existeCurva(Rele.DEFINIDO_NEUTRO)) {
-            this.labelFatorDefinidaNeutroDigital.setText(String.valueOf(this.religador.getFatorInicio(Rele.DEFINIDO_NEUTRO)));
-            this.carregarCorrentePickupDigital(releDigital, Rele.DEFINIDO_NEUTRO);
-            this.carregarTemposDigital(releDigital, Rele.DEFINIDO_NEUTRO);
+        if (this.religador.existeCurva(Religador.DEFINIDO_NEUTRO)) {
+            this.labelFatorDefinidaNeutroDigital.setText(String.valueOf(this.religador.getFatorInicio(Religador.DEFINIDO_NEUTRO)));
+            this.carregarCorrentePickupDigital(religadorDigital, Religador.DEFINIDO_NEUTRO);
+            this.carregarTemposDigital(religadorDigital, Religador.DEFINIDO_NEUTRO);
         } else {
             for (Component c : this.panelDefinidaNeutroDigital.getComponents()) {
                 c.setEnabled(false);
             }
         }
     }
-    
-    private void carregarInformacoesReleEletromecanico() {
-        ReleEletromecanico releMecanico = (ReleEletromecanico) this.religador;
-        
-        if (this.religador.existeCurva(Rele.INVERSA_FASE)) {
-            this.labelFatorInversaFaseMecan.setText(String.valueOf(this.religador.getFatorInicio(Rele.INVERSA_FASE)));
-            this.carregarCorrentesInversaEletromecanico(releMecanico, Rele.INVERSA_FASE);
+
+    private void carregarInformacoesReligadorEletromecanico() {
+        ReligadorEletromecanico religadorMecanico = (ReligadorEletromecanico) this.religador;
+
+        if (this.religador.existeCurva(Religador.INVERSA_FASE)) {
+            this.labelFatorInversaFaseMecan.setText(String.valueOf(this.religador.getFatorInicio(Religador.INVERSA_FASE)));
+            this.carregarCorrentesInversaEletromecanico(religadorMecanico, Religador.INVERSA_FASE);
         } else {
             for (Component c : this.panelInversaFaseEletromecanico.getComponents()) {
                 c.setEnabled(false);
             }
         }
-        if (this.religador.existeCurva(Rele.INVERSA_NEUTRO)) {
-            this.labelFatorInversaNeutroMecan.setText(String.valueOf(this.religador.getFatorInicio(Rele.INVERSA_NEUTRO)));
-            this.carregarCorrentesInversaEletromecanico(releMecanico, Rele.INVERSA_NEUTRO);
+        if (this.religador.existeCurva(Religador.INVERSA_NEUTRO)) {
+            this.labelFatorInversaNeutroMecan.setText(String.valueOf(this.religador.getFatorInicio(Religador.INVERSA_NEUTRO)));
+            this.carregarCorrentesInversaEletromecanico(religadorMecanico, Religador.INVERSA_NEUTRO);
         } else {
             for (Component c : this.panelInversaNeutroEletromecanico.getComponents()) {
                 c.setEnabled(false);
             }
         }
-        if (this.religador.existeCurva(Rele.DEFINIDO_FASE)) {
-            this.labelFatorDefinidaFaseMecan.setText(String.valueOf(this.religador.getFatorInicio(Rele.DEFINIDO_FASE)));
-            this.carregarCorrentesDefinidaEletromecanico(releMecanico, Rele.DEFINIDO_FASE);
-            this.carregarTemposDeAtuacaoEletromecanico(releMecanico, Rele.DEFINIDO_FASE);
+        if (this.religador.existeCurva(Religador.DEFINIDO_FASE)) {
+            this.labelFatorDefinidaFaseMecan.setText(String.valueOf(this.religador.getFatorInicio(Religador.DEFINIDO_FASE)));
+            this.carregarCorrentesDefinidaEletromecanico(religadorMecanico, Religador.DEFINIDO_FASE);
+            this.carregarTemposDeAtuacaoEletromecanico(religadorMecanico, Religador.DEFINIDO_FASE);
         } else {
             for (Component c : this.panelDefinidaFaseEletromecanico.getComponents()) {
                 c.setEnabled(false);
             }
         }
-        if (this.religador.existeCurva(Rele.DEFINIDO_NEUTRO)) {
-            this.labelFatorDefinidaNeutroMecan.setText(String.valueOf(this.religador.getFatorInicio(Rele.DEFINIDO_NEUTRO)));
-            this.carregarCorrentesDefinidaEletromecanico(releMecanico, Rele.DEFINIDO_NEUTRO);
-            this.carregarTemposDeAtuacaoEletromecanico(releMecanico, Rele.DEFINIDO_NEUTRO);
+        if (this.religador.existeCurva(Religador.DEFINIDO_NEUTRO)) {
+            this.labelFatorDefinidaNeutroMecan.setText(String.valueOf(this.religador.getFatorInicio(Religador.DEFINIDO_NEUTRO)));
+            this.carregarCorrentesDefinidaEletromecanico(religadorMecanico, Religador.DEFINIDO_NEUTRO);
+            this.carregarTemposDeAtuacaoEletromecanico(religadorMecanico, Religador.DEFINIDO_NEUTRO);
         } else {
             for (Component c : this.panelDefinidaNeutroEletromecanico.getComponents()) {
                 c.setEnabled(false);
             }
         }
     }
-    
-    private void carregarCorrentePickupDigital(ReleDigital releDigital, int tipo) {
+
+    private void carregarCorrentePickupDigital(ReligadorDigital religadorDigital, int tipo) {
         switch (tipo) {
-            case Rele.INVERSA_FASE:
-                this.labelPickupMinimoInversaFase.setText(String.valueOf(releDigital.getCorrenteMin(tipo)));
-                this.labelPickupMaximoInversaFase.setText(String.valueOf(releDigital.getCorrenteMax(tipo)));
-                this.labelPickupPassoInversaFase.setText(String.valueOf(releDigital.getCorrentePasso(tipo)));
+            case Religador.INVERSA_FASE:
+                this.labelPickupMinimoInversaFase.setText(String.valueOf(religadorDigital.getCorrenteMin(tipo)));
+                this.labelPickupMaximoInversaFase.setText(String.valueOf(religadorDigital.getCorrenteMax(tipo)));
+                this.labelPickupPassoInversaFase.setText(String.valueOf(religadorDigital.getCorrentePasso(tipo)));
                 break;
-            case Rele.INVERSA_NEUTRO:
-                this.labelPickupMinimoInversaNeutro.setText(String.valueOf(releDigital.getCorrenteMin(tipo)));
-                this.labelPickupMaximoInversaNeutro.setText(String.valueOf(releDigital.getCorrenteMax(tipo)));
-                this.labelPickupPassoInversaNeutro.setText(String.valueOf(releDigital.getCorrentePasso(tipo)));
+            case Religador.INVERSA_NEUTRO:
+                this.labelPickupMinimoInversaNeutro.setText(String.valueOf(religadorDigital.getCorrenteMin(tipo)));
+                this.labelPickupMaximoInversaNeutro.setText(String.valueOf(religadorDigital.getCorrenteMax(tipo)));
+                this.labelPickupPassoInversaNeutro.setText(String.valueOf(religadorDigital.getCorrentePasso(tipo)));
                 break;
-            case Rele.DEFINIDO_FASE:
-                this.labelPickupMinimoDefinidaFase.setText(String.valueOf(releDigital.getCorrenteMin(tipo)));
-                this.labelPickupMaximoDefinidaFase.setText(String.valueOf(releDigital.getCorrenteMax(tipo)));
-                this.labelPickupPassoDefinidaFase.setText(String.valueOf(releDigital.getCorrentePasso(tipo)));
+            case Religador.DEFINIDO_FASE:
+                this.labelPickupMinimoDefinidaFase.setText(String.valueOf(religadorDigital.getCorrenteMin(tipo)));
+                this.labelPickupMaximoDefinidaFase.setText(String.valueOf(religadorDigital.getCorrenteMax(tipo)));
+                this.labelPickupPassoDefinidaFase.setText(String.valueOf(religadorDigital.getCorrentePasso(tipo)));
                 break;
-            case Rele.DEFINIDO_NEUTRO:
-                this.labelPickupMinimoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrenteMin(tipo)));
-                this.labelPickupMaximoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrenteMax(tipo)));
-                this.labelPickupPassoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrentePasso(tipo)));
+            case Religador.DEFINIDO_NEUTRO:
+                this.labelPickupMinimoDefinidaNeutro.setText(String.valueOf(religadorDigital.getCorrenteMin(tipo)));
+                this.labelPickupMaximoDefinidaNeutro.setText(String.valueOf(religadorDigital.getCorrenteMax(tipo)));
+                this.labelPickupPassoDefinidaNeutro.setText(String.valueOf(religadorDigital.getCorrentePasso(tipo)));
                 break;
             default:
                 break;
         }
     }
-    
-    private void carregarTemposDigital(ReleDigital releDigital, int tipo) {
+
+    private void carregarTemposDigital(ReligadorDigital religadorDigital, int tipo) {
+        boolean rapida;
         switch (tipo) {
-            case Rele.INVERSA_FASE:
-                this.labelTempoMaximoInversaFase.setText(String.valueOf(releDigital.getTempoMax(tipo)));
-                this.labelTempoMinimoInversaFase.setText(String.valueOf(releDigital.getTempoMin(tipo)));
-                this.labelTempoPassoInversaFase.setText(String.valueOf(releDigital.getTempoPasso(tipo)));
+            case Religador.INVERSA_FASE:
+                rapida = this.botaoInversaFaseRapidaDigital.isSelected();
+                this.labelTempoMaximoInversaFase.setText(String.valueOf(religadorDigital.getTempoMax(tipo, rapida)));
+                this.labelTempoMinimoInversaFase.setText(String.valueOf(religadorDigital.getTempoMin(tipo, rapida)));
+                this.labelTempoPassoInversaFase.setText(String.valueOf(religadorDigital.getTempoPasso(tipo, rapida)));
                 break;
-            case Rele.INVERSA_NEUTRO:
-                this.labelTempoMaximoInversaNeutro.setText(String.valueOf(releDigital.getTempoMax(tipo)));
-                this.labelTempoMinimoInversaNeutro.setText(String.valueOf(releDigital.getTempoMin(tipo)));
-                this.labelTempoPassoInversaNeutro.setText(String.valueOf(releDigital.getTempoPasso(tipo)));
+            case Religador.INVERSA_NEUTRO:
+                rapida = this.botaoInversaNeutroRapidaDigital.isSelected();
+                this.labelTempoMaximoInversaNeutro.setText(String.valueOf(religadorDigital.getTempoMax(tipo, rapida)));
+                this.labelTempoMinimoInversaNeutro.setText(String.valueOf(religadorDigital.getTempoMin(tipo, rapida)));
+                this.labelTempoPassoInversaNeutro.setText(String.valueOf(religadorDigital.getTempoPasso(tipo, rapida)));
+                break;
+            case Religador.DEFINIDO_FASE:
+                rapida = this.botaoDefinidaFaseRapidaDigital.isSelected();
+                this.labelTempoDefinidoFaseMaximo.setText(String.valueOf(religadorDigital.getTempoMax(tipo, rapida)));
+                this.labelTempoDefinidoFaseMinimo.setText(String.valueOf(religadorDigital.getTempoMin(tipo, rapida)));
+                this.labelTempoDefinidoFasePasso.setText(String.valueOf(religadorDigital.getTempoPasso(tipo, rapida)));
+                break;
+            case Religador.DEFINIDO_NEUTRO:
+                rapida = this.botaoDefinidaNeutroRapidaDigital.isSelected();
+                this.labelTempoDefinidoNeutroMaximo.setText(String.valueOf(religadorDigital.getTempoMax(tipo, rapida)));
+                this.labelTempoDefinidoNeutroMinimo.setText(String.valueOf(religadorDigital.getTempoMin(tipo, rapida)));
+                this.labelTempoDefinidoNeutroPasso.setText(String.valueOf(religadorDigital.getTempoPasso(tipo, rapida)));
                 break;
             default:
                 break;
         }
     }
-    
-    private void carregarTemposDeAtuacaoEletromecanico(ReleEletromecanico releMecanico, int tipo) {
+
+    private void carregarTemposDeAtuacaoEletromecanico(ReligadorEletromecanico religadorMecanico, int tipo) {
         DefaultListModel<Double> modelo;
-        if (tipo == Rele.DEFINIDO_FASE) {
+        boolean rapida;
+        if (tipo == Religador.DEFINIDO_FASE) {
+            rapida = botaoDefinidaFaseRapidaEletromecanica.isSelected();
             modelo = (DefaultListModel<Double>) this.listaTempoDefinidaFase.getModel();
-            
+
         } else {
+            rapida = botaoDefinidaNeutroRapidaEletromecanica.isSelected();
             modelo = (DefaultListModel<Double>) this.listaTempoDefinidaNeutro.getModel();
         }
-        releMecanico.getTempoDeAtuacao(tipo).forEach(corrente -> {
+        religadorMecanico.getTempoAtuacao(tipo, rapida).forEach(corrente -> {
             modelo.addElement(corrente);
         });
     }
-    
-    private void carregarCorrentesDefinidaEletromecanico(ReleEletromecanico releMecanico, int tipo) {
+
+    private void carregarCorrentesDefinidaEletromecanico(ReligadorEletromecanico religadorMecanico, int tipo) {
         DefaultListModel<Double> modelo;
-        if (tipo == Rele.DEFINIDO_FASE) {
+        if (tipo == Religador.DEFINIDO_FASE) {
             modelo = (DefaultListModel<Double>) this.listaPickupDefinidaFase.getModel();
-            
+
         } else {
             modelo = (DefaultListModel<Double>) this.listaPickupDefinidaNeutro.getModel();
         }
-        releMecanico.getCorrentePickup(tipo).forEach(corrente -> {
+        religadorMecanico.getCorrentePickup(tipo).forEach(corrente -> {
             modelo.addElement(corrente);
         });
     }
-    
-    private void carregarCorrentesInversaEletromecanico(ReleEletromecanico releMecanico, int tipo) {
-        releMecanico.getCorrentePickup(tipo).forEach(corrente -> {
-            if (tipo == Rele.INVERSA_FASE) {
+
+    private void carregarCorrentesInversaEletromecanico(ReligadorEletromecanico religadorMecanico, int tipo) {
+        religadorMecanico.getCorrentePickup(tipo).forEach(corrente -> {
+            if (tipo == Religador.INVERSA_FASE) {
                 this.listaPickupInversaFase.addItem(corrente);
             } else {
                 this.listaPickupInversaNeutro.addItem(corrente);
             }
         });
     }
-    
-    private void carregaTabelaDigitais(ReleDigital releDigital, int tipo) {
+
+    private void carregaTabelaDigitais(ReligadorDigital religadorDigital, int tipo) {
+        boolean rapida;
         switch (tipo) {
-            case Rele.INVERSA_FASE:
-                this.modeloFaseCaracteristicas.add(releDigital.getListaFase());
+            case Religador.INVERSA_FASE:
+                rapida = this.botaoInversaFaseRapidaDigital.isSelected();
+                this.modeloFaseCaracteristicas.add(rapida ? religadorDigital.getListaRapidaFase() : religadorDigital.getListaLentaFase());
                 this.modeloFaseCaracteristicas.fireTableDataChanged();
                 break;
-            case Rele.INVERSA_NEUTRO:
-                this.modeloNeutroCaracteristicas.add(releDigital.getListaNeutro());
+            case Religador.INVERSA_NEUTRO:
+                rapida = this.botaoInversaNeutroRapidaDigital.isSelected();
+                this.modeloNeutroCaracteristicas.add(rapida ? religadorDigital.getListaRapidaNeutro() : religadorDigital.getListaLentaNeutro());
                 this.modeloNeutroCaracteristicas.fireTableDataChanged();
                 break;
             default:
@@ -281,6 +302,8 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
         grupoDefinidaFaseEletromecanica = new javax.swing.ButtonGroup();
         grupoInversaNeutroDigital = new javax.swing.ButtonGroup();
         grupoInversaFaseDigital = new javax.swing.ButtonGroup();
+        grupoDefinidaFaseDigital = new javax.swing.ButtonGroup();
+        grupoDefinidaNeutroDigital = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         labelFabricante = new javax.swing.JLabel();
@@ -319,6 +342,15 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
         jLabel25 = new javax.swing.JLabel();
         labelPickupPassoDefinidaFase = new javax.swing.JLabel();
         labelFatorDefinidaFaseDigital = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        labelTempoDefinidoFaseMinimo = new javax.swing.JLabel();
+        labelTempoDefinidoFaseMaximo = new javax.swing.JLabel();
+        labelTempoDefinidoFasePasso = new javax.swing.JLabel();
+        botaoDefinidaFaseRapidaDigital = new javax.swing.JRadioButton();
+        botaoDefinidaFaseLentaDigital = new javax.swing.JRadioButton();
         panelInversaNeutroDigital = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -351,6 +383,15 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
         jLabel44 = new javax.swing.JLabel();
         labelPickupPassoDefinidaNeutro = new javax.swing.JLabel();
         labelFatorDefinidaNeutroDigital = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        labelTempoDefinidoNeutroMinimo = new javax.swing.JLabel();
+        labelTempoDefinidoNeutroMaximo = new javax.swing.JLabel();
+        labelTempoDefinidoNeutroPasso = new javax.swing.JLabel();
+        botaoDefinidaNeutroRapidaDigital = new javax.swing.JRadioButton();
+        botaoDefinidaNeutroLentaDigital = new javax.swing.JRadioButton();
         panelEletromecanico = new javax.swing.JPanel();
         panelInversaFaseEletromecanico = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -576,30 +617,67 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
 
         labelFatorDefinidaFaseDigital.setText("jLabel18");
 
+        jLabel45.setText("Tempo de Atuação:");
+
+        jLabel47.setText("Mínimo (s):");
+
+        jLabel48.setText("Máximo (s):");
+
+        jLabel49.setText("Passo (s):");
+
+        labelTempoDefinidoFaseMinimo.setText("jLabel53");
+
+        labelTempoDefinidoFaseMaximo.setText("jLabel54");
+
+        labelTempoDefinidoFasePasso.setText("jLabel55");
+
+        grupoDefinidaFaseDigital.add(botaoDefinidaFaseRapidaDigital);
+        botaoDefinidaFaseRapidaDigital.setText("Curva Rápida");
+
+        grupoDefinidaFaseDigital.add(botaoDefinidaFaseLentaDigital);
+        botaoDefinidaFaseLentaDigital.setText("Curva Lenta");
+
         javax.swing.GroupLayout panelDefinidaFaseDigitalLayout = new javax.swing.GroupLayout(panelDefinidaFaseDigital);
         panelDefinidaFaseDigital.setLayout(panelDefinidaFaseDigitalLayout);
         panelDefinidaFaseDigitalLayout.setHorizontalGroup(
             panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
                                 .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jLabel28)
-                                    .addComponent(jLabel29)))
-                            .addComponent(jLabel25))
-                        .addGap(18, 18, 18)
+                                    .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel27)
+                                            .addComponent(jLabel28)
+                                            .addComponent(jLabel29)))
+                                    .addComponent(jLabel25))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelPickupPassoDefinidaFase)
+                                    .addComponent(labelPickupMaximoDefinidaFase)
+                                    .addComponent(labelPickupMinimoDefinidaFase)
+                                    .addComponent(labelFatorDefinidaFaseDigital)
+                                    .addComponent(labelTempoDefinidoFaseMinimo)
+                                    .addComponent(labelTempoDefinidoFaseMaximo)
+                                    .addComponent(labelTempoDefinidoFasePasso)))
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel45)))
+                    .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPickupPassoDefinidaFase)
-                            .addComponent(labelPickupMaximoDefinidaFase)
-                            .addComponent(labelPickupMinimoDefinidaFase)
-                            .addComponent(labelFatorDefinidaFaseDigital)))
-                    .addComponent(jLabel26))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(jLabel48)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel49)))
+                    .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(botaoDefinidaFaseRapidaDigital)
+                        .addGap(34, 34, 34)
+                        .addComponent(botaoDefinidaFaseLentaDigital)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         panelDefinidaFaseDigitalLayout.setVerticalGroup(
             panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -622,7 +700,25 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
                 .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelPickupPassoDefinidaFase)
                     .addComponent(jLabel29))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoDefinidaFaseRapidaDigital)
+                    .addComponent(botaoDefinidaFaseLentaDigital))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(labelTempoDefinidoFaseMinimo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(labelTempoDefinidoFaseMaximo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49)
+                    .addComponent(labelTempoDefinidoFasePasso))
+                .addContainerGap())
         );
 
         panelInversaNeutroDigital.setBorder(javax.swing.BorderFactory.createTitledBorder("Curva Inversa de Neutro"));
@@ -788,30 +884,67 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
 
         labelFatorDefinidaNeutroDigital.setText("jLabel18");
 
+        jLabel46.setText("Tempo de Atuação:");
+
+        jLabel52.setText("Passo (s):");
+
+        jLabel51.setText("Máximo (s):");
+
+        jLabel50.setText("Mínimo (s):");
+
+        labelTempoDefinidoNeutroMinimo.setText("jLabel56");
+
+        labelTempoDefinidoNeutroMaximo.setText("jLabel57");
+
+        labelTempoDefinidoNeutroPasso.setText("jLabel58");
+
+        grupoDefinidaNeutroDigital.add(botaoDefinidaNeutroRapidaDigital);
+        botaoDefinidaNeutroRapidaDigital.setText("Curva Rápida");
+
+        grupoDefinidaNeutroDigital.add(botaoDefinidaNeutroLentaDigital);
+        botaoDefinidaNeutroLentaDigital.setText("Curva Lenta");
+
         javax.swing.GroupLayout panelDefinidaNeutroDigitalLayout = new javax.swing.GroupLayout(panelDefinidaNeutroDigital);
         panelDefinidaNeutroDigital.setLayout(panelDefinidaNeutroDigitalLayout);
         panelDefinidaNeutroDigitalLayout.setHorizontalGroup(
             panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
                                 .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel43)
-                                    .addComponent(jLabel41)
-                                    .addComponent(jLabel42)))
-                            .addComponent(jLabel44))
-                        .addGap(18, 18, 18)
+                                    .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel43)
+                                            .addComponent(jLabel41)
+                                            .addComponent(jLabel42)))
+                                    .addComponent(jLabel44))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelPickupPassoDefinidaNeutro)
+                                    .addComponent(labelPickupMaximoDefinidaNeutro)
+                                    .addComponent(labelPickupMinimoDefinidaNeutro)
+                                    .addComponent(labelFatorDefinidaNeutroDigital)
+                                    .addComponent(labelTempoDefinidoNeutroMinimo)
+                                    .addComponent(labelTempoDefinidoNeutroMaximo)
+                                    .addComponent(labelTempoDefinidoNeutroPasso)))
+                            .addComponent(jLabel40)
+                            .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botaoDefinidaNeutroRapidaDigital)
+                                    .addComponent(jLabel46))
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoDefinidaNeutroLentaDigital))))
+                    .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPickupPassoDefinidaNeutro)
-                            .addComponent(labelPickupMaximoDefinidaNeutro)
-                            .addComponent(labelPickupMinimoDefinidaNeutro)
-                            .addComponent(labelFatorDefinidaNeutroDigital)))
-                    .addComponent(jLabel40))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(jLabel51)
+                            .addComponent(jLabel50)
+                            .addComponent(jLabel52))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         panelDefinidaNeutroDigitalLayout.setVerticalGroup(
             panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -834,7 +967,25 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
                 .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelPickupPassoDefinidaNeutro)
                     .addComponent(jLabel42))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel46)
+                .addGap(1, 1, 1)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoDefinidaNeutroRapidaDigital)
+                    .addComponent(botaoDefinidaNeutroLentaDigital))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(labelTempoDefinidoNeutroMinimo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(labelTempoDefinidoNeutroMaximo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel52)
+                    .addComponent(labelTempoDefinidoNeutroPasso))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout panelDigitalLayout = new javax.swing.GroupLayout(panelDigital);
@@ -860,12 +1011,12 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
                     .addGroup(panelDigitalLayout.createSequentialGroup()
                         .addComponent(panelInversaNeutroDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelDefinidaNeutroDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelDefinidaNeutroDigital, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelDigitalLayout.createSequentialGroup()
                         .addComponent(panelInversaFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelDefinidaFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelDefinidaFaseDigital, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         PanelItens.add(panelDigital, "card3");
@@ -1062,7 +1213,7 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
                 .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoInversaNeutroRapidaEletromecanica)
                     .addComponent(botaoInversaNeutroLentaEletromecanica))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(listaPickupInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1299,7 +1450,7 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSalvar)
                     .addComponent(botaoRetornar))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         pack();
@@ -1307,16 +1458,18 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
 
     private void listaPickupInversaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaFaseActionPerformed
         double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
-        ArrayList<Double> listaDial = ((ReleEletromecanico) this.religador).getDialDeTempo(Rele.INVERSA_FASE, corrente);
-        
+        boolean rapida = this.botaoInversaFaseRapidaEletromecanica.isSelected();
+        List<Double> listaDial = ((ReligadorEletromecanico) this.religador).getDialDeTempo(Religador.INVERSA_FASE, rapida, corrente);
+
         this.listaDialInversaFase.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaFase.addItem(dial));
     }//GEN-LAST:event_listaPickupInversaFaseActionPerformed
 
     private void listaPickupInversaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaNeutroActionPerformed
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
-        ArrayList<Double> listaDial = ((ReleEletromecanico) this.religador).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
-        
+        boolean rapida = this.botaoInversaNeutroRapidaEletromecanica.isSelected();
+        List<Double> listaDial = ((ReligadorEletromecanico) this.religador).getDialDeTempo(Religador.INVERSA_NEUTRO, rapida, corrente);
+
         this.listaDialInversaNeutro.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaNeutro.addItem(dial));
     }//GEN-LAST:event_listaPickupInversaNeutroActionPerformed
@@ -1325,12 +1478,13 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
         if (this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex()) != null) {
             double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
             double dialTempo = this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex());
-            ArrayList<PontoCurva> listaPontos;
+            boolean rapida = this.botaoInversaFaseRapidaEletromecanica.isSelected();
+            List<PontoCurva> listaPontos;
             try {
-                listaPontos = ((ReleEletromecanico) this.religador).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_FASE);
-                
+                listaPontos = ((ReligadorEletromecanico) this.religador).getPontosDialDeTempo(corrente, dialTempo, Religador.INVERSA_FASE, rapida);
+
                 this.modeloFasePontoCurva.removeTodos();
-                this.modeloFasePontoCurva.add(listaPontos);
+                this.modeloFasePontoCurva.add((ArrayList<PontoCurva>) listaPontos);
                 this.modeloFasePontoCurva.fireTableDataChanged();
             } catch (NumberFormatException e) {
                 this.modeloFasePontoCurva.removeTodos();
@@ -1343,12 +1497,13 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
         if (this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex()) != null) {
             double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
             double dialTempo = this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex());
-            ArrayList<PontoCurva> listaPontos;
+            boolean rapida = this.botaoInversaNeutroRapidaEletromecanica.isSelected();
+            List<PontoCurva> listaPontos;
             try {
-                listaPontos = ((ReleEletromecanico) this.religador).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_NEUTRO);
-                
+                listaPontos = ((ReligadorEletromecanico) this.religador).getPontosDialDeTempo(corrente, dialTempo, Religador.INVERSA_NEUTRO, rapida);
+
                 this.modeloNeutroPontoCurva.removeTodos();
-                this.modeloNeutroPontoCurva.add(listaPontos);
+                this.modeloNeutroPontoCurva.add((ArrayList<PontoCurva>) listaPontos);
                 this.modeloNeutroPontoCurva.fireTableDataChanged();
             } catch (NumberFormatException e) {
                 this.modeloNeutroPontoCurva.removeTodos();
@@ -1374,16 +1529,18 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
     private void botaoGraficoFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoFaseActionPerformed
         double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
         double dialTempo = this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex());
+        boolean rapida = this.botaoInversaFaseRapidaEletromecanica.isSelected();
         this.setModal(false);
-        Grafico.criarGrafico(((ReleEletromecanico) this.religador).getDial(Rele.INVERSA_FASE, corrente, dialTempo), this).setVisible(true);
+        Grafico.criarGrafico(((ReligadorEletromecanico) this.religador).getDial(Religador.INVERSA_FASE, rapida, corrente, dialTempo), this).setVisible(true);
         this.setModal(true);
     }//GEN-LAST:event_botaoGraficoFaseActionPerformed
 
     private void botaoGraficoNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoNeutroActionPerformed
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
         double dialTempo = this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex());
+        boolean rapida = this.botaoInversaFaseRapidaEletromecanica.isSelected();
         this.setModal(false);
-        Grafico.criarGrafico(((ReleEletromecanico) this.religador).getDial(Rele.INVERSA_NEUTRO, corrente, dialTempo), this).setVisible(true);
+        Grafico.criarGrafico(((ReligadorEletromecanico) this.religador).getDial(Religador.INVERSA_NEUTRO, rapida, corrente, dialTempo), this).setVisible(true);
         this.setModal(true);
     }//GEN-LAST:event_botaoGraficoNeutroActionPerformed
 
@@ -1404,33 +1561,33 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Religador_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Religador_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Religador_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI_Reles_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI_Religador_Resumo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new GUI_Reles_Resumo(null, true, SIGPROD2.DAO.ReleDao.buscarReles().get(0)).setVisible(true);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelItens;
+    private javax.swing.JRadioButton botaoDefinidaFaseLentaDigital;
     private javax.swing.JRadioButton botaoDefinidaFaseLentaEletromecanica;
+    private javax.swing.JRadioButton botaoDefinidaFaseRapidaDigital;
     private javax.swing.JRadioButton botaoDefinidaFaseRapidaEletromecanica;
+    private javax.swing.JRadioButton botaoDefinidaNeutroLentaDigital;
     private javax.swing.JRadioButton botaoDefinidaNeutroLentaEletromecanica;
+    private javax.swing.JRadioButton botaoDefinidaNeutroRapidaDigital;
     private javax.swing.JRadioButton botaoDefinidaNeutroRapidaEletromecanica;
     private javax.swing.JButton botaoGraficoFase;
     private javax.swing.JButton botaoGraficoNeutro;
@@ -1444,7 +1601,9 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
     private javax.swing.JRadioButton botaoInversaNeutroRapidaEletromecanica;
     private javax.swing.JButton botaoRetornar;
     private javax.swing.JButton botaoSalvar;
+    private javax.swing.ButtonGroup grupoDefinidaFaseDigital;
     private javax.swing.ButtonGroup grupoDefinidaFaseEletromecanica;
+    private javax.swing.ButtonGroup grupoDefinidaNeutroDigital;
     private javax.swing.ButtonGroup grupoDefinidaNeutroEletromecanica;
     private javax.swing.ButtonGroup grupoInversaFaseDigital;
     private javax.swing.ButtonGroup grupoInversaFaseEletromecanica;
@@ -1489,7 +1648,15 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1524,6 +1691,12 @@ public class GUI_Religador_Resumo extends javax.swing.JDialog {
     private javax.swing.JLabel labelPickupPassoDefinidaNeutro;
     private javax.swing.JLabel labelPickupPassoInversaFase;
     private javax.swing.JLabel labelPickupPassoInversaNeutro;
+    private javax.swing.JLabel labelTempoDefinidoFaseMaximo;
+    private javax.swing.JLabel labelTempoDefinidoFaseMinimo;
+    private javax.swing.JLabel labelTempoDefinidoFasePasso;
+    private javax.swing.JLabel labelTempoDefinidoNeutroMaximo;
+    private javax.swing.JLabel labelTempoDefinidoNeutroMinimo;
+    private javax.swing.JLabel labelTempoDefinidoNeutroPasso;
     private javax.swing.JLabel labelTempoMaximoInversaFase;
     private javax.swing.JLabel labelTempoMaximoInversaNeutro;
     private javax.swing.JLabel labelTempoMinimoInversaFase;
