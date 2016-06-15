@@ -55,7 +55,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                 this.listaCorrentes.addItem(elo);
             }
         } catch (SQLException ex) {
-            Erro.mostraMensagemSQL(this);
+            Erro.mostraMensagemSQL(this, ex);
         }
 
     }
@@ -74,7 +74,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                 this.modeloMaximoCarregar.fireTableDataChanged();
                 this.modeloMinimoCarregar.fireTableDataChanged();
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
+                Erro.mostraMensagemSQL(this, ex);
             }
         }
     }
@@ -995,7 +995,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                 this.listaCorrentes.removeItem(elo);
                 Mensagem.mostraMensagemExclusao(this, elo.getCorrenteNominal());
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
+                Erro.mostraMensagemSQL(this, ex);
             }
         }
     }//GEN-LAST:event_botaoDeletarActionPerformed
@@ -1018,7 +1018,7 @@ public class GUI_Elo extends javax.swing.JFrame {
                 EloKDao.deletaEloK(elo);
                 EloKDao.insereEloK(elo);
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
+                Erro.mostraMensagemSQL(this, ex);
             }
         }
     }//GEN-LAST:event_botaoAtualizarActionPerformed

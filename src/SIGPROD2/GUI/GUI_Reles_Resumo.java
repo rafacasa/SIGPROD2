@@ -1367,7 +1367,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             this.dispose();
             ((JFrame) this.getParent()).dispose();
         } catch (SQLException ex) {
-            Erro.mostraMensagemSQL((JFrame) this.getParent());
+            Erro.mostraMensagemSQL((JFrame) this.getParent(), ex);
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
 

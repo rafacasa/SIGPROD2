@@ -362,7 +362,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             }
             this.modelMonofasico.fireTableDataChanged();
         } catch (SQLException ex) {
-            Erro.mostraMensagemSQL(this);
+            Erro.mostraMensagemSQL(this, ex);
         }
     }
 
@@ -389,7 +389,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
             }
             this.modelTrifasico.fireTableDataChanged();
         } catch (SQLException ex) {
-            Erro.mostraMensagemSQL(this);
+            Erro.mostraMensagemSQL(this, ex);
         }
     }
     /*
@@ -625,14 +625,13 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
                         qtdLinhas,
                         EloTransformadorDao.MONOFASICO);
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-                ex.printStackTrace();
+                Erro.mostraMensagemSQL(this, ex);
             }
         } else {
             try {
                 EloTransformadorDao.limparBanco(EloTransformadorDao.MONOFASICO);
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
+                Erro.mostraMensagemSQL(this, ex);
             }
         }
     }//GEN-LAST:event_atualizaMonofasicoActionPerformed
@@ -662,14 +661,13 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
                         qtdLinhas,
                         EloTransformadorDao.TRIFASICO);
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-                ex.printStackTrace();
+                Erro.mostraMensagemSQL(this, ex);
             }
         } else {
             try {
                 EloTransformadorDao.limparBanco(EloTransformadorDao.TRIFASICO);
             } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
+                Erro.mostraMensagemSQL(this, ex);
             }
         }
     }//GEN-LAST:event_atualizaTrifasicoActionPerformed
