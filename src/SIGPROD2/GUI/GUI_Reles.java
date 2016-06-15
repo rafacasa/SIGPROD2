@@ -13,9 +13,10 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+
 /**
-*   @version 10/04/2016
-*/
+ * @version 10/04/2016
+ */
 public class GUI_Reles extends javax.swing.JFrame {
 
     private CaracteristicasTableModel modeloFaseCaracteristicas;
@@ -1748,24 +1749,28 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarFaseCurvaActionPerformed
 
     private void avancarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarFaseCurvaActionPerformed
-        if (!this.isEletromecanico()) {
-            String minimo = this.faseCurvaMinimo.getText();
-            String maximo = this.faseCurvaMaximo.getText();
-            String passo = this.faseCurvaPasso.getText();
+        try {
+            if (!this.isEletromecanico()) {
+                String minimo = this.faseCurvaMinimo.getText();
+                String maximo = this.faseCurvaMaximo.getText();
+                String passo = this.faseCurvaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                double min = Double.parseDouble(minimo);
-                double max = Double.parseDouble(maximo);
-                double pas = Double.parseDouble(passo);
+                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                    double min = Double.parseDouble(minimo);
+                    double max = Double.parseDouble(maximo);
+                    double pas = Double.parseDouble(passo);
 
-                if (this.verificaExpressao(min, max, pas)) {
-                    ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_FASE, min, max, pas);
-                    ((ReleDigital) this.newRele).setListaFase(this.modeloFaseCaracteristicas.getArrayList());
-                    this.avancarTela();
+                    if (this.verificaExpressao(min, max, pas)) {
+                        ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_FASE, min, max, pas);
+                        ((ReleDigital) this.newRele).setListaFase(this.modeloFaseCaracteristicas.getArrayList());
+                        this.avancarTela();
+                    }
                 }
+            } else {
+                this.avancarTela();
             }
-        } else {
-            this.avancarTela();
+        }catch(NumberFormatException e){
+            Erro.entradaInvalida(this);
         }
     }//GEN-LAST:event_avancarFaseCurvaActionPerformed
 
@@ -1779,50 +1784,50 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarInversaFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaFaseCorrenteActionPerformed
         String f = this.InversaFaseCorrenteFator.getText();
-        try{
-        if (!f.equals("")) {
-            if (this.isEletromecanico()) {
-                String valor = this.inversaFaseCorrenteValores.getText();
+        try {
+            if (!f.equals("")) {
+                if (this.isEletromecanico()) {
+                    String valor = this.inversaFaseCorrenteValores.getText();
 
-                if (!valor.equals("")) {
-                    ArrayList<Double> valores = this.separaValores(valor);
-                    double d = Double.parseDouble(f);
+                    if (!valor.equals("")) {
+                        ArrayList<Double> valores = this.separaValores(valor);
+                        double d = Double.parseDouble(f);
 
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(valores, Rele.INVERSA_FASE);
-                    this.newRele.setFatorInicio(d, Rele.INVERSA_FASE);
-                    this.addCorrentePickupFase(valores);
-                    int selecionado = this.temporizadaFase.getSelectedIndex();
-
-                    this.temporizadaFase.setSelectedIndex(selecionado + 1);
-                } else {
-                    Erro.camposVazios(this);
-                }
-            } else {
-                String minimo = this.faseCorrenteMinimo.getText();
-                String maximo = this.faseCorrenteMaximo.getText();
-                String passo = this.faseCorrentePasso.getText();
-                double fator = Double.parseDouble(f);
-
-                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                    double min = Double.parseDouble(minimo);
-                    double max = Double.parseDouble(maximo);
-                    double pas = Double.parseDouble(passo);
-
-                    if (this.verificaExpressao(min, max, pas)) {
-                        this.newRele.setFatorInicio(fator, Rele.INVERSA_FASE);
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_FASE, min, max, pas);
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(valores, Rele.INVERSA_FASE);
+                        this.newRele.setFatorInicio(d, Rele.INVERSA_FASE);
+                        this.addCorrentePickupFase(valores);
                         int selecionado = this.temporizadaFase.getSelectedIndex();
 
                         this.temporizadaFase.setSelectedIndex(selecionado + 1);
+                    } else {
+                        Erro.camposVazios(this);
                     }
                 } else {
-                    Erro.camposVazios(this);
+                    String minimo = this.faseCorrenteMinimo.getText();
+                    String maximo = this.faseCorrenteMaximo.getText();
+                    String passo = this.faseCorrentePasso.getText();
+                    double fator = Double.parseDouble(f);
+
+                    if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                        double min = Double.parseDouble(minimo);
+                        double max = Double.parseDouble(maximo);
+                        double pas = Double.parseDouble(passo);
+
+                        if (this.verificaExpressao(min, max, pas)) {
+                            this.newRele.setFatorInicio(fator, Rele.INVERSA_FASE);
+                            ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_FASE, min, max, pas);
+                            int selecionado = this.temporizadaFase.getSelectedIndex();
+
+                            this.temporizadaFase.setSelectedIndex(selecionado + 1);
+                        }
+                    } else {
+                        Erro.camposVazios(this);
+                    }
                 }
             }
+        } catch (NumberFormatException e) {
+            Erro.entradaSomenteNumeros(this);
         }
-    }catch(NumberFormatException e){
-        Erro.entradaSomenteNumeros(this);
-    }
     }//GEN-LAST:event_avancarInversaFaseCorrenteActionPerformed
 
     private void avancarDefinidaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaFaseActionPerformed
@@ -1937,28 +1942,28 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarDefinidaNeutroActionPerformed
 
     private void avancarNeutroCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurvaActionPerformed
-        try{
-        if (!this.isEletromecanico()) {
-            String minimo = this.neutroCurvaMinimo.getText();
-            String maximo = this.neutroCurvaMaximo.getText();
-            String passo = this.neutroCurvaPasso.getText();
+        try {
+            if (!this.isEletromecanico()) {
+                String minimo = this.neutroCurvaMinimo.getText();
+                String maximo = this.neutroCurvaMaximo.getText();
+                String passo = this.neutroCurvaPasso.getText();
 
-            if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
-                double min = Double.parseDouble(this.neutroCurvaMinimo.getText());
-                double max = Double.parseDouble(this.neutroCurvaMaximo.getText());
-                double pas = Double.parseDouble(this.neutroCurvaPasso.getText());
+                if (!minimo.equals("") && !maximo.equals("") && !passo.equals("")) {
+                    double min = Double.parseDouble(this.neutroCurvaMinimo.getText());
+                    double max = Double.parseDouble(this.neutroCurvaMaximo.getText());
+                    double pas = Double.parseDouble(this.neutroCurvaPasso.getText());
 
-                if (this.verificaExpressao(min, max, pas)) {
-                    ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_NEUTRO, min, max, pas);
-                    ((ReleDigital) this.newRele).setListaNeutro(this.modeloNeutroCaracteristicas.getArrayList());
-                    this.avancarTela();
+                    if (this.verificaExpressao(min, max, pas)) {
+                        ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_NEUTRO, min, max, pas);
+                        ((ReleDigital) this.newRele).setListaNeutro(this.modeloNeutroCaracteristicas.getArrayList());
+                        this.avancarTela();
+                    }
                 }
+            } else {
+                this.avancarTela();
             }
-        } else {
-            this.avancarTela();
-        }
-        }catch(NumberFormatException e){
-                Erro.entradaSomenteNumeros(this);
+        } catch (NumberFormatException e) {
+            Erro.entradaSomenteNumeros(this);
         }
     }//GEN-LAST:event_avancarNeutroCurvaActionPerformed
 
@@ -2314,7 +2319,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void avancarTela() throws IndexOutOfBoundsException {
-        while (true && this.getSelected() < this.tabbedPane.getComponentCount()) {
+        while (true && this.getSelected() < this.tabbedPane.getComponentCount() - 1) {
             int selecionado = this.getSelected() + 1;
             this.tabbedPane.setSelectedIndex(selecionado);
             if (this.panels[selecionado]) {
@@ -2371,16 +2376,17 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private ArrayList<Double> separaValores(String valores) {
         String[] s = valores.split(",");
-        ArrayList<Double> a = new ArrayList();
+        List<Double> a = new ArrayList();
 
         for (String item : s) {
             if (!item.isEmpty()) {
                 String valor = item.trim();
                 double d = Double.parseDouble(valor);
                 a.add(Double.parseDouble(valor));
+                System.out.println(valor);
             }
         }
-        return a;
+        return (ArrayList<Double>) a;
     }
 
     private boolean verificaExpressao(double min, double max, double pas) {
