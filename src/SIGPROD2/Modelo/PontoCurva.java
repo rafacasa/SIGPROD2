@@ -37,9 +37,11 @@ public class PontoCurva {
     }
 
     public double getCorrente() {
-        String str = String.format("%,.2f",this.corrente);
-        str = str.replace(',','.');
-        return Double.parseDouble(str);
+        /*String str = String.format("%,.2f",this.corrente);
+        System.out.println(str);
+        str = str.replace(',','.');*/
+        System.out.println(this.corrente);
+        return Double.parseDouble(""+this.corrente);
     }
 
     public void setCorrente(double corrente) {
