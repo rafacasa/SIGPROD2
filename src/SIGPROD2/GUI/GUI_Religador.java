@@ -2846,12 +2846,7 @@ public class GUI_Religador extends javax.swing.JFrame {
                     ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoLenta, false);
                     ((ReligadorEletromecanico) this.newReligador).addTempoDeAtuacao(Religador.DEFINIDO_NEUTRO, (ArrayList<Double>) lista_tempoRapida, true);
 
-                    try {
-                        ReligadorDao.insereReligador(this.newReligador);
-                    } catch (SQLException ex) {
-                        Erro.mostraMensagemSQL(this);
-                    }
-
+                    new GUI_Religador_Resumo(this, true, this.newReligador).setVisible(true);
                 } else {
                     Erro.camposVazios(this);
                 }
@@ -2898,11 +2893,7 @@ public class GUI_Religador extends javax.swing.JFrame {
 
                         ((ReligadorDigital) this.newReligador).setValuesTempo(Religador.DEFINIDO_NEUTRO, min_tr, max_tr, pas_tr, true);
 
-                        try {
-                            ReligadorDao.insereReligador(this.newReligador);
-                        } catch (SQLException ex) {
-                            Erro.mostraMensagemSQL(this);
-                        }
+                        new GUI_Religador_Resumo(this, true, this.newReligador).setVisible(true);
                     } else {
                         Erro.expressaoInvalida(this);
                     }
