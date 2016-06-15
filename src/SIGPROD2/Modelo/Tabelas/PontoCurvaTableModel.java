@@ -118,7 +118,6 @@ public class PontoCurvaTableModel extends DefaultTableModel {
             fireTableCellUpdated(row, col);
         } catch (Exception ex) {
             Erro.entradaSomenteNumeros(null);
-            ex.printStackTrace();
         }
     }
 

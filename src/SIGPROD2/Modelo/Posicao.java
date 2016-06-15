@@ -34,7 +34,7 @@ public class Posicao {
     }
 
     public String getTipo() {
-        return tipo;
+        return tipo.trim();
     }
 
     public void setTipo(String tipo) {
@@ -54,7 +54,7 @@ public class Posicao {
         String[] list = texto.split(":");
         
         temp.setTipo(list[1]);
-        temp.setCorrente(Integer.parseInt(list[0]));
+        temp.setCorrente(Integer.parseInt(list[0].trim()));
         return temp;
     }
     

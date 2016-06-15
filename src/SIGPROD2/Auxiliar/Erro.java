@@ -44,7 +44,7 @@ public class Erro {
     }
     
     public static void mostraMensagemSQL(JFrame janela, Exception ex) {
-        LOGGER.error("SQL EXCEPTION - :" + ex);
+        LOGGER.error("SQL EXCEPTION - :" + StringUtils.getStackTrace(ex));
         mostraMensagem(janela, "Erro de SQL no banco de dados.");
     }
     
@@ -53,6 +53,7 @@ public class Erro {
     }
     
     public static void mostraMensagemClasse(JFrame janela, Exception ex) {
+        LOGGER.error("EXCEPTION: " + StringUtils.getStackTrace(ex));
         mostraMensagem(janela, "Erro de Classe no banco de dados.");
     }
     

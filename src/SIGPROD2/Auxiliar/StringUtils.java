@@ -5,6 +5,8 @@
  */
 package SIGPROD2.Auxiliar;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -14,15 +16,15 @@ import java.util.List;
 public class StringUtils {
 
     public static boolean separaValores(String valores, List<Double> a) {
-        String[] s = valores.split(",");        
-        
+        String[] s = valores.split(",");
+
         for (String item : s) {
             String str = item.trim();
-            
+
             if (!str.isEmpty()) {
                 if (isNumeric(str)) {
                     double valor = Double.parseDouble(str);
-                    
+
                     a.add(valor);
                 } else {
                     return false;
@@ -33,7 +35,7 @@ public class StringUtils {
         }
         return true;
     }
-    
+
     public static String montarComandoSQL(int qtd, String original, String variaveis) {
         String comando = original;
 
@@ -42,30 +44,38 @@ public class StringUtils {
         }
         return comando;
     }
-    
-    public static boolean isNumeric (String valor) {
+
+    public static String getStackTrace(Exception ex) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+
+        ex.printStackTrace(pw);
+        return sw.toString();
+    }
+
+    public static boolean isNumeric(String valor) {
         try {
             double d = Double.parseDouble(valor);
-            
-        } catch(NumberFormatException e) {
+
+        } catch (NumberFormatException e) {
             return false;
         }
         return true;
     }
-    
+
     public static boolean verificaExpressao(double min, double max, double pas) {
         return min < max && (max - min) >= pas;
     }
 
     public static void main(String[] args) {
-        
+
         //System.out.println(verificaExpressao(1, 3, 2));
         String s, r;
         s = null;
         r = "....";
-        
+
         //System.out.println(s.equals("-"));
         System.out.println("-".equals(s));
-        
+
     }
 }
