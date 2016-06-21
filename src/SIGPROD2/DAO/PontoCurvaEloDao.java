@@ -132,5 +132,6 @@ public class PontoCurvaEloDao {
         }
         Conexao.fechaConexao();
         return lista;
+        
     }
 }

@@ -2,6 +2,7 @@ package SIGPROD2.BD;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import com.google.gson.Gson;
+import connection.ConnectionData;
 
 /**
  * Classe responsável por organizar os dados necessários a uma conexao a Banco
@@ -18,7 +19,7 @@ public class DadosConexao {
     private String porta;
     private String usuario;
     private String senha;
-    private static final Arquivo CONFIGURACOES = new Arquivo(DadosConexao.ARQUIVO_CONFIGURACAO);
+    private static Arquivo CONFIGURACOES;
 
     /**
      * Construtor que inicia os dados de uma conexçao a Banco de Dados.
@@ -126,6 +127,7 @@ public class DadosConexao {
      * as informações de acesso ao Banco de Dados.
      */
     public static DadosConexao getDadosConexaoSalvos() throws DadosConexaoException {
+        CONFIGURACOES = new Arquivo("config/" + ARQUIVO_CONFIGURACAO);
         if (CONFIGURACOES.existeArquivo()) {
             String fromArquivo = CONFIGURACOES.lerArquivo();
 
@@ -189,5 +191,9 @@ public class DadosConexao {
      */
     public String getPorta() {
         return porta;
+    }
+
+    public ConnectionData getConnectionData() {
+        return new ConnectionData(nomeBanco, ip, porta, usuario, senha);
     }
 }

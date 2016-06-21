@@ -12,9 +12,13 @@ import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaRowSorter;
 import SIGPROD2.Modelo.Tabelas.PontoCurvaTableModel;
 import com.sun.glass.events.KeyEvent;
+import dao.MySqlDAO;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
+import main.Dvs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -1240,7 +1244,6 @@ public class GUI_Elo extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-
         Logger logger = LogManager.getLogger(GUI_Elo.class);
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1248,7 +1251,7 @@ public class GUI_Elo extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
@@ -1269,9 +1272,11 @@ public class GUI_Elo extends javax.swing.JFrame {
         }
         //</editor-fold>
         try {
+            //new Dvs(Paths.get(System.getProperty("user.dir")), new MySqlDAO(DadosConexao.getDadosConexaoSalvos().getConnectionData())).verifyVersion();
+            logger.info("teste");
             new GUI_Elo().setVisible(true);
-        } catch (Exception ex) {
-            logger.error("Exception: " + StringUtils.getStackTrace(ex));
+        } catch (Exception e) {
+            logger.error("Exception: " + StringUtils.getStackTrace(e));
         }
     }
 

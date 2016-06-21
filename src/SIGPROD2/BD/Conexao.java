@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @version 22/03/2016
  */
 public class Conexao {
-
+    
     private static Connection conexao;
 
     /**
@@ -31,8 +31,7 @@ public class Conexao {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Falha ao fechar a conexão com o banco de dados");
+            Erro.mostraMensagemSQL(null, e);
         }
         return false;
     }
