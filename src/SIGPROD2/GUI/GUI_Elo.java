@@ -4,6 +4,7 @@ import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.Auxiliar.Mensagem;
+import SIGPROD2.Auxiliar.StringUtils;
 import SIGPROD2.DAO.EloKDao;
 import SIGPROD2.DAO.PontoCurvaEloDao;
 import SIGPROD2.Modelo.EloK;
@@ -14,6 +15,8 @@ import com.sun.glass.events.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Classe responsável por gerenciar a Janela de Elos.
@@ -1238,13 +1241,14 @@ public class GUI_Elo extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
+        Logger logger = LogManager.getLogger(GUI_Elo.class);
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
@@ -1264,12 +1268,11 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI_Elo().setVisible(true);
-            }
-        });
+        try {
+            new GUI_Elo().setVisible(true);
+        } catch (Exception ex) {
+            logger.error("Exception: " + StringUtils.getStackTrace(ex));
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
