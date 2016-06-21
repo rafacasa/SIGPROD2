@@ -25,7 +25,7 @@ public class TransformadorTableModel extends DefaultTableModel {
         this.pos = new ArrayList<>();
         this.titulos = new ArrayList<>();
         
-        this.titulos.add(" ");
+        addColumn(" ");
     }
 
     public void remove(int row) {
@@ -50,6 +50,8 @@ public class TransformadorTableModel extends DefaultTableModel {
     public void add(List<Posicao> a) {        
         List<String> p = new ArrayList();
         
+        System.out.println(a);
+        
         for (Posicao a1 : a) {
             if (a1.getCorrente() == -1)
                 p.add(a1.getTipo());
@@ -57,23 +59,19 @@ public class TransformadorTableModel extends DefaultTableModel {
                 p.add(a1.toString());
         }
         this.pos.add(new ArrayList<String>());
-        this.pos.get(getRowCount() - 1).addAll(p);        
-        for (Posicao a1 : a) {
-            System.out.print(a1.toString() + " ");
-        }
-        System.out.println("");        
-        fireTableCellUpdated(0, 0);
+        this.pos.get(getRowCount() - 1).addAll(p);  
     }
     
     public String[][] getDataArray() {
         if (pos.size() > 0) {
             if (pos.get(0).size() > 0) {
                 String[][] vetor = new String[pos.size()][pos.get(0).size()];
+                
                 for (int i = 0; i < pos.size(); i++) {
                     List<String> linha = pos.get(i);
+                    
                     for (int j = 0; j < linha.size(); j++) {
                         vetor[i][j] = linha.get(j);
-                        System.out.println(linha.get(j));
                     }
                 }
                 return vetor;
@@ -110,6 +108,21 @@ public class TransformadorTableModel extends DefaultTableModel {
     @Override
     public String getColumnName(int col) {
         return this.titulos.get(col);
+    }
+    
+    public List<String> getColumnsName() {
+        return this.titulos;
+    }
+    
+    public List<String> getRowIdentifier() {
+        List<String> list = new ArrayList<>();
+        
+        for (int i = 0; i < this.pos.size(); i++) {
+            String item = this.pos.get(i).get(0);
+            
+            list.add(item);
+        }
+        return list;       
     }
 
     @Override

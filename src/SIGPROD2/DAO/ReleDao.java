@@ -2,7 +2,7 @@ package SIGPROD2.DAO;
 
 import SIGPROD2.Auxiliar.Arquivo;
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.ReleBD;
+import SIGPROD2.BD.Tables.Rele.ReleBD;
 import static SIGPROD2.DAO.ReleDigitalDao.*;
 import static SIGPROD2.DAO.ReleEletromecanicoDao.*;
 import SIGPROD2.Modelo.Rele;
@@ -81,13 +81,12 @@ public class ReleDao {
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(GET_CODIGO);
         ResultSet resultado = comando.executeQuery();
-        while(resultado.next())
-        {
+        if (resultado.next()) {
             return (resultado.getInt("max( " + ReleBD.CODIGO + " )")) + 1;
         }
         return 0;
     }
-    
+
     public static List<Rele> buscarReles() throws SQLException {
         Rele releRecuperado;
         List<Rele> lista = new ArrayList<>();

@@ -2,6 +2,7 @@ package SIGPROD2.Modelo;
 
 import java.awt.Paint;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class DialDeTempoMecanico implements Curvas {
 
-    private ArrayList<PontoCurva> pontosCurva;
+    private List<PontoCurva> pontosCurva;
     private double dial;
 
     public DialDeTempoMecanico(double dial) {
@@ -18,7 +19,7 @@ public class DialDeTempoMecanico implements Curvas {
         this.dial = dial;
     }
 
-    public DialDeTempoMecanico(double dial, ArrayList<PontoCurva> pontos) {
+    public DialDeTempoMecanico(double dial, List<PontoCurva> pontos) {
         this.dial = dial;
         this.pontosCurva = pontos;
     }
@@ -27,7 +28,7 @@ public class DialDeTempoMecanico implements Curvas {
         this.pontosCurva.add(ponto);
     }
 
-    public ArrayList<PontoCurva> getPontosCurva() {
+    public List<PontoCurva> getPontosCurva() {
         return pontosCurva;
     }
 

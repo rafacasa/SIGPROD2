@@ -1,5 +1,6 @@
 package SIGPROD2.Modelo;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -13,11 +14,11 @@ public class ReleEletromecanico implements Rele {
     private String fabricante;
     private String modelo;
     private int codigo;
-    private ArrayList<Double> fatorInicio;
-    private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaFasePickupTempo;
-    private TreeMap<Double, ArrayList<DialDeTempoMecanico>> mapaNeutroPickupTempo;
-    private ArrayList<ArrayList<Double>> correntePickup;
-    private ArrayList<ArrayList<Double>> tempo;
+    private List<Double> fatorInicio;
+    private TreeMap<Double, List<DialDeTempoMecanico>> mapaFasePickupTempo;
+    private TreeMap<Double, List<DialDeTempoMecanico>> mapaNeutroPickupTempo;
+    private List<List<Double>> correntePickup;
+    private List<List<Double>> tempo;
     private int qtdPontosFase;
     private int qtdPontosNeutro;
     private boolean[] existeCurva;
@@ -41,7 +42,7 @@ public class ReleEletromecanico implements Rele {
         this.existeCurva = new boolean[4];
     }
 
-    public void addCorrentePickup(ArrayList<Double> corrente, int tipo) {
+    public void addCorrentePickup(List<Double> corrente, int tipo) {
         this.correntePickup.set(tipo, new ArrayList<>(corrente));
         if (tipo == INVERSA_FASE) {
             for (Double c : corrente) {
@@ -63,9 +64,9 @@ public class ReleEletromecanico implements Rele {
         }
     }
 
-    public void addDialDeTempo(int tipo, double corrente, double dial, ArrayList<PontoCurva> pontos) {
+    public void addDialDeTempo(int tipo, double corrente, double dial, List<PontoCurva> pontos) {
         DialDeTempoMecanico dm = new DialDeTempoMecanico(dial, pontos);
-        ArrayList<DialDeTempoMecanico> array;
+        List<DialDeTempoMecanico> array;
 
         if (tipo == INVERSA_FASE) {
             array = this.mapaFasePickupTempo.get(corrente);
@@ -90,9 +91,9 @@ public class ReleEletromecanico implements Rele {
         }
     }
 
-    public ArrayList<Double> getDialDeTempo(int tipo, double corrente) {
-        ArrayList<Double> dial = new ArrayList<>();
-        ArrayList<DialDeTempoMecanico> diais;
+    public List<Double> getDialDeTempo(int tipo, double corrente) {
+        List<Double> dial = new ArrayList<>();
+        List<DialDeTempoMecanico> diais;
         if (tipo == INVERSA_FASE) {
             diais = this.mapaFasePickupTempo.get(corrente);
         } else {
@@ -105,8 +106,8 @@ public class ReleEletromecanico implements Rele {
         return dial;
     }
 
-    public ArrayList<PontoCurva> getPontosDialDeTempo(double corrente, double dial, int tipo) {
-        ArrayList<DialDeTempoMecanico> dt;
+    public List<PontoCurva> getPontosDialDeTempo(double corrente, double dial, int tipo) {
+        List<DialDeTempoMecanico> dt;
         if (tipo == Rele.INVERSA_FASE) {
             dt = this.mapaFasePickupTempo.get(corrente);
         } else {
@@ -125,16 +126,16 @@ public class ReleEletromecanico implements Rele {
         return qtdPontosFase + qtdPontosNeutro;
     }
 
-    public ArrayList<Double> getCorrentePickup(int tipo) {
+    public List<Double> getCorrentePickup(int tipo) {
         return this.correntePickup.get(tipo);
     }
 
-    public void addTempoDeAtuacao(ArrayList<Double> tempo, int tipo) {
+    public void addTempoDeAtuacao(List<Double> tempo, int tipo) {
         tipo = tipo - 2;
         this.tempo.add(tipo, tempo);
     }
 
-    public ArrayList<Double> getTempoDeAtuacao(int tipo) {
+    public List<Double> getTempoDeAtuacao(int tipo) {
         tipo = tipo - 2;
         return this.tempo.get(tipo);
     }

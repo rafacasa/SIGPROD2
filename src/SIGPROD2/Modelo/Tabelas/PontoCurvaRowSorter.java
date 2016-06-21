@@ -9,6 +9,7 @@ import SIGPROD2.Modelo.PontoCurva;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -29,7 +30,7 @@ public class PontoCurvaRowSorter extends TableRowSorter<PontoCurvaTableModel> {
 
     @Override
     public void toggleSortOrder(int column) {
-        ArrayList<PontoCurva> lista = this.model.getArrayList();
+        List<PontoCurva> lista = this.model.getList();
         if (cont >= 0) {
             cont++;
         }
@@ -52,7 +53,7 @@ public class PontoCurvaRowSorter extends TableRowSorter<PontoCurvaTableModel> {
                 }
             });
         }
-        this.model.setArrayList(lista);
+        this.model.setList(lista);
     }
 
 }

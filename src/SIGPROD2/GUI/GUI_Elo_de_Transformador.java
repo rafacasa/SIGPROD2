@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import SIGPROD2.Auxiliar.StringUtils;
+import java.util.Arrays;
 import java.util.List;
-import javax.swing.JTable;
 
 /**
  * Classe responsável por gerenciar a Janela de Elo de Transformadores
@@ -27,7 +27,7 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     public GUI_Elo_de_Transformador() {
         initComponents();
         this.configurarTabelas();
-        //this.carregarTabelas();
+        this.carregarTabelas();
     }
 
     @SuppressWarnings("unchecked")
@@ -311,28 +311,25 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void configurarTabelas() {
-        this.configuraTabelaTrifasico();
-        this.configuraTabelaMonofasico();
+        this.configuraTabelaMonofasica();
+        this.configuraTabelaTrifasica();
     }
 
-    private void configuraTabelaTrifasico() {
-        this.modeloTrifasico = new TransformadorTableModel();
-        configuraTabela(this.tabelaTrifasico, this.modeloTrifasico);
-    }
-    
-    private void configuraTabelaMonofasico() {
+    private void configuraTabelaMonofasica() {
         this.modeloMonofasico = new TransformadorTableModel();
-        configuraTabela(this.tabelaMonofasico, this.modeloMonofasico);
-    }
-    
-    private void configuraTabela(JTable tabela, TransformadorTableModel modelo) {
-        modelo = new TransformadorTableModel();
 
-        tabela.setModel(modelo);
-        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabela.setDefaultRenderer(Object.class, new MyRenderer());
+        this.tabelaMonofasico.setModel(modeloMonofasico);
+        this.tabelaMonofasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaMonofasico.setDefaultRenderer(Object.class, new MyRenderer());
+    }
+
+    private void configuraTabelaTrifasica() {
+        this.modeloTrifasico = new TransformadorTableModel();
+
+        this.tabelaTrifasico.setModel(modeloTrifasico);
+        this.tabelaTrifasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaTrifasico.setDefaultRenderer(Object.class, new MyRenderer());
     }
 
     private void carregarTabelas() {
@@ -351,12 +348,14 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     private void carregarTabela(TransformadorTableModel modelo, boolean trifasico) {
         try {
             List<String> listaColunas = EloTransformadorDao.buscarKv(trifasico);
+            //System.out.println(listaColunas);
             Posicao[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), trifasico);
+            //System.out.println(Arrays.deepToString(dados));
             List<Posicao> listaTemp = new ArrayList<>();
             Posicao[] linha;
 
             for (String coluna : listaColunas) {
-                if (!coluna.equals(" ")) {
+                if (!(" ").equals(coluna)) {
                     modelo.addColumn(coluna);
                 }
             }
@@ -407,9 +406,6 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
      */
     private void addColunaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaMonofasicoActionPerformed
         this.adicionaColuna(this.modeloMonofasico);
-        
-        this.modeloMonofasico.fireTableStructureChanged();
-        this.modeloMonofasico.fireTableDataChanged();
     }//GEN-LAST:event_addColunaMonofasicoActionPerformed
 
     private void tabelaMonofasicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMonofasicoMouseClicked
@@ -454,33 +450,56 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     }//GEN-LAST:event_removeLinhaTrifasicoActionPerformed
 
     private void adicionaLinha(TransformadorTableModel modelo) {
-        List<Posicao> p = new ArrayList();
         String item = Entrada.valorLinha(this);
 
-        if (StringUtils.isNumber(item) && Integer.parseInt(item) != 0) {
-            p.add(new Posicao(Integer.parseInt(item), true));
-            for (int i = 1; i < modelo.getColumnCount(); i++) {
-                p.add(new Posicao());
+        if (item != null) {
+            item = item.trim();
+
+            if (StringUtils.isNumber(item) && Integer.parseInt(item) != 0) {
+                List<String> linhas = modelo.getRowIdentifier();
+                String aux = item + " kVA ";
+
+                if (linhas.indexOf(aux) == -1) {
+                    List<Posicao> p = new ArrayList();
+
+                    p.add(new Posicao(Integer.parseInt(item), true));
+                    for (int i = 1; i < modelo.getColumnCount(); i++) {
+                        p.add(new Posicao());
+                    }
+                    modelo.add(p);
+                    modelo.fireTableDataChanged();
+                } else {
+                    Erro.valorCadastrado(this);
+                }
+            } else {
+                Erro.entradaInvalida(this);
             }
-            modelo.add(p);
-            modelo.fireTableDataChanged();
-        } else {
-            Erro.entradaInvalida(this);
         }
     }
 
     private void adicionaColuna(TransformadorTableModel modelo) {
         String valor = Entrada.valorColuna(this);
-        
-        if (valor != null && StringUtils.isNumber(valor) && Integer.parseInt(valor) != 0) {
-            modelo.addColumn(valor + " kV ");
-            for (int i = 0; i < modelo.getRowCount(); i++) {
-                modelo.add(new Posicao(), i, modelo.getColumnCount() - 1);
+
+        if (valor != null) {
+            valor = valor.trim();
+
+            if (valor != null && StringUtils.isNumber(valor) && Integer.parseInt(valor) != 0) {
+                List<String> colunas = modelo.getColumnsName();
+                valor = valor + " kV";
+
+                if (colunas.indexOf(valor) == -1) {
+                    modelo.addColumn(valor);
+                    for (int i = 0; i < modelo.getRowCount(); i++) {
+                        modelo.add(new Posicao(), i, modelo.getColumnCount() - 1);
+                    }
+                    modelo.fireTableStructureChanged();
+                    modelo.fireTableDataChanged();
+                } else {
+                    Erro.valorCadastrado(this);
+                }
+            } else {
+                Erro.entradaInvalida(this);
             }
-            modelo.fireTableStructureChanged();
-            modelo.fireTableDataChanged();
-        } else {
-            Erro.entradaInvalida(this);
         }
     }
 
@@ -564,36 +583,30 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         String[][] matriz = modelo.getDataArray();
         int qtdLinhas = matriz.length;
 
-        if (qtdColunas > 0 && qtdLinhas > 0) {
-            String[] vetorColunas = new String[qtdColunas];
-
-            for (int i = 0; i < qtdColunas; i++) {
-                vetorColunas[i] = modelo.getColumnName(i);
-            }
-
-            String[] vetorLinhas = new String[qtdLinhas];
-
-            for (int i = 0; i < qtdLinhas; i++) {
-                vetorLinhas[i] = matriz[i][0];
-            }
-            try {
+        try {
+            if (qtdColunas > 0 || qtdLinhas > 0) {
                 EloTransformadorDao.limparBanco(trifasico);
-                EloTransformadorDao.inserirKv(vetorColunas, trifasico);
-                EloTransformadorDao.inserirPot(vetorLinhas, trifasico);
-                EloTransformadorDao.inserirEloTransformador(matriz,
-                        qtdColunas,
-                        qtdLinhas,
-                        trifasico);
-            } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-                ex.printStackTrace();
+
+                if (qtdColunas > 0) {
+                    String[] listaColunas = new String[qtdColunas];
+
+                    for (int i = 0; i < qtdColunas; i++) {
+                        listaColunas[i] = modelo.getColumnName(i);
+                    }
+                    EloTransformadorDao.inserirKv(listaColunas, trifasico);
+                }
+                if (qtdLinhas > 0) {
+                    String[] listaLinhas = new String[qtdLinhas];
+
+                    for (int i = 0; i < qtdLinhas; i++) {
+                        listaLinhas[i] = matriz[i][0];
+                    }
+                    EloTransformadorDao.inserirPot(listaLinhas, trifasico);
+                }
+                EloTransformadorDao.inserirEloTransformador(matriz, qtdColunas, qtdLinhas, trifasico);
             }
-        } else {
-            try {
-                EloTransformadorDao.limparBanco(trifasico);
-            } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-            }
+        } catch (SQLException e) {
+
         }
     }
 
@@ -602,9 +615,9 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
      */
     public void limparCampos(boolean primeiraAba) {
         if (primeiraAba) {
-            this.configuraTabelaMonofasico();
+            this.configuraTabelaMonofasica();
         } else {
-            this.configuraTabelaTrifasico();
+            this.configuraTabelaTrifasica();
         }
     }
 

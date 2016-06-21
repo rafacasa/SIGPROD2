@@ -1,8 +1,8 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.PickupDefinidaEletromecanico;
-import SIGPROD2.BD.Tables.TempoAtuacaoDefinidaEletromecanico;
+import SIGPROD2.BD.Tables.Rele.PickupDefinidaEletromecanicoBD;
+import SIGPROD2.BD.Tables.Rele.TempoAtuacaoDefinidaEletromecanicoBD;
 import static SIGPROD2.DAO.PontoCurvaReleDao.*;
 import SIGPROD2.Modelo.Rele;
 import static SIGPROD2.Modelo.Rele.*;
@@ -24,26 +24,26 @@ import java.util.List;
 public class ReleEletromecanicoDao {
 
     private static final String INSERT_CORRENTE = "INSERT INTO "
-            + PickupDefinidaEletromecanico.TABELA + " ("
-            + PickupDefinidaEletromecanico.CODIGO_RELE + ", "
-            + PickupDefinidaEletromecanico.CORRENTE_PICKUP + ", "
-            + PickupDefinidaEletromecanico.IS_FASE + ") VALUES (?, ?, ?)";
+            + PickupDefinidaEletromecanicoBD.TABELA + " ("
+            + PickupDefinidaEletromecanicoBD.CODIGO_RELE + ", "
+            + PickupDefinidaEletromecanicoBD.CORRENTE_PICKUP + ", "
+            + PickupDefinidaEletromecanicoBD.IS_FASE + ") VALUES (?, ?, ?)";
     private static final String INSERT_TEMPO_ATUACAO = "INSERT INTO "
-            + TempoAtuacaoDefinidaEletromecanico.TABELA + " ("
-            + TempoAtuacaoDefinidaEletromecanico.CODIGO_RELE + ", "
-            + TempoAtuacaoDefinidaEletromecanico.TEMPO_ATUACAO + ", "
-            + TempoAtuacaoDefinidaEletromecanico.IS_FASE + ") VALUES (?, ?, ?)";
+            + TempoAtuacaoDefinidaEletromecanicoBD.TABELA + " ("
+            + TempoAtuacaoDefinidaEletromecanicoBD.CODIGO_RELE + ", "
+            + TempoAtuacaoDefinidaEletromecanicoBD.TEMPO_ATUACAO + ", "
+            + TempoAtuacaoDefinidaEletromecanicoBD.IS_FASE + ") VALUES (?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?)";
     private static final String SELECT_CORRENTE = "SELECT "
-            + PickupDefinidaEletromecanico.CORRENTE_PICKUP + " FROM "
-            + PickupDefinidaEletromecanico.TABELA + " WHERE "
-            + PickupDefinidaEletromecanico.CODIGO_RELE + " = ? AND "
-            + TempoAtuacaoDefinidaEletromecanico.IS_FASE + " = ?";
+            + PickupDefinidaEletromecanicoBD.CORRENTE_PICKUP + " FROM "
+            + PickupDefinidaEletromecanicoBD.TABELA + " WHERE "
+            + PickupDefinidaEletromecanicoBD.CODIGO_RELE + " = ? AND "
+            + TempoAtuacaoDefinidaEletromecanicoBD.IS_FASE + " = ?";
     private static final String SELECT_TEMPO_ATUACAO = "SELECT "
-            + TempoAtuacaoDefinidaEletromecanico.TEMPO_ATUACAO + " FROM "
-            + TempoAtuacaoDefinidaEletromecanico.TABELA + " WHERE "
-            + TempoAtuacaoDefinidaEletromecanico.CODIGO_RELE + " = ? AND "
-            + TempoAtuacaoDefinidaEletromecanico.IS_FASE + " = ?";
+            + TempoAtuacaoDefinidaEletromecanicoBD.TEMPO_ATUACAO + " FROM "
+            + TempoAtuacaoDefinidaEletromecanicoBD.TABELA + " WHERE "
+            + TempoAtuacaoDefinidaEletromecanicoBD.CODIGO_RELE + " = ? AND "
+            + TempoAtuacaoDefinidaEletromecanicoBD.IS_FASE + " = ?";
 
     public static void insereDadosReleEletromecanico(ReleEletromecanico releParaInserir) throws SQLException {
         if (releParaInserir.existeCurva(DEFINIDO_FASE)) {
@@ -109,10 +109,10 @@ public class ReleEletromecanicoDao {
 
     private static ReleEletromecanico buscarTempos(ReleEletromecanico rele) throws SQLException {
         if (rele.existeCurva(DEFINIDO_FASE)) {
-            rele = buscarTempos(rele, true);
+            buscarTempos(rele, true);
         }
         if (rele.existeCurva(DEFINIDO_NEUTRO)) {
-            rele = buscarTempos(rele, false);
+            buscarTempos(rele, false);
         }
         return rele;
     }
@@ -126,7 +126,7 @@ public class ReleEletromecanicoDao {
         ResultSet resultado = comando.executeQuery();
 
         while (resultado.next()) {
-            lista.add(resultado.getDouble(TempoAtuacaoDefinidaEletromecanico.TEMPO_ATUACAO));
+            lista.add(resultado.getDouble(TempoAtuacaoDefinidaEletromecanicoBD.TEMPO_ATUACAO));
         }
         if (isFase) {
             rele.addTempoDeAtuacao(lista, DEFINIDO_FASE);
@@ -138,10 +138,10 @@ public class ReleEletromecanicoDao {
 
     private static ReleEletromecanico buscarCorrentes(ReleEletromecanico rele) throws SQLException {
         if (rele.existeCurva(DEFINIDO_FASE)) {
-            rele = buscarCorrentes(rele, true);
+            buscarCorrentes(rele, true);
         }
         if (rele.existeCurva(DEFINIDO_NEUTRO)) {
-            rele = buscarCorrentes(rele, false);
+            buscarCorrentes(rele, false);
         }
         return rele;
     }
@@ -155,7 +155,7 @@ public class ReleEletromecanicoDao {
         ResultSet resultado = comando.executeQuery();
 
         while (resultado.next()) {
-            lista.add(resultado.getDouble(PickupDefinidaEletromecanico.CORRENTE_PICKUP));
+            lista.add(resultado.getDouble(PickupDefinidaEletromecanicoBD.CORRENTE_PICKUP));
         }
         if (isFase) {
             rele.addCorrentePickup(lista, DEFINIDO_FASE);

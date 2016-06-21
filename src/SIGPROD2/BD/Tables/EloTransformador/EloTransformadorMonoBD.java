@@ -1,4 +1,4 @@
-package SIGPROD2.BD.Tables;
+package SIGPROD2.BD.Tables.EloTransformador;
 
 /**
  * Classe responsável por manter os nomes das colunas e da tabela de Elos de
@@ -7,12 +7,12 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 23/03/2016
  */
-public class EloTransformadorMono {
+public class EloTransformadorMonoBD {
 
     public static String ID_POTENCIA = "potenciaId";
     public static String ID_KV = "kvId";
     public static String TIPO_ELO = "tipo";
     public static String CORRENTE_ELO = "corrente";
     public static String ID_ELO = "id";
-    public static String TABELA = "elotransformadorMono";
+    public static String TABELA = "ElotransformadorMono";
 }

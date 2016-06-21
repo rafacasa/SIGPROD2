@@ -1,7 +1,7 @@
 package SIGPROD2.DAO;
 
 import SIGPROD2.BD.Conexao;
-import SIGPROD2.BD.Tables.PontoDeCurvaReleBD;
+import SIGPROD2.BD.Tables.Rele.PontoDeCurvaBD;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
 import SIGPROD2.Modelo.ReleEletromecanico;
@@ -22,33 +22,33 @@ import java.util.List;
 public class PontoCurvaReleDao {
 
     private static final String INSERT = "INSERT INTO "
-            + PontoDeCurvaReleBD.TABELA + " ("
-            + PontoDeCurvaReleBD.CORRENTE + ", "
-            + PontoDeCurvaReleBD.TEMPO + ", "
-            + PontoDeCurvaReleBD.CORRENTE_PICKUP + ", "
-            + PontoDeCurvaReleBD.IS_FASE + ", "
-            + PontoDeCurvaReleBD.DIAL + ", "
-            + PontoDeCurvaReleBD.CODIGO_RELE + ") VALUES (?, ?, ?, ?, ?, ?)";
+            + PontoDeCurvaBD.TABELA + " ("
+            + PontoDeCurvaBD.CORRENTE + ", "
+            + PontoDeCurvaBD.TEMPO + ", "
+            + PontoDeCurvaBD.CORRENTE_PICKUP + ", "
+            + PontoDeCurvaBD.IS_FASE + ", "
+            + PontoDeCurvaBD.DIAL + ", "
+            + PontoDeCurvaBD.CODIGO_RELE + ") VALUES (?, ?, ?, ?, ?, ?)";
     private static final String VARIAVEIS_INSERT = ", (?, ?, ?, ?, ?, ?)";
     private static final String BUSCAR_PICKUP = "SELECT DISTINCT "
-            + PontoDeCurvaReleBD.CORRENTE_PICKUP + ", "
-            + PontoDeCurvaReleBD.IS_FASE + " FROM "
-            + PontoDeCurvaReleBD.TABELA + " WHERE "
-            + PontoDeCurvaReleBD.CODIGO_RELE + " = ?";
+            + PontoDeCurvaBD.CORRENTE_PICKUP + ", "
+            + PontoDeCurvaBD.IS_FASE + " FROM "
+            + PontoDeCurvaBD.TABELA + " WHERE "
+            + PontoDeCurvaBD.CODIGO_RELE + " = ?";
     private static final String BUSCAR_DIAL = "SELECT DISTINCT "
-            + PontoDeCurvaReleBD.DIAL + ", "
-            + PontoDeCurvaReleBD.CORRENTE_PICKUP + ", "
-            + PontoDeCurvaReleBD.IS_FASE + " FROM "
-            + PontoDeCurvaReleBD.TABELA + " WHERE "
-            + PontoDeCurvaReleBD.CODIGO_RELE + " = ?";
+            + PontoDeCurvaBD.DIAL + ", "
+            + PontoDeCurvaBD.CORRENTE_PICKUP + ", "
+            + PontoDeCurvaBD.IS_FASE + " FROM "
+            + PontoDeCurvaBD.TABELA + " WHERE "
+            + PontoDeCurvaBD.CODIGO_RELE + " = ?";
     private static final String BUSCAR_PONTOS = "SELECT "
-            + PontoDeCurvaReleBD.CORRENTE + " ,"
-            + PontoDeCurvaReleBD.TEMPO + " FROM "
-            + PontoDeCurvaReleBD.TABELA + " WHERE "
-            + PontoDeCurvaReleBD.CODIGO_RELE + " = ? AND "
-            + PontoDeCurvaReleBD.CORRENTE_PICKUP + " = ? AND "
-            + PontoDeCurvaReleBD.DIAL + " = ? AND "
-            + PontoDeCurvaReleBD.IS_FASE + " = ?";
+            + PontoDeCurvaBD.CORRENTE + " ,"
+            + PontoDeCurvaBD.TEMPO + " FROM "
+            + PontoDeCurvaBD.TABELA + " WHERE "
+            + PontoDeCurvaBD.CODIGO_RELE + " = ? AND "
+            + PontoDeCurvaBD.CORRENTE_PICKUP + " = ? AND "
+            + PontoDeCurvaBD.DIAL + " = ? AND "
+            + PontoDeCurvaBD.IS_FASE + " = ?";
 
     private static String montarComando(int qtd) {
         String comando = INSERT;
@@ -114,10 +114,10 @@ public class PontoCurvaReleDao {
         ResultSet resultado = comando.executeQuery();
 
         while (resultado.next()) {
-            if (resultado.getBoolean(PontoDeCurvaReleBD.IS_FASE)) {
-                correntesFase.add(resultado.getDouble(PontoDeCurvaReleBD.CORRENTE_PICKUP));
+            if (resultado.getBoolean(PontoDeCurvaBD.IS_FASE)) {
+                correntesFase.add(resultado.getDouble(PontoDeCurvaBD.CORRENTE_PICKUP));
             } else {
-                correntesNeutro.add(resultado.getDouble(PontoDeCurvaReleBD.CORRENTE_PICKUP));
+                correntesNeutro.add(resultado.getDouble(PontoDeCurvaBD.CORRENTE_PICKUP));
             }
         }
         rele.addCorrentePickup(correntesFase, Rele.INVERSA_FASE);
@@ -133,9 +133,9 @@ public class PontoCurvaReleDao {
         comando.setInt(1, rele.getCodigo());
         ResultSet resultado = comando.executeQuery();
         while (resultado.next()) {
-            dial = resultado.getDouble(PontoDeCurvaReleBD.DIAL);
-            corrente = resultado.getDouble(PontoDeCurvaReleBD.CORRENTE_PICKUP);
-            isFase = resultado.getBoolean(PontoDeCurvaReleBD.IS_FASE);
+            dial = resultado.getDouble(PontoDeCurvaBD.DIAL);
+            corrente = resultado.getDouble(PontoDeCurvaBD.CORRENTE_PICKUP);
+            isFase = resultado.getBoolean(PontoDeCurvaBD.IS_FASE);
             tipo = isFase ? Rele.INVERSA_FASE : Rele.INVERSA_NEUTRO;
             rele.addDialDeTempo(tipo, corrente, dial, buscarPontos(rele.getCodigo(), corrente, dial, isFase));
         }
@@ -153,8 +153,8 @@ public class PontoCurvaReleDao {
 
         while (resultado.next()) {
             listaPontos.add(new PontoCurva(
-                    resultado.getDouble(PontoDeCurvaReleBD.CORRENTE),
-                    resultado.getDouble(PontoDeCurvaReleBD.TEMPO)));
+                    resultado.getDouble(PontoDeCurvaBD.CORRENTE),
+                    resultado.getDouble(PontoDeCurvaBD.TEMPO)));
         }
         return listaPontos;
     }

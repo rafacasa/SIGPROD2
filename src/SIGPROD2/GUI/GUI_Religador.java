@@ -3061,7 +3061,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         if (!c.equals("") && !d.equals("")) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
-            List<PontoCurva> pontos = this.modeloFaseCriarDial.getArrayList();
+            List<PontoCurva> pontos = this.modeloFaseCriarDial.getList();
             List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, false, corrente);
 
             if (valores.isEmpty() || valores.indexOf(dial) == -1) {
@@ -3084,7 +3084,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         if (!c.equals("") && !d.equals("")) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
-            ArrayList<PontoCurva> pontos = this.modeloNeutroCriaDial.getArrayList();
+            List<PontoCurva> pontos = this.modeloNeutroCriaDial.getList();
             List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, false, corrente);
 
             if (valores.isEmpty() || valores.indexOf(dial) == -1) {
@@ -3269,7 +3269,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         if (!c.equals("") && !d.equals("")) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
-            List<PontoCurva> pontos = this.modeloNeutroCriaDialRapido.getArrayList();
+            List<PontoCurva> pontos = this.modeloNeutroCriaDialRapido.getList();
             List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_NEUTRO, true, corrente);
             
             if (valores.isEmpty() || valores.indexOf(dial) == -1) {
@@ -3415,7 +3415,7 @@ public class GUI_Religador extends javax.swing.JFrame {
         if (!c.equals("") && !d.equals("")) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
-            ArrayList<PontoCurva> pontos = this.modeloFaseCriarDialRapido.getArrayList();
+            List<PontoCurva> pontos = this.modeloFaseCriarDialRapido.getList();
             List<Double> valores = ((ReligadorEletromecanico) this.newReligador).getDialDeTempo(Religador.INVERSA_FASE, false, corrente);
 
             if (valores.isEmpty() || valores.indexOf(dial) == -1) {

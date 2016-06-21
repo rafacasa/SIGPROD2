@@ -90,7 +90,7 @@ public class ReligadorEletromecanico implements Religador {
         }
     }
 
-    public void addDialDeTempo(int tipo, boolean rapida, double corrente, double dial, ArrayList<PontoCurva> pontos) {
+    public void addDialDeTempo(int tipo, boolean rapida, double corrente, double dial, List<PontoCurva> pontos) {
         DialDeTempoMecanico dm = new DialDeTempoMecanico(dial, pontos);
         List<DialDeTempoMecanico> array;
 

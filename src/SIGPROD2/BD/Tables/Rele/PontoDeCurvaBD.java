@@ -1,4 +1,4 @@
-package SIGPROD2.BD.Tables;
+package SIGPROD2.BD.Tables.Rele;
 
 /**
  * Classe responsável por manter os nomes das colunas e da tabela de Pontos de
@@ -7,7 +7,7 @@ package SIGPROD2.BD.Tables;
  * @author Rafael Casa
  * @version 06/04/2016
  */
-public class PontoDeCurvaReleBD {
+public class PontoDeCurvaBD {
 
     public static String ID = "id";
     public static String CORRENTE = "corrente";

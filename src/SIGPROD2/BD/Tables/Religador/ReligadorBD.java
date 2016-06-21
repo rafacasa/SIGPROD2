@@ -1,12 +1,12 @@
-package SIGPROD2.BD.Tables;
+package SIGPROD2.BD.Tables.Religador;
 
 /**
- * Classe responsável por manter os nomes das colunas e da tabela de Relés.
+ * Classe responsável por manter os nomes das colunas e da tabela de Religadores.
  *
  * @author Rafael Casa
- * @version 06/04/2016
+ * @version 01/06/2016
  */
-public class ReleBD {
+public class ReligadorBD {
 
     public static final String CODIGO = "codigo";
     public static final String FABRICANTE = "fabricante";
@@ -20,5 +20,5 @@ public class ReleBD {
     public static final String EXISTE_CURVA_INVERSA_NEUTRO = "existeInversaNeutro";
     public static final String EXISTE_CURVA_DEFINIDA_FASE = "existeDefinidaFase";
     public static final String EXISTE_CURVA_DEFINIDA_NEUTRO = "existeDefinidaNeutro";
-    public static final String TABELA = "Rele";
+    public static final String TABELA = "Religador";
 }

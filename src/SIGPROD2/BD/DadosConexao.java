@@ -126,9 +126,10 @@ public class DadosConexao {
      * as informações de acesso ao Banco de Dados.
      */
     public static DadosConexao getDadosConexaoSalvos() throws DadosConexaoException {
-        if (CONFIGURACOES.existeArquivo() && CONFIGURACOES.abreArquivo()) {
+        if (CONFIGURACOES.existeArquivo()) {
+            CONFIGURACOES.abreArquivo();
             String fromArquivo = CONFIGURACOES.lerArquivo();
-
+            
             Gson json = new Gson();
             DadosConexao dados = json.fromJson(fromArquivo, DadosConexao.class);
             return dados;
