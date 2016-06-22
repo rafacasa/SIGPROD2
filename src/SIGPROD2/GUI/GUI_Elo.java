@@ -1271,12 +1271,14 @@ public class GUI_Elo extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        GUI_Elo janela = null;
         try {
-            //new Dvs(Paths.get(System.getProperty("user.dir")), new MySqlDAO(DadosConexao.getDadosConexaoSalvos().getConnectionData())).verifyVersion();
             logger.info("teste");
-            new GUI_Elo().setVisible(true);
+            janela = new GUI_Elo();
+            janela.setVisible(true);
         } catch (Exception e) {
             logger.error("Exception: " + StringUtils.getStackTrace(e));
+            Erro.erro(janela);
         }
     }
 
