@@ -86,4 +86,8 @@ public class Erro {
     public static void expressaoInvalida(JFrame janela) {
         mostraMensagem(janela, "Expressão Inválida");
     }
+    
+    public static void erro(JFrame janela) {
+        mostraMensagem(janela, "Houve um erro inesperado na execução do programa.");
+    }
 }

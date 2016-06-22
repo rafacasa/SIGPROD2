@@ -18,7 +18,7 @@ public class DadosConexao {
     private String porta;
     private String usuario;
     private String senha;
-    private static final Arquivo CONFIGURACOES = new Arquivo(DadosConexao.ARQUIVO_CONFIGURACAO);
+    private static final Arquivo CONFIGURACOES = new Arquivo("config/" + DadosConexao.ARQUIVO_CONFIGURACAO);
 
     /**
      * Construtor que inicia os dados de uma conexçao a Banco de Dados.
@@ -127,8 +127,9 @@ public class DadosConexao {
      */
     public static DadosConexao getDadosConexaoSalvos() throws DadosConexaoException {
         if (CONFIGURACOES.existeArquivo()) {
+            CONFIGURACOES.abreArquivo();
             String fromArquivo = CONFIGURACOES.lerArquivo();
-
+            
             Gson json = new Gson();
             DadosConexao dados = json.fromJson(fromArquivo, DadosConexao.class);
             return dados;

@@ -9,6 +9,9 @@ import SIGPROD2.Modelo.Tabelas.TransformadorTableModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
+import SIGPROD2.Auxiliar.StringUtils;
+import java.util.List;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Classe responsável por gerenciar a Janela de Elo de Transformadores
@@ -18,13 +21,12 @@ import javax.swing.ListSelectionModel;
  */
 public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
 
-    private TransformadorTableModel modelTrifasico;
-    private TransformadorTableModel modelMonofasico;
+    private TransformadorTableModel modeloTrifasico;
+    private TransformadorTableModel modeloMonofasico;
 
     public GUI_Elo_de_Transformador() {
         initComponents();
-        this.configuraTabelaMonofasico();
-        this.configuraTabelaTrifasico();
+        this.configurarTabelas();
         this.carregarTabelas();
     }
 
@@ -309,28 +311,25 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*
-     * Configura tabela Trifasico
-     */
-    private void configuraTabelaTrifasico() {
-        this.modelTrifasico = new TransformadorTableModel();
-        this.tabelaTrifasico.setModel(this.modelTrifasico);
-        this.tabelaTrifasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.tabelaTrifasico.setDefaultRenderer(Object.class, new MyRenderer());
-        this.modelTrifasico.addColumn(" ");
-        this.modelTrifasico.fireTableStructureChanged();
+    private void configurarTabelas() {
+        this.configuraTabelaMonofasica();
+        this.configuraTabelaTrifasica();
     }
 
-    /*
-     * Configura tabela Trifasico
-     */
-    private void configuraTabelaMonofasico() {
-        this.modelMonofasico = new TransformadorTableModel();
-        this.tabelaMonofasico.setModel(this.modelMonofasico);
+    private void configuraTabelaMonofasica() {
+        this.modeloMonofasico = new TransformadorTableModel();
+
+        this.tabelaMonofasico.setModel(modeloMonofasico);
         this.tabelaMonofasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.tabelaMonofasico.setDefaultRenderer(Object.class, new MyRenderer());
-        this.modelMonofasico.addColumn(" ");
-        this.modelMonofasico.fireTableStructureChanged();
+    }
+
+    private void configuraTabelaTrifasica() {
+        this.modeloTrifasico = new TransformadorTableModel();
+
+        this.tabelaTrifasico.setModel(modeloTrifasico);
+        this.tabelaTrifasico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.tabelaTrifasico.setDefaultRenderer(Object.class, new MyRenderer());
     }
 
     private void carregarTabelas() {
@@ -339,152 +338,80 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
     }
 
     private void carregaTabelaMonofasica() {
-        try {
-            ArrayList<String> listaColunas = EloTransformadorDao.buscarKv(EloTransformadorDao.MONOFASICO);
-            Posicao[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.MONOFASICO);
-            ArrayList<Posicao> listaTemp = new ArrayList<>();
-            Posicao[] linha;
-
-            for (String coluna : listaColunas) {
-                if (!" ".equals(coluna)) {
-                    this.modelMonofasico.addColumn(coluna);
-                }
-            }
-            this.modelMonofasico.fireTableStructureChanged();
-            for (int i = 0; i < dados.length; i++) {
-                linha = dados[i];
-                for (int j = 0; j < linha.length; j++) {
-                    listaTemp.add(linha[j]);
-                }
-                this.modelMonofasico.add(listaTemp);
-                listaTemp = new ArrayList<>();
-            }
-            this.modelMonofasico.fireTableDataChanged();
-        } catch (SQLException ex) {
-            Erro.mostraMensagemSQL(this);
-        }
+        this.carregarTabela(this.modeloMonofasico, EloTransformadorDao.MONOFASICO);
     }
 
     private void carregaTabelaTrifasica() {
+        this.carregarTabela(this.modeloTrifasico, EloTransformadorDao.TRIFASICO);
+    }
+
+    private void carregarTabela(TransformadorTableModel modelo, boolean trifasico) {
         try {
-            ArrayList<String> listaColunas = EloTransformadorDao.buscarKv(EloTransformadorDao.TRIFASICO);
-            Posicao[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), EloTransformadorDao.TRIFASICO);
-            ArrayList<Posicao> listaTemp = new ArrayList<>();
+            List<String> listaColunas = EloTransformadorDao.buscarKv(trifasico);
+            Posicao[][] dados = EloTransformadorDao.buscarElos(listaColunas.size(), trifasico);
+            List<Posicao> listaTemp = new ArrayList<>();
             Posicao[] linha;
 
             for (String coluna : listaColunas) {
-                if (!" ".equals(coluna)) {
-                    this.modelTrifasico.addColumn(coluna);
+                if (!(" ").equals(coluna)) {
+                    modelo.addColumn(coluna);
                 }
             }
-            this.modelTrifasico.fireTableStructureChanged();
+            modelo.fireTableStructureChanged();
             for (int i = 0; i < dados.length; i++) {
                 linha = dados[i];
+
                 for (int j = 0; j < linha.length; j++) {
                     listaTemp.add(linha[j]);
                 }
-                this.modelTrifasico.add(listaTemp);
+                modelo.add(listaTemp);
                 listaTemp = new ArrayList<>();
+
             }
-            this.modelTrifasico.fireTableDataChanged();
+            modelo.fireTableDataChanged();
         } catch (SQLException ex) {
             Erro.mostraMensagemSQL(this);
         }
     }
+
     /*
      * Remove linha na tabela monofasico.
      */
     private void removeLinhaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeLinhaMonofasicoActionPerformed
-        int pos = this.tabelaMonofasico.getSelectedRow();
+        int linha = this.tabelaMonofasico.getSelectedRow();
 
-        if (pos != -1) {
-            this.modelMonofasico.remove(pos);
-        }
+        this.removeLinha(linha, this.modeloMonofasico);
     }//GEN-LAST:event_removeLinhaMonofasicoActionPerformed
 
     /*
      * Adiciona coluna na tabela monofasico.
      */
     private void removeColunaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeColunaMonofasicoActionPerformed
-        int pos = this.tabelaMonofasico.getSelectedColumn();
+        int coluna = this.tabelaMonofasico.getSelectedColumn();
 
-        if (pos >= 1) {
-            this.modelMonofasico.removeColumn(pos);
-            this.modelMonofasico.fireTableStructureChanged();
-        }
+        this.removeColuna(coluna, this.modeloMonofasico);
     }//GEN-LAST:event_removeColunaMonofasicoActionPerformed
 
     /*
      * Adiciona linha na tabela monofasico.
      */
     private void addLinhaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinhaMonofasicoActionPerformed
-        ArrayList<Posicao> pos = new ArrayList<>();
-        String rowValue = Entrada.valorLinha(this);
-
-        if (this.isNumber(rowValue)) {
-            pos.add(new Posicao(Integer.parseInt(rowValue)));
-            for (int i = 1; i < this.modelMonofasico.getColumnCount(); i++) {
-                pos.add(new Posicao());
-            }
-            this.modelMonofasico.add(pos);
-            this.modelMonofasico.fireTableDataChanged();
-        }
+        this.adicionaLinha(this.modeloMonofasico);
     }//GEN-LAST:event_addLinhaMonofasicoActionPerformed
 
     /*
      * Adiciona coluna na tabela monofasico.
      */
     private void addColunaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaMonofasicoActionPerformed
-        String nomeColumn = Entrada.valorColuna(this);
-
-        if (nomeColumn != null) {
-            if (this.isNumber(nomeColumn)) {
-                this.modelMonofasico.addColumn(nomeColumn + " kV ");
-                for (int i = 0; i < this.modelMonofasico.getRowCount(); i++) {
-                    this.modelMonofasico.add(new Posicao(), i, this.modelMonofasico.getColumnCount() - 1);
-                }
-                this.modelMonofasico.fireTableStructureChanged();
-                this.modelMonofasico.fireTableDataChanged();
-            }
-        }
+        this.adicionaColuna(this.modeloMonofasico);
     }//GEN-LAST:event_addColunaMonofasicoActionPerformed
 
     private void tabelaMonofasicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMonofasicoMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = this.tabelaMonofasico.getSelectedRow();
-            int col = this.tabelaMonofasico.getSelectedColumn();
+            int linha = this.tabelaMonofasico.getSelectedRow();
+            int coluna = this.tabelaMonofasico.getSelectedColumn();
 
-            if (col != 0) {
-                String oldValue = (String) this.modelMonofasico.getValueAt(row, col);
-                String newValue = Entrada.alteraValorPosicao(this, oldValue);
-
-                if (newValue != null) {
-                    if (newValue.contains(":") && !":".equals(newValue)) {
-                        String[] tt = newValue.split(":");
-
-                        if (tt.length == 2) {
-                            String sub_init = tt[0].trim();
-                            String sub_end = tt[1].trim();
-
-                            if (this.isNumber(sub_init)) {
-                                if ((sub_end.length() == 1) && (this.isLetter(sub_end.charAt(0)))) {
-                                    Posicao pos = new Posicao(Integer.parseInt(sub_init), sub_end.toUpperCase());
-                                    this.modelMonofasico.setValueAt(pos, row, col);
-                                    this.modelMonofasico.fireTableDataChanged();
-                                } else {
-                                    Erro.entradaInvalida(this);
-                                }
-                            } else {
-                                Erro.entradaInvalida(this);
-                            }
-                        } else {
-                            Erro.entradaInvalida(this);
-                        }
-                    } else {
-                        Erro.entradaInvalida(this);
-                    }
-                }
-            }
+            this.validaCelula(this.modeloMonofasico, linha, coluna);
         }
     }//GEN-LAST:event_tabelaMonofasicoMouseClicked
 
@@ -492,59 +419,100 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
      * Adiciona coluna na tabela trifasico.
      */
     private void addColunaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addColunaTrifasicoActionPerformed
-        String nomeColumn = Entrada.valorColuna(this);
-
-        if (nomeColumn != null) {
-            if (this.isNumber(nomeColumn)) {
-                this.modelTrifasico.addColumn(nomeColumn + " kV ");
-                for (int i = 0; i < this.modelTrifasico.getRowCount(); i++) {
-                    this.modelTrifasico.add(new Posicao(), i, this.modelTrifasico.getColumnCount() - 1);
-                }
-                this.modelTrifasico.fireTableStructureChanged();
-                this.modelTrifasico.fireTableDataChanged();
-            }
-        }
+        this.adicionaColuna(this.modeloTrifasico);
     }//GEN-LAST:event_addColunaTrifasicoActionPerformed
 
     /*
      * Remove coluna na tabela trifasico.
      */
     private void removeColunaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeColunaTrifasicoActionPerformed
-        int pos = this.tabelaTrifasico.getSelectedColumn();
+        int coluna = this.tabelaTrifasico.getSelectedColumn();
 
-        if (pos >= 1) {
-            this.modelTrifasico.removeColumn(pos);
-            this.modelTrifasico.fireTableStructureChanged();
-        }
+        this.removeColuna(coluna, this.modeloTrifasico);
     }//GEN-LAST:event_removeColunaTrifasicoActionPerformed
 
     /*
      * Adiciona linha na tabela trifasico.
      */
     private void addLinhaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLinhaTrifasicoActionPerformed
-        ArrayList<Posicao> pos = new ArrayList<>();
-        String rowValue = Entrada.valorLinha(this);
-
-        if (this.isNumber(rowValue)) {
-            pos.add(new Posicao(Integer.parseInt(rowValue)));
-            for (int i = 1; i < this.modelTrifasico.getColumnCount(); i++) {
-                pos.add(new Posicao());
-            }
-            this.modelTrifasico.add(pos);
-            this.modelTrifasico.fireTableDataChanged();
-        }
+        this.adicionaLinha(modeloTrifasico);
     }//GEN-LAST:event_addLinhaTrifasicoActionPerformed
 
     /*
      * Remove linha na tabela trifasico.
      */
     private void removeLinhaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeLinhaTrifasicoActionPerformed
-        int pos = this.tabelaTrifasico.getSelectedRow();
+        int linha = this.tabelaTrifasico.getSelectedRow();
 
-        if (pos != -1) {
-            this.modelTrifasico.remove(pos);
-        }
+        this.removeLinha(linha, this.modeloTrifasico);
     }//GEN-LAST:event_removeLinhaTrifasicoActionPerformed
+
+    private void adicionaLinha(TransformadorTableModel modelo) {
+        String item = Entrada.valorLinha(this);
+
+        if (item != null) {
+            item = item.trim();
+
+            if (StringUtils.isNumber(item) && Integer.parseInt(item) != 0) {
+                List<String> linhas = modelo.getRowIdentifier();
+                String aux = item + " kVA ";
+
+                if (linhas.indexOf(aux) == -1) {
+                    List<Posicao> p = new ArrayList();
+
+                    p.add(new Posicao(Integer.parseInt(item), true));
+                    for (int i = 1; i < modelo.getColumnCount(); i++) {
+                        p.add(new Posicao());
+                    }
+                    modelo.add(p);
+                    modelo.fireTableDataChanged();
+                } else {
+                    Erro.valorCadastrado(this);
+                }
+            } else {
+                Erro.entradaInvalida(this);
+            }
+        }
+    }
+
+    private void adicionaColuna(TransformadorTableModel modelo) {
+        String valor = Entrada.valorColuna(this);
+
+        if (valor != null) {
+            valor = valor.trim();
+
+            if (valor != null && StringUtils.isNumber(valor) && Integer.parseInt(valor) != 0) {
+                List<String> colunas = modelo.getColumnsName();
+                valor = valor + " kV";
+
+                if (colunas.indexOf(valor) == -1) {
+                    modelo.addColumn(valor);
+                    for (int i = 0; i < modelo.getRowCount(); i++) {
+                        modelo.add(new Posicao(), i, modelo.getColumnCount() - 1);
+                    }
+                    modelo.fireTableStructureChanged();
+                    modelo.fireTableDataChanged();
+                } else {
+                    Erro.valorCadastrado(this);
+                }
+            } else {
+                Erro.entradaInvalida(this);
+            }
+        }
+    }
+
+    private void removeLinha(int linha, TransformadorTableModel modelo) {
+        if (linha != -1) {
+            modelo.remove(linha);
+        }
+    }
+
+    private void removeColuna(int coluna, TransformadorTableModel modelo) {
+        if (coluna >= 1) {
+            modelo.removeColumn(coluna);
+            modelo.fireTableStructureChanged();
+        }
+    }
 
     /*
      * Limpa os dados do TableModel da tabela trifasico.
@@ -562,148 +530,93 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
 
     private void tabelaTrifasicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaTrifasicoMouseClicked
         if (evt.getClickCount() == 2) {
-            int row = this.tabelaTrifasico.getSelectedRow();
-            int col = this.tabelaTrifasico.getSelectedColumn();
+            int linha = this.tabelaTrifasico.getSelectedRow();
+            int coluna = this.tabelaTrifasico.getSelectedColumn();
 
-            if (col != 0) {
-                String oldValue = (String) this.modelTrifasico.getValueAt(row, col);
-                String newValue = Entrada.alteraValorPosicao(this, oldValue);
+            this.validaCelula(this.modeloTrifasico, linha, coluna);
+        }
+    }//GEN-LAST:event_tabelaTrifasicoMouseClicked
 
-                if (newValue != null) {
-                    if (newValue.contains(":") && !":".equals(newValue)) {
-                        String[] tt = newValue.split(":");
+    private void validaCelula(TransformadorTableModel modelo, int linha, int coluna) {
+        if (coluna != 0) {
+            String antigo = (String) modelo.getValueAt(linha, coluna);
+            String novo = Entrada.alteraValorPosicao(this, antigo);
 
-                        if (tt.length == 2) {
-                            String sub_init = tt[0].trim();
-                            String sub_end = tt[1].trim();
+            if (novo != null && novo.contains(":")) {
+                String[] list = novo.split(":");
 
-                            if (this.isNumber(sub_init)) {
-                                if ((sub_end.length() == 1) && (this.isLetter(sub_end.charAt(0)))) {
-                                    Posicao pos = new Posicao(Integer.parseInt(sub_init), sub_end.toUpperCase());
-                                    this.modelTrifasico.setValueAt(pos, row, col);
-                                    this.modelTrifasico.fireTableDataChanged();
-                                } else {
-                                    Erro.entradaInvalida(this);
-                                }
-                            } else {
-                                Erro.entradaInvalida(this);
-                            }
+                if (list.length == 2) {
+                    String numero = list[0].trim();
+                    String letra = list[1].trim();
+
+                    if (letra.length() == 1) {
+                        if (StringUtils.isNumber(numero) && StringUtils.isLetter(letra.charAt(0))) {
+                            Posicao pos = new Posicao(Integer.parseInt(numero), letra.toUpperCase());
+                            modelo.setValueAt(pos, linha, coluna);
+                            modelo.fireTableDataChanged();
                         } else {
                             Erro.entradaInvalida(this);
                         }
                     } else {
                         Erro.entradaInvalida(this);
                     }
+                } else {
+                    Erro.entradaInvalida(this);
                 }
             }
+
         }
-    }//GEN-LAST:event_tabelaTrifasicoMouseClicked
+    }
 
     private void atualizaMonofasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaMonofasicoActionPerformed
-        int qtdColunas = this.modelMonofasico.getColumnCount();
-        String[][] matriz = this.modelMonofasico.getDataArray();
-        int qtdLinhas = matriz.length;
-        if (qtdColunas > 0 && qtdLinhas > 0) {
-            String[] vetorColunas = new String[qtdColunas];
-
-            for (int i = 0; i < qtdColunas; i++) {
-                vetorColunas[i] = this.modelMonofasico.getColumnName(i);
-            }
-
-            String[] vetorLinhas = new String[qtdLinhas];
-
-            for (int i = 0; i < qtdLinhas; i++) {
-                vetorLinhas[i] = matriz[i][0];
-            }
-            try {
-                EloTransformadorDao.limparBanco(EloTransformadorDao.MONOFASICO);
-                EloTransformadorDao.inserirKv(vetorColunas, EloTransformadorDao.MONOFASICO);
-                EloTransformadorDao.inserirPot(vetorLinhas, EloTransformadorDao.MONOFASICO);
-                EloTransformadorDao.inserirEloTransformador(matriz,
-                        qtdColunas,
-                        qtdLinhas,
-                        EloTransformadorDao.MONOFASICO);
-            } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-                ex.printStackTrace();
-            }
-        } else {
-            try {
-                EloTransformadorDao.limparBanco(EloTransformadorDao.MONOFASICO);
-            } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-            }
-        }
+        this.atualiza(this.modeloMonofasico, EloTransformadorDao.MONOFASICO);
     }//GEN-LAST:event_atualizaMonofasicoActionPerformed
 
     private void atualizaTrifasicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizaTrifasicoActionPerformed
-        int qtdColunas = this.modelTrifasico.getColumnCount();
-        String[][] matriz = this.modelTrifasico.getDataArray();
-        int qtdLinhas = matriz.length;
-        if (qtdColunas > 0 && qtdLinhas > 0) {
-            String[] vetorColunas = new String[qtdColunas];
-
-            for (int i = 0; i < qtdColunas; i++) {
-                vetorColunas[i] = this.modelTrifasico.getColumnName(i);
-            }
-
-            String[] vetorLinhas = new String[qtdLinhas];
-
-            for (int i = 0; i < qtdLinhas; i++) {
-                vetorLinhas[i] = matriz[i][0];
-            }
-            try {
-                EloTransformadorDao.limparBanco(EloTransformadorDao.TRIFASICO);
-                EloTransformadorDao.inserirKv(vetorColunas, EloTransformadorDao.TRIFASICO);
-                EloTransformadorDao.inserirPot(vetorLinhas, EloTransformadorDao.TRIFASICO);
-                EloTransformadorDao.inserirEloTransformador(matriz,
-                        qtdColunas,
-                        qtdLinhas,
-                        EloTransformadorDao.TRIFASICO);
-            } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-                ex.printStackTrace();
-            }
-        } else {
-            try {
-                EloTransformadorDao.limparBanco(EloTransformadorDao.TRIFASICO);
-            } catch (SQLException ex) {
-                Erro.mostraMensagemSQL(this);
-            }
-        }
+        this.atualiza(this.modeloTrifasico, EloTransformadorDao.TRIFASICO);
     }//GEN-LAST:event_atualizaTrifasicoActionPerformed
+
+    private void atualiza(TransformadorTableModel modelo, boolean trifasico) {
+        int qtdColunas = modelo.getColumnCount();
+        String[][] matriz = modelo.getDataArray();
+        int qtdLinhas = matriz.length;
+
+        try {
+            if (qtdColunas > 0 || qtdLinhas > 0) {
+                EloTransformadorDao.limparBanco(trifasico);
+
+                if (qtdColunas > 0) {
+                    String[] listaColunas = new String[qtdColunas];
+
+                    for (int i = 0; i < qtdColunas; i++) {
+                        listaColunas[i] = modelo.getColumnName(i);
+                    }
+                    EloTransformadorDao.inserirKv(listaColunas, trifasico);
+                }
+                if (qtdLinhas > 0) {
+                    String[] listaLinhas = new String[qtdLinhas];
+
+                    for (int i = 0; i < qtdLinhas; i++) {
+                        listaLinhas[i] = matriz[i][0];
+                    }
+                    EloTransformadorDao.inserirPot(listaLinhas, trifasico);
+                }
+                EloTransformadorDao.inserirEloTransformador(matriz, qtdColunas, qtdLinhas, trifasico);
+            }
+        } catch (SQLException e) {
+
+        }
+    }
 
     /*
      * Método responsável por fazer a limpeza.
      */
-    public void limparCampos(boolean first) {
-        if (first) {
-            this.configuraTabelaMonofasico();
+    public void limparCampos(boolean primeiraAba) {
+        if (primeiraAba) {
+            this.configuraTabelaMonofasica();
         } else {
-            this.configuraTabelaTrifasico();
+            this.configuraTabelaTrifasica();
         }
-    }
-
-    /*
-     * Verifica se o valor passado por parametro é um número.
-     */
-    public boolean isNumber(String num) {
-        try {
-            Double.parseDouble(num);
-            return true;
-        } catch (NumberFormatException ex) {
-            Erro.entradaSomenteNumeros(this);
-            return false;
-        }
-    }
-
-    /*
-     * Verifica se o valor passado por parametro é uma letra do alfabeto.
-     */
-    public boolean isLetter(char digit) {
-        int value = (int) digit;
-
-        return (value >= 65 && value <= 90) || (value >= 97 && value <= 122);
     }
 
     public static void main(String args[]) {
@@ -723,23 +636,28 @@ public class GUI_Elo_de_Transformador extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(GUI_Elo_de_Transformador.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(GUI_Elo_de_Transformador.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(GUI_Elo_de_Transformador.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_Elo_de_Transformador.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUI_Elo_de_Transformador().setVisible(true);
-            }
-        });
+        GUI_Elo_de_Transformador janela = null;
+        try {
+            janela = new GUI_Elo_de_Transformador();
+            janela.setVisible(true);
+        } catch (Exception e) {
+            LogManager.getLogger(GUI_Elo_de_Transformador.class).error("EXCEPTION NAO TRATADA: " + StringUtils.getStackTrace(e));
+            Erro.erro(janela);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

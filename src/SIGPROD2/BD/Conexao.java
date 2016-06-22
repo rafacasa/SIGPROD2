@@ -1,9 +1,11 @@
 package SIGPROD2.BD;
 
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.StringUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Esta clase gerencia a criação, o armazenamento e o fechamento de conexões com
@@ -14,7 +16,7 @@ import java.sql.SQLException;
  * @version 22/03/2016
  */
 public class Conexao {
-
+    
     private static Connection conexao;
 
     /**
@@ -31,8 +33,7 @@ public class Conexao {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Falha ao fechar a conexão com o banco de dados");
+            LogManager.getLogger(Conexao.class).error("EXCEPTION: " + StringUtils.getStackTrace(e));
         }
         return false;
     }

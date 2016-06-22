@@ -11,5 +11,5 @@ public class PotenciaMonoBD {
 
     public static String POTENCIA = "potencia";
     public static String ID_POTENCIA = "id";
-    public static String TABELA = "potenciaMono";
+    public static String TABELA = "PotenciaMono";
 }

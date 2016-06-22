@@ -1,6 +1,7 @@
 package SIGPROD2.Auxiliar;
 
 import java.io.*;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Classe responsável por facilitar a manipulação de arquivos de texto.
@@ -51,7 +52,7 @@ public class Arquivo {
             try {
                 getArquivoEntrada().close();
             } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+                LogManager.getLogger(Arquivo.class).error("EXCEPTION: " + StringUtils.getStackTrace(ex));
             }
         }
     }
@@ -86,7 +87,6 @@ public class Arquivo {
     }
 
     public String lerArquivo() {
-        abreArquivo();
         StringBuilder sb = new StringBuilder();
         try {
             while (this.br.ready()) {
@@ -95,7 +95,7 @@ public class Arquivo {
             }
             return sb.toString();
         } catch (IOException ex) {
-            System.out.println("Error");
+            LogManager.getLogger(Arquivo.class).error("EXCEPTION: " + StringUtils.getStackTrace(ex));
         }
         return "";
     }
@@ -120,7 +120,7 @@ public class Arquivo {
         return (new File(getNome()).isDirectory());
     }
 
-    public void apagaArquivosDiretorio() {
+    void apagaArquivosDiretorio() {
         if (ehDiretorio()) {
             File arquivos[] = new File(getNome()).listFiles();
 

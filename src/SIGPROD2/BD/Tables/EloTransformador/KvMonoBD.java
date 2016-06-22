@@ -11,5 +11,5 @@ public class KvMonoBD {
 
     public static String ID_KV = "id";
     public static String KV = "kv";
-    public static String TABELA = "kvMono";
+    public static String TABELA = "KvMono";
 }

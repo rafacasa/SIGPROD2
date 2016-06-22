@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe responsável por interagir com o Banco de Dados para inserir, alterar e
@@ -40,9 +41,9 @@ public class EloTransformadorDao {
             + EloTransformadorTriBD.ID_KV + ", "
             + EloTransformadorTriBD.ID_POTENCIA
             + ") VALUES (?, ?, ?, ?)";
-    private static final String DELETE_ELO_TRI = "DELETE FROM " + EloTransformadorMonoBD.TABELA + " WHERE 1;";
-    private static final String DELETE_KV_TRI = "DELETE FROM " + KvMonoBD.TABELA + " WHERE 1;";
-    private static final String DELETE_POT_TRI = "DELETE FROM " + PotenciaMonoBD.TABELA + " WHERE 1;";
+    private static final String DELETE_ELO_TRI = "DELETE FROM " + EloTransformadorTriBD.TABELA + " WHERE 1;";
+    private static final String DELETE_KV_TRI = "DELETE FROM " + KvTriBD.TABELA + " WHERE 1;";
+    private static final String DELETE_POT_TRI = "DELETE FROM " + PotenciaTriBD.TABELA + " WHERE 1;";
 
     private static final String SELECT_ELO_MONO = "SELECT * FROM " + EloTransformadorMonoBD.TABELA;
     private static final String SELECT_KV_MONO = "SELECT * FROM " + KvMonoBD.TABELA;
@@ -169,7 +170,6 @@ public class EloTransformadorDao {
             PreparedStatement comando = conexao.prepareStatement(comandoSql);
 
             for (int y = 0; y < quantidadePot * 4; y += 4) {
-                System.out.println(matriz[y / 4][x]);
                 temp = Posicao.getPosicao(matriz[y / 4][x]);
                 comando.setInt(y + 1, temp.getCorrente());
                 comando.setString(y + 2, temp.getTipo());
@@ -193,9 +193,9 @@ public class EloTransformadorDao {
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
      * Dados forem inválidos.
      */
-    public static ArrayList<String> buscarKv(boolean trifasico) throws SQLException {
+    public static List<String> buscarKv(boolean trifasico) throws SQLException {
         String comandoSql = trifasico ? SELECT_KV_TRI : SELECT_KV_MONO;
-        ArrayList<String> lista = new ArrayList();
+        List<String> lista = new ArrayList();
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
         ResultSet resultado = comando.executeQuery();
@@ -218,9 +218,9 @@ public class EloTransformadorDao {
      * @throws SQLException Caso houver erro de acesso ao Banco de Dados, ou os
      * Dados forem inválidos.
      */
-    public static ArrayList<String> buscarPotencia(boolean trifasico) throws SQLException {
+    public static List<String> buscarPotencia(boolean trifasico) throws SQLException {
         String comandoSql = trifasico ? SELECT_POT_TRI : SELECT_POT_MONO;
-        ArrayList<String> lista = new ArrayList();
+        List<String> lista = new ArrayList();
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);
         ResultSet resultado = comando.executeQuery();
@@ -249,7 +249,7 @@ public class EloTransformadorDao {
     public static Posicao[][] buscarElos(int quantidadeKv, boolean trifasico) throws SQLException {
         String comandoSql = trifasico ? SELECT_ELO_TRI : SELECT_ELO_MONO;
         Posicao temp = new Posicao();
-        ArrayList<String> listaPot = buscarPotencia(trifasico);
+        List<String> listaPot = buscarPotencia(trifasico);
         Posicao[][] matriz = new Posicao[listaPot.size()][quantidadeKv];
 
         for (int i = 0; i < listaPot.size(); i++) {
@@ -279,6 +279,9 @@ public class EloTransformadorDao {
      * Dados forem inválidos.
      */
     public static void limparBanco(boolean trifasico) throws SQLException {
+        
+        
+        
         String comandoSql = trifasico ? DELETE_ELO_TRI : DELETE_ELO_MONO;
         Connection conexao = Conexao.getConexao();
         PreparedStatement comando = conexao.prepareStatement(comandoSql);

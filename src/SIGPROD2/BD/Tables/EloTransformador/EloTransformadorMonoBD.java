@@ -14,5 +14,5 @@ public class EloTransformadorMonoBD {
     public static String TIPO_ELO = "tipo";
     public static String CORRENTE_ELO = "corrente";
     public static String ID_ELO = "id";
-    public static String TABELA = "elotransformadorMono";
+    public static String TABELA = "ElotransformadorMono";
 }

@@ -5,27 +5,30 @@
  */
 package SIGPROD2.Modelo;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Coelho
- * 
+ *
  */
-
 public class Posicao {
-    
+
+    private boolean first;
     private String tipo;
     private int corrente;
 
-    public Posicao () {
+    public Posicao() {
         this.tipo = null;
         this.corrente = 0;
     }
-    
-    public Posicao (int corrente) {
+
+    public Posicao(int corrente, boolean first) {
         this.corrente = corrente;
+        this.first = first;
         this.tipo = null;
     }
-    
+
     public Posicao(int corrente, String tipo) {
         this.tipo = tipo;
         this.corrente = corrente;
@@ -49,23 +52,26 @@ public class Posicao {
 
     public static Posicao getPosicao(String texto) {
         Posicao temp = new Posicao();
-        String[] split = texto.split(":");
-        temp.setTipo(split[1]);
-        temp.setCorrente(Integer.parseInt(split[0]));
-        return temp;
-    }
-    
-    @Override
-    public String toString() {
-        if (this.corrente == 0 && this.tipo == null) {
-            return ":";
-        } else {
-            if (this.corrente > 0 && this.tipo == null) {
-                return String.valueOf(this.corrente) + " kVA ";
+        
+        if (!(" : ").equals(texto)) {
+            String[] list = texto.split(":");
+
+            if (list.length != 1) {
+                temp.setTipo(list[1].trim());
+                temp.setCorrente(Integer.parseInt(list[0].trim()));
             }
         }
-        return this.corrente + ":" + this.tipo;
+        return temp;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        if (this.first) {
+            return String.valueOf(this.corrente) + " kVA ";
+        } else if (this.corrente == 0 && this.tipo == null) {
+            return " : ";
+        }
+        return this.corrente + " : " + this.tipo;
+    }
+
 }

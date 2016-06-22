@@ -11,5 +11,5 @@ public class KvTriBD {
 
     public static String ID_KV = "id";
     public static String KV = "kv";
-    public static String TABELA = "kvTri";
+    public static String TABELA = "KvTri";
 }
