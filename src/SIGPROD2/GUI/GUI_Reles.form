@@ -7,6 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -108,7 +109,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="522" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="518" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -128,9 +129,9 @@
                           <Component id="modelo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="eletromecanico" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="digital" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -147,7 +148,7 @@
                           <Component id="curvaTempoFase" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="curvaTempoNeutro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="285" max="32767" attributes="0"/>
+                      <EmptySpace pref="272" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="avancarDadosGerais" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cancelarDadosGerais" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -179,7 +180,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Curva de tempo definido:"/>
+                <Property name="text" type="java.lang.String" value="Curva de tempo definido: "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="curvaInversaFase">
@@ -275,7 +276,7 @@
                               <Component id="cardLayout1" alignment="0" min="-2" pref="645" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="InversaFaseCorrenteFator" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -379,13 +380,13 @@
                                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="faseCorrentePasso" min="-2" pref="150" max="-2" attributes="0"/>
                                       <Component id="faseCorrenteMaximo" min="-2" pref="150" max="-2" attributes="0"/>
                                       <Component id="faseCorrenteMinimo" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="407" max="32767" attributes="0"/>
+                                  <EmptySpace pref="400" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -415,17 +416,17 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel5">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel9">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel10">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Passo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="Passo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="faseCorrenteMinimo">
@@ -495,7 +496,7 @@
                           <Component id="retornarFaseCurva" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="avancarFaseCurva" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       </Group>
                       <Component id="cardLayout2" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -504,13 +505,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="cardLayout2" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="avancarFaseCurva" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cancelarFaseCurva" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cancelarFaseCurva" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="retornarFaseCurva" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="avancarFaseCurva" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -536,10 +537,10 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="jPanel4" min="-2" pref="421" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Component id="jPanel7" min="-2" pref="421" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -547,12 +548,12 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel4" max="32767" attributes="0"/>
+                                      <Component id="jPanel7" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -572,22 +573,19 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                      <Component id="faseCurvaDial" min="-2" pref="150" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                      <Component id="faseCurvaCorrenteCadastro" min="-2" pref="150" max="-2" attributes="0"/>
-                                                  </Group>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="faseCurvaDial" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Component id="faseCurvaCorrenteCadastro" min="-2" pref="150" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -638,7 +636,7 @@
                                           <Component id="faseCurvaGrafico" min="-2" max="-2" attributes="0"/>
                                           <Component id="faseCurvaSalvar" min="-2" pref="26" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                                      <EmptySpace pref="21" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -648,7 +646,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel8">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Dial de tempo :"/>
+                                <Property name="text" type="java.lang.String" value="Dial de tempo : "/>
                               </Properties>
                             </Component>
                             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -671,6 +669,9 @@
                                   <Dimension value="[84, 26]"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaGraficoActionPerformed"/>
+                              </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="faseCurvaRemovePrimeira">
                               <Properties>
@@ -706,13 +707,10 @@
                               </Events>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="faseCurvaCorrenteCadastro">
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="faseCurvaCorrenteCadastroActionPerformed"/>
-                              </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel7">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Corrente de pickup :"/>
+                                <Property name="text" type="java.lang.String" value="Corrente de pickup : "/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -729,24 +727,36 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                                               <Component id="jScrollPane0" min="-2" pref="251" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                                  <Component id="faseCurvaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                                      <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="faseCurvaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                                      <Component id="removeDialInversaFase" min="-2" pref="44" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="faseCurvaCorrenteExistente" min="-2" pref="150" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Component id="faseCurvaCorrenteExistente" min="-2" pref="150" max="-2" attributes="0"/>
-                                          </Group>
                                       </Group>
-                                      <EmptySpace min="57" pref="57" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -758,14 +768,15 @@
                                           <Component id="faseCurvaCorrenteExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="faseCurvaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="faseCurvaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Component id="removeDialInversaFase" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       <Component id="jScrollPane0" min="-2" pref="250" max="-2" attributes="0"/>
-                                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -791,13 +802,21 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel33">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Corrente de pickup :"/>
+                                <Property name="text" type="java.lang.String" value="Corrente de pickup : "/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel34">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Dial de tempo :"/>
+                                <Property name="text" type="java.lang.String" value="Dial de tempo : "/>
                               </Properties>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="removeDialInversaFase">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="-"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeDialInversaFaseActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -871,7 +890,7 @@
                                       <Component id="faseCurvaAdicionaCaracteristicas" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="faseCurvaRemoveCaracteristicas" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                                  <EmptySpace pref="70" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1026,7 +1045,7 @@
                                           </Group>
                                           <Component id="cardLayout4" alignment="0" min="-2" pref="645" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="95" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="32767" attributes="0"/>
@@ -1061,7 +1080,7 @@
                                           <Component id="retornarInversaNeutroCorrente" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cancelarInversaNeutroCorrente" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1135,13 +1154,13 @@
                                               <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="neutroCorrentePasso" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                           <Component id="neutroCorrenteMaximo" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                           <Component id="neutroCorrenteMinimo" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="407" max="32767" attributes="0"/>
+                                      <EmptySpace pref="400" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1171,17 +1190,17 @@
                           <SubComponents>
                             <Component class="javax.swing.JLabel" name="jLabel20">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) :"/>
+                                <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) : "/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel21">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="M&#xe1;ximo (A) :"/>
+                                <Property name="text" type="java.lang.String" value="M&#xe1;ximo (A) : "/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel22">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Passo (A) :"/>
+                                <Property name="text" type="java.lang.String" value="Passo (A) : "/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JTextField" name="neutroCorrenteMinimo">
@@ -1281,7 +1300,7 @@
                               <Component id="retornarNeutroCurva" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="avancarNeutroCurva" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           </Group>
                           <Component id="cardLayout5" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -1290,13 +1309,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="cardLayout5" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cancelarNeutroCurva" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="retornarNeutroCurva" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="avancarNeutroCurva" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="retornarNeutroCurva" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cancelarNeutroCurva" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1317,7 +1336,7 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jScrollPane6" alignment="0" min="-2" pref="650" max="-2" attributes="0"/>
                                           <Component id="jLabel39" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1341,7 +1360,7 @@
                                               <Component id="neutroCurvaRemoveCaracteristicas" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="207" max="32767" attributes="0"/>
+                                      <EmptySpace pref="209" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1374,7 +1393,7 @@
                                           <Component id="neutroCurvaAdicionaCaracteristicas" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="neutroCurvaRemoveCaracteristicas" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                                      <EmptySpace pref="88" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1468,10 +1487,10 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Component id="jPanel8" min="-2" pref="421" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jPanel9" min="-2" pref="421" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1479,12 +1498,12 @@
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jPanel8" pref="426" max="32767" attributes="0"/>
-                                          <Component id="jPanel9" max="32767" attributes="0"/>
+                                          <Component id="jPanel8" pref="431" max="32767" attributes="0"/>
+                                          <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1506,25 +1525,28 @@
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="neutroCurvaCorrenteCadastro" min="-2" pref="150" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="neutroCurvaDial" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="neutroCurvaCorrenteCadastro" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                                      <Component id="neutroCurvaDial" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="neutroCurvaGrafico" min="-2" pref="151" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="neutroCurvaSalvar" min="-2" pref="94" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jScrollPane4" min="-2" pref="251" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="neutroCurvaGrafico" min="-2" pref="124" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="neutroCurvaSalvar" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="jScrollPane4" min="-2" pref="251" max="-2" attributes="0"/>
+                                                  </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="neutroCurvaAdicionaPrimeira" min="-2" max="-2" attributes="0"/>
@@ -1532,7 +1554,7 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1559,11 +1581,11 @@
                                               <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="neutroCurvaGrafico" min="-2" max="-2" attributes="0"/>
-                                              <Component id="neutroCurvaSalvar" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="neutroCurvaGrafico" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="neutroCurvaSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1573,7 +1595,7 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel30">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Dial de tempo :"/>
+                                    <Property name="text" type="java.lang.String" value="Dial de tempo : "/>
                                   </Properties>
                                 </Component>
                                 <Container class="javax.swing.JScrollPane" name="jScrollPane4">
@@ -1596,6 +1618,9 @@
                                       <Dimension value="[84, 26]"/>
                                     </Property>
                                   </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="neutroCurvaGraficoActionPerformed"/>
+                                  </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="neutroCurvaRemovePrimeira">
                                   <Properties>
@@ -1637,7 +1662,7 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel29">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Corrente de pickup :"/>
+                                    <Property name="text" type="java.lang.String" value="Corrente de pickup : "/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -1655,26 +1680,25 @@
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                                  <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                  <Component id="neutroCurvaCorrenteExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="neutroCurvaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                      <Component id="neutroCurvaCorrenteExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                                  <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="neutroCurvaDialExistente" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane9" min="-2" pref="251" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jScrollPane9" min="-2" pref="251" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1691,9 +1715,9 @@
                                               <Component id="neutroCurvaDialExistente" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                               <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jScrollPane9" min="-2" pref="250" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1724,12 +1748,12 @@
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel31">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Corrente de pickup :"/>
+                                    <Property name="text" type="java.lang.String" value="Corrente de pickup : "/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel32">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Dial de tempo :"/>
+                                    <Property name="text" type="java.lang.String" value="Dial de tempo : "/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -1808,13 +1832,13 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="557" max="32767" attributes="0"/>
                           <Component id="cancelarDefinidaFase" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="retornarDefinidaFase" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="avancarDefinidaFase" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1828,11 +1852,11 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="cardLayout3" min="-2" pref="400" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                          <EmptySpace pref="60" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="avancarDefinidaFase" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="retornarDefinidaFase" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cancelarDefinidaFase" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="avancarDefinidaFase" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1939,72 +1963,93 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="faseMaximo" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="faseMinimo" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="fasePasso" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                                                  <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="campoPassoTempoDefFase" min="-2" pref="150" max="-2" attributes="0"/>
+                                                      <Component id="campoMaximoTempoDefFase" min="-2" pref="150" max="-2" attributes="0"/>
+                                                      <Component id="campoMinimoTempoDefFase" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                          <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="faseMaximo" alignment="0" pref="150" max="32767" attributes="0"/>
-                                      <Component id="fasePasso" alignment="0" pref="150" max="32767" attributes="0"/>
-                                      <Component id="faseMinimo" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel54" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel38" min="-2" pref="84" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="campoMaximoTempoDefFase" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="campoMinimoTempoDefFase" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="campoPassoTempoDefFase" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="272" max="32767" attributes="0"/>
-                                  <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+                                  <EmptySpace pref="163" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel37" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="faseMinimo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                      <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="campoMinimoTempoDefFase" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="campoMinimoTempoDefFase" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="faseMinimo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="faseMaximo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campoMaximoTempoDefFase" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                       <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="campoMaximoTempoDefFase" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fasePasso" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                      <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="campoPassoTempoDefFase" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="fasePasso" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="campoPassoTempoDefFase" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace pref="261" max="32767" attributes="0"/>
+                                  <EmptySpace pref="265" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2012,7 +2057,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel6">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel12">
@@ -2022,7 +2067,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel42">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Passo (A) :"/>
+                            <Property name="text" type="java.lang.String" value=" Passo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="faseMinimo">
@@ -2043,17 +2088,17 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel38">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (s) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (s) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel53">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (s) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (s) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel54">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Passo (s) :"/>
+                            <Property name="text" type="java.lang.String" value="Passo (s) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="campoMinimoTempoDefFase">
@@ -2275,45 +2320,91 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                          <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="neutroMaximo" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="neutroMinimo" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="neutroPasso" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="jLabel55" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel59" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel58" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="campoPassoTempoDefNeutro" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="campoMaximoTempoDefNeutro" min="-2" pref="150" max="-2" attributes="0"/>
+                                              <Component id="campoMinimoTempoDefNeutro" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                                          <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="neutroPasso" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="neutroMaximo" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="neutroMinimo" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="602" max="32767" attributes="0"/>
+                                  <EmptySpace pref="163" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="neutroMinimo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campoMinimoTempoDefNeutro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="neutroMaximo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="neutroMaximo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="neutroPasso" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="campoMaximoTempoDefNeutro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jLabel58" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel59" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoPassoTempoDefNeutro" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="neutroPasso" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="341" max="32767" attributes="0"/>
+                                  <EmptySpace pref="308" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2321,17 +2412,17 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel18">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel19">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel47">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Passo (A) :"/>
+                            <Property name="text" type="java.lang.String" value="Passo (A) : "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="neutroMinimo">
@@ -2339,6 +2430,37 @@
                         <Component class="javax.swing.JTextField" name="neutroMaximo">
                         </Component>
                         <Component class="javax.swing.JTextField" name="neutroPasso">
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel55">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Multiplicador de Corrente"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel56">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Multiplicador de Tempo"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel57">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="M&#xed;nimo (s) : "/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel58">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="M&#xe1;ximo (s) : "/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel59">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Passo (s) : "/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campoMinimoTempoDefNeutro">
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campoMaximoTempoDefNeutro">
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campoPassoTempoDefNeutro">
                         </Component>
                       </SubComponents>
                     </Container>

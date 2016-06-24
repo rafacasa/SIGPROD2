@@ -5,6 +5,7 @@
  */
 package SIGPROD2.Auxiliar;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,19 +15,15 @@ import java.util.List;
 public class StringUtils {
 
     public static boolean separaValores(String valores, List<Double> a) {
-        String[] s = valores.split(",");        
+        String[] v = valores.split(",");        
         
-        for (String item : s) {
-            String str = item.trim();
+        for (String item : v) {
+            String i = item.trim();
             
-            if (!str.isEmpty()) {
-                if (isNumber(str)) {
-                    double valor = Double.parseDouble(str);
+            if (!i.isEmpty() && isNumber(i)) {
+                    double valor = Double.parseDouble(i);
                     
                     a.add(valor);
-                } else {
-                    return false;
-                }
             } else {
                 return false;
             }

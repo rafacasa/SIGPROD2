@@ -1,6 +1,7 @@
 package SIGPROD2.GUI;
 
 import SIGPROD2.Auxiliar.Erro;
+import SIGPROD2.Auxiliar.Grafico;
 import SIGPROD2.DAO.ReleDao;
 import SIGPROD2.Modelo.PontoCurva;
 import SIGPROD2.Modelo.Rele;
@@ -196,6 +197,8 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 this.labelPickupMaximoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrenteMax(tipo)));
                 this.labelPickupPassoDefinidaNeutro.setText(String.valueOf(releDigital.getCorrentePasso(tipo)));
                 break;
+            default:
+                break;
         }
     }
 
@@ -210,6 +213,18 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 this.labelTempoMaximoInversaNeutro.setText(String.valueOf(releDigital.getTempoMax(tipo)));
                 this.labelTempoMinimoInversaNeutro.setText(String.valueOf(releDigital.getTempoMin(tipo)));
                 this.labelTempoPassoInversaNeutro.setText(String.valueOf(releDigital.getTempoPasso(tipo)));
+                break;
+            case Rele.DEFINIDO_FASE:
+                this.labelTempoDefinidoFaseMaximo.setText(String.valueOf(releDigital.getTempoMax(tipo)));
+                this.labelTempoDefinidoFaseMinimo.setText(String.valueOf(releDigital.getTempoMin(tipo)));
+                this.labelTempoDefinidoFasePasso.setText(String.valueOf(releDigital.getTempoPasso(tipo)));
+                break;
+            case Rele.DEFINIDO_NEUTRO:
+                this.labelTempoDefinidoNeutroMaximo.setText(String.valueOf(releDigital.getTempoMax(tipo)));
+                this.labelTempoDefinidoNeutroMinimo.setText(String.valueOf(releDigital.getTempoMin(tipo)));
+                this.labelTempoDefinidoNeutroPasso.setText(String.valueOf(releDigital.getTempoPasso(tipo)));
+                break;
+            default:
                 break;
         }
     }
@@ -260,6 +275,8 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 this.modeloNeutroCaracteristicas.add(releDigital.getListaNeutro());
                 this.modeloNeutroCaracteristicas.fireTableDataChanged();
                 break;
+            default:
+                break;
         }
     }
 
@@ -308,6 +325,13 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         jLabel25 = new javax.swing.JLabel();
         labelPickupPassoDefinidaFase = new javax.swing.JLabel();
         labelFatorDefinidaFaseDigital = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        labelTempoDefinidoFaseMinimo = new javax.swing.JLabel();
+        labelTempoDefinidoFaseMaximo = new javax.swing.JLabel();
+        labelTempoDefinidoFasePasso = new javax.swing.JLabel();
         panelInversaNeutroDigital = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -338,6 +362,13 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         jLabel44 = new javax.swing.JLabel();
         labelPickupPassoDefinidaNeutro = new javax.swing.JLabel();
         labelFatorDefinidaNeutroDigital = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        labelTempoDefinidoNeutroMaximo = new javax.swing.JLabel();
+        labelTempoDefinidoNeutroMinimo = new javax.swing.JLabel();
+        labelTempoDefinidoNeutroPasso = new javax.swing.JLabel();
         panelEletromecanico = new javax.swing.JPanel();
         panelInversaFaseEletromecanico = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -348,6 +379,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         listaDialInversaFase = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaPontoCurvaFase = new javax.swing.JTable();
+        botaoGraficoFase = new javax.swing.JButton();
         panelInversaNeutroEletromecanico = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         labelFatorInversaNeutroMecan = new javax.swing.JLabel();
@@ -357,6 +389,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaPontoCurvaNeutro = new javax.swing.JTable();
+        botaoGraficoNeutro = new javax.swing.JButton();
         panelDefinidaFaseEletromecanico = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         labelFatorDefinidaFaseMecan = new javax.swing.JLabel();
@@ -538,6 +571,20 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
 
         labelFatorDefinidaFaseDigital.setText("jLabel18");
 
+        jLabel46.setText("Tempo de Atuação:");
+
+        jLabel47.setText("Mínimo (s):");
+
+        jLabel48.setText("Máximo (s):");
+
+        jLabel49.setText("Passo (s):");
+
+        labelTempoDefinidoFaseMinimo.setText("jLabel50");
+
+        labelTempoDefinidoFaseMaximo.setText("jLabel51");
+
+        labelTempoDefinidoFasePasso.setText("jLabel52");
+
         javax.swing.GroupLayout panelDefinidaFaseDigitalLayout = new javax.swing.GroupLayout(panelDefinidaFaseDigital);
         panelDefinidaFaseDigital.setLayout(panelDefinidaFaseDigitalLayout);
         panelDefinidaFaseDigitalLayout.setHorizontalGroup(
@@ -545,22 +592,29 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel46)
                     .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
                         .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel25)
                             .addGroup(panelDefinidaFaseDigitalLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel27)
                                     .addComponent(jLabel28)
-                                    .addComponent(jLabel29)))
-                            .addComponent(jLabel25))
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel48)
+                                    .addComponent(jLabel47)
+                                    .addComponent(jLabel49))))
                         .addGap(18, 18, 18)
                         .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTempoDefinidoFaseMinimo)
                             .addComponent(labelPickupPassoDefinidaFase)
                             .addComponent(labelPickupMaximoDefinidaFase)
                             .addComponent(labelPickupMinimoDefinidaFase)
-                            .addComponent(labelFatorDefinidaFaseDigital)))
-                    .addComponent(jLabel26))
+                            .addComponent(labelFatorDefinidaFaseDigital)
+                            .addComponent(labelTempoDefinidoFaseMaximo)
+                            .addComponent(labelTempoDefinidoFasePasso))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         panelDefinidaFaseDigitalLayout.setVerticalGroup(
@@ -584,6 +638,20 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelPickupPassoDefinidaFase)
                     .addComponent(jLabel29))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(labelTempoDefinidoFaseMinimo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(labelTempoDefinidoFaseMaximo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaFaseDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49)
+                    .addComponent(labelTempoDefinidoFasePasso))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -735,29 +803,55 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
 
         labelFatorDefinidaNeutroDigital.setText("jLabel18");
 
+        jLabel45.setText("Tempo de Atuação:");
+
+        jLabel50.setText("Mínimo (s):");
+
+        jLabel51.setText("Máxima (s):");
+
+        jLabel52.setText("Passo (s):");
+
+        labelTempoDefinidoNeutroMaximo.setText("jLabel53");
+
+        labelTempoDefinidoNeutroMinimo.setText("jLabel54");
+
+        labelTempoDefinidoNeutroPasso.setText("jLabel55");
+
         javax.swing.GroupLayout panelDefinidaNeutroDigitalLayout = new javax.swing.GroupLayout(panelDefinidaNeutroDigital);
         panelDefinidaNeutroDigital.setLayout(panelDefinidaNeutroDigitalLayout);
         panelDefinidaNeutroDigitalLayout.setHorizontalGroup(
             panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
                                 .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel43)
-                                    .addComponent(jLabel41)
-                                    .addComponent(jLabel42)))
-                            .addComponent(jLabel44))
-                        .addGap(18, 18, 18)
+                                    .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel43)
+                                            .addComponent(jLabel41)
+                                            .addComponent(jLabel42)))
+                                    .addComponent(jLabel44))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelPickupPassoDefinidaNeutro)
+                                    .addComponent(labelPickupMaximoDefinidaNeutro)
+                                    .addComponent(labelPickupMinimoDefinidaNeutro)
+                                    .addComponent(labelFatorDefinidaNeutroDigital)
+                                    .addComponent(labelTempoDefinidoNeutroMaximo)
+                                    .addComponent(labelTempoDefinidoNeutroMinimo)
+                                    .addComponent(labelTempoDefinidoNeutroPasso)))
+                            .addComponent(jLabel40)
+                            .addComponent(jLabel45)))
+                    .addGroup(panelDefinidaNeutroDigitalLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPickupPassoDefinidaNeutro)
-                            .addComponent(labelPickupMaximoDefinidaNeutro)
-                            .addComponent(labelPickupMinimoDefinidaNeutro)
-                            .addComponent(labelFatorDefinidaNeutroDigital)))
-                    .addComponent(jLabel40))
+                            .addComponent(jLabel51)
+                            .addComponent(jLabel50)
+                            .addComponent(jLabel52))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         panelDefinidaNeutroDigitalLayout.setVerticalGroup(
@@ -781,6 +875,20 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelPickupPassoDefinidaNeutro)
                     .addComponent(jLabel42))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel45)
+                .addGap(18, 18, 18)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(labelTempoDefinidoNeutroMaximo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(labelTempoDefinidoNeutroMinimo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDefinidaNeutroDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel52)
+                    .addComponent(labelTempoDefinidoNeutroPasso))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -807,12 +915,12 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                     .addGroup(panelDigitalLayout.createSequentialGroup()
                         .addComponent(panelInversaNeutroDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelDefinidaNeutroDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelDefinidaNeutroDigital, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelDigitalLayout.createSequentialGroup()
                         .addComponent(panelInversaFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelDefinidaFaseDigital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelDefinidaFaseDigital, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         PanelItens.add(panelDigital, "card3");
@@ -852,6 +960,13 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tabelaPontoCurvaFase);
 
+        botaoGraficoFase.setText("Gráfico");
+        botaoGraficoFase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGraficoFaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInversaFaseEletromecanicoLayout = new javax.swing.GroupLayout(panelInversaFaseEletromecanico);
         panelInversaFaseEletromecanico.setLayout(panelInversaFaseEletromecanicoLayout);
         panelInversaFaseEletromecanicoLayout.setHorizontalGroup(
@@ -871,6 +986,10 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                             .addComponent(labelFatorInversaFaseMecan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(listaDialInversaFase, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInversaFaseEletromecanicoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoGraficoFase)
+                .addContainerGap())
         );
         panelInversaFaseEletromecanicoLayout.setVerticalGroup(
             panelInversaFaseEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -889,6 +1008,8 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(botaoGraficoFase)
                 .addContainerGap())
         );
 
@@ -927,15 +1048,22 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         ));
         jScrollPane2.setViewportView(tabelaPontoCurvaNeutro);
 
+        botaoGraficoNeutro.setText("Gráfico");
+        botaoGraficoNeutro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoGraficoNeutroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInversaNeutroEletromecanicoLayout = new javax.swing.GroupLayout(panelInversaNeutroEletromecanico);
         panelInversaNeutroEletromecanico.setLayout(panelInversaNeutroEletromecanicoLayout);
         panelInversaNeutroEletromecanicoLayout.setHorizontalGroup(
             panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+            .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
                         .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel7))
@@ -943,11 +1071,14 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                         .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(listaDialInversaNeutro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(listaPickupInversaNeutro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelFatorInversaNeutroMecan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInversaNeutroEletromecanicoLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelFatorInversaNeutroMecan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botaoGraficoNeutro, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         panelInversaNeutroEletromecanicoLayout.setVerticalGroup(
@@ -957,7 +1088,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(labelFatorInversaNeutroMecan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(listaPickupInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -965,8 +1096,10 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
                 .addGroup(panelInversaNeutroEletromecanicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(listaDialInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(botaoGraficoNeutro)
                 .addContainerGap())
         );
 
@@ -1234,9 +1367,25 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             this.dispose();
             ((JFrame) this.getParent()).dispose();
         } catch (SQLException ex) {
-            Erro.mostraMensagemSQL((JFrame) this.getParent());
+            Erro.mostraMensagemSQL((JFrame) this.getParent(), ex);
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
+
+    private void botaoGraficoFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoFaseActionPerformed
+        double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
+        double dialTempo = this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex());
+        this.setModal(false);
+        Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_FASE, corrente, dialTempo), this).setVisible(true);
+        this.setModal(true);
+    }//GEN-LAST:event_botaoGraficoFaseActionPerformed
+
+    private void botaoGraficoNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGraficoNeutroActionPerformed
+        double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
+        double dialTempo = this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex());
+        this.setModal(false);
+        Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_NEUTRO, corrente, dialTempo), this).setVisible(true);
+        this.setModal(true);
+    }//GEN-LAST:event_botaoGraficoNeutroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1268,17 +1417,19 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //try {
-                //new GUI_Reles_Resumo(SIGPROD2.DAO.ReleDao.buscarReles().get(0)).setVisible(true);
-                //} catch (SQLException ex) {
-                //  ex.printStackTrace();
-                //}
+                try {
+                    new GUI_Reles_Resumo(null, true, SIGPROD2.DAO.ReleDao.buscarReles().get(0)).setVisible(true);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelItens;
+    private javax.swing.JButton botaoGraficoFase;
+    private javax.swing.JButton botaoGraficoNeutro;
     private javax.swing.JButton botaoRetornar;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JLabel jLabel1;
@@ -1320,7 +1471,15 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1355,6 +1514,12 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
     private javax.swing.JLabel labelPickupPassoDefinidaNeutro;
     private javax.swing.JLabel labelPickupPassoInversaFase;
     private javax.swing.JLabel labelPickupPassoInversaNeutro;
+    private javax.swing.JLabel labelTempoDefinidoFaseMaximo;
+    private javax.swing.JLabel labelTempoDefinidoFaseMinimo;
+    private javax.swing.JLabel labelTempoDefinidoFasePasso;
+    private javax.swing.JLabel labelTempoDefinidoNeutroMaximo;
+    private javax.swing.JLabel labelTempoDefinidoNeutroMinimo;
+    private javax.swing.JLabel labelTempoDefinidoNeutroPasso;
     private javax.swing.JLabel labelTempoMaximoInversaFase;
     private javax.swing.JLabel labelTempoMaximoInversaNeutro;
     private javax.swing.JLabel labelTempoMinimoInversaFase;
