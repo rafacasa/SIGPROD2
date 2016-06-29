@@ -19,5 +19,6 @@ public class Perguntas {
     public static int perguntaCancelar(JFrame janela) {
         return fazPergunta(janela, "Deseja cancelar?");
     }
+    
 
 }

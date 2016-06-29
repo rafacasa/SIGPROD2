@@ -1,5 +1,6 @@
 package SIGPROD2.Auxiliar;
 
+import SIGPROD2.GUI.GUI_Reles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,7 +16,7 @@ public class Erro {
     private static void mostraMensagem(JFrame janela, String texto) {
         JOptionPane.showMessageDialog(janela,
                 texto,
-                "ERRO",
+                "Erro",
                 JOptionPane.ERROR_MESSAGE);
     }
 
@@ -76,15 +77,47 @@ public class Erro {
     }
 
     public static void camposVazios(JFrame janela) {
-        mostraMensagem(janela, "Campos vazios");
+        mostraMensagem(janela, "Campo(s) vazio(s).");
     }
 
-    public static void valorCadastrado(JFrame janela) {
-        mostraMensagem(janela, "Dial já cadastrado");
+    public static void dialCadastrado(JFrame janela) {
+        mostraMensagem(janela, "Dial já cadastrado.");
     }
     
     public static void expressaoInvalida(JFrame janela) {
-        mostraMensagem(janela, "Expressão Inválida");
+        mostraMensagem(janela, "Expressão inválida.");
     }
+    
+    public static void camposVaziosOUEntradaInvalida(JFrame janela, String text) {
+        if (text.isEmpty()) {
+            Erro.camposVazios(janela);
+        } else {
+            Erro.entradaInvalida(janela);
+        }
+    }
+    
+    public static void camposVaziosOUEntradaInvalida(JFrame janela, String min, String max, String pas) {
+        if (!min.isEmpty() && !max.isEmpty() && !pas.isEmpty()) {
+            Erro.entradaInvalida(janela);
+        } else {
+            Erro.camposVazios(janela);
+        }
+    }
+    
+    public static void camposVaziosOUEntradaInvalida(JFrame janela, String minCorrente, String maxCorrente, String pasCorrente, String minTempo, String maxTempo, String pasTempo) {
+        if (!minCorrente.isEmpty() && !maxCorrente.isEmpty() && !pasCorrente.isEmpty() && !minTempo.isEmpty() && !maxTempo.isEmpty() && !pasTempo.isEmpty()) {
+            Erro.entradaInvalida(janela);
+        } else {
+            Erro.camposVazios(janela);
+        }
+    }
+    
+    public static void exclusaoDial(JFrame janela) {
+        mostraMensagem(janela, "Não foi possível excluir o Dial.");
+    }
+
+    
+
+    
     
 }

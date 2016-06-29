@@ -5,7 +5,7 @@ import SIGPROD2.Modelo.PontoCurva;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.text.DecimalFormat;
-import java.util.List;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -68,7 +68,7 @@ public class Grafico {
         int qtdCurvas = curvas.getQtdCurvas();
         XYSeriesCollection conjuntoLinhas = new XYSeriesCollection();
         XYSeries curva;
-        List<PontoCurva> pontos;
+        ArrayList<PontoCurva> pontos;
 
         for (int i = 0; i < qtdCurvas; i++) {
             curva = new XYSeries(curvas.getNomeCurva(i));

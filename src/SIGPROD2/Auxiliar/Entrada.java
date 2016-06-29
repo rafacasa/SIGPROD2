@@ -26,5 +26,5 @@ public class Entrada {
     public static String alteraValorPosicao(JFrame janela, String oldValue) {
         return JOptionPane.showInputDialog(janela, "Corrente : Tipo", oldValue);
     }
-
+    
 }

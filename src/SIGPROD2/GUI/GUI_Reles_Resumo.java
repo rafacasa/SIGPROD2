@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
@@ -1307,7 +1308,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
 
     private void listaPickupInversaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaFaseActionPerformed
         double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
-        ArrayList<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
+        List<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
 
         this.listaDialInversaFase.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaFase.addItem(dial));
@@ -1315,7 +1316,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
 
     private void listaPickupInversaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPickupInversaNeutroActionPerformed
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
-        ArrayList<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
+        List<Double> listaDial = ((ReleEletromecanico) this.rele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
 
         this.listaDialInversaNeutro.removeAllItems();
         listaDial.forEach(dial -> this.listaDialInversaNeutro.addItem(dial));
@@ -1325,7 +1326,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         if (this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex()) != null) {
             double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
             double dialTempo = this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex());
-            ArrayList<PontoCurva> listaPontos;
+            List<PontoCurva> listaPontos;
             try {
                 listaPontos = ((ReleEletromecanico) this.rele).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_FASE);
 
@@ -1343,7 +1344,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         if (this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex()) != null) {
             double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
             double dialTempo = this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex());
-            ArrayList<PontoCurva> listaPontos;
+            List<PontoCurva> listaPontos;
             try {
                 listaPontos = ((ReleEletromecanico) this.rele).getPontosDialDeTempo(corrente, dialTempo, Rele.INVERSA_NEUTRO);
 
@@ -1367,7 +1368,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
             this.dispose();
             ((JFrame) this.getParent()).dispose();
         } catch (SQLException ex) {
-            Erro.mostraMensagemSQL((JFrame) this.getParent(), ex);
+            //Erro.mostraMensagemSQL((JFrame) this.getParent(), ex);
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
@@ -1375,7 +1376,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         double corrente = this.listaPickupInversaFase.getItemAt(this.listaPickupInversaFase.getSelectedIndex());
         double dialTempo = this.listaDialInversaFase.getItemAt(this.listaDialInversaFase.getSelectedIndex());
         this.setModal(false);
-        Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_FASE, corrente, dialTempo), this).setVisible(true);
+        //Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_FASE, corrente, dialTempo), this).setVisible(true);
         this.setModal(true);
     }//GEN-LAST:event_botaoGraficoFaseActionPerformed
 
@@ -1383,7 +1384,7 @@ public class GUI_Reles_Resumo extends javax.swing.JDialog {
         double corrente = this.listaPickupInversaNeutro.getItemAt(this.listaPickupInversaNeutro.getSelectedIndex());
         double dialTempo = this.listaDialInversaNeutro.getItemAt(this.listaDialInversaNeutro.getSelectedIndex());
         this.setModal(false);
-        Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_NEUTRO, corrente, dialTempo), this).setVisible(true);
+        //Grafico.criarGrafico(((ReleEletromecanico) this.rele).getDial(Rele.INVERSA_NEUTRO, corrente, dialTempo), this).setVisible(true);
         this.setModal(true);
     }//GEN-LAST:event_botaoGraficoNeutroActionPerformed
 

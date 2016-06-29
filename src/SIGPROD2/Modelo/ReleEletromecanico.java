@@ -81,11 +81,29 @@ public class ReleEletromecanico implements Rele {
         }
     }
 
-    public void removeDialDeTempo(int tipo) {
+    public boolean removeDialDeTempo(double corrente, double dial, int tipo) {
+        List<DialDeTempoMecanico> d = null;
+        
+        if (tipo == Rele.INVERSA_FASE) {
+            d = this.mapaFasePickupTempo.get(corrente);
+        } else if (tipo == Rele.INVERSA_NEUTRO) {
+            d = this.mapaNeutroPickupTempo.get(corrente);
+        }
+        for (DialDeTempoMecanico i : d) {
+                if (i.getDial() == dial) {
+                    d.remove(i);
+                    return true;
+                }
+            }
+        return false;
+    }
+
+    public void removeTodosDiaisDeTempo(int tipo) {
         if (tipo == Rele.INVERSA_FASE) {
             this.mapaFasePickupTempo = new TreeMap<>();
             this.qtdPontosFase = 0;
         } else {
+            System.out.println("Here");
             this.mapaNeutroPickupTempo = new TreeMap<>();
             this.qtdPontosNeutro = 0;
         }

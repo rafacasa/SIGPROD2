@@ -86,9 +86,9 @@ public class GUI_Reles extends javax.swing.JFrame {
         faseCurvaFirst = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         faseCurvaDial = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         faseCurvaPrimeira = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
         faseCurvaGrafico = new javax.swing.JButton();
         faseCurvaRemovePrimeira = new javax.swing.JButton();
         faseCurvaAdicionaPrimeira = new javax.swing.JButton();
@@ -119,7 +119,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         avancarFaseCurva = new javax.swing.JButton();
         cancelarFaseCurva = new javax.swing.JButton();
         retornarFaseCurva = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        temporizadaNeutro = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         correntePickup3 = new javax.swing.JPanel();
         cardLayout4 = new javax.swing.JPanel();
@@ -173,6 +173,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         neutroCurvaCorrenteExistente = new javax.swing.JComboBox();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        removeDialInversaNeutro = new javax.swing.JButton();
         avancarNeutroCurva = new javax.swing.JButton();
         cancelarNeutroCurva = new javax.swing.JButton();
         retornarNeutroCurva = new javax.swing.JButton();
@@ -322,7 +323,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                                         .addComponent(curvaTempoFase)
                                         .addGap(6, 6, 6)
                                         .addComponent(curvaTempoNeutro)))))
-                        .addGap(0, 518, Short.MAX_VALUE)))
+                        .addGap(0, 523, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         Painel1Layout.setVerticalGroup(
@@ -469,7 +470,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                         .addComponent(jLabel43)
                         .addGap(6, 6, 6)
                         .addComponent(InversaFaseCorrenteFator, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correntePickupLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cancelarInversaFaseCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -507,10 +508,10 @@ public class GUI_Reles extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar dial de tempo"));
         jPanel4.setVerifyInputWhenFocusTarget(false);
 
-        jLabel8.setText("Dial de tempo : ");
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(251, 250));
         jScrollPane1.setViewportView(faseCurvaPrimeira);
+
+        jLabel8.setText("Dial de tempo : ");
 
         faseCurvaGrafico.setText("Gráfico");
         faseCurvaGrafico.setPreferredSize(new java.awt.Dimension(84, 26));
@@ -635,25 +636,22 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jScrollPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel34)))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel33)
-                                .addGap(3, 3, 3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel34)
-                                .addGap(4, 4, 4)))
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(faseCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(removeDialInversaFase, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(faseCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(faseCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(removeDialInversaFase, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(faseCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addComponent(jScrollPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -667,7 +665,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                     .addComponent(jLabel34)
                     .addComponent(faseCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeDialInversaFase))
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane0, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -749,7 +747,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(faseCurvaRemoveCaracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         faseCurvaSecondLayout.setVerticalGroup(
             faseCurvaSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -982,7 +980,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             .addComponent(correntePickup3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Corrente de pickup", jPanel2);
+        temporizadaNeutro.addTab("Corrente de pickup", jPanel2);
 
         jPanel3.setPreferredSize(new java.awt.Dimension(870, 526));
 
@@ -999,12 +997,6 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         jLabel51.setText("Passo (A) :");
         jLabel51.setPreferredSize(new java.awt.Dimension(85, 15));
-
-        neutroCurvaMaximo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neutroCurvaMaximoActionPerformed(evt);
-            }
-        });
 
         jScrollPane6.setViewportView(neutroCurvaCaracteristicas);
 
@@ -1124,12 +1116,6 @@ public class GUI_Reles extends javax.swing.JFrame {
             }
         });
 
-        neutroCurvaCorrenteCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                neutroCurvaCorrenteCadastroActionPerformed(evt);
-            }
-        });
-
         jLabel29.setText("Corrente de pickup : ");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1206,25 +1192,34 @@ public class GUI_Reles extends javax.swing.JFrame {
 
         jLabel32.setText("Dial de tempo : ");
 
+        removeDialInversaNeutro.setText("-");
+        removeDialInversaNeutro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeDialInversaNeutroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel31))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(neutroCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel31)
-                            .addComponent(jLabel32))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(neutroCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(neutroCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(57, 57, 57))
+                        .addComponent(neutroCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(removeDialInversaNeutro, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1233,13 +1228,14 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(neutroCurvaCorrenteExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31))
-                .addGap(12, 12, 12)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(neutroCurvaDialExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel32)
+                    .addComponent(removeDialInversaNeutro))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout neutroCurvaFirstLayout = new javax.swing.GroupLayout(neutroCurvaFirst);
@@ -1259,8 +1255,8 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(neutroCurvaFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         cardLayout5.add(neutroCurvaFirst, "neutroCurvaFirst");
@@ -1329,19 +1325,13 @@ public class GUI_Reles extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Curvas", jPanel3);
+        temporizadaNeutro.addTab("Curvas", jPanel3);
 
-        tabbedPane.addTab("Inversa de neutro", jTabbedPane1);
+        tabbedPane.addTab("Inversa de neutro", temporizadaNeutro);
 
         cardLayout3.setLayout(new java.awt.CardLayout());
 
         jLabel44.setText("Valores separados por vírgula :");
-
-        definidaFaseCorrenteValores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                definidaFaseCorrenteValoresActionPerformed(evt);
-            }
-        });
 
         jLabel23.setText("Corrente de pickup");
 
@@ -1516,7 +1506,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                         .addComponent(definidaFaseFator, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correntePickup1Layout.createSequentialGroup()
-                .addContainerGap(557, Short.MAX_VALUE)
+                .addContainerGap(562, Short.MAX_VALUE)
                 .addComponent(cancelarDefinidaFase, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(retornarDefinidaFase, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1557,12 +1547,6 @@ public class GUI_Reles extends javax.swing.JFrame {
         cardLayout6.setLayout(new java.awt.CardLayout());
 
         jLabel46.setText("Valores separados por vírgula :");
-
-        definidaNeutroCorrenteValores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                definidaNeutroCorrenteValoresActionPerformed(evt);
-            }
-        });
 
         jLabel26.setText("Corrente de pickup");
 
@@ -1741,7 +1725,7 @@ public class GUI_Reles extends javax.swing.JFrame {
                         .addComponent(jLabel48)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(definidaNeutroFator, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
         correntePickup2Layout.setVerticalGroup(
             correntePickup2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1798,7 +1782,7 @@ public class GUI_Reles extends javax.swing.JFrame {
         String fab = this.fabricante.getText();
         String mod = this.modelo.getText();
 
-        if (!"".equals(fab) && !"".equals(mod)) {
+        if (!("").equals(fab) && !("").equals(mod)) {
             if (this.isEletromecanico()) {
                 this.newRele = new ReleEletromecanico();
             } else {
@@ -1816,11 +1800,11 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void retornarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarFaseCurvaActionPerformed
         if (this.newRele.getTipo() == Rele.ELETROMECANICO) {
-            ((ReleEletromecanico) this.newRele).removeDialDeTempo(Rele.INVERSA_FASE);
+            ((ReleEletromecanico) this.newRele).removeTodosDiaisDeTempo(Rele.INVERSA_FASE);
         }
-        int selecionado = this.temporizadaFase.getSelectedIndex();
-
-        this.temporizadaFase.setSelectedIndex(selecionado - 1);
+        this.modeloFaseExistenteDial.removeTodos();
+        this.modeloFaseExistenteDial.fireTableDataChanged();
+        this.retornarTelaInversaFase(0);
     }//GEN-LAST:event_retornarFaseCurvaActionPerformed
 
     private void cancelarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarFaseCurvaActionPerformed
@@ -1829,20 +1813,24 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarFaseCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarFaseCurvaActionPerformed
         if (!this.isEletromecanico()) {
-            String minimo = this.faseCurvaMinimo.getText();
-            String maximo = this.faseCurvaMaximo.getText();
-            String passo = this.faseCurvaPasso.getText();
+            String min = this.faseCurvaMinimo.getText();
+            String max = this.faseCurvaMaximo.getText();
+            String pas = this.faseCurvaPasso.getText();
 
-            if (!"".equals(minimo) && !"".equals(maximo) && !"".equals(passo)) {
-                double min = Double.parseDouble(minimo);
-                double max = Double.parseDouble(maximo);
-                double pas = Double.parseDouble(passo);
+            if (StringUtils.isNumber(min) && StringUtils.isNumber(max) && StringUtils.isNumber(pas)) {
+                double minimo = Double.parseDouble(min);
+                double maximo = Double.parseDouble(max);
+                double passo = Double.parseDouble(pas);
 
-                if (this.verificaExpressao(min, max, pas)) {
-                    ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_FASE, min, max, pas);
+                if (this.verificaExpressao(minimo, maximo, passo)) {
+                    ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_FASE, minimo, maximo, passo);
                     ((ReleDigital) this.newRele).setListaFase(this.modeloFaseCaracteristicas.getArrayList());
                     this.avancarTela();
+                } else {
+                    Erro.expressaoInvalida(this);
                 }
+            } else {
+                Erro.camposVaziosOUEntradaInvalida(this, min, max, pas);
             }
         } else {
             this.avancarTela();
@@ -1859,100 +1847,110 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarInversaFaseCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaFaseCorrenteActionPerformed
         String f = this.InversaFaseCorrenteFator.getText();
-        
+
         if (StringUtils.isNumber(f)) {
-            
             if (this.isEletromecanico()) {
                 String valor = this.inversaFaseCorrenteValores.getText();
-                
+
                 if (!("").equals(valor)) {
                     List<Double> valores = new ArrayList();
                     double fator = Double.parseDouble(f);
-                    
-                    StringUtils.separaValores(valor, valores);
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(valores, Rele.INVERSA_FASE);
-                    this.newRele.setFatorInicio(fator, Rele.INVERSA_FASE);
-                    this.addCorrentePickupFase(valores);
-                    int selecionado = this.temporizadaFase.getSelectedIndex();
 
-                    this.temporizadaFase.setSelectedIndex(selecionado + 1);
+                    if (StringUtils.separaValores(valor, valores)) {
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(valores, Rele.INVERSA_FASE);
+                        this.newRele.setFatorInicio(fator, Rele.INVERSA_FASE);
+                        this.addCorrentePickupFase(valores);
+                        this.avancarTelaInversaFase(1);
+                    } else {
+                        Erro.expressaoInvalida(this);
+                    }
                 } else {
                     Erro.camposVazios(this);
                 }
-                
             } else {
                 String min = this.faseCorrenteMinimo.getText();
                 String max = this.faseCorrenteMaximo.getText();
                 String pas = this.faseCorrentePasso.getText();
-                double fator = Double.parseDouble(f);
 
                 if (StringUtils.isNumber(min) && StringUtils.isNumber(max) && StringUtils.isNumber(pas)) {
                     double minimo = Double.parseDouble(min);
                     double maximo = Double.parseDouble(max);
                     double passo = Double.parseDouble(pas);
+                    double fator = Double.parseDouble(f);
 
                     if (this.verificaExpressao(minimo, maximo, passo)) {
                         this.newRele.setFatorInicio(fator, Rele.INVERSA_FASE);
                         ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_FASE, minimo, maximo, passo);
-                        int selecionado = this.temporizadaFase.getSelectedIndex();
-
-                        this.temporizadaFase.setSelectedIndex(selecionado + 1);
+                        this.avancarTelaInversaFase(1);
+                    } else {
+                        Erro.expressaoInvalida(this);
                     }
                 } else {
-                    Erro.camposVazios(this);
+                    Erro.camposVaziosOUEntradaInvalida(this, min, max, pas);
                 }
             }
+        } else {
+            Erro.camposVaziosOUEntradaInvalida(this, f);
         }
-
-
     }//GEN-LAST:event_avancarInversaFaseCorrenteActionPerformed
 
     private void avancarDefinidaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaFaseActionPerformed
         String f = this.definidaFaseFator.getText();
 
-        if (!"".equals(f)) {
+        if (StringUtils.isNumber(f)) {
+            double fator = Double.parseDouble(f);
+
             if (this.isEletromecanico()) {
                 String c = this.definidaFaseCorrenteValores.getText();
                 String t = this.definidaFaseTempoValores.getText();
-                double fator = Double.parseDouble(f);
 
-                if (!"".equals(c) && !"".equals(t)) {
+                if (!("").equals(c) && !("").equals(t)) {
                     this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
-                    ArrayList<Double> lista_corrente = this.separaValores(c);
-                    ArrayList<Double> lista_tempo = this.separaValores(t);
+                    List<Double> corrente = new ArrayList();
+                    List<Double> tempo = new ArrayList();
 
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_FASE);
-                    ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_FASE);
-                    this.avancarTela();
+                    if (StringUtils.separaValores(c, corrente) && StringUtils.separaValores(t, tempo)) {
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(corrente, Rele.DEFINIDO_FASE);
+                        ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(tempo, Rele.DEFINIDO_FASE);
+                        this.avancarTela();
+                    } else {
+                        Erro.expressaoInvalida(this);
+                    }
                 } else {
                     Erro.camposVazios(this);
                 }
             } else {
-                String minimoCorr = this.faseMinimo.getText();
-                String maximoCorr = this.faseMaximo.getText();
-                String passoCorr = this.fasePasso.getText();
-                String minimoTempo = this.campoMinimoTempoDefFase.getText();
-                String maximoTempo = this.campoMaximoTempoDefFase.getText();
-                String passoTempo = this.campoPassoTempoDefFase.getText();
-                double fator = Double.parseDouble(f);
+                String minCorrente = this.faseMinimo.getText();
+                String maxCorrente = this.faseMaximo.getText();
+                String pasCorrente = this.fasePasso.getText();
+                String minTempo = this.campoMinimoTempoDefFase.getText();
+                String maxTempo = this.campoMaximoTempoDefFase.getText();
+                String pasTempo = this.campoPassoTempoDefFase.getText();
 
-                if (!"".equals(minimoCorr) && !"".equals(maximoCorr) && !"".equals(passoCorr) && !"".equals(minimoTempo) && !"".equals(maximoTempo) && !"".equals(passoTempo)) {
-                    double minCorr = Double.parseDouble(minimoCorr);
-                    double maxCorr = Double.parseDouble(maximoCorr);
-                    double pasCorr = Double.parseDouble(passoCorr);
-                    double minTemp = Double.parseDouble(minimoTempo);
-                    double maxTemp = Double.parseDouble(maximoTempo);
-                    double pasTemp = Double.parseDouble(passoTempo);
+                if (StringUtils.isNumber(minCorrente) && StringUtils.isNumber(maxCorrente) && StringUtils.isNumber(pasCorrente)
+                        && StringUtils.isNumber(minTempo) && StringUtils.isNumber(maxTempo) && StringUtils.isNumber(pasTempo)) {
 
-                    if (this.verificaExpressao(minCorr, maxCorr, pasCorr) && this.verificaExpressao(minTemp, maxTemp, pasTemp)) {
+                    double minimoCorrente = Double.parseDouble(minCorrente);
+                    double maximoCorrente = Double.parseDouble(maxCorrente);
+                    double passoCorrente = Double.parseDouble(pasCorrente);
+                    double minimoTempo = Double.parseDouble(minTempo);
+                    double maximoTempo = Double.parseDouble(maxTempo);
+                    double passoTempo = Double.parseDouble(pasTempo);
+
+                    if (this.verificaExpressao(minimoCorrente, maximoCorrente, passoCorrente) && this.verificaExpressao(minimoTempo, maximoTempo, passoTempo)) {
                         this.newRele.setFatorInicio(fator, Rele.DEFINIDO_FASE);
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_FASE, minCorr, maxCorr, pasCorr);
-                        ((ReleDigital) this.newRele).setValuesTempo(Rele.DEFINIDO_FASE, minTemp, maxTemp, pasTemp);
+                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_FASE, minimoCorrente, maximoCorrente, passoCorrente);
+                        ((ReleDigital) this.newRele).setValuesTempo(Rele.DEFINIDO_FASE, minimoTempo, maximoTempo, passoTempo);
                         this.avancarTela();
+                    } else {
+                        Erro.expressaoInvalida(this);
                     }
+                } else {
+                    Erro.camposVaziosOUEntradaInvalida(this, minCorrente, maxCorrente, pasCorrente, minTempo, maxTempo, pasTempo);
                 }
-
             }
+        } else {
+            Erro.camposVaziosOUEntradaInvalida(this, f);
         }
     }//GEN-LAST:event_avancarDefinidaFaseActionPerformed
 
@@ -1967,55 +1965,60 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void avancarDefinidaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarDefinidaNeutroActionPerformed
         String f = this.definidaNeutroFator.getText();
 
-        if (!"".equals(f)) {
+        if (StringUtils.isNumber(f)) {
             double fator = Double.parseDouble(f);
 
             if (this.isEletromecanico()) {
                 String c = this.definidaNeutroCorrenteValores.getText();
                 String t = this.definidaNeutroTempoValores.getText();
 
-                if (!"".equals(c) && !"".equals(t)) {
-                    ArrayList<Double> lista_corrente = this.separaValores(c);
-                    ArrayList<Double> lista_tempo = this.separaValores(t);
+                if (!("").equals(c) && !("").equals(t)) {
+                    ArrayList<Double> corrente = new ArrayList();
+                    ArrayList<Double> tempo = new ArrayList();
 
-                    this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista_corrente, Rele.DEFINIDO_NEUTRO);
-                    ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(lista_tempo, Rele.DEFINIDO_NEUTRO);
-                } else {
-                    Erro.camposVazios(this);
-                }
-            } else {
-                String minimoCor = this.neutroMinimo.getText();
-                String maximoCor = this.neutroMaximo.getText();
-                String passoCor = this.neutroPasso.getText();
-                String minimoTempo = this.campoMinimoTempoDefNeutro.getText();
-                String maximoTempo = this.campoMaximoTempoDefNeutro.getText();
-                String passoTempo = this.campoPassoTempoDefNeutro.getText();
-
-                if (!"".equals(minimoCor) && !"".equals(maximoCor) && !"".equals(passoCor) && !"".equals(minimoTempo) && !"".equals(maximoTempo) && !"".equals(passoTempo)) {
-                    double minCorr = Double.parseDouble(minimoCor);
-                    double maxCorr = Double.parseDouble(maximoCor);
-                    double pasCorr = Double.parseDouble(passoCor);
-                    double minTemp = Double.parseDouble(minimoTempo);
-                    double maxTemp = Double.parseDouble(maximoTempo);
-                    double pasTemp = Double.parseDouble(passoTempo);
-
-                    if (this.verificaExpressao(minCorr, maxCorr, pasCorr) && this.verificaExpressao(minTemp, maxTemp, pasTemp)) {
+                    if (StringUtils.separaValores(c, corrente) && StringUtils.separaValores(t, tempo)) {
                         this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_NEUTRO, minCorr, maxCorr, pasCorr);
-                        ((ReleDigital) this.newRele).setValuesTempo(Rele.DEFINIDO_NEUTRO, minTemp, maxTemp, pasTemp);
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(corrente, Rele.DEFINIDO_NEUTRO);
+                        ((ReleEletromecanico) this.newRele).addTempoDeAtuacao(tempo, Rele.DEFINIDO_NEUTRO);
+                        this.mandaResumo();
+                    } else {
+                        Erro.expressaoInvalida(this);
                     }
                 } else {
                     Erro.camposVazios(this);
                 }
-            }
-            try {
-                GUI_Reles_Resumo resumo = new GUI_Reles_Resumo(this, true, newRele);
-                resumo.setAlwaysOnTop(true);
-                resumo.setVisible(true);
-            } catch (Exception e) {
+            } else {
+                String minCorrente = this.neutroMinimo.getText();
+                String maxCorrente = this.neutroMaximo.getText();
+                String pasCorrente = this.neutroPasso.getText();
+                String minTempo = this.campoMinimoTempoDefNeutro.getText();
+                String maxTempo = this.campoMaximoTempoDefNeutro.getText();
+                String pasTempo = this.campoPassoTempoDefNeutro.getText();
 
+                if (StringUtils.isNumber(minCorrente) && StringUtils.isNumber(maxCorrente) && StringUtils.isNumber(pasCorrente)
+                        && StringUtils.isNumber(minTempo) && StringUtils.isNumber(maxTempo) && StringUtils.isNumber(pasTempo)) {
+
+                    double minimoCorrente = Double.parseDouble(minCorrente);
+                    double maximoCorrente = Double.parseDouble(maxCorrente);
+                    double passoCorrente = Double.parseDouble(pasCorrente);
+                    double minimoTempo = Double.parseDouble(minTempo);
+                    double maximoTempo = Double.parseDouble(maxTempo);
+                    double passoTempo = Double.parseDouble(pasTempo);
+
+                    if (this.verificaExpressao(minimoCorrente, maximoCorrente, passoCorrente) && this.verificaExpressao(minimoTempo, maximoTempo, passoTempo)) {
+                        this.newRele.setFatorInicio(fator, Rele.DEFINIDO_NEUTRO);
+                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.DEFINIDO_NEUTRO, minimoCorrente, maximoCorrente, passoCorrente);
+                        ((ReleDigital) this.newRele).setValuesTempo(Rele.DEFINIDO_NEUTRO, minimoTempo, maximoTempo, passoTempo);
+                        this.mandaResumo();
+                    } else {
+                        Erro.expressaoInvalida(this);
+                    }
+                } else {
+                    Erro.camposVaziosOUEntradaInvalida(this, minCorrente, maxCorrente, pasCorrente, minTempo, maxTempo, pasTempo);
+                }
             }
+        } else {
+            Erro.camposVaziosOUEntradaInvalida(this, f);
         }
     }//GEN-LAST:event_avancarDefinidaNeutroActionPerformed
 
@@ -2029,20 +2032,24 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarNeutroCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarNeutroCurvaActionPerformed
         if (!this.isEletromecanico()) {
-            String minimo = this.neutroCurvaMinimo.getText();
-            String maximo = this.neutroCurvaMaximo.getText();
-            String passo = this.neutroCurvaPasso.getText();
+            String min = this.neutroCurvaMinimo.getText();
+            String max = this.neutroCurvaMaximo.getText();
+            String pas = this.neutroCurvaPasso.getText();
 
-            if (!"".equals(minimo) && !"".equals(maximo) && !"".equals(passo)) {
-                double min = Double.parseDouble(this.neutroCurvaMinimo.getText());
-                double max = Double.parseDouble(this.neutroCurvaMaximo.getText());
-                double pas = Double.parseDouble(this.neutroCurvaPasso.getText());
+            if (StringUtils.isNumber(min) && StringUtils.isNumber(max) && StringUtils.isNumber(pas)) {
+                double minimo = Double.parseDouble(this.neutroCurvaMinimo.getText());
+                double maximo = Double.parseDouble(this.neutroCurvaMaximo.getText());
+                double passo = Double.parseDouble(this.neutroCurvaPasso.getText());
 
-                if (this.verificaExpressao(min, max, pas)) {
-                    ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_NEUTRO, min, max, pas);
+                if (this.verificaExpressao(minimo, maximo, passo)) {
+                    ((ReleDigital) this.newRele).setValuesTempo(Rele.INVERSA_NEUTRO, minimo, maximo, passo);
                     ((ReleDigital) this.newRele).setListaNeutro(this.modeloNeutroCaracteristicas.getArrayList());
                     this.avancarTela();
+                } else {
+                    Erro.expressaoInvalida(this);
                 }
+            } else {
+                Erro.camposVaziosOUEntradaInvalida(this, min, max, pas);
             }
         } else {
             this.avancarTela();
@@ -2055,11 +2062,11 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void retornarNeutroCurvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarNeutroCurvaActionPerformed
         if (this.newRele.getTipo() == Rele.ELETROMECANICO) {
-            ((ReleEletromecanico) this.newRele).removeDialDeTempo(WIDTH);
+            ((ReleEletromecanico) this.newRele).removeTodosDiaisDeTempo(Rele.INVERSA_NEUTRO);
         }
-        int selecionado = this.jTabbedPane1.getSelectedIndex();
-
-        this.jTabbedPane1.setSelectedIndex(selecionado - 1);
+        this.modeloNeutroExistenteDial.removeTodos();
+        this.modeloNeutroExistenteDial.fireTableDataChanged();
+        this.retornarTelaInversaNeutro();
     }//GEN-LAST:event_retornarNeutroCurvaActionPerformed
 
     private void cancelarInversaNeutroCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarInversaNeutroCorrenteActionPerformed
@@ -2073,50 +2080,51 @@ public class GUI_Reles extends javax.swing.JFrame {
     private void avancarInversaNeutroCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancarInversaNeutroCorrenteActionPerformed
         String f = this.inversaNeutroCorrenteFator.getText();
 
-        if (!"".equals(f)) {
+        if (StringUtils.isNumber(f)) {
             if (this.isEletromecanico()) {
                 String v = this.inversaNeutroCorrenteValores.getText();
-                double fator = Double.parseDouble(f);
 
-                if (!"".equals(v)) {
-                    this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
-                    ArrayList<Double> lista = this.separaValores(v);
+                if (!("").equals(v)) {
+                    List<Double> lista = new ArrayList();
+                    double fator = Double.parseDouble(f);
 
-                    ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
-                    this.addCorrentePickupNeutro(lista);
-                    int selecionado = this.jTabbedPane1.getSelectedIndex();
-
-                    this.jTabbedPane1.setSelectedIndex(selecionado + 1);
+                    if (StringUtils.separaValores(v, lista)) {
+                        ((ReleEletromecanico) this.newRele).addCorrentePickup(lista, Rele.INVERSA_NEUTRO);
+                        this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
+                        this.addCorrentePickupNeutro(lista);
+                        this.avancarTelaInversaNeutro(1);
+                    } else {
+                        Erro.expressaoInvalida(this);
+                    }
+                } else {
+                    Erro.camposVazios(this);
                 }
             } else {
-                String minimo = this.neutroCorrenteMinimo.getText();
-                String maximo = this.neutroCorrenteMaximo.getText();
-                String passo = this.neutroCorrentePasso.getText();
-                double fator = Double.parseDouble(f);
+                String min = this.neutroCorrenteMinimo.getText();
+                String max = this.neutroCorrenteMaximo.getText();
+                String pas = this.neutroCorrentePasso.getText();
 
-                if (!"".equals(minimo) && !"".equals(maximo) && !"".equals(passo)) {
-                    double min = Double.parseDouble(this.neutroCorrenteMinimo.getText());
-                    double max = Double.parseDouble(this.neutroCorrenteMaximo.getText());
-                    double pas = Double.parseDouble(this.neutroCorrentePasso.getText());
+                if (StringUtils.isNumber(min) && StringUtils.isNumber(max) && StringUtils.isNumber(pas)) {
+                    double minimo = Double.parseDouble(this.neutroCorrenteMinimo.getText());
+                    double maximo = Double.parseDouble(this.neutroCorrenteMaximo.getText());
+                    double passo = Double.parseDouble(this.neutroCorrentePasso.getText());
+                    double fator = Double.parseDouble(f);
 
-                    if (this.verificaExpressao(min, max, pas)) {
+                    if (this.verificaExpressao(minimo, maximo, passo)) {
                         this.newRele.setFatorInicio(fator, Rele.INVERSA_NEUTRO);
-                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_NEUTRO, min, max, pas);
-                        int selecionado = this.jTabbedPane1.getSelectedIndex();
-
-                        this.jTabbedPane1.setSelectedIndex(selecionado + 1);
+                        ((ReleDigital) this.newRele).setValuesCorrente(Rele.INVERSA_NEUTRO, minimo, maximo, passo);
+                        this.avancarTelaInversaNeutro(1);
+                    } else {
+                        Erro.expressaoInvalida(this);
                     }
+                } else {
+                    Erro.camposVaziosOUEntradaInvalida(this, min, max, pas);
                 }
-
             }
+        } else {
+            Erro.camposVaziosOUEntradaInvalida(this, f);
         }
-
-
     }//GEN-LAST:event_avancarInversaNeutroCorrenteActionPerformed
-
-    private void neutroCurvaMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaMaximoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neutroCurvaMaximoActionPerformed
 
     private void neutroCurvaAdicionaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaAdicionaCaracteristicasActionPerformed
         this.modeloNeutroCaracteristicas.add(new CaracteristicasCurva("-", 0.0, 0.0, 0.0));
@@ -2154,15 +2162,12 @@ public class GUI_Reles extends javax.swing.JFrame {
         this.modeloNeutroCaracteristicas.fireTableDataChanged();
     }//GEN-LAST:event_neutroCurvaRemoveCaracteristicasActionPerformed
 
-    private void definidaNeutroCorrenteValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_definidaNeutroCorrenteValoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_definidaNeutroCorrenteValoresActionPerformed
-
     private void faseCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaSalvarActionPerformed
-        this.salvarFaseDialCadastradoComPontos();
-        this.limparCamposFaseCurvaSalvar();
-        this.carregarFaseDialCadastradoEmCorrente();
-        this.carregarFasePontosDeDial();
+        if (this.salvarFaseDialCadastradoComPontos()) {
+            this.limparCamposFaseCurvaSalvar();
+            this.carregarFaseDialCadastradoEmCorrente();
+            this.carregarFasePontosDeDial();
+        }
     }//GEN-LAST:event_faseCurvaSalvarActionPerformed
 
     private void limparCamposFaseCurvaSalvar() {
@@ -2171,63 +2176,61 @@ public class GUI_Reles extends javax.swing.JFrame {
         this.modeloFaseCriarDial.fireTableDataChanged();
     }
 
-    private void salvarFaseDialCadastradoComPontos() {
+    private boolean salvarFaseDialCadastradoComPontos() {
         String c = String.valueOf(this.faseCurvaCorrenteCadastro.getSelectedItem());
         String d = this.faseCurvaDial.getText();
 
-        if (!("").equals(c) && !("").equals(d)) {
+        if (StringUtils.isNumber(d)) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
             List<PontoCurva> pontos = this.modeloFaseCriarDial.getList();
             List<Double> values = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
 
-            if (values.isEmpty() || values.indexOf(dial) == -1) {
+            if (values.indexOf(dial) == -1) {
                 ((ReleEletromecanico) this.newRele).addDialDeTempo(Rele.INVERSA_FASE, corrente, dial, pontos);
+                return true;
             } else {
-                Erro.valorCadastrado(this);
+                Erro.dialCadastrado(this);
             }
         } else {
-            Erro.camposVazios(this);
+            Erro.camposVaziosOUEntradaInvalida(this, d);
         }
+        return false;
     }
 
-    private void salvarNeutroDialCadastradoComPontos() {
+    private boolean salvarNeutroDialCadastradoComPontos() {
         String c = String.valueOf(this.neutroCurvaCorrenteCadastro.getSelectedItem());
         String d = this.neutroCurvaDial.getText();
 
-        if (!"".equals(c) && !"".equals(d)) {
+        if (StringUtils.isNumber(d)) {
             double corrente = Double.parseDouble(c);
             double dial = Double.parseDouble(d);
             List<PontoCurva> pontos = this.modeloNeutroCriaDial.getList();
             List<Double> values = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
 
-            if (values.isEmpty() || values.indexOf(dial) == -1) {
+            if (values.indexOf(dial) == -1) {
                 ((ReleEletromecanico) this.newRele).addDialDeTempo(Rele.INVERSA_NEUTRO, corrente, dial, pontos);
+                return true;
             } else {
-                Erro.valorCadastrado(this);
+                Erro.dialCadastrado(this);
             }
         } else {
-            Erro.camposVazios(this);
+            Erro.camposVaziosOUEntradaInvalida(this, d);
         }
+        return false;
     }
 
     private void faseCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaCorrenteExistenteActionPerformed
-        try {
-            carregarFaseDialCadastradoEmCorrente();
-        } catch (NullPointerException e) {
-            System.out.println("Error");
-        }
+        carregarFaseDialCadastradoEmCorrente();
     }//GEN-LAST:event_faseCurvaCorrenteExistenteActionPerformed
 
-    private void carregarFaseDialCadastradoEmCorrente() throws NullPointerException {
-        String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
+    private void carregarFaseDialCadastradoEmCorrente() {
+        String c = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
 
-        if ("null".equals(str)) {
-            throw new NullPointerException();
-        } else {
-            double corrente = Double.parseDouble(str);
-
+        if (!("null").equals(c)) {
+            double corrente = Double.parseDouble(c);
             List<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
+
             this.faseCurvaDialExistente.removeAllItems();
             for (Double d : dial) {
                 this.faseCurvaDialExistente.addItem(d);
@@ -2236,35 +2239,30 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void carregarNeutroDialCadastradoEmCorrente() {
-        String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
-        double corrente = Double.parseDouble(str);
+        String c = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
 
-        List<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
-        this.neutroCurvaDialExistente.removeAllItems();
-        for (Double d : dial) {
-            this.neutroCurvaDialExistente.addItem(d);
+        if (!("null").equals(c)) {
+            double corrente = Double.parseDouble(c);
+            List<Double> dial = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
+
+            this.neutroCurvaDialExistente.removeAllItems();
+            for (Double d : dial) {
+                this.neutroCurvaDialExistente.addItem(d);
+            }
         }
     }
 
     private void faseCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_faseCurvaDialExistenteActionPerformed
-        try {
-            this.carregarFasePontosDeDial();
-        } catch (NullPointerException e) {
-            System.out.println("Error");
-        }
+        this.carregarFasePontosDeDial();
     }//GEN-LAST:event_faseCurvaDialExistenteActionPerformed
 
-    private void carregarFasePontosDeDial() throws NullPointerException {
-        String str = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
-        String srt = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
+    private void carregarFasePontosDeDial() {
+        String c = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
 
-        if ("null".equals(str) || "null".equals(srt)) {
-            this.modeloFaseExistenteDial.removeTodos();
-            this.modeloFaseExistenteDial.fireTableDataChanged();
-            throw new NullPointerException();
-        } else {
-            double corrente = Double.parseDouble(str);
-            double dial = Double.parseDouble(srt);
+        if (!("null").equals(d)) {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
             List<PontoCurva> list;
             list = ((ReleEletromecanico) this.newRele).getPontosDialDeTempo(corrente, dial, Rele.INVERSA_FASE);
 
@@ -2275,16 +2273,12 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void carregarNeutroPontosDeDial() {
-        String str = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
-        String srt = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
+        String c = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
 
-        if ("null".equals(str) || "null".equals(srt)) {
-            this.modeloNeutroExistenteDial.removeTodos();
-            this.modeloNeutroExistenteDial.fireTableDataChanged();
-            throw new NullPointerException();
-        } else {
-            double corrente = Double.parseDouble(str);
-            double dial = Double.parseDouble(srt);
+        if (!("null").equals(d)) {
+            double corrente = Double.parseDouble(c);
+            double dial = Double.parseDouble(d);
             List<PontoCurva> list;
             list = ((ReleEletromecanico) this.newRele).getPontosDialDeTempo(corrente, dial, Rele.INVERSA_NEUTRO);
 
@@ -2293,14 +2287,6 @@ public class GUI_Reles extends javax.swing.JFrame {
             this.modeloNeutroExistenteDial.fireTableDataChanged();
         }
     }
-
-    private void definidaFaseCorrenteValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_definidaFaseCorrenteValoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_definidaFaseCorrenteValoresActionPerformed
-
-    private void neutroCurvaCorrenteCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaCorrenteCadastroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neutroCurvaCorrenteCadastroActionPerformed
 
     private void neutroCurvaRemovePrimeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaRemovePrimeiraActionPerformed
         int selecionado = this.neutroCurvaPrimeira.getSelectedRow();
@@ -2315,10 +2301,11 @@ public class GUI_Reles extends javax.swing.JFrame {
     }//GEN-LAST:event_neutroCurvaAdicionaPrimeiraActionPerformed
 
     private void neutroCurvaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaSalvarActionPerformed
-        this.salvarNeutroDialCadastradoComPontos();
-        this.limparCamposNeutroCurvaSalvar();
-        this.neutroCurvaCorrenteExistenteActionPerformed(evt);
-        this.neutroCurvaDialExistenteActionPerformed(evt);
+        if (this.salvarNeutroDialCadastradoComPontos()) {
+            this.limparCamposNeutroCurvaSalvar();
+            this.neutroCurvaCorrenteExistenteActionPerformed(evt);
+            this.neutroCurvaDialExistenteActionPerformed(evt);
+        }
     }//GEN-LAST:event_neutroCurvaSalvarActionPerformed
 
     private void limparCamposNeutroCurvaSalvar() {
@@ -2328,11 +2315,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void neutroCurvaDialExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaDialExistenteActionPerformed
-        try {
-            this.carregarNeutroPontosDeDial();
-        } catch (NullPointerException e) {
-            System.out.println("Error");
-        }
+        this.carregarNeutroPontosDeDial();
     }//GEN-LAST:event_neutroCurvaDialExistenteActionPerformed
 
     private void neutroCurvaCorrenteExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neutroCurvaCorrenteExistenteActionPerformed
@@ -2347,6 +2330,7 @@ public class GUI_Reles extends javax.swing.JFrame {
             double dial = Double.parseDouble(d);
             List<PontoCurva> pontos = this.modeloFaseCriarDial.getList();
             DialDeTempoMecanico dialTempo = new DialDeTempoMecanico(dial, pontos);
+
             //Grafico.criarGrafico(dialTempo, this).setVisible(true);
         }
     }//GEN-LAST:event_faseCurvaGraficoActionPerformed
@@ -2355,17 +2339,62 @@ public class GUI_Reles extends javax.swing.JFrame {
         String c = String.valueOf(this.neutroCurvaCorrenteCadastro.getSelectedItem());
         String d = this.neutroCurvaDial.getText();
 
-        if (!"".equals(c) && !"".equals(d)) {
+        if (!("").equals(c) && !("").equals(d)) {
             double dial = Double.parseDouble(d);
             List<PontoCurva> pontos = this.modeloNeutroCriaDial.getList();
             DialDeTempoMecanico dialTempo = new DialDeTempoMecanico(dial, pontos);
+
             //Grafico.criarGrafico(dialTempo, this).setVisible(true);
         }
     }//GEN-LAST:event_neutroCurvaGraficoActionPerformed
 
     private void removeDialInversaFaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDialInversaFaseActionPerformed
-        
+        String c = String.valueOf(this.faseCurvaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.faseCurvaDialExistente.getSelectedItem());
+        double corrente = Double.parseDouble(c);
+        double dial = Double.parseDouble(d);
+        boolean excluiu = ((ReleEletromecanico) this.newRele).removeDialDeTempo(corrente, dial, Rele.INVERSA_FASE);
+
+        if (excluiu) {
+            List<Double> l = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_FASE, corrente);
+
+            this.faseCurvaDialExistente.removeAllItems();
+            if (l.isEmpty()) {
+                this.modeloFaseExistenteDial.removeTodos();
+            } else {
+                for (Double x : l) {
+                    this.faseCurvaDialExistente.addItem(x);
+                }
+            }
+            this.modeloFaseExistenteDial.fireTableDataChanged();
+        } else {
+            Erro.exclusaoDial(this);
+        }
     }//GEN-LAST:event_removeDialInversaFaseActionPerformed
+
+    private void removeDialInversaNeutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDialInversaNeutroActionPerformed
+        String c = String.valueOf(this.neutroCurvaCorrenteExistente.getSelectedItem());
+        String d = String.valueOf(this.neutroCurvaDialExistente.getSelectedItem());
+        double corrente = Double.parseDouble(c);
+        double dial = Double.parseDouble(d);
+        boolean retorno = ((ReleEletromecanico) this.newRele).removeDialDeTempo(corrente, dial, Rele.INVERSA_NEUTRO);
+
+        if (retorno) {
+            List<Double> l = ((ReleEletromecanico) this.newRele).getDialDeTempo(Rele.INVERSA_NEUTRO, corrente);
+
+            this.neutroCurvaDialExistente.removeAllItems();
+            if (l.isEmpty()) {
+                this.modeloNeutroExistenteDial.removeTodos();
+            } else {
+                for (Double x : l) {
+                    this.neutroCurvaDialExistente.addItem(x);
+                }
+            }
+            this.modeloNeutroExistenteDial.fireTableDataChanged();
+        } else {
+            Erro.exclusaoDial(this);
+        }
+    }//GEN-LAST:event_removeDialInversaNeutroActionPerformed
 
     private void configurePanels() {
         boolean faseInversa = this.curvaInversaFase.isSelected();
@@ -2387,14 +2416,14 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void desabilitarPaineis(int selecionado) {
         int tabs = this.tabbedPane.getTabCount();
-        
-        /*for (int i = 0; i < tabs; i++) {
+
+        for (int i = 0; i < tabs; i++) {
             if (i == selecionado) {
                 tabbedPane.setEnabledAt(i, true);
             } else {
                 this.tabbedPane.setEnabledAt(i, false);
             }
-        }*/
+        }
     }
 
     private void selecionarCards() {
@@ -2424,25 +2453,94 @@ public class GUI_Reles extends javax.swing.JFrame {
 
     private void avancarTela() {
         while (this.getSelected() < this.tabbedPane.getComponentCount()) {
-            int selecionado = this.getSelected() + 1;
 
-            this.tabbedPane.setSelectedIndex(selecionado);
-            if (this.panels[selecionado]) {
-                //this.desabilitarPaineis(selecionado);
+            if (this.getSelected() + 1 == 1 && this.panels[1]) {
+                this.tabbedPane.setSelectedIndex(1);
+                this.desabilitarPaineis(this.getSelected());
+                this.avancarTelaInversaFase(0);
                 break;
+            } else if (this.getSelected() + 1 == 2 && this.panels[2]) {
+                this.tabbedPane.setSelectedIndex(2);
+                this.desabilitarPaineis(this.getSelected());
+                this.avancarTelaInversaNeutro(0);
+                break;
+            } else {
+                int selecionado = this.getSelected() + 1;
+
+                this.tabbedPane.setSelectedIndex(selecionado);
+                if (this.panels[selecionado]) {
+                    this.desabilitarPaineis(selecionado);
+                    break;
+                }
             }
+
+        }
+    }
+
+    private void avancarTelaInversaFase(int valor) {
+        if (valor == 0) {
+            temporizadaFase.setEnabledAt(1, false);
+        } else {
+            this.temporizadaFase.setSelectedIndex(1);
+            temporizadaFase.setEnabledAt(0, false);
+            temporizadaFase.setEnabledAt(1, true);
+        }
+    }
+
+    private void avancarTelaInversaNeutro(int valor) {
+        if (valor == 0) {
+            temporizadaNeutro.setEnabledAt(1, false);
+        } else {
+            this.temporizadaNeutro.setSelectedIndex(1);
+            temporizadaNeutro.setEnabledAt(0, false);
+            temporizadaNeutro.setEnabledAt(1, true);
         }
     }
 
     private void retornarTela() {
         while (this.getSelected() > 0) {
-            int selecionado = this.getSelected() - 1;
-
-            this.tabbedPane.setSelectedIndex(selecionado);
-            if (this.panels[selecionado]) {
-                this.desabilitarPaineis(selecionado);
+            
+            if (this.getSelected() - 1 == 1 && this.panels[1]) {
+                this.tabbedPane.setSelectedIndex(1);
+                this.desabilitarPaineis(this.getSelected());
+                this.avancarTelaInversaFase(1);
                 break;
+            } else if (this.getSelected() - 1 == 2 && this.panels[2]) {
+                this.tabbedPane.setSelectedIndex(2);
+                this.desabilitarPaineis(this.getSelected());
+                this.avancarTelaInversaNeutro(1);
+                break;
+            } else {
+                int selecionado = this.getSelected() - 1;
+
+                this.tabbedPane.setSelectedIndex(selecionado);
+                if (this.panels[selecionado]) {
+                    this.desabilitarPaineis(selecionado);
+                    break;
+                }
             }
+        }
+    }
+    
+    private void retornarTelaInversaFase(int valor) {
+        if (!temporizadaFase.isEnabledAt(1)) {
+            temporizadaFase.setEnabledAt(0, false);
+            temporizadaFase.setEnabledAt(1, true);
+        } else {
+            this.temporizadaFase.setSelectedIndex(0);
+            temporizadaFase.setEnabledAt(0, true);
+            temporizadaFase.setEnabledAt(1, false);
+        }
+    }
+    
+    private void retornarTelaInversaNeutro() {
+        if (!temporizadaNeutro.isEnabledAt(1)) {
+            temporizadaNeutro.setEnabledAt(0, false);
+            temporizadaNeutro.setEnabledAt(1, true);
+        } else {
+            this.temporizadaNeutro.setSelectedIndex(0);
+            temporizadaNeutro.setEnabledAt(0, true);
+            temporizadaNeutro.setEnabledAt(1, false);
         }
     }
 
@@ -2479,8 +2577,14 @@ public class GUI_Reles extends javax.swing.JFrame {
         this.tipoDeEquipamento.setSelected(this.eletromecanico.getModel(), true);
     }
 
+    private void mandaResumo() {
+        GUI_Reles_Resumo resumo = new GUI_Reles_Resumo(this, true, newRele);
+        resumo.setAlwaysOnTop(true);
+        resumo.setVisible(true);
+    }
+
     private boolean verificaExpressao(double min, double max, double pas) {
-        if (min < max && (max - min) > pas) {
+        if (min < max && (max - min) >= pas) {
             return true;
         } else {
             return false;
@@ -2497,6 +2601,8 @@ public class GUI_Reles extends javax.swing.JFrame {
     }
 
     private void addCorrentePickupNeutro(List<Double> valores) {
+        this.neutroCurvaCorrenteCadastro.removeAllItems();
+        this.neutroCurvaCorrenteExistente.removeAllItems();
         for (Double d : valores) {
             this.neutroCurvaCorrenteCadastro.addItem(d);
             this.neutroCurvaCorrenteExistente.addItem(d);
@@ -2528,12 +2634,15 @@ public class GUI_Reles extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(GUI_Reles.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(GUI_Reles.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(GUI_Reles.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI_Reles.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -2707,7 +2816,6 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField modelo;
     private javax.swing.JPanel neutroCorrenteFirst;
     private javax.swing.JTextField neutroCorrenteMaximo;
@@ -2738,6 +2846,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JTextField neutroMinimo;
     private javax.swing.JTextField neutroPasso;
     private javax.swing.JButton removeDialInversaFase;
+    private javax.swing.JButton removeDialInversaNeutro;
     private javax.swing.JButton retornarDefinidaFase;
     private javax.swing.JButton retornarDefinidaNeutro;
     private javax.swing.JButton retornarFaseCurva;
@@ -2746,6 +2855,7 @@ public class GUI_Reles extends javax.swing.JFrame {
     private javax.swing.JButton retornarNeutroCurva;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTabbedPane temporizadaFase;
+    private javax.swing.JTabbedPane temporizadaNeutro;
     private javax.swing.ButtonGroup tipoDeEquipamento;
     // End of variables declaration//GEN-END:variables
 }
