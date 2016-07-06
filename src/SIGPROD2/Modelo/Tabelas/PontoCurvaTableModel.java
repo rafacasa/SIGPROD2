@@ -7,6 +7,7 @@ package SIGPROD2.Modelo.Tabelas;
 import SIGPROD2.Auxiliar.Erro;
 import SIGPROD2.Modelo.PontoCurva;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,10 +47,11 @@ public class PontoCurvaTableModel extends DefaultTableModel {
         }
         return ponto;
     }
-    public void setArrayList(ArrayList<PontoCurva> pontos){
+
+    public void setArrayList(ArrayList<PontoCurva> pontos) {
         this.pontos = pontos;
     }
-    
+
     @Override
     public int getColumnCount() {//REVISADO
         return 2;
@@ -67,7 +69,7 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     public Object getValueAt(int row, int col) {//REVISADO
         if (!pontos.isEmpty()) {
             PontoCurva a = pontos.get(row);
-            
+
             if (a != null) {
                 switch (col) {
                     case 0:
@@ -86,9 +88,9 @@ public class PontoCurvaTableModel extends DefaultTableModel {
     public String getColumnName(int col) {
         return titulos[col];
     }
-    
+
     @Override
-    public Class<?> getColumnClass (int coluna) {
+    public Class<?> getColumnClass(int coluna) {
         return String.class;
     }
 
@@ -125,4 +127,11 @@ public class PontoCurvaTableModel extends DefaultTableModel {
         this.pontos = new ArrayList<>();
     }
 
+    public List<PontoCurva> getList() {
+        List<PontoCurva> ponto = new ArrayList();
+        for (PontoCurva p : this.pontos) {
+            ponto.add(new PontoCurva(p));
+        }
+        return ponto;
+    }
 }

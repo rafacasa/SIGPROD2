@@ -51,7 +51,7 @@ public class Arquivo {
             try {
                 getArquivoEntrada().close();
             } catch (IOException ex) {
-                Erro.fecharArquivo(null, ex);
+                System.out.println(ex.getMessage());
             }
         }
     }
@@ -95,7 +95,7 @@ public class Arquivo {
             }
             return sb.toString();
         } catch (IOException ex) {
-            Erro.aberturaDeArquivo(null, ex);
+            System.out.println("Error");
         }
         return "";
     }

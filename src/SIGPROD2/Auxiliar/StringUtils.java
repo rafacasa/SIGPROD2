@@ -16,19 +16,15 @@ import java.util.List;
 public class StringUtils {
 
     public static boolean separaValores(String valores, List<Double> a) {
-        String[] s = valores.split(",");
+        String[] v = valores.split(",");
 
-        for (String item : s) {
-            String str = item.trim();
+        for (String item : v) {
+            String i = item.trim();
 
-            if (!str.isEmpty()) {
-                if (isNumeric(str)) {
-                    double valor = Double.parseDouble(str);
+            if (!i.isEmpty() && isNumber(i)) {
+                double valor = Double.parseDouble(i);
 
-                    a.add(valor);
-                } else {
-                    return false;
-                }
+                a.add(valor);
             } else {
                 return false;
             }
@@ -53,7 +49,7 @@ public class StringUtils {
         return sw.toString();
     }
 
-    public static boolean isNumeric(String valor) {
+    public static boolean isNumber(String valor) {
         try {
             double d = Double.parseDouble(valor);
 
@@ -63,7 +59,17 @@ public class StringUtils {
         return true;
     }
 
+    public static boolean isLetter(char digit) {
+        int value = (int) digit;
+
+        if ((value >= 65 && value <= 90) || (value >= 97 && value <= 122)) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean verificaExpressao(double min, double max, double pas) {
         return min < max && (max - min) >= pas;
     }
+
 }
